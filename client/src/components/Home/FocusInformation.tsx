@@ -17,13 +17,13 @@ export default function FocusInformation() {
     const arr = new Array(4).fill(true);
     return (
         <div className="focus">
-            <h1 id="focus">Tiêu điểm Đột quỵ 24h</h1>
+            <h1 id="focus">Tiêu điểm các bệnh 24h</h1>
             <p className="describe">
                 Hãy liên hệ ngay lập tức với chúng tôi
             </p>
-            <a className="hotline" href="tel:0907 773 184">
+            <a className="hotline" href="tel:0816 056 426">
                 <span>
-                    0907 773 184
+                0816 056 426
                 </span>
                 {
                     arr.map((value, index) => (

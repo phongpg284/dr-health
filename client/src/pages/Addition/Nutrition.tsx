@@ -6,7 +6,7 @@ function Exercise(): ReactElement {
         <div className="Exercise VideoPage">
             <div className="pageHeader">
                 <div className="pageTitle">
-                    Chế độ dinh dưỡng cho người đột quỵ
+                    Chế độ dinh dưỡng
                 </div>
             </div>
             {/* <IframeItem

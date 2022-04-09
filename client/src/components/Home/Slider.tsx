@@ -30,7 +30,7 @@ export const Slider = () => {
             <img src={AbstractBack} className="bg" alt="" />
             <h1 className="title_slider">Bản tin mỗi ngày</h1>
             <p className="des_slider">
-                Cập nhật tin tức mới nhất về bệnh đột quỵ từ các thông tin của Bộ Y tế. Người dùng có thêm kiến thức về nhận biết, phòng ngừa và điều trị đột quỵ.
+                Cập nhật tin tức mới nhất các thông tin của Bộ Y tế. Người dùng có thêm kiến thức về nhận biết, phòng ngừa và điều trị các bệnh.
             </p>
             <div className="carousel_container">
                 <svg width="0" height="0">

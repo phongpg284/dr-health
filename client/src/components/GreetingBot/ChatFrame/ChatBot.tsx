@@ -13,7 +13,7 @@ interface Conversation {
 const listConversation: Conversation[] = [
     {
         questions: ["Xin chào", "Chào bạn", "hello", "hi"],
-        answers: ["Chào bạn, tôi là chatbot của Hỗ trợ đột quỵ", "Xin chào, tôi là chatbot của Hỗ trợ đột quỵ"],
+        answers: ["Chào bạn, tôi là chatbot của Hỗ trợ đột quỵ", "Xin chào, tôi là chatbot của Dr. Health"],
     },
     {
         questions: ["Bạn là ai", "Bạn tên gì"],

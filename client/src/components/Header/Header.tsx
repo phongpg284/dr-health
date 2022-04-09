@@ -84,9 +84,9 @@ export default function Header(props: any) {
                         <img className="banner_img" alt="logo" src={logo} />
                         <div className="banner_text">
                             <b className="web_name">
-                                Hỗ trợ đột quỵ
+                                Dr. Health
                             </b>
-                            <p className="web_des">Trang thông tin về bệnh đột quỵ</p>
+                            <p className="web_des">Trang thông tin và theo dõi tình trạng bệnh nhân</p>
                         </div>
                     </div>
                     <div className="logo_content">
@@ -116,41 +116,41 @@ export default function Header(props: any) {
                             </Link>}
                             <LinkDropDown title="Bản tin">
                                 <Link className="drop_down_link" to="/news/nhan-biet-dot-quy">
-                                    Nhận biết đột quỵ
+                                    Nhận biết các bệnh
                                 </Link>
                                 <Link className="drop_down_link" to="/news/dieu-tri-dot-quy">
-                                    Điều trị đột quỵ
+                                    Điều trị các bệnh
                                 </Link>
                                 <Link className="drop_down_link" to="/news/phong-ngua-dot-quy">
-                                    Phòng ngừa đột quỵ
+                                    Phòng ngừa các bệnh
                                 </Link>
                                 <Link className="drop_down_link" to="/news/cap-cuu">
                                     Cấp cứu
                                 </Link>
                                 <Link className="drop_down_link" to="/news/tu-vong-do-dot-quy-o-nguoi-tre-tuoi-ngay-cang-gia-tang">
-                                    Đột quỵ ở người trẻ tuổi
+                                    Bệnh ở người trẻ tuổi
                                 </Link>
                                 <Link className="drop_down_link" to="/news/quy-tac-befast">
                                     Quy tắc BEFAST
                                 </Link>
                             </LinkDropDown>
 
-                            <LinkDropDown title="Hỗ trợ đột quỵ">
+                            <LinkDropDown title="Hỗ trợ bệnh nhân">
                                 <Link className="drop_down_link" to="/ho-tro/che-do-dinh-duong">
                                     Chế độ dinh dưỡng
                                 </Link>
                                 <Link className="drop_down_link" to="/ho-tro/giai-phap-phong-ngua">
-                                    Giải pháp phòng ngừa đột quỵ hiệu quả
+                                    Giải pháp phòng ngừa các bệnh hiệu quả
                                 </Link>
                                 <Link className="drop_down_link" to="/ho-tro/so-cuu">
-                                    Sơ cứu người đột quỵ
+                                    Sơ cứu bệnh nhân
                                 </Link>
                                 <Link className="drop_down_link" to="/ho-tro/vat-ly-tri-lieu">
                                     Bài tập vật lý trị liệu
                                 </Link>
                             </LinkDropDown>
                             <Link className="header_navigate_bar_item" to="/co-so-dieu-tri">
-                                <span>Cơ sở điều trị đột quỵ</span>
+                                <span>Cơ sở điều trị</span>
                             </Link>
 
                             {role == "doctor" &&

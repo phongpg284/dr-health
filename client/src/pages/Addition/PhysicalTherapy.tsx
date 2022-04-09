@@ -6,7 +6,7 @@ const Exercise = () => {
         <div className="Exercise VideoPage">
             <div className="pageHeader">
                 <div className="pageTitle">
-                    Bài tập hỗ trợ đột quỵ
+                Bài tập vật lý trị liệu
                 </div>
             </div>
             <IframeItem

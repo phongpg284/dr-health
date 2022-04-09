@@ -72,13 +72,12 @@ export const Home = () => {
                         <div className="home_main_slogan">
                             <div className="home_main_slogan_line">
                                 THEO DÕI SỨC KHỎE<br />
-                                DỰ BÁO DẤU HIỆU VÀ HỖ TRỢ <br />
-                                PHỤC HỒI CHỨC NĂNG CHO<br />
-                                BỆNH NHÂN ĐỘT QUỴ</div>
+                                DỰ BÁO DẤU HIỆU VÀ  <br />
+                                HỖ TRỢ PHỤC HỒI CHỨC <br />
+                                NĂNG CHO BỆNH NHÂN</div>
                             <div className="home_main_description">
-                                Website đồng hành hỗ trợ phòng chống đột quỵ<br />
-                                STROKE FREE<br />
-                                Không lo đột quỵ
+                            Lắng nghe cơ thể bạn,<br />
+                            săn sóc sức khỏe cả gia đình<br />
 
                             </div>
                             <div className="btn_space">
@@ -549,7 +548,7 @@ function Strength() {
                     Trải nghiệm và cảm nhận
                 </h2>
                 <h4 className="describe">
-                    Website <Link to="hotrodotquy.vn">hotrodotquy.vn</Link> là phiên bản cập nhật mới nhất giúp người dùng trải nghiệm các ứng dụng tiện ích để theo dõi sức khỏe và hỗ trợ phòng chống đột quỵ.
+                    Website <Link to="https://app.dr-health.com.vn/">Dr. Health/</Link> là phiên bản cập nhật mới nhất giúp người dùng trải nghiệm các ứng dụng tiện ích để theo dõi sức khỏe và hỗ trợ phòng chống đột quỵ.
                 </h4>
             </div>
             <div className="features">

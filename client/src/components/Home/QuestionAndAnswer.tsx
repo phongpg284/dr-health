@@ -100,11 +100,11 @@ function QuestionAndAnswer() {
                         </div>
                         <div className="expert_info">
                             <div className="expert_name">
-                                Nguyễn Chí Lành
+                            Bác sĩ
 
                             </div>
                             <div className="des">
-                                Bác Sĩ điều trị Khoa Đột quỵ Bệnh viện Đa khoa Trung ương Cần Thơ
+                                Bác Sĩ điều trị 
                             </div>
                         </div>
                     </div>
