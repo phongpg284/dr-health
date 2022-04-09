@@ -1,0 +1,67 @@
+.Exercises {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .Exercises_title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        text-align: left;
+        margin: 1em;
+    }
+    .Exercises_content {
+        flex: 1;
+        height: max-content;
+        // overflow-y: scroll;
+        padding: 0.5em;
+        .exerciseItem {
+            text-align: left;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.342);
+            margin: 0.5em 0;
+            overflow: hidden;
+            .header {
+                padding: 0.5em;
+                background-color: rgba(255, 255, 255, 0.541);
+                display: flex;
+                justify-content: space-between;
+                align-items:center;
+                .title {
+                    font-weight: 700;
+                }
+
+                .time {
+                    font-size: 0.8rem;
+                    font-style: italic;
+                    font-weight: bold;
+                }
+            }
+            .tableSteps {
+                width: 100%;
+                tr {
+                    th {
+                        text-align: left;
+                        padding: 0.5em;
+                        color: black;
+                    }
+                    td {
+                        padding: 0.2em 0.5em;
+                        .result {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            svg {
+                                color: green;
+                            }
+                            &.incorrect {
+                                svg {
+                                    color: red;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

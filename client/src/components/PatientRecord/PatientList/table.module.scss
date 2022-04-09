@@ -1,0 +1,9 @@
+.table_content {
+    :global {
+        .ant-table-tbody > tr > td {
+            border: none;
+            margin: 0;
+            padding: 5px;
+        }
+    }
+}

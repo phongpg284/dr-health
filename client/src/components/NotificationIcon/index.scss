@@ -1,0 +1,179 @@
+.header_notifications {
+    cursor: pointer;
+}
+.modal_noti {
+    font-family: BeVietNam;
+    padding: 0 !important;
+    .modal-content {
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    .notifications_dropdown {
+        background-color: white;
+        overflow: hidden;
+        filter: drop-shadow(-2px 4px 4px rgba(0, 0, 0, 0.25));
+        min-width: 300px;
+    }
+    .notifications_dropsetting {
+        position: relative;
+    }
+
+    .notifications_arrow {
+        margin-left: 82%;
+        filter: drop-shadow(-2px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+
+    .notifications_dropdown_title {
+        margin: 5px;
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+    .notifications_dropdown_box {
+        border-radius: 10px;
+        overflow: hidden;
+        border-radius: 0;
+        position: relative;
+        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+
+        .bg {
+            z-index: -1;
+            opacity: 0.6;
+            border-radius: 0;
+            width: 100%;
+            position: absolute;
+        }
+    }
+
+    .notifications_dropdown_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .close_btn {
+        color: red;
+        font-size: 2rem;
+        padding: 0.5rem;
+        cursor: pointer;
+    }
+
+    .notifications_dropdown_see_all {
+        display: flex;
+        justify-content: end;
+        padding: 5px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        text-decoration: underline;
+        &:hover {
+            background: none;
+        }
+    }
+
+    // a {
+    //   padding: 5px 8px;
+    //   border-radius: 10px;
+    // }
+
+    // a:hover {
+    //   background: #f2f2f2;
+    // }
+
+    .notifications_noti_box {
+        max-height: 500px;
+        margin-bottom: 10px;
+        background: rgb(255, 0, 104);
+        background: linear-gradient(225deg, rgb(137, 255, 183) 0%, rgb(150, 204, 255) 100%);
+        @media (max-width: 575px) {
+            max-height: 550px;
+        }
+        overflow-y: auto;
+    }
+
+    .notifications_item {
+        padding: 0 !important;
+
+        .content_container {
+            .head {
+                display: flex;
+                align-items: center;
+                padding: 1rem;
+                background:rgba(255, 255, 255, 0.3);
+                .notifications_item_title {
+                    flex: 1;
+                    font-weight: bold;
+                    .unseenDot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background-color: rgb(103, 103, 255);
+                        display: inline-block;
+                        margin-left: 1rem;
+                    }
+                }
+                .notifications_item_icon_back {
+                    display: flex;
+                    padding: 5px;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 35px;
+                    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
+                    margin-right: 13px;
+                    background: white;
+                }
+                .notifications_item_icon_seen {
+                    border: 2px #5dd2ff solid;
+                    color: #5dd2ff;
+                }
+                .notifications_item_icon_unseen {
+                    border: 2px #75fd7c solid;
+                    color: #75fd7c;
+                }
+
+                .notifications_item_icon {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+
+    .textContent {
+        padding: 1rem;
+        background:rgba(255, 255, 255, 0.1);
+    }
+
+    .notifications_item_map {
+        a {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .notifications_item_content {
+        // font-size: 1rem;
+        margin-bottom: 1em;
+        overflow-wrap: break-word;
+        overflow-y: hidden;
+        max-height: none !important;
+        color: black !important;
+        white-space: pre-line;
+        border-radius: 5px;
+    }
+
+    .notifications_item_create_time {
+        font-style: italic;
+        text-align: right;
+        margin-left: 1rem;
+        font-weight: normal;
+        white-space: nowrap;
+    }
+
+    .notifications_item_unseen_dot {
+        display: inline-block;
+        margin: 10px;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background-color: blue;
+    }
+}

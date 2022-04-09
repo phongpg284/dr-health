@@ -1,0 +1,52 @@
+.test_history {
+    font-family: BeVietNam;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    min-width: 100%;
+    background: rgb(157, 104, 255);
+    background: linear-gradient(45deg, rgba(157, 104, 255, 1) 0%, rgba(255, 159, 192, 1) 100%);
+    box-shadow: 0 0 10px 1px rgba(255, 159, 192, 0.5);
+    padding: 1rem;
+    .title {
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+    .updateAt {
+        display:flex;
+        flex-direction: column;
+        align-items:flex-end;
+        width:100%;
+        .input-group{
+            width:fit-content;
+        }
+    }
+    .test_list {
+        width: 100%;
+        
+        .test_content {
+            text-align: left;
+            
+            .nameSpace {
+                margin: 1rem 0;
+                font-size: 1.2rem;
+            }
+            .questions {
+                table {
+                    width: 100%;
+                }
+                background: rgba(255, 255, 255, 0.336);
+                th,
+                td {
+                    padding: 0.5rem;
+                }
+                tbody {
+                    tr:nth-child(odd) {
+                        background: rgba(255, 255, 255, 0.288);
+                    }
+                }
+                .question {
+                }
+            }
+        }
+    }
+}

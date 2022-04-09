@@ -1,0 +1,70 @@
+.record-container {
+    height: 100%;
+    // max-width: 470px;
+    // min-width: 410px;
+}
+
+.record-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin: auto;
+}
+
+.record-list {
+    padding: 0px 10px;
+    height: calc(100% - 145px);
+    overflow-y: scroll;
+}
+
+.record-list-short {
+    padding: 0px 10px;
+    height: calc(100% - 195px);
+    overflow-y: scroll;
+}
+
+.micro-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: red;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.micro-icon:hover{
+    background-color: rgb(255, 101, 101);
+}
+
+.command-button {
+    width: 70px;
+    height: 40px;
+    margin: 0 5px;
+    align-self: center;
+    font: Helvetica;
+    border-radius: 4px;
+}
+
+#save-button {
+    background-color: #4188f9;
+    border: none;
+    color: white;
+    font-weight: 400;
+}
+
+#save-button:hover {
+    background-color: #75aaff;
+    color: white;
+    font-weight: 400;
+}
+
+#cancel-button {
+    border-color: #f44336;
+    background-color: white;
+    color: red
+}
+
+#cancel-button:hover {
+    background: #f44336;
+    color: white;
+}

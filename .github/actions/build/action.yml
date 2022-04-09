@@ -1,0 +1,32 @@
+name: Build client
+description: Github Action for building static file of client
+author: Phong Phi
+branding: 
+  color: blue
+  icon: command
+inputs: 
+  generate_sourcemap: 
+    description: "Generate sourcemap or not"
+    required: true
+  api_server_hostname: 
+    description: "Hostname of API server"
+    required: true
+  websocket_server_hostname:
+    description: "Hostname of Websocket server"
+    required: true
+runs: 
+  using: composite
+  steps: 
+    - name: Install dependencies
+      shell: bash
+      run: yarn install
+    - name: Build
+      shell: bash
+      env: 
+        GENERATE_SOURCEMAP: ${{ inputs.generate_sourcemap }}
+        REACT_APP_GRAPHQL_URI: ${{ inputs.api_server_hostname }}
+        REACT_APP_WEBSOCKET_URL: ${{ inputs.websocket_server_hostname }}
+      run: 
+        echo "Setting general environment variables..."
+        export NODE_ENV=production
+        CI= yarn build

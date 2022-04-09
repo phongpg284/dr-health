@@ -1,0 +1,109 @@
+.table-confirm-button {
+    font-size: 32px;
+    margin-right: 7px;
+    cursor: pointer;
+}
+
+.table-cancel-button {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.patient-info-table {
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    font-family: BeVietNam;
+    @media only screen and (max-width: 600px) {
+        font-size: 1rem;
+        padding:0.5rem;
+    }
+    background: rgb(157, 104, 255);
+    background: linear-gradient(45deg, rgb(167, 119, 255) 0%, rgba(255, 159, 192, 1) 100%);
+    box-shadow: 0 0 20px 1px rgba(234, 0, 255, 0.3);
+    .table {
+        background:rgba(255, 255, 255, 0.281);
+        tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.158);
+        }
+    }
+    tr {
+        
+        &.editable {
+            background: rgba(255, 238, 0, 0.555) !important;
+            .dataSpace {
+                background: white;
+            }
+        }
+        th,
+        td {
+            padding: 0;
+            border: none !important;
+        }
+
+        .dataSpace {
+            .data,
+            .input {
+                padding: 0.6em !important;
+                font-size: 1em;
+                width: 100%;
+                border: none;
+                outline: none;
+                transition: all 0.2s ease;
+                background: transparent;
+                * {
+                    font-size: 1em !important;
+                }
+                // box-shadow: 0 0 0 3px rgba(56, 56, 255, 0.589);
+                &:focus {
+                    transition: all 0.2s ease;
+                }
+            }
+        }
+        .labelSpace {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.5em;
+
+        }
+        .btnSpace {
+            padding: 0.5em;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            .editBtn {
+                outline: none;
+                border: none;
+                background: none;
+                padding: 0;
+                margin: 0 0.3em;
+                font-size: 1.4em;
+                line-height: 0;
+                span {
+                    width: 1.2em;
+                    height: 1.2em;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0.1em;
+                    background-color: white;
+                    border-radius: 50%;
+                    svg {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                &.edit {
+                    color: rgb(42, 141, 255);
+                }
+                &.confirm {
+                    color: rgb(0, 255, 42);
+                }
+                &.cancel {
+                    color: rgb(255, 166, 0);
+                }
+            }
+        }
+    }
+}

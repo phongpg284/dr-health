@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "./"
+    },
+    {
+      "name": "SERVER",
+      "path": "./server"
+    },
+    {
+      "name": "CLIENT",
+      "path": "./client"
+    }
+  ],
+  "settings": {
+    "cSpell.words": ["typedi"],
+    "files.exclude": {
+      "node_modules": true
+    }
+  }
+}

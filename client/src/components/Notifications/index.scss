@@ -1,0 +1,98 @@
+.notifications {
+  max-width: 1000px;
+  margin: auto;
+  // border: 1px solid #ccc;
+  // border-radius: 1rem;
+  // overflow: hidden;
+  margin: 3rem auto;
+  font-family: BeVietNam;
+  @media (max-width: 575px) {
+    margin: 1rem;
+  }
+
+  .notifications_title {
+    margin: 5px;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .notifications_item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    overflow: hidden;
+    padding:0;
+    background: rgb(255, 0, 104);
+    background: linear-gradient(90deg, rgb(255, 104, 164) 0%, rgb(201, 114, 255)100%);
+    @media (max-width: 575px) {
+      align-items: flex-start;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    background:rgba(255, 255, 255, 0.3);
+    // color: white;
+
+    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    .notifications_item_title {
+      margin-left: 1rem;
+      flex: 1;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+  .iconWrapper {
+    height: 100%;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 5px;
+  }
+
+  .notifications_item_icon_back {
+    line-height: 0;
+    display: flex;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  .notifications_item_icon_seen {
+    color: #00ff0d;
+  }
+  .notifications_item_icon_unseen {
+    color: #368ee0;
+  }
+
+  .notifications_item_icon {
+    line-height: 0;
+    font-size: 3rem;
+  }
+
+  .contentWrapper {
+    flex: 1;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .notifications_item_content {
+    font-size: 1rem;
+    overflow-wrap: break-word;
+    max-height: 50px;
+    overflow-y: hidden;
+    white-space: pre-line;
+  }
+
+  .notifications_item_create_time {
+    color: gray !important;
+    text-align: right;
+  }
+}

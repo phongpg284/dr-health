@@ -1,0 +1,232 @@
+// $maincolor: #e65151;
+// $maincolorBg: #ff9393;
+// $maincolorDiv: #88bbef;
+// $maincolorBorder: #76a3e5;
+// $blackblue: #65e6ca;
+// $white: #e9e7e7;
+// $black: #6c6464;
+// $gray: #a79a9a;
+// $littleblack: #e2e2e2;
+// $green: #08c955;
+// $blackgreen: #12cc5c; //
+// $whitegreen: #9de7be;
+// $red: #ef2626;
+// $whitered: #f76c65; //
+// $yellow: #c2c459;
+// $card: #f5f796;
+// $bordercard: #fce253;
+// $blue: rgb(51, 47, 253);
+
+// $extraslow: 1.5s;
+// $superslow: 1s;
+// $slow: 0.75s;
+// $fast: 0.3s;
+// $doublefast: 0.15;
+// $superfast: 0.2s;
+// $extrafast: 0.1s;
+
+// @mixin flexcentercolumn {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+// }
+// @mixin flexcenterrow {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+// }
+// .thresholdcolumn {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+// }
+// .thresholdrow {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-wrap: wrap;
+// }
+// .threshold_white {
+//   color: white;
+// }
+// .threshold_hidden {
+//   opacity: 0;
+//   display: none;
+//   pointer-events: none;
+// }
+// .threshold_all {
+//   overflow-x: hidden;
+//   font-family: "sf-pro-display", sans-serif;
+// }
+// .threshold_imageremoveselect {
+//   user-select: none;
+// }
+// .threshold_removesizeheight {
+//   height: 0;
+// }
+// .threshold_text {
+//   color: $black;
+//   font-size: 15px;
+// }
+// .threshold_body_icon {
+//   font-size: 30px;
+// }
+// .threshold_box_shadow {
+//   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.25);
+// }
+
+// .threshold_all {
+//   position: relative;
+//   min-height: 750px;
+//   padding-bottom: 200px;
+//   top: 90px;
+// }
+// .threshold_body {
+//   @include flexcenterrow;
+//   margin-top: 50px;
+// }
+// .threshold_outover {
+//   @include flexcentercolumn;
+//   width: 50vw;
+//   min-width: 575px;
+//   height: 535px;
+//   border-radius: 20px;
+//   background: linear-gradient(45deg, #2bc0e4 0%, #eaecc6 150%);
+//   border: 1px #e9f2ff solid;
+// }
+// .threshold_outover_title {
+//   font-size: 28px;
+//   color: rgb(255, 255, 255);
+//   font-weight: bold;
+// }
+// .threshold_outover_name {
+//   font-size: 27px;
+//   font-weight: bold;
+//   margin-bottom: 20px;
+//   color: rgb(63, 63, 63);
+// }
+// .thresholdcard + .thresholdcard {
+//   margin-top: 15px;
+// }
+// .thresholdcard_type {
+//   @include flexcenterrow;
+//   font-size: 12px;
+//   width: 60px;
+//   height: 60px;
+//   background-color: white;
+//   //   color: white;
+//   font-weight: bold;
+//   border: 2px #fae989 solid;
+//   border-radius: 30px;
+//   margin-right: 15px;
+//   box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.25);
+// }
+// .thresholdcard_back {
+//   justify-content: space-between;
+//   height: 60px;
+//   width: 460px;
+//   background-color: $card;
+//   border-radius: 15px;
+//   border: 2px $bordercard solid;
+//   padding: 0 20px;
+//   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
+// }
+// .thresholdcard_title {
+//   font-size: 16px;
+//   margin-right: 15px;
+//   font-weight: bold;
+// }
+// .thresholdcard_number {
+//   position: relative;
+//   @include flexcenterrow;
+//   font-size: 18px;
+//   width: 45px;
+//   height: 45px;
+//   background-color: white;
+//   border: 3px #dd9e8b solid;
+//   border-radius: 13px;
+//   color: rgb(64, 82, 250);
+//   font-weight: bold;
+//   box-shadow: -0px 0px 4px rgba(0, 0, 0, 0.25);
+// }
+// .thresholdcard_number_overthresh {
+//   background-color: rgb(252, 111, 111);
+//   color: white;
+// }
+// .thresholdcard_number_change {
+//   position: absolute;
+//   display: none;
+//   pointer-events: none;
+//   width: 30px;
+//   height: 30px;
+//   border: 2px rgb(226, 226, 226) solid;
+//   border-radius: 5px;
+// }
+// .thresholdcard_number_change_toggle {
+//   display: block;
+//   pointer-events: all;
+// }
+// .thresholdcard_number_add {
+//   font-weight: bold;
+//   font-size: 15px;
+//   color: $blue;
+//   cursor: pointer;
+//   opacity: 1;
+//   transition: all 0.1s ease-in;
+// }
+// .thresholdcard_number_add:hover {
+//   opacity: 0.6;
+// }
+// .thresholdcard_divider {
+//   height: 70%;
+//   width: 2px;
+//   background-color: #646464;
+// }
+// .threshold_outover_comment {
+//   width: 560px;
+//   height: 80px;
+//   background-color: #9cf7bc;
+//   margin-top: 15px;
+//   border-radius: 15px;
+//   box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.25);
+//   @include flexcenterrow;
+//   font-size: 18px;
+//   padding: 0 30px;
+// }
+// .threshold_meaning {
+//   @extend .threshold_outover;
+//   width: 30vw;
+//   min-width: 360px;
+//   height: 535px;
+//   margin-left: 30px;
+//   background-color: $maincolorDiv;
+//   border-radius: 20px;
+//   font-size: 20px;
+//   @media (max-width: 1000px) {
+//     min-width: 575px;
+//     margin-left: 0px;
+//     margin-top: 20px;
+//   }
+// }
+// .threshold_meaning_tittle {
+//   margin-bottom: 35px;
+// }
+// .thresholdresult {
+//   width: 90%;
+// }
+// .thresholdresult_back {
+//   height: 70px;
+// }
+// .thresholdresult_text {
+//   background-color: white;
+//   border: none;
+//   width: 70%;
+//   padding: 10px 10px;
+//   font-size: 15px;
+//   border-radius: 10px;
+// }

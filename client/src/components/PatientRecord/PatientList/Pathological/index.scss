@@ -1,0 +1,28 @@
+.pathological-wrapper {
+    padding: 15px;
+    max-width: 450px;
+}
+
+.pathological-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.pathological-content {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    max-width: 800px;
+    margin: 7px 7px 0 7px;
+    .ant-typography {
+        text-align: left;
+    }
+}
+
+.ant-typography {
+    margin: 0;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 1rem;
+}

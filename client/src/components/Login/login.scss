@@ -1,0 +1,125 @@
+.login-form {
+    font-family: BeVietNam;
+    width: 100%;
+    height:max-content;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: rgb(162, 0, 255);
+    background: linear-gradient(45deg, rgba(162, 0, 255, 1) 0%, rgba(255, 0, 87, 1) 100%);
+    position:relative;
+    .backgroundLogin{
+        min-width:100%;
+        min-height:100%;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:1;
+    }
+    *{
+        z-index:2;
+    }
+
+    &-input {
+        margin: auto;
+        margin-bottom: 10px;
+        input {
+            height: 55px;
+            border-radius: 10px;
+        }
+    }
+    &-label {
+        float: left;
+        color: #abafb7;
+    }
+    &-role-check {
+        margin-top: 20px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        .role_checker {
+            color: gray;
+        }
+        :first-child {
+            font-size: 1.1rem;
+            // font-weight: 600;
+            margin-right: 10px;
+        }
+        div {
+            display: flex;
+            align-items: center;
+            input {
+                height: 18px;
+                width: 18px;
+                margin: 0;
+            }
+        }
+    }
+    &-title {
+        margin-bottom: 1rem;
+    }
+}
+
+.input-error {
+    font-size: 1rem;
+}
+
+.submitBtn {
+    margin-top: 1rem;
+    padding:0.5rem;
+    border-radius: 0.2rem;
+    display:block;
+    width:100%;
+    border:3px solid rgb(80, 80, 247);
+    color: black;
+    font-size: 1rem;
+    color:white;
+    text-transform: uppercase;
+}
+
+.create-account-link {
+    margin-top: 1rem;
+    padding:0.5rem;
+    border-radius: 0.2rem;
+    display:block;
+    width:100%;
+    border:1px solid rgb(80, 80, 247);
+    color: black;
+    font-size: 1rem;
+    color:white;
+    text-transform: uppercase;
+}
+.backToHome{
+    margin-top: 1rem;
+    padding:0.5rem;
+    border-radius: 0.2rem;
+    display:block;
+    width:100%;
+    background:lightgray;
+    color: black;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.form-title {
+    text-align: left;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.login-content {
+    background-color: white;
+    padding:2rem;
+    box-shadow: 0.4rem 0.4rem 1rem 1px rgba(0, 0, 0, 0.5);
+    width:500px;
+    max-width: 90%;
+}
+
+.errors {
+    color: rgb(211, 72, 72);
+    font-family: sans-serif;
+    float: left;
+}

@@ -1,0 +1,252 @@
+.calendar_all {
+    width: 100%;
+    padding: 5rem;
+    font-family: BeVietNam;
+
+    @media only screen and (max-width: 600px){
+        padding:2rem 0.5rem;
+    }
+    .stepDisplay{
+        position:relative;
+        overflow: hidden;
+        .stepTitle{
+            font-size: 1.5rem;
+            color: #000;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+    }
+    .calendar_content {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: lightgray;
+        padding: 1rem;
+        border-radius: 5px;
+        background: rgb(157, 104, 255);
+        background: linear-gradient(45deg, rgb(205, 177, 255) 0%, rgb(255, 205, 223) 100%);
+        .patientPicker {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 2rem;
+            .patientAvatar {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+                margin-right: 1rem;
+            }
+        }
+
+        .calendar_set_step{
+            margin-top: 2rem;
+            
+        }
+        .navigateBtnSpace{
+            width:100%;
+            display:flex;
+            margin-top: 4rem;;
+            background-color:rgba(255, 255, 255, 0.418);
+            border-radius: 5px;
+            overflow: hidden;
+            .navigateBtn{
+                flex:1;
+                padding:0.5rem;
+                font-size: 1.2rem;
+                background:transparent;
+                outline:0;
+                border:0;
+                color:rgb(55, 85, 255);
+                &:hover{
+                    background:rgb(55, 85, 255);
+                    color:white;
+                }
+                .icon{
+                    margin:0 0.3em;
+                    font-size: 1.3em;
+                    line-height: 0;
+                }
+            }
+        }
+    }
+
+    .medicineChecker {
+        .searchSpace {
+            margin-bottom: 1rem;
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            overflow: hidden;
+            .searchBar {
+                flex: 1;
+                padding: 0.5rem 1rem;
+                outline: none;
+                border: none;
+            }
+            .closeBtn {
+                cursor: pointer;
+                padding: 0.5rem;
+                color: red;
+                font-size: 1.3rem;
+                line-height: 0;
+            }
+        }
+        .checkGroup {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: baseline;
+            max-height: 500px;
+            overflow-y: scroll;
+            .medicineOption {
+                input {
+                    display: none;
+                    &:checked + label {
+                        background: purple;
+                        color: white;
+                        opacity: 1;
+                    }
+                }
+                label {
+                    opacity: 0.6;
+                    padding: 0.5rem 2rem;
+                    cursor: pointer;
+                    user-select: none;
+                    border-radius: 5px;
+                    margin: 0.5rem;
+                    color: black;
+                    background:white;
+                }
+            }
+        }
+        .confirm{
+            margin-top: 1rem;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+    }
+
+    .calendar_set_content_phase_1 {
+        display: flex;
+        @media only screen and (max-width: 600px){
+            flex-direction: column;
+        }
+        .medicineChecker {
+            flex: 1;
+            margin-right: 1rem;
+            @media only screen and (max-width: 600px){
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+        .calendar_set_medicine {
+            flex: 1;
+            .addGroupBtn{
+                background:white;
+                border-radius: 5px;
+                margin-bottom: 1rem;
+                display:flex;
+                input{
+                    flex:1;
+                    padding:0.5rem;
+                    outline:none;
+                    border:none;
+                    background:transparent;
+                }
+                button{
+                    
+                    padding:0.5rem;
+                    outline:none;
+                    border:none;
+                    background:transparent;
+                    border-left:1px solid #ccc;
+                }
+            }
+            .noteTextArea{
+                border-radius: 5px;
+                background: white;
+            }
+        }
+    }
+
+    .calendar_set_content_phase_2{
+        display:flex;
+        flex-direction: column;
+        .calendarDateItem{
+            background:white;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            padding:1rem;
+            .dataPicker{
+                display:flex;
+                flex-wrap: wrap;
+                align-items: center;
+                @media only screen and (max-width: 600px){
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .medicineTitle{
+                    display:flex;
+                    font-weight: bold;
+                    padding:0 0.5em;
+                    align-items: center;
+                    .calendar_set_date_item{
+                        line-height: 0;
+                        font-size: 1.3em;
+                        margin-right: 0.5em;
+                    }
+                }
+
+                .pickerItem{
+                    padding:0.5em;
+                    margin:0.5em 1rem;
+                    @media only screen and (max-width: 600px){
+                        display:flex;
+                        flex-direction: column;
+                        text-align:left;
+                        align-items:flex-start;
+                    }
+                    label{
+                        margin-right: 0.5em;
+                        margin-bottom: 0.5em;
+                        color:gray;
+                    }
+                }
+            }
+        }
+        .calendarRow{
+            @media only screen and (max-width: 600px){
+                margin-top: 2rem;
+            }
+            .note{
+                border-radius: 5px;
+                background:white;
+            }
+        }
+    }
+    .confirmList{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 1.1rem;
+        .confirmItem{
+            margin:1rem;
+            padding:1rem;
+            border-radius: 5px;
+            background:rgba(255, 255, 255, 0.418);
+            text-align: left;
+            margin-bottom: 1rem;
+            &>*{
+                padding:0.3em;
+            }
+        }
+    }
+
+    .medicineCalendar{
+        overflow: hidden;
+        margin-top: 2rem;
+    }
+}

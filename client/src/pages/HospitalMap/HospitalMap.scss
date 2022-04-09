@@ -1,0 +1,154 @@
+.hospitalMapContent {
+    width: 100%;
+    min-height: 500px;
+    font-family: BeVietNam;
+
+    h1 {
+        margin: 5rem;
+        text-transform: uppercase;
+        @media only screen and (max-width: 600px) {
+            margin: 3rem 1rem;
+        }
+    }
+    .outsideContainer{
+        position:relative;
+        width:100%;
+        .mapBack{
+            transform: rotateZ(30deg) scale(2);
+            z-index: -1;
+            position:absolute;
+            width:100%;
+            left:0;
+            top:0;
+        }
+    }
+
+    .contentContainer {
+        width: 80%;
+        margin: auto;
+        padding: 0.3rem;
+        margin-top: 1rem;
+        display: flex;
+        box-shadow: 0 0 10px 1px rgba(102, 116, 237, 0.5);
+        background: rgb(102, 116, 237);
+        background: linear-gradient(38deg, rgba(102, 116, 237, 1) 0%, rgba(186, 26, 244, 1) 44%, rgba(255, 0, 113, 1) 100%);
+
+        @media only screen and (max-width: 600px) {
+            width:95%;
+            flex-direction: column;
+            align-items: center;
+        }
+        .list {
+            flex: 1;
+            overflow-y: scroll;
+            @media only screen and (max-width: 600px) {
+                max-height: 40vh;
+                margin-bottom: 1rem;
+                border-bottom: 2px solid white;
+            }
+
+            .hospitalListItem {
+                cursor: pointer;
+                padding: 1rem;
+                margin: 1rem;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.507);
+                text-align: left;
+                @media only screen and (max-width: 600px) {
+                    padding:0.5rem;
+                    
+                }
+
+                .rowItem {
+                    margin-bottom: 0.3em;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .icon {
+                        margin-right: 0.5em;
+                        line-height: 0;
+                        font-size: 1.2em;
+                    }
+                    .text{
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
+
+    .myMarker {
+        position: relative;
+        padding: 5px;
+        z-index: 1000;
+
+        .markerContent {
+            z-index: 1000;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            .icon {
+                font-size: 2rem;
+                color: rgb(166, 0, 207);
+                cursor: pointer;
+                &.small {
+                    font-size: 1em;
+                }
+                &.medium {
+                    font-size: 1.5em;
+                }
+                &.large {
+                    font-size: 2em;
+                }
+            }
+
+            &:hover {
+                .name {
+                    transform: translateX(-50%) translateY(0) scale(1) !important;
+                    transition: all 0.3s ease-in-out !important;
+                }
+            }
+            .nameWrapper {
+                position: relative;
+                .name {
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    width: 100px;
+                    padding: 5px;
+                    background: linear-gradient(38deg, rgba(102, 116, 237, 0.7) 0%, rgba(255, 0, 113, 0.7) 100%);
+                    border-radius: 5px;
+                    color: white;
+                    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+                    cursor: pointer;
+                }
+
+                .show {
+                    transform:translateX(-50%) translateY(0) scale(1);
+                    transition: all 0.3s ease-in-out;
+                }
+                .hide {
+                    transform:translateX(-50%) translateY(100px) scale(0);
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+    }
+}
+
+.modalContent {
+    font-size: 1.2em;
+    .rowItem {
+        margin-bottom: 0.3em;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .icon {
+            margin-right: 0.5em;
+            line-height: 0;
+            font-size: 1.2em;
+        }
+    }
+}

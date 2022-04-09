@@ -1,0 +1,43 @@
+.news_content{
+    padding:4rem;
+    font-size: 1.2rem;
+    text-align: left;
+    position: relative;
+    .newsBackground{
+        width:100%;
+        height:auto;
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:-1;
+        opacity: 0.2;
+    }
+    @media (max-width: 600px){
+        padding:3rem 1rem;
+    }
+    .article{
+        max-width: 700px;
+        margin:auto;
+        // font-family: 'Times New Roman', Times, serif;
+        *{
+            // font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-family: BeVietNam;
+        }
+        .source{
+            text-align: right;
+        }
+
+        img{
+            width:100%;
+            margin:1rem;
+            box-shadow: 0 0 10px 1px rgba(0,0,0, 0.3);
+        }
+
+        h1{
+            font-weight: bold;
+        }
+        h5{
+            font-weight: 800;
+        }
+    }
+}

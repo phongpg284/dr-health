@@ -1,0 +1,125 @@
+.profile_carry {
+    width: 90%;
+    margin: auto;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    margin-top: 7rem;
+    .userCard {
+        margin-bottom: 1rem;
+        font-family: Raleway;
+        width: 100%;
+        background: rgb(157, 104, 255);
+        background: linear-gradient(45deg, rgba(157, 104, 255, 1) 0%, rgba(255, 159, 192, 1) 100%);
+        border-radius: 10px;
+        .userAvatar {
+            border: 1.5px solid rgba(255, 159, 192, 1);
+            background: white !important;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: relative;
+            transform: translateY(-50%) scale(2);
+            box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);
+            @media only screen and (max-width: 600px) {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        .userInfo {
+            margin: 2rem auto;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            text-align: left;
+            font-size: 1.2em;
+            color: white;
+            width: fit-content;
+
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+            }
+
+            .userInfoRow {
+                margin: 0 2rem;
+                display: flex;
+                width: 40%;
+                font-size: 1.2rem;
+                align-items: center;
+                border-radius: 5px;
+                margin-bottom: 0.5rem;
+                transition: all 0.5s ease-in-out;
+                box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0);
+                @media only screen and (max-width: 600px) {
+                    width: auto;
+                }
+
+                div {
+                    padding: 0.2rem 0.5rem;
+                }
+
+                .label {
+                    font-size: 2em;
+                }
+                .data {
+                    flex: 1;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .buttonProfileSpace {
+        border-top: 1px solid white;
+        font-family: Raleway;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-clip: text;
+        @media only screen and (max-width: 600px) {
+            flex-direction: column;
+        }
+        .buttonProfile {
+            flex: 1;
+            padding: 1rem;
+            cursor: pointer;
+            color: white;
+            text-transform: uppercase;
+            font-size: 1.3em;
+            border-right: 1px solid white;
+            @media only screen and (max-width: 600px) {
+                width: 100%;
+                display: flex;
+                border-right: none;
+                border-bottom: 1px solid white;
+                align-items: center;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+                span {
+                    flex: 1;
+                    text-align: center;
+                    text-align: left;
+                    margin-left: 0.5rem;
+                }
+            }
+            &:last-child {
+                border-right: none;
+            }
+            .btnProfileIcon {
+                line-height: 0;
+                font-size: 2em;
+                margin-right: 0.3em;
+            }
+        }
+    }
+    .profile_calendar {
+        border-radius: 20px !important;
+        border: 8px solid #5371dd !important;
+    }
+}
+

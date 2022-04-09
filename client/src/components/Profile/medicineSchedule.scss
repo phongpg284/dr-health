@@ -1,0 +1,77 @@
+.customSchedule {
+    .ant-picker-calendar {
+        border-radius: 1rem;
+        background: rgb(173, 129, 255);
+        background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
+        padding: 1rem;
+        .ant-picker-body {
+            background: rgb(173, 129, 255);
+            background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
+            .ant-picker-calendar-date-value {
+                // color:white;
+            }
+        }
+
+        .ant-picker-cell-inner {
+            &:hover {
+                background: rgba(255, 255, 255, 0.192) !important;
+            }
+        }
+    }
+
+    .calendarContainer {
+        margin-top: 5rem;
+        .dateCellData {
+            overflow: hidden;
+            padding:1rem;
+        }
+
+        
+    }
+    ul {
+        li {
+            white-space: nowrap;
+            color: black;
+            &:first-child {
+                color: rgb(0, 99, 180);
+            }
+            &:nth-child(2) {
+                color: rgb(196, 21, 21);
+            }
+            &:nth-child(3) {
+                color: #00b600;
+            }
+        }
+    }
+
+    .medicineScheduleItemBody {
+        padding: 1rem;
+        ul {
+            li {
+                white-space: nowrap;
+                color: black;
+                &:first-child {
+                    color: rgb(29, 119, 236);
+                }
+                &:nth-child(2) {
+                    color: rgb(255, 55, 55);
+                }
+                &:nth-child(3) {
+                    color: green;
+                }
+            }
+        }
+    }
+}
+.medicineScheduleItemBody{
+    .dateCellData{
+        padding:2rem;
+        margin-left: 1rem ;
+        @media only screen and (max-width:600px){
+            margin-left: 1rem !important;
+        }
+        li{
+            margin-bottom: 1rem;
+        }
+    }
+}
