@@ -1,0 +1,14 @@
+name: Deploy to production
+description: Reload Server
+author: Phong Phi
+
+branding: 
+  color: blue
+  icon: command
+  
+runs: 
+  using: composite
+  steps: 
+    - name: Restart Server
+      shell: bash
+      run: pm2 restart all

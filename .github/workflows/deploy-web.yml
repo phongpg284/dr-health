@@ -1,14 +1,14 @@
-name: Deploy production client
+name: Deploy production web
 
 on:
   push:
     branch:
       - "main"
     path:
-      - "/client/**"
+      - "/web/**"
 
 jobs:
-  deploy-client:
+  deploy-web:
     runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v2
@@ -16,12 +16,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           generate_sourcemap: false
-          repository: client
+          repository: web
           websocket_server_hostname: "wss://dr-health.com.vn/graphql"
           api_server_hostname: "https://dr-health.com.vn/graphql"
 
       - name: Deploy to production
         uses: ./.github/actions/deploy
         with:
-          repository: client
-          production_destination: "/var/www/dr-health"
+          repository: web
+          production_destination: "/var/www/dr-health-web"

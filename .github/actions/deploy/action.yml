@@ -8,9 +8,12 @@ inputs:
   production_destination: 
     description: "Production serve static files destination"
     required: true
+  repository: 
+    description: "Build repository"
+    required: true
 runs: 
   using: composite
   steps: 
     - name: Deploy to production
       shell: bash
-      run: cp ./web/build ${{ inputs.production_destination }} -r
+      run: cp ${{ inputs.repository }}/build ${{ inputs.production_destination }} -r
