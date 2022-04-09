@@ -9,26 +9,24 @@ on:
     path:
       - "/server/**"
 
-branding:
-  color: blue
-  icon: command
-inputs:
-  generate_sourcemap: false
-  api_server_hostname: "https://dr-health.vn/graphql"
-  websocket_server_hostname: "wss://dr-health.vn/graphql"
-  production_destination: "/var/www/dr-health"
-runs:
-  using: composite
-  steps:
-    - uses: actions/checkout@v2
-    - name: Build main branch, confirgured to use production server
-      uses: ./github/actions/build
-      with:
-        generate_sourcemap: false
-        api_server_hostname: ${{ inputs.api_server_hostname }}
-        websocket_server_hostname: ${{ inputs.websocket_server_hostname }}
+jobs:
+  deploy-server:
+    runs-on: [self-hosted]
+    inputs:
+      generate_sourcemap: false
+      api_server_hostname: "https://dr-health.com.vn/graphql"
+      websocket_server_hostname: "wss://dr-health.com.vn/graphql"
+      production_destination: "/var/www/dr-health" 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build main branch, confirgured to use production server
+        uses: ./github/actions/build
+        with:
+          generate_sourcemap: false
+          api_server_hostname: ${{ inputs.api_server_hostname }}
+          websocket_server_hostname: ${{ inputs.websocket_server_hostname }}
 
-    - name: Deploy to production
-      uses: ./github/actions/deploy
-      with:
-        production_destination: ${{ inputs.production_destination }}
+      - name: Deploy to production
+        uses: ./github/actions/deploy
+        with:
+          production_destination: ${{ inputs.production_destination }}
