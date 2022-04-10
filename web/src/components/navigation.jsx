@@ -27,37 +27,37 @@ export const Navigation = (props) => {
           <ul className='nav navbar-nav navbar-right'>
             <li>
               <a href='#features' className='page-scroll'>
-                Features
+                Tính năng
               </a>
             </li>
             <li>
               <a href='#about' className='page-scroll'>
-                About
+                Giới thiệu
               </a>
             </li>
             <li>
               <a href='#services' className='page-scroll'>
-                Services
+                Dịch vụ
               </a>
             </li>
             <li>
               <a href='#portfolio' className='page-scroll'>
-                Gallery
+                Sản phẩm
               </a>
             </li>
             <li>
               <a href='#testimonials' className='page-scroll'>
-                Testimonials
+                Đánh giá
               </a>
             </li>
             <li>
               <a href='#team' className='page-scroll'>
-                Team
+                Thành viên
               </a>
             </li>
             <li>
               <a href='#contact' className='page-scroll'>
-                Contact
+                Liên hệ
               </a>
             </li>
           </ul>

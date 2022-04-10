@@ -5,7 +5,7 @@ export const Gallery = (props) => {
     <div id='portfolio' className='text-center'>
       <div className='container'>
         <div className='section-title'>
-          <h2>Gallery</h2>
+          <h2>Giới thiệu về sản phẩm</h2>
           <p>
             Một số hình ảnh về Dr. Health
           </p>

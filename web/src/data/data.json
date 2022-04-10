@@ -78,21 +78,6 @@
       "icon": "fa fa-cloud-download",
       "name": "Chăm sóc khách hàng",
       "text": "Tư vấn, chăm sóc khách hàng 24/7\n "
-    },
-    {
-      "icon": "fa fa-language",
-      "name": "Consectetur adipiscing",
-      "text": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "icon": "fa fa-plane",
-      "name": "Lorem ipsum dolor",
-      "text": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "icon": "fa fa-pie-chart",
-      "name": "Consectetur adipiscing",
-      "text": "Lorem ipsum dolor sit amet"
     }
   ],
   "Testimonials": [
@@ -160,22 +145,22 @@
   "Features": [
     {
       "icon": "fa fa-comments-o",
-      "title": "Lorem ipsum",
+      "title": "Thuận tiện",
       "text": "Cầu nối thông tin giữa bác sĩ với bệnh nhân/người nhà bệnh nhân về tình trạng sức khỏe của ngưỡng bệnh."
     },
     {
       "icon": "fa fa-bullhorn",
-      "title": "Lorem ipsum",
+      "title": "Nhanh chóng",
       "text": "Theo dõi sức khỏe, phát hiện và thông báo những chỉ số bất thường của cơ thể."
     },
     {
       "icon": "fa fa-group",
-      "title": "Lorem ipsum",
+      "title": "Dễ dàng",
       "text": "Hệ thống tự động hóa, giao diện thân thiện với người dùng."
     },
     {
       "icon": "fa fa-magic",
-      "title": "Lorem ipsum",
+      "title": "Đa dạng",
       "text": "Hỗ trợ phục hồi chức năng cho bệnh nhân."
     }
   ]
