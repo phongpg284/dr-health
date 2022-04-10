@@ -131,24 +131,24 @@
   ],
   "Team": [
     {
-      "img": "img/team/01.jpg",
-      "name": "John Doe",
-      "job": "Director"
+      "img": "img/team/Tai.jpg",
+      "name": "Hoàng Tuấn Tài",
+      "job": "Team leader"
     },
     {
-      "img": "img/team/02.jpg",
-      "name": "Mike Doe",
-      "job": "Senior Designer"
+      "img": "img/team/Minh.jpg",
+      "name": "Trần Quang Minh",
+      "job": "Thiết kế nhúng"
     },
     {
-      "img": "img/team/03.jpg",
-      "name": "Jane Doe",
-      "job": "Senior Designer"
+      "img": "img/team/Trang.jpg",
+      "name": "Lê Thùy Trang",
+      "job": "Marketing"
     },
     {
-      "img": "img/team/04.jpg",
-      "name": "Karen Doe",
-      "job": "Project Manager"
+      "img": "img/team/Phong.jpg",
+      "name": "Phí Gia Phong",
+      "job": "Thiết kế phần mềm"
     }
   ],
   "Contact": {
