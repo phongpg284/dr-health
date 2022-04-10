@@ -4,17 +4,10 @@ Created with [Apollo](https://www.apollographql.com/) and [Create-React-App](htt
 
 Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquitto.org/)
 ## Table of contents
-- [Project structures](#project-structures)
 - [Requirements](#requirements)
-- [Development install](#development-install)
-- [Development configs](#development-configs)
-- [Run development project](#run-development-project)
+- [Project structures](#project-structures)
+- [Run development](#run-development)
 - [MQTT API](#mqtt-api)
-## Project structures
-**VS Code workspace**
-- `ROOT`: root folder
-- `SERVER`: server using Apollo Graphql
-- `CLIENT`: client using Create-react-app
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
@@ -22,50 +15,29 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
 - [MQTT broker (Mosquitto)](https://mosquitto.org/)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 
-## Development install
-```
-git clone https://github.com/tpw284/stroke-medical.git
-cd stroke-medical
-#Install all dependencies(from root folder)
-yarn
-```
+## Project structures
+**VS Code workspace**
+- `ROOT`: root folder
+- `SERVER`: server using Apollo Graphql
+- `CLIENT`: client using Create-react-app
+- `WEB`: web using ReactJS
 
-## Development configs
-- Run `yarn` or `npm install` at `ROOT`, `SERVER` and `CLIENT` to install all dependencies(no need if run script above).
-- At `SERVER` and `WEB` to create `.env`: 
-```
-cp .env.example .env
-``` 
-- Add key/value to `.env`:
-  - `SERVER`:
-    - `NODE_ENV=development`: NodeJS environment(`development` or `production`) 
-    - `PORT=3001` : Port running server (Default: `3001`)
-    - `DB_ENDPOINT=mongodb://localhost:27017` : MongoDB url (Default: `mongodb://localhost:27017`)
-    - `DB_USERNAME=username`: MongoDB username (Default: `none`)
-    - `DB_PASSWORD=password`: MongoDB password (Default: `none`)
-    - `JWT_KEY=somestring` : JWT private key
-  - `CLIENT`:
-    - `PORT=3000`: Port running client (Default: `3000`)
-    - `REACT_APP_GRAPHQL_URI=http://localhost:3001/graphql` : URI connect to server (Default: `http://localhost:3001/graphql`)
-    - `REACT_APP_GRAPHQL_URI=ws://localhost:3001/graphql` : Websocket URL connect to server (Default: `ws://localhost:3001/graphql`)
-    - `REACT_APP_GAME_FILES_URL=http://localhost:3001/game-files` : Game files endpoint
-## Run development project
-- Run `SERVER`:
-  - At `/server` to start server run 
+## Run development
+- Run `SERVER`: 
   ```
+  cd server
   yarn dev
   ```
-- Run `CLIENT`:
-  - At `/client` to start client run 
+- Run `CLIENT`: 
   ```
+  cd client
   yarn dev
   ```
-- Run both `SERVER` and `CLIENT`:
-  - At root folder `/` to start both server and client concurrently run
+- Run `WEB` 
   ```
-  yarn dev
+  cd web
+  yarn start
   ```
-
 
 ## MQTT API
 ### MQTT Topic List for Device
