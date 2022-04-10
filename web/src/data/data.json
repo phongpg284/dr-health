@@ -10,10 +10,10 @@
       "Theo dõi nhiều chỉ số sức khỏe chỉ trong một thiết bị"
     ],
     "Why2": [
-      "Bổ sung chỉ số SpO2",
       "Hệ thống tự động hóa",
       "Kích thước nhỏ gọn",
-      "Thao tác sử dụng đơn giản"
+      "Thao tác sử dụng đơn giản",
+      "Giá cả hợp lí"
     ]
   },
   "Gallery": [
@@ -65,19 +65,19 @@
   ],
   "Services": [
     {
-      "icon": "fa fa-wordpress",
-      "name": "Dịch vụ sau bán",
-      "text": "Đổi trả sản phẩm trong 30 ngày\nBảo hành sản phẩm 6 tháng"
+      "icon": "fa fa-comment",
+      "name": "Tư vấn hỗ trợ",
+      "text": "Botchat tích hợp hỗ trợ bệnh nhân hằng ngày"
     },
     {
-      "icon": "fa fa-cart-arrow-down",
-      "name": "Dịch vụ vận chuyển",
-      "text": "Miễn phí vận chuyển trên toàn quốc\n "
+      "icon": "fa fa-gear",
+      "name": "Tự động hóa",
+      "text": "Phân tích dữ liệu hằng ngày hằng giờ\nKết nối với bác sĩ chuyên môn cao để tăng cường dịch vụ"
     },
     {
-      "icon": "fa fa-cloud-download",
+      "icon": "fa fa-headphones",
       "name": "Chăm sóc khách hàng",
-      "text": "Tư vấn, chăm sóc khách hàng 24/7\n "
+      "text": "Chăm sóc khách hàng 24/7\n "
     }
   ],
   "Testimonials": [
