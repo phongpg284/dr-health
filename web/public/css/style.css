@@ -530,6 +530,7 @@ header .intro-text {
 }
 
 #services p {
+  white-space: pre;
   color: rgba(255, 255, 255, 0.75);
 }
 
