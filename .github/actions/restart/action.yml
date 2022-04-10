@@ -11,4 +11,12 @@ runs:
   steps: 
     - name: Restart Server
       shell: bash
+      env: 
+        NODE_ENV: production
+        PORT: ${{ secrets.SERVER_PORT }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        JWT_KEY: ${{ secrets.JWT_KEY }}
       run: pm2 restart all
