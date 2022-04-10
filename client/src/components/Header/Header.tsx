@@ -89,9 +89,9 @@ export default function Header(props: any) {
                             <p className="web_des">Trang thông tin và theo dõi tình trạng bệnh nhân</p>
                         </div>
                     </div>
-                    <div className="logo_content">
+                    {/* <div className="logo_content">
                         <img className="logo_img" alt="logo" src={LogoTruong} />
-                    </div>
+                    </div> */}
                 </div>
                 <div ref={MenuRef} className={`header_all `}>
                     {
