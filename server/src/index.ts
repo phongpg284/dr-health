@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 import 'reflect-metadata';
-import { DB_URL, JWT_KEY, PORT } from './config';
+import { DB_NAME, DB_URL, JWT_KEY, PORT } from './config';
 import { logger } from './config/logger';
 
 import { createServer } from 'http';
@@ -26,7 +26,7 @@ const main = async (mongoClient: MongoClient | undefined) => {
     try {
         Container.set('pubSub', new PubSub());
         if (mongoClient) {
-            Container.set('db', mongoClient.db('medical'));
+            Container.set('db', mongoClient.db(DB_NAME));
             Container.set('Accounts', Accounts);
             Container.set('Devices', Devices);
         }
