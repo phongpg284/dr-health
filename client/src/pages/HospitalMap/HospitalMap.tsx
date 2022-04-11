@@ -81,7 +81,7 @@ function HospitalMap(): ReactElement {
         <div>
             <Header />
             <div className="hospitalMapContent">
-                <h1>Cơ sở điều trị đột quỵ</h1>
+                <h1>Cơ sở điều trị</h1>
                 <div className="outsideContainer">
                     {!isMobile && <img src={AbstractOneLine} alt="" className="mapBack" />}
                     <div className="contentContainer">

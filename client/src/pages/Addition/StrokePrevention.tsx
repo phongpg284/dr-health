@@ -6,7 +6,7 @@ function Exercise(): ReactElement {
         <div className="Exercise VideoPage">
             <div className="pageHeader">
                 <div className="pageTitle">
-                    Giải pháp phòng ngừa đột quỵ hiệu quả
+                    Giải pháp phòng ngừa các bệnh hiệu quả
                 </div>
             </div>
             <IframeItem
