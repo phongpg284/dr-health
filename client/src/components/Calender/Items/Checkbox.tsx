@@ -1,12 +1,8 @@
-import { Checkbox, Divider } from 'antd';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { updateMedicineSet } from 'app/medicineSlice';
 import { AiOutlineClose } from 'react-icons/ai';
-
-const CheckboxGroup = Checkbox.Group;
 
 interface Medicine {
     name: CheckboxValueType;
@@ -28,8 +24,6 @@ export default function CheckBox(props: CheckBoxProps) {
     const { options } = props;
     const medicineSet = useAppSelector((state) => state.medicineSet);
     const [checkedList, setCheckedList] = React.useState<CheckboxValueType[]>([]);
-    const [indeterminate, setIndeterminate] = React.useState(true);
-    const [checkAll, setCheckAll] = React.useState(false);
     const dispatch = useAppDispatch()
 
     function toggleList(value: string) {
@@ -60,7 +54,6 @@ export default function CheckBox(props: CheckBoxProps) {
                 medicines.medicine.push(medicineItem)
             }
         })
-        console.log("medicine", medicines)
 
         dispatch(
             updateMedicineSet({

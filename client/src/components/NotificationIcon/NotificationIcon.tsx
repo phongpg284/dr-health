@@ -1,8 +1,8 @@
 import "./index.scss";
-import { Badge, Divider, Dropdown, Empty } from "antd";
+import { Badge, Empty } from "antd";
 
 import { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { GET_ACCOUNT_NOTIFICATIONS, NOTIFICATIONS_SUBSCRIPTION, SEEN_ALL_NOTIFICATION, UPDATE_NOTIFICATION } from "./schema";
@@ -11,18 +11,13 @@ import { useAppSelector } from "app/store";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { EllipsisOutlined } from "@ant-design/icons";
-
-import arrowup from "../../assets/arrow-up.png";
-import { Image } from "react-bootstrap";
 
 import { HiOutlineClipboardCheck, HiOutlineClipboardCopy } from "react-icons/hi";
 
-import AbstractSimple from '../../assets/abstract-simple.svg';
+import AbstractSimple from "../../assets/abstract-simple.svg";
 
-import { Modal } from 'react-bootstrap'
+import { Modal } from "react-bootstrap";
 import { IoMdClose } from "react-icons/io";
-import { MdNewReleases } from "react-icons/md";
 
 dayjs.extend(relativeTime);
 
@@ -62,18 +57,11 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
         // history.push(`/notifications/${params}`);
     };
 
-    // const ContentOverLength = (props: any) => {
-    //   if (props.content.length > 70)
-    //     return <div style={{ fontSize: "0.85rem", color: "#6f706f" }}>Xem thêm <span style={{ fontSize: "2rem", lineHeight: "0.8rem" }}>...</span></div>
-    //   return <></>
-    // }
     const ShowNotification: React.FC<INotificationDropdownProps> = ({ data }) => (
         <>
             {data &&
                 data.map((notification: any) => (
                     <div key={notification._id} className="notifications_item" onClick={handleClickNotification(notification._id, notification?.mapUrl)}>
-
-
                         <div className="content_container">
                             <div className="head">
                                 {!notification.seen && (
@@ -86,32 +74,21 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
                                         <HiOutlineClipboardCheck className="notifications_item_icon" />
                                     </div>
                                 )}
-                                <div
-                                    className="notifications_item_title">
+                                <div className="notifications_item_title">
                                     {notification.title.charAt(0).toUpperCase() + notification.title.slice(1)}
                                     {!notification.seen && <span className="unseenDot"></span>}
-                                    <span className="notifications_item_create_time">
-                                        {dayjs(new Date(notification.createdAt)).fromNow()}
-                                    </span>
-
-                                    {/* {!notification.seen && <span className="notifications_item_unseen_dot"></span>} */}
+                                    <span className="notifications_item_create_time">{dayjs(new Date(notification.createdAt)).fromNow()}</span>
                                 </div>
-
                             </div>
 
                             <div className="textContent">
                                 <div className="notifications_item_content">{notification.content.charAt(0).toUpperCase() + notification.content.slice(1)}</div>
                                 <div className="notifications_item_map">
                                     <span style={{ color: "black", fontWeight: "bold" }}>Địa chỉ: </span>
-                                    <a href={notification.mapUrl}>
-                                        {notification.mapUrl}
-                                    </a>
+                                    <a href={notification.mapUrl}>{notification.mapUrl}</a>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 ))}
         </>
@@ -179,7 +156,7 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
     );
 };
 
-function NotificationList({ show, setShow }: { show: boolean, setShow: any }) {
+function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
     const { id, role } = useAppSelector((state) => state.account);
     const history = useHistory();
     const [unseen, setUnseen] = useState<number>(0);
@@ -221,14 +198,13 @@ function NotificationList({ show, setShow }: { show: boolean, setShow: any }) {
                 <NotificationDropdown onHide={onHide} data={notificationsList} />
             </div>
         </Modal>
-    )
+    );
 }
 
 const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
     const { id, role } = useAppSelector((state) => state.account);
-    const url = useLocation();
     const history = useHistory();
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
     function toggle() {
         setShow(!show);
     }
@@ -263,12 +239,6 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
         }
     }, [newNotification]);
 
-    // const menu = (
-    //     <div className="notifications_dropdown">
-    //         <NotificationDropdown data={notificationsList} />
-    //     </div>
-    // );
-
     return (
         <>
             <div onClick={toggle} className="notifications_icon_bagde">
@@ -277,9 +247,6 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
                 </Badge>
             </div>
             <NotificationList show={show} setShow={setShow} />
-            {/* <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]} className="notifications_dropsetting" disabled={url.pathname === "/notifications"}>
-                
-            </Dropdown> */}
         </>
     );
 };

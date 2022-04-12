@@ -5,8 +5,6 @@ import { FaUserTie, FaPhoneAlt } from "react-icons/fa";
 import { useContext } from "react";
 import { FooterContext } from "App";
 import FooterBackeground from "../../assets/footerbg.png"
-import FooterTop from '../../assets/footer_top.svg'
-import FooterBody from '../../assets/footer_body.svg'
 import FooterMobile from '../../assets/footer_mobile.svg'
 import logo from "../../assets/logo1.png";
 import { isMobile } from 'react-device-detect'

@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface HospitalProps {
     name: string;
     longitude: number;

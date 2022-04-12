@@ -1,5 +1,4 @@
 import { Carousel } from "antd";
-import { AiOutlineSend } from "react-icons/ai";
 import React from "react"
 
 
@@ -10,7 +9,6 @@ import AbstractBack from '../../assets/abstract-green-yellow.png'
 import AbstractVideo from '../../assets/abstract-video.svg'
 //icon
 
-import { BiSend } from "react-icons/bi";
 import { AiFillRightCircle, AiFillLeftCircle } from "react-icons/ai"
 import { CarouselRef } from "antd/lib/carousel";
 

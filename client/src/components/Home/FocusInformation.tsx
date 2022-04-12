@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Carousel } from "antd";
-import { CarouselRef } from "antd/lib/carousel";
 
 import Image1 from 'assets/focusInformation1.jpg';
 import Image2 from 'assets/focusInformation2.jpg';
@@ -10,7 +9,6 @@ import Image4 from 'assets/focusInformation4.jpg';
 
 import Background from 'assets/abstract15.svg'
 
-import { isMobile } from 'react-device-detect'
 import { motion } from 'framer-motion'
 
 export default function FocusInformation() {

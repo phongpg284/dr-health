@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import MyApolloProvider from "./app/ApolloProvider";
 import GreetingBot from './components/GreetingBot'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(

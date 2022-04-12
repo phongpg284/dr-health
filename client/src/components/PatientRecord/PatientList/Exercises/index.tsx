@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { Table } from "react-bootstrap";
+import dayjs from "dayjs";
 import { BsCheck } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
-import dayjs from "dayjs";
 
 import "./index.scss";
 import schema from "./schema";

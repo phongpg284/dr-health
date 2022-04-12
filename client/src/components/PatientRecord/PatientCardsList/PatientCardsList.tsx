@@ -1,14 +1,14 @@
 import "./index.scss";
+import dayjs from "dayjs";
 import { useQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 import React, { useEffect, useState } from "react";
-import { GET_PATIENTS_OF_DOCTOR } from "../PatientList/schema";
-import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import { GET_PATIENTS_OF_DOCTOR } from "../PatientList/schema";
+
 import { BiLinkExternal } from "react-icons/bi";
 import Avatar from '../../../assets/default-avatar-patient.png'
 import BG from 'assets/abstract12.svg'
-import { toast } from "react-toastify";
 import Experiment from './Experiment'
 
 const defaultList = [
@@ -407,7 +407,7 @@ const PatientCardsList = () => {
 
             <div className="patientList">
                 {patientDataArray &&
-                    patientDataArray.map((patient: any, index: number) => (
+                    patientDataArray.map((patient: any) => (
                         <div className="profile-contentinfo-item-patient" key={patient._id}>
                             <div className="profile-patient-in">
                                 <div className="profile-patient-avatar">

@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { motion } from 'framer-motion'
 import './robot.scss'
-import { BsFillEmojiLaughingFill } from 'react-icons/bs'
 
 import Angry1 from '../../assets/emoji/angry1.svg';
 import Funny1 from '../../assets/emoji/funny1.svg';
@@ -9,8 +8,6 @@ import Happy1 from '../../assets/emoji/happy1.svg';
 import Happy2 from '../../assets/emoji/happy2.svg';
 import Sad1 from '../../assets/emoji/sad1.svg';
 import Sad2 from '../../assets/emoji/sad2.svg';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { IoIosBowtie } from 'react-icons/io';
 
 import DoctorSVG from '../../assets/doctor_chibi.svg';
 

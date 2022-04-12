@@ -34,7 +34,6 @@ const Login = () => {
   const [login] = useLazyQuery(LOGIN, {
     onCompleted(data) {
       if (data && data.login.message === "Matched user") {
-        console.log(loginEmail);
         dispatch(
           updateToken({
             accessToken: data.login.accessToken,

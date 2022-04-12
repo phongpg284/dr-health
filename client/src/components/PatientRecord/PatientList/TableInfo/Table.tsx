@@ -1,8 +1,7 @@
 import "./index.scss";
-import { BiBlock, BiCheck } from "react-icons/bi";
 import { useLazyQuery } from "@apollo/client";
 import { ReactElement, useEffect, useState } from "react";
-import { DatePicker, Input, Table, Tooltip } from "antd";
+import { DatePicker } from "antd";
 import dayjs from "dayjs";
 
 import { GET_INFO_DEVICE } from "../schema";
@@ -10,101 +9,8 @@ import useInput from "../useInput";
 import { MdModeEditOutline } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc";
-import dateFormat, { masks } from "dateformat";
 
 export const InfoTable = ({ data }: any) => {
-    console.log(data);
-    const [dataSource, setDataSource] = useState<any>();
-
-    const [fullName, editFullName, onChangeFullName, onConfirmFullName, onCancelFullName] = useInput("fullName", data.fullName, data._id);
-    const [phone, editPhone, onChangePhone, onConfirmPhone, onCancelPhone] = useInput("phone", data.phone, data._id);
-    const [relativePhone, editRelativePhone, onChangeRelativePhone, onConfirmRelativePhone, onCancelRelativePhone] = useInput("relativePhone", data.relativePhone, data._id);
-    const [address, editAddress, onChangeAddress, onConfirmAddress, onCancelAddress] = useInput("address", data.address, data._id);
-    const [email, editEmail, onChangeEmail, onConfirmEmail, onCancelEmail] = useInput("email", data.email, data._id);
-    const [gender, editGender, onChangeGender, onConfirmGender, onCancelGender] = useInput("gender", data.gender, data._id);
-    const [age, editAge, onChangeAge, onConfirmAge, onCancelAge] = useInput("age", data.age, data._id);
-    const [bloodType, editBloodType, onChangeBloodType, onConfirmBloodType, onCancelBloodType] = useInput("bloodType", data.bloodType, data._id);
-    const [birth, editBirth, onChangeBirth, onConfirmBirth, onCancelBirth] = useInput("birth", data.birth, data._id);
-    const [street, editStreet, onChangeStreet, onConfirmStreet, onCancelStreet] = useInput("street", data.street, data._id);
-    const [pathologicalDescription, editPathologicalDescription, onChangePathologicalDescription, onConfirmPathologicalDescription, onCancelPathologicalDescription] = useInput(
-        "pathologicalDescription",
-        data.pathologicalDescription,
-        data._id
-    );
-
-    const [getDevice, { data: deviceData }] = useLazyQuery(GET_INFO_DEVICE);
-    const [isDeviceConnect, setIsDeviceConnect] = useState(false);
-    useEffect(() => {
-        if (data && data.deviceId) {
-            getDevice({
-                variables: {
-                    id: data.deviceId,
-                },
-            });
-        }
-    }, [data]);
-
-    useEffect(() => {
-        if (deviceData?.getDevice?.isConnect) setIsDeviceConnect(deviceData?.getDevice?.isConnect);
-    }, [deviceData]);
-
-    useEffect(() => {
-        if (data) {
-            setDataSource([
-                {
-                    key: "1",
-                    name: "Họ và tên",
-                    value: fullName || data.fullName,
-                },
-                {
-                    key: "2",
-                    name: "Tuổi",
-                    value: age || data.age,
-                },
-                {
-                    key: "3",
-                    name: "Ngày sinh",
-                    value: birth || data.birth,
-                },
-                {
-                    key: "4",
-                    name: "Giới tính",
-                    value: gender || data.gender,
-                },
-                {
-                    key: "5",
-                    name: "Nhóm máu",
-                    value: bloodType || data.bloodType,
-                },
-                {
-                    key: "6",
-                    name: "Email",
-                    value: email || data.email,
-                },
-                {
-                    key: "7",
-                    name: "Số điện thoại",
-                    value: phone || data.phone,
-                },
-                {
-                    key: "8",
-                    name: "Số điện thoại người thân",
-                    value: relativePhone || data.relativePhone,
-                },
-                {
-                    key: "9",
-                    name: "Địa chỉ",
-                    value: address || data.address,
-                },
-                {
-                    key: "10",
-                    name: "Tình trạng thiết bị",
-                    value: isDeviceConnect ? "Đang kết nối" : "Không kết nối",
-                },
-            ]);
-        }
-    }, [data, editPhone, editRelativePhone, editAddress, editAge, editEmail, editGender, editBloodType, editBirth, editFullName, isDeviceConnect]);
-
     return <PatientInfoTable data={data} />;
 };
 
@@ -149,14 +55,6 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
     useEffect(() => {
         if (deviceData?.getDevice?.isConnect) setIsDeviceConnect(deviceData?.getDevice?.isConnect);
     }, [deviceData]);
-
-    function onChangeBirthFormatted(e: any) {
-        const date = e.target.value;
-        const str = dateFormat(date, "dd/mm/yyyy");
-        console.log(birth);
-        console.log(str);
-        // onChangeBirth(str);
-    }
 
     return (
         <div className="patient-info-table">

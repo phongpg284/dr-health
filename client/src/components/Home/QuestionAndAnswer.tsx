@@ -1,7 +1,5 @@
 import React from 'react';
-import { ImUserTie } from 'react-icons/im';
 import { Carousel } from "antd";
-import { CarouselRef } from "antd/lib/carousel";
 import QNA_IMAGE from '../../assets/QNA.svg'
 
 import { isMobile } from 'react-device-detect';

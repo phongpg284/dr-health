@@ -28,10 +28,10 @@ export function backAll(currentStep: number, nextPhase: () => void) {
     if (currentStep == 0) {
         document.querySelector(".calendar_set_detail")?.classList.remove("calendar_set_detail_toggle")
         document.querySelector(".calendar_patients_info")?.classList.remove("calendar_patients_info_toggle")
-        document.querySelectorAll(".calendar_set_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_item").forEach((element) => {
             element?.classList.remove("calendar_set_item_toggle")
         })
-        document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_done_item").forEach((element) => {
             element?.classList.remove("calendar_set_done_item_toggle")
         })
         setTimeout(() => {
@@ -99,7 +99,7 @@ export function handleSetCalendarStep_2(nextPhase: () => void) {
     //Phase 3 
 
     setTimeout(() => {
-        document.querySelectorAll(".calendar_set_date_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_date_item").forEach((element) => {
             element?.classList.remove("calendar_set_date_item_toggle")
         })
         document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
@@ -120,10 +120,10 @@ export function handleBackStep_0(backPhase: () => void) {
                 element?.classList.add("calendar_set_medicine_item_toggle")
             }, 50 * index);
         })
-        document.querySelectorAll(".calendar_set_date_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_date_item").forEach((element) => {
             element?.classList.remove("calendar_set_date_item_toggle")
         })
-        document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_done_item").forEach((element) => {
             element?.classList.remove("calendar_set_done_item_toggle")
         })
     }, 600);
@@ -139,10 +139,10 @@ export function handleBackStep_1(backPhase: () => void) {
                 element?.classList.add("calendar_set_date_item_toggle")
             }, 10 * index);
         })
-        document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_done_item").forEach((element) => {
             element?.classList.remove("calendar_set_done_item_toggle")
         })
-        document.querySelectorAll(".calendar_set_medicine_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_medicine_item").forEach((element) => {
             element?.classList.remove("calendar_set_medicine_item_toggle")
         })
     }, 600);
@@ -152,7 +152,7 @@ export function handleBackStep_1(backPhase: () => void) {
 export function handleBackStep_2(backPhase: () => void) {
 
     setTimeout(() => {
-        document.querySelectorAll(".calendar_set_date_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_date_item").forEach((element) => {
             element?.classList.remove("calendar_set_date_item_toggle")
         })
         document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
@@ -160,7 +160,7 @@ export function handleBackStep_2(backPhase: () => void) {
                 element?.classList.add("calendar_set_done_item_toggle")
             }, 50 * index);
         })
-        document.querySelectorAll(".calendar_set_medicine_item").forEach((element, index) => {
+        document.querySelectorAll(".calendar_set_medicine_item").forEach((element) => {
             element?.classList.remove("calendar_set_medicine_item_toggle")
         })
     }, 600);
@@ -175,10 +175,10 @@ export function handleSetCalendarStep_3(nextPhase: () => void) {
 
     document.querySelector(".calendar_set_detail")?.classList.remove("calendar_set_detail_toggle")
     document.querySelector(".calendar_patients_info")?.classList.remove("calendar_patients_info_toggle")
-    document.querySelectorAll(".calendar_set_item").forEach((element, index) => {
+    document.querySelectorAll(".calendar_set_item").forEach((element) => {
         element?.classList.remove("calendar_set_item_toggle")
     })
-    document.querySelectorAll(".calendar_set_done_item").forEach((element, index) => {
+    document.querySelectorAll(".calendar_set_done_item").forEach((element) => {
         element?.classList.remove("calendar_set_done_item_toggle")
     })
     setTimeout(() => {

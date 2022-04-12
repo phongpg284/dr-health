@@ -6,7 +6,6 @@ import { useAppSelector } from "app/store";
 
 import { InfoTable } from "../PatientList/TableInfo/Table";
 import MedicineSchedule from "../PatientList/MedicineSchedule";
-import Pathological from "../PatientList/Pathological";
 import useInputDevice from "../PatientList/useInputDevice";
 
 import { GET_DEVICE, GET_PATIENT } from "./schema";
@@ -28,7 +27,7 @@ const PatientRecord = () => {
         variables: {
             id: account.id,
         },
-        fetchPolicy:"no-cache"
+        fetchPolicy: "no-cache",
     });
 
     const [getDevice, { data: deviceData }] = useLazyQuery(GET_DEVICE, {
@@ -45,18 +44,9 @@ const PatientRecord = () => {
                 variables: {
                     id: patientData.deviceId,
                 },
-               
             });
         }
     }, [patientData]);
-
-    const handleUpdate = () => {
-        getDevice({
-            variables: {
-                id: patientData.deviceId,
-            },
-        });
-    };
 
     const [thresholdStatus, setThresholdStatus] = useState({
         spO2: false,
@@ -98,10 +88,9 @@ const PatientRecord = () => {
                     <div className="patient-info-title">Hồ sơ bệnh nhân</div>
                     <div className="patient-info-profile">
                         <div className="patient-info-detail">
-                            {/* <div className="patient-info-header-title">Hồ sơ bệnh nhân</div> */}
                             <InfoTable data={patientData} />
                         </div>
-                        <PatientTestHistory patientId={patientData._id}/>
+                        <PatientTestHistory patientId={patientData._id} />
                         <div className="patient-info-right-content">
                             <div className="patient-info-sub-info">
                                 <div className="patient-info-Exercises">

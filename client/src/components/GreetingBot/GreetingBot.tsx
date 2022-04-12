@@ -4,20 +4,16 @@ import "./greeting_bot.scss"
 import IMG from '../../assets/robot.jpg'
 import * as GreetingBotStore from '../../app/GreetingBot'
 import { motion } from 'framer-motion'
-import { AiFillDelete, AiFillEye, AiOutlineClose } from 'react-icons/ai'
-import { BsFillMicMuteFill, BsFillPatchQuestionFill, BsTrashFill } from 'react-icons/bs'
-import { FaRobot } from 'react-icons/fa'
-import { RiChatOffFill, RiChat4Fill, RiQuestionAnswerFill } from 'react-icons/ri'
-import { GiSpeaker, GiSpeakerOff } from 'react-icons/gi'
-import { VscClose } from 'react-icons/vsc'
-import { type } from 'os'
+import { AiFillEye } from 'react-icons/ai'
+import { BsTrashFill } from 'react-icons/bs'
+import { RiChat4Fill, RiQuestionAnswerFill } from 'react-icons/ri'
+import { GiSpeaker } from 'react-icons/gi'
 
 import { v4 as uuidv4 } from 'uuid';
 import { ImLoop2 } from 'react-icons/im'
 import { MdLoop } from 'react-icons/md'
 import Robot from './Robot'
 import { isMobile } from 'react-device-detect'
-import { clearTimeout } from 'timers'
 import ChatFrame from './ChatFrame'
 // const sound = require("sound-play");
 

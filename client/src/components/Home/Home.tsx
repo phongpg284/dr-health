@@ -4,7 +4,6 @@ import { Slider } from "./Slider";
 import mainPic from "../../assets/main-picture.svg";
 import Header from "components/Header";
 
-import ImageHomeVideo from '../../assets/image_home_video.svg'
 import AbstractVideo from '../../assets/abstract-video.svg'
 import AbstractOneLine from '../../assets/abstract-one-line.svg';
 import AbstractBackground from '../../assets/abstract-two-line.svg'
@@ -12,24 +11,22 @@ import Abstract11 from '../../assets/abstract11.svg'
 import Abstract11Vertical from '../../assets/abstract11_vertical.svg'
 
 
-import { RiLoginCircleFill, RiEyeCloseLine } from 'react-icons/ri'
-import { ImEyePlus } from 'react-icons/im'
-import { AiOutlineLogin, AiOutlineHeart, AiFillPlayCircle, AiFillStar, AiOutlineUser, AiOutlineLeft, AiOutlineRight, AiFillLeftCircle, AiFillRightCircle, AiFillEye } from 'react-icons/ai'
+import { RiEyeCloseLine } from 'react-icons/ri'
+import { AiOutlineLogin, AiOutlineHeart, AiFillStar, AiOutlineUser, AiFillLeftCircle, AiFillRightCircle, AiFillEye } from 'react-icons/ai'
 import { BiLike } from 'react-icons/bi'
 import { IoIosSend, IoMdToday } from 'react-icons/io'
-import { FaAudible, FaEnvira, FaHandHoldingHeart } from 'react-icons/fa'
+import { FaAudible, FaEnvira } from 'react-icons/fa'
 
 import { motion } from 'framer-motion'
 import { Modal } from 'react-bootstrap'
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
-import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill, BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsCalendar2MonthFill } from "react-icons/bs";
+import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill, BsCalendar2MonthFill } from "react-icons/bs";
 import { MdGppGood, MdOutlineTouchApp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "react-multi-carousel/lib/styles.css";
 
 import { isMobile } from 'react-device-detect';
-import { ImUserTie } from "react-icons/im";
 import QuestionAndAnswer from "./QuestionAndAnswer";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import * as GreetingBot from '../../app/GreetingBot';

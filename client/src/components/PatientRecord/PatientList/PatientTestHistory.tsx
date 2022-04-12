@@ -1,9 +1,8 @@
-import { useLazyQuery, useQuery } from '@apollo/client';
-import React, { ReactElement } from 'react'
-import { GET_ALL_TEST } from './schema'
 import "./PatientTestHistory.scss"
-import { format } from 'util';
 import moment from 'moment';
+import React, { ReactElement } from 'react'
+import { useQuery } from '@apollo/client';
+import { GET_ALL_TEST } from './schema'
 import { Dropdown, DropdownButton, InputGroup } from 'react-bootstrap';
 interface Props {
     patientId: string;
@@ -89,7 +88,7 @@ interface TestContent {
     test: any
 }
 function TestContent({ test }: TestContent) {
-    const { questions, totalPoint, updatedAt } = test;
+    const { questions, totalPoint } = test;
 
     const questionArr = React.useMemo(()=>{
         const arr = questions.concat([]);

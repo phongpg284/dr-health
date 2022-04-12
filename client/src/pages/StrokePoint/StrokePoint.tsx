@@ -45,7 +45,7 @@ function StrokePoint() {
         }
         const inputs = { patientId: patient, questions: newPoints };
 
-        const res = await uploadTest({
+        await uploadTest({
             variables: {
                 inputs
             }
@@ -108,7 +108,7 @@ function PatientInformation({ onChange }: PatientInformation) {
                         setPatient(e.target.value)
                     }} className="patientInput">
                     <option value="">Chọn bệnh nhân</option>
-                    {listPatient.map((patient: any, index: any) => (
+                    {listPatient.map((patient: any) => (
                         <option key={patient.id} value={patient._id}>{patient.fullName}</option>
                     ))}
                 </select>
@@ -345,7 +345,7 @@ function StrokeTable({ onChangePoints }: StrokeTable) {
 
     React.useEffect(() => {
         if (!allQuestion || allQuestion.length == 0) return;
-        const arr = allQuestion.map((item: any, index: any) => ({ id: item.id, point: 0 }))
+        const arr = allQuestion.map((item: any) => ({ id: item.id, point: 0 }))
         setResultPoint(arr)
     }, [allQuestion])
 

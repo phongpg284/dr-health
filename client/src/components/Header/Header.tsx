@@ -1,43 +1,35 @@
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { updateToken } from "../../app/authSlice";
-import { useLazyQuery, useQuery, useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { ADD_DEVICE, GET_DEVICE_STATUS, GET_DOCTOR_PROFILE, GET_PATIENT_PROFILE, REMOVE_DEVICE } from "./schema";
-import React, { useEffect, useState, useRef, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
 import { Image } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import "./header.scss";
 
 //icon
 
-import { BsFillCaretDownFill } from "react-icons/bs";
 import { BiCalendarPlus } from "react-icons/bi";
 import { FaPhoneAlt, FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical } from "react-icons/fa";
-import { GrClose, GrScorecard } from 'react-icons/gr'
 //image
 
-import AbstractMini from '../../assets/abstract-mini.svg'
+import AbstractMini from "../../assets/abstract-mini.svg";
 import logo from "../../assets/logo1.png";
-import logoSwitch from "../../assets/switch.png";
 import defaultAvatar from "../../assets/default-avatar.png";
 import defaultAvatarPatient from "../../assets/default-avatar-patient.png";
-import arrowup from "../../assets/arrow-up.png";
 import NotificationIcon from "components/NotificationIcon";
-import { FooterContext } from "App";
 import { IoGameControllerOutline, IoWatch } from "react-icons/io5";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { message, Modal, Tooltip } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from 'react-icons/ai'
-import { HiSwitchHorizontal } from 'react-icons/hi'
+import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from "react-icons/ai";
+import { HiSwitchHorizontal } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { isMobile } from 'react-device-detect';
+import { isMobile } from "react-device-detect";
 import { IoMdClose } from "react-icons/io";
-import LogoTruong from '../../assets/logo_truong.png'
 
-export default function Header(props: any) {
-
-    const MenuRef = React.useRef<HTMLDivElement>(null)
+export default function Header() {
+    const MenuRef = React.useRef<HTMLDivElement>(null);
 
     const [closeMenu, setCloseMenu] = useState(true);
     function toggle() {
@@ -52,30 +44,22 @@ export default function Header(props: any) {
     React.useEffect(() => {
         if (!closeMenu) {
             document.addEventListener("click", handleClickOutDropDown);
-            return (() => {
+            return () => {
                 document.removeEventListener("click", handleClickOutDropDown);
-            })
+            };
         }
-    }, [closeMenu])
+    }, [closeMenu]);
 
+    const { role } = useAppSelector((state) => state.account);
 
-    const { accessToken, role } = useAppSelector((state) => state.account);
-
-    const history = useHistory();
     const userAccountInfo = useAppSelector((state) => state.account);
-
-
 
     const [showUserDropDown, setShowUserDropDown] = useState(false);
     const toggleUserDropDown = () => setShowUserDropDown(!showUserDropDown);
     const openDropDown = () => {
-        if (!showUserDropDown) setShowUserDropDown(true)
-    }
+        if (!showUserDropDown) setShowUserDropDown(true);
+    };
 
-
-
-
-    const footerRef = useContext(FooterContext);
     return (
         <div className="header_wrapper">
             <div className="wrapper_child">
@@ -83,19 +67,13 @@ export default function Header(props: any) {
                     <div className="banner_content">
                         <img className="banner_img" alt="logo" src={logo} />
                         <div className="banner_text">
-                            <b className="web_name">
-                                Dr. Health
-                            </b>
+                            <b className="web_name">Dr. Health</b>
                             <p className="web_des">Trang thông tin và theo dõi tình trạng bệnh nhân</p>
                         </div>
                     </div>
-                    {/* <div className="logo_content">
-                        <img className="logo_img" alt="logo" src={LogoTruong} />
-                    </div> */}
                 </div>
                 <div ref={MenuRef} className={`header_all `}>
-                    {
-                        isMobile &&
+                    {isMobile && (
                         <div className="mobile_head">
                             <Link className="first_link" to="/">
                                 <AiOutlineHome />
@@ -104,16 +82,19 @@ export default function Header(props: any) {
                                 <AiOutlineMenu />
                             </div>
                         </div>
-                    }
+                    )}
                     <motion.div
                         initial={{ x: isMobile ? "-100%" : "0" }}
-                        animate={{ x: isMobile && closeMenu ? "-100%" : '0' }}
+                        animate={{ x: isMobile && closeMenu ? "-100%" : "0" }}
                         transition={{ type: "tween", duration: 0.5 }}
-                        className="header_topbar" >
+                        className="header_topbar"
+                    >
                         <div className="header_navigate_bar">
-                            {!isMobile && <Link className="header_navigate_bar_item first" to="/">
-                                <span> Trang chủ</span>
-                            </Link>}
+                            {!isMobile && (
+                                <Link className="header_navigate_bar_item first" to="/">
+                                    <span> Trang chủ</span>
+                                </Link>
+                            )}
                             <LinkDropDown title="Bản tin">
                                 <Link className="drop_down_link" to="/news/nhan-biet-dot-quy">
                                     Nhận biết các bệnh
@@ -153,41 +134,30 @@ export default function Header(props: any) {
                                 <span>Cơ sở điều trị</span>
                             </Link>
 
-                            {role == "doctor" &&
-                                <Link className="header_navigate_bar_item" to="/stroke_point" >
+                            {role == "doctor" && (
+                                <Link className="header_navigate_bar_item" to="/stroke_point">
                                     <span>Thang điểm đột quỵ</span>
                                 </Link>
-                            }
-
+                            )}
                         </div>
                         <div className="account_space">
                             {!userAccountInfo.accessToken && !userAccountInfo.id && (
                                 <Link to="/login" className="login_btn last">
                                     <span>Đăng nhập</span>
-                                    <span className="icon"><AiOutlineLogin /></span>
+                                    <span className="icon">
+                                        <AiOutlineLogin />
+                                    </span>
                                 </Link>
                             )}
 
                             {userAccountInfo.accessToken && userAccountInfo.id && (
                                 <div className="user_space">
-                                    {/* {
-                                        !isMobile && <NotificationIcon>
-                                            <FaBell className="header_notifications_icon" />
-                                        </NotificationIcon>
-                                    } */}
                                     <NotificationIcon>
                                         <FaBell className="header_notifications_icon" />
                                     </NotificationIcon>
                                     <div className="avatar_container">
-
-
                                         {userAccountInfo.role === "doctor" && (
-                                            <Image
-                                                className="header_avatar header_imageremoveselect"
-                                                src={defaultAvatar}
-                                                onClick={openDropDown}
-
-                                            />
+                                            <Image className="header_avatar header_imageremoveselect" src={defaultAvatar} onClick={openDropDown} />
                                         )}
                                         {userAccountInfo.role === "patient" && (
                                             <Image
@@ -195,87 +165,67 @@ export default function Header(props: any) {
                                                 src={defaultAvatarPatient}
                                                 style={{ border: "solid 4px #319997", borderRadius: "50%" }}
                                                 onClick={openDropDown}
-
                                             />
                                         )}
                                         <UserDropDown show={showUserDropDown} toggle={toggleUserDropDown} />
                                     </div>
-
-
-
-
                                 </div>
                             )}
-                            {
-                                isMobile &&
+                            {isMobile && (
                                 <div className="close_btn_container">
                                     <div onClick={toggle} className="close_btn">
                                         <IoMdClose />
                                     </div>
                                 </div>
-                            }
+                            )}
                         </div>
-
-
                     </motion.div>
-
                 </div>
             </div>
-
         </div>
-
     );
 }
 
-function LinkDropDown({ title, to, children }: { title: string, to?: string, children: any }) {
+function LinkDropDown({ title, to, children }: { title: string; to?: string; children: any }) {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     function toggle() {
-        setOpen(!open)
+        setOpen(!open);
     }
     function close() {
-        setOpen(false)
+        setOpen(false);
     }
     function handleClickOutside(event: any) {
         if (ref.current && !ref.current.contains(event.target)) {
-            close()
+            close();
         }
     }
     useEffect(() => {
-
         if (open) {
-            window.addEventListener("mouseup", handleClickOutside)
+            window.addEventListener("mouseup", handleClickOutside);
         }
         return () => {
-            window.removeEventListener("mouseup", handleClickOutside)
-        }
-    }, [open])
+            window.removeEventListener("mouseup", handleClickOutside);
+        };
+    }, [open]);
 
     return (
         <div ref={ref} className="link_drop_down">
             <Link onClick={toggle} to={to || "#"} className="header_navigate_bar_item">
                 {title}
-                <motion.span
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: open ? 180 : 0 }}
-                    className="icon">
+                <motion.span initial={{ rotate: 0 }} animate={{ rotate: open ? 180 : 0 }} className="icon">
                     <AiFillCaretDown />
                 </motion.span>
             </Link>
-            <motion.div
-                initial={{ y: 300, opacity: 0 }}
-                animate={{ y: open ? 0 : 100, opacity: open ? 1 : 0 }}
-                className={`drop_down_box ${!open && "close"}`}>
+            <motion.div initial={{ y: 300, opacity: 0 }} animate={{ y: open ? 0 : 100, opacity: open ? 1 : 0 }} className={`drop_down_box ${!open && "close"}`}>
                 {children}
             </motion.div>
         </div>
-    )
+    );
 }
 
-
-function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
+function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     const userAccountInfo = useAppSelector((state) => state.account);
-
 
     const wrapperRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -290,7 +240,6 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
             document.removeEventListener("mouseup", handleClickOutside);
         };
     }, [wrapperRef, show]);
-
 
     const [getDoctorProfile, { data: doctorProfile }] = useLazyQuery(GET_DOCTOR_PROFILE);
     const [getPatientProfile, { data: patientProfile }] = useLazyQuery(GET_PATIENT_PROFILE);
@@ -413,8 +362,8 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
         );
     };
 
-    const [removeDevice, { data: removeStatus }] = useMutation(REMOVE_DEVICE);
-    const [addDevice, { data: addStatus }] = useMutation(ADD_DEVICE);
+    const [removeDevice] = useMutation(REMOVE_DEVICE);
+    const [addDevice] = useMutation(ADD_DEVICE);
     const [isDeviceStatusModalOpen, setIsDeviceStatusModalOpen] = useState(false);
 
     const handleOkRemove = () => {
@@ -494,9 +443,7 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                                     <Tooltip overlay="Đổi trạng thái bệnh nhân/người thân">
                                         <HiSwitchHorizontal className="switchicon" onClick={handleSwitchRoleRelative} />
                                     </Tooltip>
-                                    <span>
-                                        {isRelative ? "Người thân bệnh nhân" : "Bệnh nhân"}
-                                    </span>
+                                    <span>{isRelative ? "Người thân bệnh nhân" : "Bệnh nhân"}</span>
                                 </div>
 
                                 <div className="name">
@@ -519,15 +466,11 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                     <div className="drop_list">
                         <div className="drop_item ">
                             <FaUserAlt className="header_pi_icon" />
-                            <Link to="/profile">
-                                Trang cá nhân
-                            </Link>
+                            <Link to="/profile">Trang cá nhân</Link>
                         </div>
                         <div className="drop_item ">
                             <FaBell className="header_pi_icon" />
-                            <Link to="/notifications" >
-                                Thông báo
-                            </Link>
+                            <Link to="/notifications">Thông báo</Link>
                         </div>
                         {doctorProfile && (
                             <div className="drop_item">
@@ -540,7 +483,7 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                         {patientProfile && (
                             <div className="drop_item">
                                 <FaLaptopMedical className="header_pi_icon" />
-                                <Link to="/record" >
+                                <Link to="/record">
                                     <RecordsButton />
                                 </Link>
                             </div>
@@ -549,12 +492,12 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                             <div className="drop_item">
                                 <IoGameControllerOutline className="header_pi_icon" />
                                 {isRelative && (
-                                    <Link to="/add-games" >
+                                    <Link to="/add-games">
                                         <div>Thêm trò chơi</div>
                                     </Link>
                                 )}
                                 {!isRelative && (
-                                    <Link to="/minigame" >
+                                    <Link to="/minigame">
                                         <div>Trò chơi</div>
                                     </Link>
                                 )}
@@ -571,9 +514,7 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                         {doctorProfile && (
                             <div className="drop_item">
                                 <BiCalendarPlus className="header_pi_icon" />
-                                <Link to="/calendar" >
-                                    Đặt lịch dùng thuốc
-                                </Link>
+                                <Link to="/calendar">Đặt lịch dùng thuốc</Link>
                             </div>
                         )}
                         {/* {doctorProfile && (
@@ -599,9 +540,7 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
 
                         <div className="drop_item logout" onClick={handleLogout}>
                             <FaPowerOff className="header_pi_icon" />
-                            <span className="text">
-                                Đăng xuất
-                            </span>
+                            <span className="text">Đăng xuất</span>
                         </div>
                         <Modal title="Xác nhận gỡ thiết bị" visible={isDeviceStatusModalOpen} onCancel={handleCancel}>
                             <p>Some contents...</p>
@@ -610,6 +549,5 @@ function UserDropDown({ show, toggle }: { show: boolean, toggle: any }) {
                 </div>
             </div>
         </div>
-
-    )
+    );
 }

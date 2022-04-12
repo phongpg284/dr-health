@@ -19,29 +19,26 @@ import DoctorRecord from "components/DoctorRecord";
 import PatientCardsList from "components/PatientRecord/PatientCardsList";
 import AddMinigame from "pages/AddMinigame";
 import FirstAid2 from "pages/FirstAid2";
-import StrokePoint from 'pages/StrokePoint'
-import News from 'pages/News'
-import { useAppDispatch } from './app/store'
-import * as GreetingBotStore from './app/GreetingBot'
-import Addition from './pages/Addition'
+import StrokePoint from "pages/StrokePoint";
+import News from "pages/News";
+import { useAppDispatch } from "./app/store";
+import * as GreetingBotStore from "./app/GreetingBot";
+import Addition from "./pages/Addition";
 import HospitalMap from "pages/HospitalMap";
-
-
-
 
 export const FooterContext = createContext<any>(null);
 
 function App() {
     const dispatch = useAppDispatch();
-    const { accessToken, role } = useAppSelector((state) => state.account);
+    const { accessToken } = useAppSelector((state) => state.account);
     const [isAuth, setIsAuth] = useState(true);
     const [route, setRoute] = useState("/");
     const footerRef = useRef<any>();
 
     const [hasRunEffect, setRunEffect] = useState(false);
     useEffect(() => {
-        setRunEffect(true)
-        dispatch(GreetingBotStore.reset())
+        setRunEffect(true);
+        dispatch(GreetingBotStore.reset());
     }, []);
     useEffect(() => {
         setRoute(window.location.pathname);
@@ -54,23 +51,20 @@ function App() {
 
     return (
         <div className="App">
-
-            <FooterContext.Provider value={footerRef}>
-               {hasRunEffect &&  <MyRouter/>}
-            </FooterContext.Provider>
+            <FooterContext.Provider value={footerRef}>{hasRunEffect && <MyRouter />}</FooterContext.Provider>
         </div>
     );
 }
 
 function MyRouter() {
-    const { accessToken, role } = useAppSelector((state) => state.account);
+    const { role } = useAppSelector((state) => state.account);
     const [isAuth, setIsAuth] = useState(true);
     const [route, setRoute] = useState("/");
 
     return (
         <BrowserRouter>
             {!isAuth && route !== "/" && <Redirect to="/login" />}
-          
+
             <Switch>
                 <Route path="/news" component={News} />
                 <Route path="/ho-tro" component={Addition} />
@@ -83,7 +77,6 @@ function MyRouter() {
 
                 <Main exact path="/phuc-hoi" component={FirstAid} />
                 <Main exact path="/so-cuu" component={FirstAid2} />
-
 
                 <PrivateRoute exact path="/minigame" component={Minigame} />
                 {role === "patient" && <PrivateRoute exact path="/add-games" component={AddMinigame} />}
@@ -103,7 +96,7 @@ function MyRouter() {
                 {!role && <PrivateRoute exact path="/record" component={PatientRecord} />}
             </Switch>
         </BrowserRouter>
-    )
+    );
 }
 
 export default App;

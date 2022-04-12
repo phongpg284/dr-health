@@ -1,31 +1,19 @@
 //icon
 
-import { IoCalendarSharp } from 'react-icons/io5';
-import { FaUserInjured } from 'react-icons/fa';
-import { VscDebugStepBack } from 'react-icons/vsc';
-import { Image, DropdownButton, Dropdown } from 'react-bootstrap';
-
-//image
-
-import sidebar_icon from "../../assets/sidebar_icon.png";
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 //other
 
 import dayjs from "dayjs"
-import React, { useRef, useState, useEffect } from 'react';
-import { InputGroup, Button, FormControl } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { Input } from 'antd';
-import { backAll, calendarItemChoose, handleBackStep_0, handleBackStep_1, handleBackStep_2, handleSetCalendarStep_0, handleSetCalendarStep_1, handleSetCalendarStep_2, handleSetCalendarStep_3 } from './handleEvent';
-import { CheckboxValueType } from 'antd/lib/checkbox/Group';
+import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from './handleEvent';
 import { useAppSelector, useAppDispatch } from 'app/store';
 import { updateMedicineSet, updateMessage } from 'app/medicineSlice';
-import CalendarList from './Items/CalendarList'
 import SetSteps from './Items/SetSteps';
 import CheckBox from './Items/Checkbox';
 import { MedicineCard } from './Items/MedicineCard';
-// import "./antdcumstom.scss"
-// import "./calendar.scss"
 import "./newCalendar.scss"
 
 
@@ -39,26 +27,6 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import ScheduleCalendar from '../Profile/MedicineSchedule'
 
 const { TextArea } = Input;
-
-
-const SidebarItem = (props: any) => {
-    const back = useRef(null)
-    const icon = useRef(null)
-    const content = useRef(null)
-
-    return <>
-        <div className={"calendar_sidebar_item" + " " + props?.firstItem} onClick={function () { calendarItemChoose(back, icon, content) }}>
-            <div className={"calendar_sidebar_item_back" + " " + props?.firstChooseBack} ref={back}></div>
-            <Image className={"calendar_sidebar_icon" + " " + props?.firstChooseIcon} src={sidebar_icon} ref={icon} />
-            <div className={"calendar_sidebar_item_content" + " " + props?.firstChooseContent} ref={content}>Bệnh nhân 1</div>
-        </div>
-    </>
-}
-
-
-const medicineChecked: CheckboxValueType[] =
-    []
-
 
 export default function Calendar() {
     const account = useAppSelector((state) => state.account)

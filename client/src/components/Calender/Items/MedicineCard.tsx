@@ -39,7 +39,6 @@ export const MedicineCard: React.FC<Card> = ({ name, index, medicine }) => {
     let currentMedicine = medicineSet.medicine[index]
     let comment = ""
 
-    const [hour, setHour] = React.useState("")
     const [times, setTimes] = React.useState(1)
 
     const commentRef = React.useRef<HTMLInputElement>(null)

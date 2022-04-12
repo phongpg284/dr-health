@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { useAppSelector, useAppDispatch } from 'app/store';
 import { useLazyQuery } from '@apollo/client';
 import { GET_GAME } from './schema';
