@@ -102,6 +102,15 @@ export const GET_INFO_DEVICE = gql`
             sysLowThreshold
             sysHighThreshold
             isConnect
+            face{
+                data
+            }
+            voice{
+                data
+            }
+            armMovement{
+                data
+            }
         }
     }
 `;

@@ -1,7 +1,15 @@
 import "../../PatientRecord/index.scss";
 import { useLazyQuery, useSubscription } from "@apollo/client";
-import { useEffect, useState } from "react";
-import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import React, { useEffect, useState } from "react";
+// import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { Line } from "react-chartjs-2";
+import InputRange from "react-input-range";
+import "react-input-range/lib/css/index.css";
+
+import "./Chart.scss";
+
 import { GET_INFO_DEVICE, NEW_DEVICE_DATA } from "../schema";
 
 const vnLegend = {
@@ -63,7 +71,7 @@ const Chart = ({ id, thresholdStatus }: any) => {
 
     useEffect(() => {
         if (!loading && newDeviceData?.newDeviceData) {
-            fetchData();
+            // fetchData();
             const newData = newDeviceData?.newDeviceData;
             if (newData.key === "diastole" || newData.key === "systolic") {
                 if (bloodPressGraphData.length === 0) {
@@ -198,9 +206,12 @@ const Chart = ({ id, thresholdStatus }: any) => {
         return <span>{(vnLegend as any)?.[value] || (vnBloodPressLegend as any)?.[value]}</span>;
     };
 
+    useEffect(() => {
+        console.log("deviceData", deviceData);
+    }, [deviceData]);
     return (
         <div className="patient-info-graph-wrapper">
-            <div className="graph_container">
+            {/* <div className="graph_container">
                 <div className="patient-info-graph">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={bloodPressGraphData} margin={{ top: 15, right: 30, left: 10, bottom: 5 }}>
@@ -227,11 +238,168 @@ const Chart = ({ id, thresholdStatus }: any) => {
                     </ResponsiveContainer>
 
                 </div>
-            </div>
+            </div>  */}
 
-
+            {deviceData?.getDevice && <ListChart deviceData={deviceData.getDevice} />}
         </div>
     );
 };
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+function ListChart({ deviceData }: { deviceData: any }) {
+    const diastole = React.useMemo(() => {
+        return deviceData.diastole.map((item: any) => item.data);
+    }, [deviceData]);
+    const systolic = React.useMemo(() => {
+        return deviceData.systolic.map((item: any) => item.data);
+    }, [deviceData]);
+    const SpO2 = React.useMemo(() => {
+        return deviceData.SpO2.map((item: any) => item.data);
+    }, [deviceData]);
+
+    return (
+        <div className="listChart">
+            <ChartDiasAndSys diastole={diastole} systolic={systolic} />
+            <ChartSpO2 spO2={SpO2}/>
+        </div>
+    );
+}
+
+function ChartDiasAndSys({ diastole, systolic }: { diastole: any[]; systolic: any[] }) {
+    const min = 0;
+    const max = diastole.length - 1;
+
+    const [range, setRange] = useState({
+        min: 0,
+        max: max,
+    });
+
+    React.useEffect(() => {
+        if (diastole.length > 100) {
+            setRange({
+                min: max - 100,
+                max: max,
+            });
+        }
+    }, [diastole]);
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top" as const,
+            },
+        },
+    };
+
+    const diastole1 = React.useMemo(() => {
+        return diastole.slice(range.min, range.max);
+    }, [diastole, range]);
+    const systolic1 = React.useMemo(() => {
+        return systolic.slice(range.min, range.max);
+    }, [systolic, range]);
+
+    const data = {
+        labels: diastole1.map(() => ""),
+        datasets: [
+            {
+                label: "Tâm thu",
+                data: systolic1,
+                borderColor: "rgb(255, 99, 132)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+            },
+            {
+                label: "Tâm trương",
+                data: diastole1,
+                borderColor: "rgb(53, 162, 235)",
+                backgroundColor: "rgba(53, 162, 235, 0.5)",
+            },
+        ],
+    };
+
+    return (
+        <div className="myChartWrapper">
+            <div className="chartContent">
+                <Line options={options} data={data} />
+                <div className="rangeWrapper">
+                    <InputRange
+                        maxValue={max}
+                        minValue={min}
+                        value={range}
+                        onChange={(value) => {
+                            if (typeof value !== "number") {
+                                setRange(value);
+                            }
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ChartSpO2({ spO2 }: { spO2: any[] }) {
+    const min = 0;
+    const max = spO2.length - 1;
+
+    const [range, setRange] = useState({
+        min: 0,
+        max: max,
+    });
+
+    React.useEffect(() => {
+        if (spO2.length > 100) {
+            setRange({
+                min: max - 100,
+                max: max,
+            });
+        }
+    }, [spO2]);
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top" as const,
+            },
+        },
+    };
+
+    const sp02Slice = React.useMemo(() => {
+        return spO2.slice(range.min, range.max);
+    }, [spO2, range]);
+
+    const data = {
+        labels: sp02Slice.map(() => ""),
+        datasets: [
+            {
+                label: "SpO2",
+                data: sp02Slice,
+                borderColor: "chocolate",
+                backgroundColor: "coral",
+            },
+        ],
+    };
+
+    return (
+        <div className="myChartWrapper">
+            <div className="chartContent">
+                <Line options={options} data={data} />
+                <div className="rangeWrapper">
+                    <InputRange
+                        maxValue={max}
+                        minValue={min}
+                        value={range}
+                        onChange={(value) => {
+                            if (typeof value !== "number") {
+                                setRange(value);
+                            }
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default Chart;
