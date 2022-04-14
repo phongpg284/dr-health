@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 const MedicineSchedule = ({ medicineSchedule }: any) => {
   return (
     <div className="schedule-container">
-      <div className="schedule-title">Lịch uống thuốc</div>
+      <h1 className="schedule-title">Lịch uống thuốc</h1>
       <div className="schedule-list">
         {medicineSchedule &&
           medicineSchedule.map((schedule: any) => (
