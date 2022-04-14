@@ -1,7 +1,6 @@
 .listChart{
 
     .myChartWrapper{
-     
         width:100%;
         padding:1rem;
         border-radius: 1rem;
@@ -10,15 +9,28 @@
         background: rgb(157, 104, 255);
         background: linear-gradient(45deg, rgb(167, 119, 255) 0%, rgba(255, 159, 192, 1) 100%);
         box-shadow:5px 5px 15px 1px rgba(216, 119, 255, 0.514);
+        @media screen and (max-width: 768px){
+            padding:5px;
+            padding-bottom: 5px !important;
+            .chartContent{
+                margin:0 !important;
+                border-radius: 0.8em !important;
+            }
+        }
+            
         .chartContent{
             background:rgba(255, 255, 255, 0.884);
             border-radius: 0.5em;
+            .dropDownSpace{
+                text-align: right;
+                padding:0.5em;
+            }
         }
         .rangeWrapper{
             margin:1em;
             padding:0.5em;
         }
-        color:dodgerblue
     }
+    color:lightpink
 }
 
