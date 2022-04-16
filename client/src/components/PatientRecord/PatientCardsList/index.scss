@@ -13,17 +13,21 @@
     flex-wrap: wrap;
 }
 
-
-
 .patient-card-list-wrapper {
     position: relative;
-    .doctorRecordBg{
-        width:100%;
+    // background: linear-gradient(45deg, #b6ced6 0%, #e7b8b6 100%);
+    // background: linear-gradient(90deg, #bbd0d7 0%, #d6b8b6 100%);
+    // z-index:-2;
+    margin-top: -50px;
+    padding-top: 50px;
+    .doctorRecordBg {
+        width: 100%;
         position: absolute;
-        top:0;
-        left:0;
+        top: 0;
+        left: 0;
         z-index: -1;
-      }
+        display: none;
+    }
 }
 
 .patientList {
@@ -34,6 +38,7 @@
     flex-direction: column;
     border: 1px solid #ccc;
     background: rgba(255, 255, 255, 0.7);
+    background: linear-gradient(90deg, #1d4350 0%, #a43931 100%);
 }
 
 .patient-card-list-title {
@@ -46,27 +51,33 @@
     width: 100%;
     display: flex;
     border-bottom: 1px solid #ccc;
+    background:rgba(255, 255, 255,0);
+    color:white;
+    &:nth-child(even) {
+        background:rgba(255, 255, 255, 0.1);
+    }
     &:last-child {
         border-bottom: none;
     }
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 600px) {
         flex-direction: column;
-        .profile-patient-textdetail{
-            align-items:flex-end;
+        .profile-patient-textdetail {
+            align-items: flex-end;
             justify-content: flex-end;
-            width:100%;
+            width: 100%;
         }
         .profile-patient-text-carry {
             text-align: left;
-            margin:0;
-            padding:0.5rem;
+            margin: 0;
+            padding: 0.5rem;
+            color:white;
         }
         .profile-patient-avatar {
-            margin:0.3rem;
+            margin: 0.3rem;
             margin-left: 0.5rem;
         }
-        .profile-patient-in{
-            padding:0.5rem;
+        .profile-patient-in {
+            padding: 0.5rem;
         }
     }
 }
@@ -79,14 +90,14 @@
 .profile-patient-avatar {
     width: 4rem;
     height: 4rem;
-    margin:1rem;
+    margin: 1rem;
     overflow: hidden;
     box-sizing: border-box;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.25);
-    border:3px solid black;
+    border: 3px solid black;
     border-radius: 50%;
     img {
-        width:100%;
+        width: 100%;
         height: 100%;
     }
 }
@@ -98,39 +109,35 @@
     padding: 1rem;
 }
 .profile-patient-text {
-    color: #534f4f;
+    color: white;
     font-family: BeVietNam;
     font-size: 1.1rem;
 }
 .profile-patient-textdetail {
-    color: #706a6a;
+    color: white;
     font-weight: bold;
     font-size: 2rem;
-    padding:1rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     transition: all 0.2s ease-in-out;
-
 }
 
-
-.experiment{
-
-    .carousel{
-        margin:1rem auto;
-        width:50%;
-        @media only screen and (max-width: 600px){
-            width:95%;
+.experiment {
+    .carousel {
+        margin: 1rem auto;
+        width: 50%;
+        @media only screen and (max-width: 600px) {
+            width: 95%;
         }
-        .item{
-            padding:1rem;
-            .img_item{
-                width:100%;
+        .item {
+            padding: 1rem;
+            .img_item {
+                width: 100%;
                 box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.452);
-                border:5px solid white;
-                border-radius:5px;
+                border: 5px solid white;
+                border-radius: 5px;
             }
         }
-       
     }
 }

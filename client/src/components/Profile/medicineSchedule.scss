@@ -1,12 +1,14 @@
 .customSchedule {
     .ant-picker-calendar {
         border-radius: 1rem;
-        background: rgb(173, 129, 255);
-        background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
+        background: linear-gradient(45deg, #7eacbc 0%, #db8984 100%);
+        // background: rgb(173, 129, 255);
+        // background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
         padding: 1rem;
         .ant-picker-body {
-            background: rgb(173, 129, 255);
-            background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
+            background: linear-gradient(45deg, #7eacbc 0%, #db8984 100%);
+            // background: rgb(173, 129, 255);
+            // background: linear-gradient(45deg, rgb(191, 156, 255) 0%, rgb(255, 186, 210) 100%);
             .ant-picker-calendar-date-value {
                 // color:white;
             }

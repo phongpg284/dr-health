@@ -402,7 +402,7 @@ const PatientCardsList = () => {
     return (
         <div className="patient-card-list-wrapper" >
             <img src={BG} className="doctorRecordBg" alt="" />
-            <Experiment/>
+            {/* <Experiment/> */}
             <h1 className="patient-card-list-title">Quản lý bệnh nhân</h1>
 
             <div className="patientList">

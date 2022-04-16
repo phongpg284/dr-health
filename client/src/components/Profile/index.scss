@@ -10,11 +10,13 @@
         margin-bottom: 1rem;
         font-family: Raleway;
         width: 100%;
-        background: rgb(157, 104, 255);
-        background: linear-gradient(45deg, rgba(157, 104, 255, 1) 0%, rgba(255, 159, 192, 1) 100%);
+        background: #1d4350;
+        background: linear-gradient(45deg, #1d4350 0%, #a43931 100%);
+        // background: rgb(157, 104, 255);
+        // background: linear-gradient(45deg, rgba(157, 104, 255, 1) 0%, rgba(255, 159, 192, 1) 100%);
         border-radius: 10px;
         .userAvatar {
-            border: 1.5px solid rgba(255, 159, 192, 1);
+            border: 1.5px solid #a43931;
             background: white !important;
             width: 100px;
             height: 100px;
@@ -122,4 +124,3 @@
         border: 8px solid #5371dd !important;
     }
 }
-

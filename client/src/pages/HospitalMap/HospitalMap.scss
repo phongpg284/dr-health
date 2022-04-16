@@ -29,9 +29,11 @@
         padding: 0.3rem;
         margin-top: 1rem;
         display: flex;
-        box-shadow: 0 0 10px 1px rgba(102, 116, 237, 0.5);
-        background: rgb(102, 116, 237);
-        background: linear-gradient(38deg, rgba(102, 116, 237, 1) 0%, rgba(186, 26, 244, 1) 44%, rgba(255, 0, 113, 1) 100%);
+        background: #1D4350;
+        background: linear-gradient(45deg,  #1D4350 0%,#A43931 100%,);
+        // box-shadow: 0 0 10px 1px rgba(102, 116, 237, 0.5);
+        // background: rgb(102, 116, 237);
+        // background: linear-gradient(38deg, rgba(102, 116, 237, 1) 0%, rgba(186, 26, 244, 1) 44%, rgba(255, 0, 113, 1) 100%);
 
         @media only screen and (max-width: 600px) {
             width:95%;
@@ -52,7 +54,7 @@
                 padding: 1rem;
                 margin: 1rem;
                 border-radius: 5px;
-                background: rgba(255, 255, 255, 0.507);
+                background: rgba(255, 255, 255, 0.8);
                 text-align: left;
                 @media only screen and (max-width: 600px) {
                     padding:0.5rem;
