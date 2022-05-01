@@ -1,25 +1,44 @@
 import { PubSubEngine } from 'type-graphql';
 import Container from 'typedi';
-import dayjs from 'dayjs';
 import mqtt from 'mqtt';
 
 import { Db, ObjectId } from 'mongodb';
-// import { mqttClient } from './index';
 import { logger } from '../config/logger';
 import { Devices } from '../resolvers/Devices';
 import { Patients } from '../resolvers/Patients';
 import { UseDevices } from '../resolvers/UseDevice';
 import { ExerciseSessions } from '../resolvers/ExerciseSession';
 import { Notifications } from '../resolvers/Notification';
-
+import {
+    DEVICE_TOPIC,
+    NODE_TOPIC,
+    PROPERTY_TOPIC,
+    ATTRIBUTE_TOPIC,
+    HUMIDITY,
+    TEMPERATURE,
+    SPO2,
+    HEART_RATE,
+    BODY_TEMP,
+    SYSTOLIC,
+    DIASTOLE,
+    FACE,
+    VOICE,
+    ARM_MOVEMENT,
+    HEART_THRESHOLD,
+    TEMP_THRESHOLD,
+    POSITION,
+    MEDICINE,
+    SCORE,
+    STROKE,
+    CALCULATE_STATS,
+    PHYSICAL_THERAPY,
+    FALL,
+    LOC
+} from './topic';
 import { TestSumbitTeam } from '../utils/Enums';
 import { MQTT_BRAND, MQTT_BROKER } from '../config';
 import removeVietnameseTones from '../utils/ConvertVie';
 
-const DEVICE_TOPIC = `${MQTT_BRAND}/+/+`;
-const NODE_TOPIC = `${MQTT_BRAND}/+/+/+`;
-const PROPERTY_TOPIC = `${MQTT_BRAND}/+/+/+/+`;
-const ATTRIBUTE_TOPIC = `${MQTT_BRAND}/+/+/+/+/+`;
 export const mqttClient = mqtt.connect(MQTT_BROKER);
 
 mqttClient.on(
@@ -96,14 +115,6 @@ mqttClient.on('error', (error) => {
 mqttClient.on('end', () => {
     logger.info('MQTT client end');
 });
-
-// mqttClient.on('packetsend', () => {
-//   logger.info('MQTT client send packet');
-// });
-
-// mqttClient.on('packetreceive', () => {
-//   logger.info('MQTT client receive packet');
-// });
 
 export const handleMessageMqtt = (db: Db) => {
     mqttClient.on('message', async (topic, payload) => {
@@ -190,7 +201,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
         };
 
         switch (endpoint) {
-            case 'temperature':
+            case TEMPERATURE:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -200,7 +211,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'humidity':
+            case HUMIDITY:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -210,7 +221,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'SpO2':
+            case SPO2:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -220,7 +231,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Heart_Rate':
+            case HEART_RATE:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -230,7 +241,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Body_Temp':
+            case BODY_TEMP:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -240,7 +251,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Systolic':
+            case SYSTOLIC:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -250,7 +261,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Diastole':
+            case DIASTOLE:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -260,7 +271,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Face':
+            case FACE:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -270,7 +281,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Voice':
+            case VOICE:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -280,7 +291,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'ArmMovement':
+            case ARM_MOVEMENT:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
@@ -290,21 +301,21 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Heart_Threshold':
+            case HEART_THRESHOLD:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
                     heartRateThreshold: parseFloat(payload)
                 });
                 break;
-            case 'Temp_Threshold':
+            case TEMP_THRESHOLD:
                 await deviceObject.updateDevice({
                     _id: deviceId.toString(),
                     updatedAt: new ObjectId().getTimestamp(),
                     bodyTempThreshold: parseFloat(payload)
                 });
                 break;
-            case 'Position':
+            case POSITION:
                 // eslint-disable-next-line no-case-declarations
                 const positionData = JSON.parse(payload);
                 await deviceObject.updateDevice({
@@ -316,7 +327,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'Medicine':
+            case MEDICINE:
                 // eslint-disable-next-line no-case-declarations
                 const medicineData = JSON.parse(payload);
                 await deviceObject.updateDevice({
@@ -328,7 +339,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     }
                 });
                 break;
-            case 'score':
+            case SCORE:
                 const point = parseFloat(payload);
                 const testData = [
                     {
@@ -339,7 +350,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                 await deviceObject.addNewTest(deviceId.toString(), 'device', testData, TestSumbitTeam.Embedded);
 
                 break;
-            case 'Stroke':
+            case STROKE:
                 const newTestData = JSON.parse(payload);
                 const insertTestData = Object.entries(newTestData).map(([key, value]: [string, number]) => {
                     return {
@@ -350,7 +361,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                 await deviceObject.addNewTest(deviceId.toString(), 'device', insertTestData, TestSumbitTeam.AI);
 
                 break;
-            case 'calculateStats':
+            case CALCULATE_STATS:
                 const newCalculateStats = payload;
                 const [shoulderToElbow, elbowToWrist] = newCalculateStats.split(',').map((d: string) => parseFloat(d));
                 const updateCalculateStats = {
@@ -365,14 +376,14 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                 });
                 break;
 
-            case 'physicalTherapy':
+            case PHYSICAL_THERAPY:
                 const exerciseData = JSON.parse(payload);
                 const exerciseSesionObject = new ExerciseSessions();
                 await exerciseSesionObject.calculateExerciseData(patientId, exerciseData);
 
                 break;
 
-            case 'fall':
+            case FALL:
                 if (parseFloat(payload) === 1)
                     await notificationObject.createNotification(
                         {
@@ -388,7 +399,7 @@ export async function mqttMessageHandler(topicElement: string[], payload: string
                     );
                 break;
 
-            case 'loc':
+            case LOC:
                 await notificationObject.createNotification(
                     {
                         title: `Phát hiện bệnh nhân ngã`,
