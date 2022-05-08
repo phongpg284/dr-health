@@ -59,7 +59,8 @@ const main = async (mongoClient: MongoClient | undefined) => {
 
     const apolloServer = new ApolloServer({
         schema,
-        plugins: [process.env.NODE_ENV === 'production' ? ApolloServerPluginLandingPageDisabled() : ApolloServerPluginLandingPageGraphQLPlayground()]
+        // plugins: [process.env.NODE_ENV === 'production' ? ApolloServerPluginLandingPageDisabled() : ApolloServerPluginLandingPageGraphQLPlayground()],
+        plugins: [ApolloServerPluginLandingPageGraphQLPlayground]
     });
 
     await apolloServer.start();
@@ -94,7 +95,6 @@ const main = async (mongoClient: MongoClient | undefined) => {
         });
         useServer({ schema }, wsServer);
     });
-    
 };
 
 MongoClient.connect(DB_URL, (err, mongoClient) => {
