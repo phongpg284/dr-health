@@ -135,9 +135,17 @@ export default function Header() {
                             </Link>
 
                             {role == "doctor" && (
-                                <Link className="header_navigate_bar_item" to="/stroke_point">
-                                    <span>Thang điểm đột quỵ</span>
-                                </Link>
+                                <LinkDropDown title="Dữ liệu bệnh nhân">
+                                    <Link className="drop_down_link" to="/stroke_point">
+                                        Thang điểm đột quỵ
+                                    </Link>
+                                    <Link className="drop_down_link" to="/upload/blood">
+                                        Thông số máu
+                                    </Link>
+                                    <Link className="drop_down_link" to="/projection_photo">
+                                        Ảnh chụp chiếu
+                                    </Link>
+                                </LinkDropDown>
                             )}
                         </div>
                         <div className="account_space">

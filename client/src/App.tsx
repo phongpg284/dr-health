@@ -20,6 +20,7 @@ import PatientCardsList from "components/PatientRecord/PatientCardsList";
 import AddMinigame from "pages/AddMinigame";
 import FirstAid2 from "pages/FirstAid2";
 import StrokePoint from "pages/StrokePoint";
+import UploadBlood from "pages/UploadBlood";
 import News from "pages/News";
 import { useAppDispatch } from "./app/store";
 import * as GreetingBotStore from "./app/GreetingBot";
@@ -90,6 +91,8 @@ function MyRouter() {
                         <PrivateRoute exact path="/patients/:id" component={PatientList} />
                         <PrivateRoute exact path="/record" component={DoctorRecord} />
                         <PrivateRoute exact path="/stroke_point" component={StrokePoint} />
+                        <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
+                        <PrivateRoute exact path="/projection_photo" component={StrokePoint} />
                     </>
                 )}
                 {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}
