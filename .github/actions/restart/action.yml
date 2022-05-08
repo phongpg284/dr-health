@@ -5,7 +5,26 @@ author: Phong Phi
 branding: 
   color: blue
   icon: command
-  
+
+inputs: 
+  port: 
+    description: "Server port"
+    required: true
+  db_name: 
+    description: "Database name"
+    required: true
+  db_endpoint: 
+    description: "database endpoint"
+    required: true
+  db_username:
+    description: "Database authentication username"
+    required: true
+  db_password:
+    description: "Database authentication password"
+    required: true
+  jwt_key:
+    description: "Jwt key for validate"
+    required: true
 runs: 
   using: composite
   steps: 
@@ -13,10 +32,10 @@ runs:
       shell: bash
       env: 
         NODE_ENV: production
-        PORT: ${{ secrets.SERVER_PORT }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        JWT_KEY: ${{ secrets.JWT_KEY }}
+        PORT: ${{ inputs.port }}
+        DB_NAME: ${{ inputs.db_name }}
+        DB_ENDPOINT: ${{ inputs.db_endpoint }}
+        DB_USERNAME: ${{ inputs.db_username }}
+        DB_PASSWORD: ${{ inputs.db_password }}
+        JWT_KEY: ${{ inputs.jwt_key }}
       run: pm2 restart all
