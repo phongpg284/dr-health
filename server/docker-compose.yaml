@@ -1,0 +1,34 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME:?err}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:?err}
+      MONGO_INITDB_DATABASE: ${DB_NAME:?err}
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: on-failure
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USERNAME:?err}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD:?err}
+      ME_CONFIG_MONGODB_SERVER: mongo
+  mqtt:
+    image: emqx/emqx:4.2.8
+    ports:
+      - ${MQTT_WS_PORT:-8083}:8083
+      - ${MQTT_WSS_PORT:-8084}:8084
+      - ${MQTT_TCP_PORT:-1883}:1883
+      - ${MQTT_SSL_PORT:-8883}:8883
+      - ${MQTT_DASHBOARD_PORT:-18083}:18083
+
+volumes:
+  db:

@@ -31,7 +31,7 @@ const main = async (mongoClient: MongoClient | undefined) => {
             Container.set('Devices', Devices);
         }
     } catch (error) {
-        console.error("Error MONGODB: ", error);
+        console.error('Error MONGODB: ', error);
         throw new Error(error);
     }
     handleMessageMqtt(Container.get('db'));
@@ -94,11 +94,12 @@ const main = async (mongoClient: MongoClient | undefined) => {
         });
         useServer({ schema }, wsServer);
     });
+    
 };
 
 MongoClient.connect(DB_URL, (err, mongoClient) => {
     if (err) {
-        logger.error(err.message);
+        logger.error(`MongoClient.connect.error===>${err.message}`);
         process.exit(1);
     }
     logger.info(`Connected successfully to database at: ${DB_URL}`);
