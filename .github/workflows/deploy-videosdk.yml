@@ -1,11 +1,11 @@
-name: Deploy production web
+name: Deploy production videosdk
 
 on:
   push:
     branch:
       - "main"
     paths:
-      - "web/**"
+      - "videosdk/**"
 
 jobs:
   deploy-web:
@@ -22,5 +22,5 @@ jobs:
       - name: Deploy to production
         uses: ./.github/actions/deploy
         with:
-          repository: web
-          production_destination: "/var/www/dr-health-web"
+          repository: videosdk
+          production_destination: "/var/www/dr-health-videosdk"
