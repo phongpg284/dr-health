@@ -16,7 +16,8 @@ jobs:
         uses: ./.github/actions/build
         with:
           generate_sourcemap: false
-          repository: web
+          repository: videosdk
+          sdk_api_key: ${{ secrets.SDK_API_KEY }}
 
       - name: Deploy to production
         uses: ./.github/actions/deploy
