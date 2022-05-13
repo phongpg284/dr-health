@@ -78,7 +78,6 @@ export default function App() {
         },
       },
     };
-
     const meeting = new VideoSDKMeeting();
     meeting.init(config);
   }, []);
