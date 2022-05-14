@@ -45,6 +45,9 @@ class NotificationUpdateInput extends BaseUpdateInput {
     mapUrl?: string;
 
     @Field({ nullable: true })
+    meetingUrl?: string;
+
+    @Field({ nullable: true })
     accountId?: string;
 
     @Field({ nullable: true })
@@ -76,6 +79,9 @@ export class Notification extends Base {
 
     @Field({ nullable: true })
     mapUrl?: string;
+
+    @Field({ nullable: true })
+    meetingUrl?: string;
 
     @Field({ nullable: true })
     accountId?: string;
