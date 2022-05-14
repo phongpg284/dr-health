@@ -3,48 +3,48 @@ import "./ProjectionPhoto.scss";
 const gallery = [
     {
         title: "Ảnh chụp X Quang ngực",
-        largeImage: "/portfolio/01-large.jpg",
-        smallImage: "/portfolio/01-small.jpg"
+        largeImage: "/portfolio/01.jpg",
+        smallImage: "/portfolio/01.jpg"
     },
     {
         title: "Ảnh chụp X Quang ngực",
-        largeImage: "/portfolio/02-large.jpg",
-        smallImage: "/portfolio/02-small.jpg"
+        largeImage: "/portfolio/02.jpg",
+        smallImage: "/portfolio/02.jpg"
     },
     {
         title: "Ảnh chụp X Quang ngực",
-        largeImage: "/portfolio/03-large.jpg",
-        smallImage: "/portfolio/03-small.jpg"
+        largeImage: "/portfolio/03.jpg",
+        smallImage: "/portfolio/03.jpg"
     },
     {
         title: "Ảnh chụp X Quang chân",
-        largeImage: "/portfolio/04-large.jpg",
-        smallImage: "/portfolio/04-small.jpg"
+        largeImage: "/portfolio/04.jpg",
+        smallImage: "/portfolio/04.jpg"
     },
     {
         title: "Ảnh chụp X Quang thận",
-        largeImage: "/portfolio/05-large.jpg",
-        smallImage: "/portfolio/05-small.jpg"
+        largeImage: "/portfolio/05.jpg",
+        smallImage: "/portfolio/05.jpg"
     },
     {
         title: "Ảnh chụp X Quang thận",
-        largeImage: "/portfolio/06-large.jpg",
-        smallImage: "/portfolio/06-small.jpg"
+        largeImage: "/portfolio/06.jpg",
+        smallImage: "/portfolio/06.jpg"
     },
     {
         title: "Ảnh chụp X Quang thận",
-        largeImage: "/portfolio/07-large.jpg",
-        smallImage: "/portfolio/07-small.jpg"
+        largeImage: "/portfolio/07.jpg",
+        smallImage: "/portfolio/07.jpg"
     },
     {
         title: "Ảnh chụp cắt lớp phổi",
-        largeImage: "/portfolio/08-large.jpg",
-        smallImage: "/portfolio/08-small.jpg"
+        largeImage: "/portfolio/08.jpg",
+        smallImage: "/portfolio/08.jpg"
     },
     {
         title: "Nội soi",
-        largeImage: "/portfolio/09-large.jpg",
-        smallImage: "/portfolio/09-small.jpg"
+        largeImage: "/portfolio/09.jpg",
+        smallImage: "/portfolio/09.jpg"
     },
 ];
 
