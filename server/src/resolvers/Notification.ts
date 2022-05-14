@@ -25,6 +25,9 @@ class NotificationCreateInput extends BaseCreateInput {
 
     @Field({ nullable: true })
     mapUrl?: string;
+
+    @Field({ nullable: true })
+    meetingUrl?: string;
 }
 
 @InputType()

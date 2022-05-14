@@ -34,16 +34,16 @@ export const Footer = () => {
                             </div>
                             <div className="footer_content_item_row">
                                 <FaUserTie className="footer_icon" />
-                                Phí Gia Phong
+                                Trần Quang Minh
                             </div>
 
                             <div className="footer_content_item_row">
                                 <FaUserTie className="footer_icon" />
-                                Trần Quang Minh
+                                Phan Đào Khánh Tùng
                             </div>
                             <div className="footer_content_item_row">
                                 <FaUserTie className="footer_icon" />
-                                Lê Thùy Trang
+                                Phạm Thị Hoàng Anh
                             </div>
                         </div>
                         <div className="footer_content_item">
@@ -61,7 +61,7 @@ export const Footer = () => {
                             </div>
                             <div className="footer_content_item_row">
                                 <AiFillFacebook className="footer_icon" />
-                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/htuantai/">
+                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/Dr-Health-112707468102537">
                                     Facebook
                                 </a>
                             </div>

@@ -20,6 +20,15 @@ const KeyCode = {
     systolic: 'Tâm thu'
 };
 
+@InputType()
+class MeetingCreateInput extends BaseCreateInput {
+    @Field()
+    patientId!: string;
+
+    @Field()
+    meetingId!: string;
+}
+
 @InputType('GeoRecordInput')
 @ObjectType('GeoRecordType')
 class GeoRecord {
@@ -715,5 +724,25 @@ export class Devices {
             throw new Error(error);
         }
         return 'Add new Test successfully';
+    }
+
+    @Mutation(() => String)
+    async createMeeting(@Arg('inputs') inputs: MeetingCreateInput, pubSub: PubSubEngine) {
+        try {
+            const newNoti = {
+                accountId: inputs.patientId,
+                title: `Bạn có một cuộc họp với bác sĩ`,
+                content: `Tham gia ngay cuộc họp tại đường dẫn sau:`,
+                meetingUrl: inputs.meetingId,
+                role: 'patient',
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+            this.notificationResolver.createNotification(newNoti, pubSub);
+        } catch (error) {
+            logger.error(error);
+            throw new Error(error);
+        }
+        return 'Success sent notification meeting link';
     }
 }
