@@ -29,6 +29,7 @@ class MeetingCreateInput extends BaseCreateInput {
     meetingId!: string;
 }
 
+
 @InputType('GeoRecordInput')
 @ObjectType('GeoRecordType')
 class GeoRecord {
@@ -727,7 +728,7 @@ export class Devices {
     }
 
     @Mutation(() => String)
-    async createMeeting(@Arg('inputs') inputs: MeetingCreateInput, pubSub: PubSubEngine) {
+    async createMeeting(@Arg('inputs') inputs: MeetingCreateInput) {
         try {
             const newNoti = {
                 accountId: inputs.patientId,
@@ -738,7 +739,7 @@ export class Devices {
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
-            this.notificationResolver.createNotification(newNoti, pubSub);
+            this.notificationResolver.createNotification(newNoti, this.pubSub);
         } catch (error) {
             logger.error(error);
             throw new Error(error);
