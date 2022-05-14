@@ -30,6 +30,7 @@ const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
                 },
             },
         });
+        if (url)
         window.open(url);
         // history.push(`/notifications/${params}`);
     };

@@ -1,15 +1,18 @@
 import "./index.scss";
 import dayjs from "dayjs";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GET_PATIENTS_OF_DOCTOR } from "../PatientList/schema";
 
 import { BiLinkExternal } from "react-icons/bi";
-import Avatar from '../../../assets/default-avatar-patient.png'
-import BG from 'assets/abstract12.svg'
-import Experiment from './Experiment'
+import Avatar from "../../../assets/default-avatar-patient.png";
+import BG from "assets/abstract12.svg";
+import Experiment from "./Experiment";
+import { BsFillCameraVideoFill } from "react-icons/bs";
+import { Tooltip } from "antd";
+import { CREATE_MEETING } from "./schema";
 
 const defaultList = [
     {
@@ -139,18 +142,6 @@ const defaultList = [
         gender: "Nữ",
         index: 0,
     },
-
-
-
-
-
-
-
-
-
-
-
-
 
     {
         age: 18,
@@ -365,11 +356,7 @@ const defaultList = [
         gender: "Nữ",
         index: 0,
     },
-
-    
-
-]
-
+];
 
 const PatientCardsList = () => {
     const account = useAppSelector((state) => state.account);
@@ -378,10 +365,9 @@ const PatientCardsList = () => {
             id: account.id,
         },
     });
+    const [createMeeting] = useMutation(CREATE_MEETING);
 
     const [patientData, setPatientData] = useState<any>(null);
-
-
 
     useEffect(() => {
         if (data && data.getPatientsOfDoctor) setPatientData(data.getPatientsOfDoctor);
@@ -391,16 +377,26 @@ const PatientCardsList = () => {
         if (!patientData) return [];
         let newArray = patientData.concat([]);
         newArray = newArray.map((item: any, index: number) => {
-            return { ...item, index }
-        })
-        newArray = newArray.concat(defaultList)
+            return { ...item, index };
+        });
+        newArray = newArray.concat(defaultList);
 
         return newArray;
-    }, [patientData])
+    }, [patientData]);
 
+    const handleClickVideoCall = (id: string) => {
+        const meetingLink = `https://video.dr-health.com.vn/${id?.slice(0, 10) || "adss43ghj4h3"}`;
+        const inputs = { patientId: id, meetingId: meetingLink };
+        createMeeting({
+            variables: {
+                inputs,
+            },
+        });
+        window.open(meetingLink);
+    };
 
     return (
-        <div className="patient-card-list-wrapper" >
+        <div className="patient-card-list-wrapper">
             <img src={BG} className="doctorRecordBg" alt="" />
             {/* <Experiment/> */}
             <h1 className="patient-card-list-title">Quản lý bệnh nhân</h1>
@@ -411,10 +407,7 @@ const PatientCardsList = () => {
                         <div className="profile-contentinfo-item-patient" key={patient._id}>
                             <div className="profile-patient-in">
                                 <div className="profile-patient-avatar">
-                                    <img
-                                        src={Avatar}
-                                        alt="patient-avatar"
-                                    />
+                                    <img src={Avatar} alt="patient-avatar" />
                                 </div>
                                 <div className="profile-patient-text-carry">
                                     <div className="profile-patient-text">Họ và tên:{` ${patient?.fullName} `}</div>
@@ -423,8 +416,15 @@ const PatientCardsList = () => {
                                     <div className="profile-patient-text">Giới tính:{` ${patient?.gender || ""}`}</div>
                                 </div>
                             </div>
+                            <div onClick={() => handleClickVideoCall(patient?._id)} className="profile-patient-video-call">
+                                <Tooltip overlay={"Bắt đầu cuộc gọi"}>
+                                    <BsFillCameraVideoFill />
+                                </Tooltip>
+                            </div>
                             <Link to={`/patients/${patient.index}`} className="profile-patient-textdetail">
-                                <BiLinkExternal />
+                                <Tooltip overlay={"Chi tiết"}>
+                                    <BiLinkExternal />
+                                </Tooltip>
                             </Link>
                         </div>
                     ))}

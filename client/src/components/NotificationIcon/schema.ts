@@ -8,6 +8,7 @@ export const NOTIFICATIONS_SUBSCRIPTION = gql`
             createdAt
             seen
             mapUrl
+            meetingUrl
         }
     }
 `
@@ -21,6 +22,7 @@ export const GET_ACCOUNT_NOTIFICATIONS = gql`
             createdAt
             seen
             mapUrl
+            meetingUrl
         }
     }
 `

@@ -53,6 +53,7 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
                 },
             },
         });
+        if (url)
         window.open(url);
         // history.push(`/notifications/${params}`);
     };
@@ -84,8 +85,19 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
                             <div className="textContent">
                                 <div className="notifications_item_content">{notification.content.charAt(0).toUpperCase() + notification.content.slice(1)}</div>
                                 <div className="notifications_item_map">
-                                    <span style={{ color: "black", fontWeight: "bold" }}>Địa chỉ: </span>
-                                    <a href={notification.mapUrl}>{notification.mapUrl}</a>
+                                    {notification?.mapUrl && (
+                                        <>
+                                            <span style={{ color: "black", fontWeight: "bold" }}>Địa chỉ: </span>
+                                            <a href={notification.mapUrl}>{notification.mapUrl}</a>
+                                        </>
+                                    )}
+                                    {notification?.meetingUrl && (
+                                        <>
+                                            <a role="button" onClick={() => window.open(notification.meetingUrl)} style={{ color: "#1890ff" }}>
+                                                {notification.meetingUrl}
+                                            </a>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

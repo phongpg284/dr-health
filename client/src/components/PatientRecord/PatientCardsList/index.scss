@@ -123,6 +123,20 @@
     transition: all 0.2s ease-in-out;
 }
 
+.profile-patient-video-call {
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        color: rgb(25, 152, 255);
+    }
+}
+
 .experiment {
     .carousel {
         margin: 1rem auto;
