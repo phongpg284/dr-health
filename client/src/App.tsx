@@ -1,32 +1,33 @@
 import "./App.css";
-import { createContext, useEffect, useRef, useState } from "react";
+import { Spin } from "antd";
+import { createContext, useEffect, useRef, useState, Suspense, lazy } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { useAppSelector } from "./app/store";
+import { useAppSelector, useAppDispatch } from "./app/store";
+import PrivateRoute from "pages/PrivateRoute";
+import Main from "pages/Main";
 import LoginPage from "./pages/Login/LoginPage";
 import SignupPage from "./pages/Signup/SignupPage";
-import CalendarPage from "./pages/Calendar/CalendarPage";
-import ProfilePage from "./pages/Profile/ProfilePage";
-import Main from "pages/Main";
-import FirstAid from "pages/FirstAid";
 import { Home } from "components/Home";
-import NotificationsPage from "pages/Notifications";
-import ThresholdPage from "pages/Threshold/ThresholdPage";
-import PatientList from "components/PatientRecord/PatientList";
-import PatientRecord from "components/PatientRecord/PatientRecord";
-import Minigame from "components/Minigame";
-import PrivateRoute from "pages/PrivateRoute";
-import DoctorRecord from "components/DoctorRecord";
-import PatientCardsList from "components/PatientRecord/PatientCardsList";
-import AddMinigame from "pages/AddMinigame";
-import FirstAid2 from "pages/FirstAid2";
-import StrokePoint from "pages/StrokePoint";
-import UploadBlood from "pages/UploadBlood";
-import News from "pages/News";
-import { useAppDispatch } from "./app/store";
 import * as GreetingBotStore from "./app/GreetingBot";
-import Addition from "./pages/Addition";
-import HospitalMap from "pages/HospitalMap";
-import ProjectionPhoto from "pages/ProjectionPhoto";
+
+const News = lazy(() => import("pages/News"));
+const Addition = lazy(() => import("pages/Addition"));
+const AddMinigame = lazy(() => import("pages/AddMinigame"));
+const Minigame = lazy(() => import("components/Minigame"));
+const HospitalMap = lazy(() => import('pages/HospitalMap'));
+const NotificationsPage = lazy(() => import("pages/Notifications"));
+const PatientCardsList = lazy(() => import("components/PatientRecord/PatientCardsList"));
+const PatientRecord = lazy(() => import("components/PatientRecord/PatientRecord"));
+const PatientList = lazy(() => import("components/PatientRecord/PatientList"));
+const DoctorRecord = lazy(() => import("components/DoctorRecord"));
+const CalendarPage = lazy(() => import("pages/Calendar/CalendarPage"));
+const ProfilePage = lazy(() => import("pages/Profile/ProfilePage"));
+const ThresholdPage = lazy(() => import("pages/Threshold/ThresholdPage"));
+const FirstAid = lazy(() => import("pages/FirstAid"));
+const FirstAid2 = lazy(() => import("pages/FirstAid2"));
+const StrokePoint = lazy(() => import("pages/StrokePoint"));
+const UploadBlood = lazy(() => import("pages/UploadBlood"));
+const ProjectionPhoto = lazy(() => import("pages/ProjectionPhoto"));
 
 export const FooterContext = createContext<any>(null);
 
@@ -53,7 +54,9 @@ function App() {
 
     return (
         <div className="App">
-            <FooterContext.Provider value={footerRef}>{hasRunEffect && <MyRouter />}</FooterContext.Provider>
+            <Suspense fallback={<Spin />}>
+                <FooterContext.Provider value={footerRef}>{hasRunEffect && <MyRouter />}</FooterContext.Provider>
+            </Suspense>
         </div>
     );
 }

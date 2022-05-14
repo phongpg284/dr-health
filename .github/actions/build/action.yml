@@ -29,6 +29,7 @@ runs:
       shell: bash
       env: 
         GENERATE_SOURCEMAP: ${{ inputs.generate_sourcemap }}
+        DISABLE_ESLINT_PLUGIN: true
         REACT_APP_GRAPHQL_URI: ${{ inputs.api_server_hostname }}
         REACT_APP_WEBSOCKET_URL: ${{ inputs.websocket_server_hostname }}
         REACT_APP_VIDEOSDK_API_KEY: ${{ inputs.sdk_api_key }}
@@ -38,4 +39,5 @@ runs:
         export NODE_ENV=production
         export NODE_OPTIONS=--max_old_space_size=4096
         export GENERATE_SOURCEMAP=false
+        export DISABLE_ESLINT_PLUGIN=true
         CI= yarn build 
