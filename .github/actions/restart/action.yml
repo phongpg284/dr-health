@@ -25,6 +25,9 @@ inputs:
   jwt_key:
     description: "Jwt key for validate"
     required: true
+  server_name:
+    description: "Server pm2 name"
+    required: true
 runs: 
   using: composite
   steps: 
@@ -38,4 +41,4 @@ runs:
         DB_USERNAME: ${{ inputs.db_username }}
         DB_PASSWORD: ${{ inputs.db_password }}
         JWT_KEY: ${{ inputs.jwt_key }}
-      run: pm2 restart all
+      run: pm2 reload ${{ inputs.server_name }} --update-env
