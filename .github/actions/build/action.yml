@@ -4,6 +4,7 @@ author: Phong Phi
 branding: 
   color: blue
   icon: command
+
 inputs: 
   generate_sourcemap: 
     description: "Generate sourcemap or not"
@@ -20,15 +21,10 @@ inputs:
   sdk_api_key:
     description: "Video SDK API key"
     required: false
+
 runs: 
   using: composite
   steps: 
-    - name: Install dependencies
-      shell: bash
-      run: |
-        cd ${{ inputs.repository }}
-        yarn install
-
     - name: Build
       shell: bash
       env: 

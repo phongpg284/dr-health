@@ -26,6 +26,7 @@ import { useAppDispatch } from "./app/store";
 import * as GreetingBotStore from "./app/GreetingBot";
 import Addition from "./pages/Addition";
 import HospitalMap from "pages/HospitalMap";
+import ProjectionPhoto from "pages/ProjectionPhoto";
 
 export const FooterContext = createContext<any>(null);
 
@@ -92,7 +93,7 @@ function MyRouter() {
                         <PrivateRoute exact path="/record" component={DoctorRecord} />
                         <PrivateRoute exact path="/stroke_point" component={StrokePoint} />
                         <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
-                        <PrivateRoute exact path="/projection_photo" component={StrokePoint} />
+                        <PrivateRoute exact path="/projection_photo" component={ProjectionPhoto} />
                     </>
                 )}
                 {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}

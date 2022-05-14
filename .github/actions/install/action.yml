@@ -1,0 +1,20 @@
+name: Install dependencies
+description: Install all node dependencies
+author: Phong Phi
+branding: 
+  color: blue
+  icon: command
+
+inputs: 
+  repository:
+    description: "Checkout repository"
+    required: true
+
+runs: 
+  using: composite
+  steps: 
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd ${{ inputs.repository }}
+        yarn install
