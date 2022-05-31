@@ -23,7 +23,7 @@ jobs:
         uses: ./.github/actions/install
         with:
           repository: server
-      if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Reload Production Server
         uses: ./.github/actions/restart
