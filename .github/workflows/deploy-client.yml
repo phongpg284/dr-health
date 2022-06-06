@@ -2,7 +2,7 @@ name: Deploy production client
 
 on:
   push:
-    branch:
+    branches:
       - "main"
     paths:
       - "client/**"

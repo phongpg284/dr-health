@@ -11,10 +11,17 @@
     {
       "name": "CLIENT",
       "path": "./client"
+    },
+    {
+      "name": "WEB",
+      "path": "./web"
+    },
+    {
+      "name": "VIDEOSDK",
+      "path": "./videosdk"
     }
   ],
   "settings": {
-    "cSpell.words": ["typedi"],
     "files.exclude": {
       "node_modules": true
     }
