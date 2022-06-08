@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { OrmModule } from './orm/orm.module';
 import { UserModule } from './user/user.module';
 import { DoctorModule } from './doctor/doctor.module';
@@ -12,6 +13,7 @@ import { MedicalStatModule } from './medical-stat/medical-stat.module';
 @Module({
   imports: [
     OrmModule,
+    ConfigModule.forRoot(),
     UserModule,
     DoctorModule,
     PatientModule,
