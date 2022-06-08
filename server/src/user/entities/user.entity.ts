@@ -4,23 +4,17 @@ import { BaseEntity } from 'src/utils/BaseEntity';
 @Entity()
 export class User extends BaseEntity {
   @Property()
-  title!: string;
+  firstName!: string;
 
   @Property()
-  options!: [string];
+  lastName!: string;
 
   @Property()
-  answer!: [number];
+  email!: string;
+
+  @Property()
+  password!: string;
 
   @Property({ nullable: true })
-  type?: string;
-
-  @Property()
-  point!: number;
-
-  @Property()
-  isMultiple!: boolean;
-
-  @Property({ nullable: true })
-  userAnswer?: [number];
+  role?: string;
 }

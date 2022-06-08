@@ -6,13 +6,12 @@ const logger = new Logger('MikroORM');
 
 const config: Options = {
   type: 'postgresql',
-  host: 'postgres',
+  host: 'localhost',
   port: 5432,
-  user: 'tpw284',
+  user: 'postgres',
   password: 'pilameton',
-  dbName: 'dr-health',
+  dbName: 'dr_health',
   entities: ['dist/**/*.entity.js'],
-  // entities: ['src/**/*.entity.ts'],
   entitiesTs: ['src/**/*.entity.ts'],
   logger: logger.log.bind(logger),
   debug: true,
