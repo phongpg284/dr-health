@@ -2,7 +2,7 @@ name: Deploy production web
 
 on:
   push:
-    branch:
+    branches:
       - "main"
     paths:
       - "web/**"
