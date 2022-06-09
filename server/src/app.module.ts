@@ -17,18 +17,18 @@ import { options } from './config/redis';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    TokenModule,
+    RedisModule.forRoot({
+      config: options,
+    }),
     OrmModule,
+    AuthModule,
     UserModule,
     DoctorModule,
     PatientModule,
     DeviceModule,
     MedicalRecordModule,
     MedicalStatModule,
-    TokenModule,
-    AuthModule,
-    RedisModule.forRoot({
-      config: options,
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

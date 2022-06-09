@@ -10,10 +10,7 @@ export interface UserRequest {
 }
 @Injectable()
 export class AuthService {
-  constructor(
-    private userService: UserService,
-    private tokenService: TokenService,
-  ) {}
+  constructor(private userService: UserService, private tokenService: TokenService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.findOneByEmail(email);

@@ -12,10 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class TokenService {
-  constructor(
-    private jwtService: JwtService,
-    @InjectRedis() private redis: Redis,
-  ) {}
+  constructor(private jwtService: JwtService, @InjectRedis() private redis: Redis) {}
 
   async getRefreshToken(user: UserRequest) {
     const key = user.id.toString() + ':' + user.tokenID;
@@ -52,12 +49,7 @@ export class TokenService {
 
     // SET REDIS REFRESH TOKEN
     const key = user.id.toString() + ':' + tokenID;
-    await this.redis.set(
-      key,
-      refreshToken,
-      'EX',
-      EXPIRE_REFRESH_JWT_SECRET_KEY,
-    );
+    await this.redis.set(key, refreshToken, 'EX', EXPIRE_REFRESH_JWT_SECRET_KEY);
 
     return refreshToken;
   }

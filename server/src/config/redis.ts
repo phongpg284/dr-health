@@ -4,8 +4,5 @@ export const options = {
     client.on('error', (err) => {
       console.log(err);
     });
-    client.on('ready', () => {
-      console.log('ready');
-    });
   },
 };
