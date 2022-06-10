@@ -1,8 +1,9 @@
-export const options = {
-  url: 'redis://localhost:6379',
-  onClientReady: (client) => {
-    client.on('error', (err) => {
-      console.log(err);
-    });
+import { RedisModuleOptions } from '@nestjs-modules/ioredis';
+import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from '.';
+
+export const redisConfig: RedisModuleOptions = {
+  config: {
+    url: `redis://${REDIS_HOST}:${REDIS_PORT}`,
+    password: REDIS_PASSWORD,
   },
 };

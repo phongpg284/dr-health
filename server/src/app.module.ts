@@ -12,15 +12,13 @@ import { MedicalStatModule } from './medical-stat/medical-stat.module';
 import { TokenModule } from './token/token.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
-import { options } from './config/redis';
+import { redisConfig } from './config/redis';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TokenModule,
-    RedisModule.forRoot({
-      config: options,
-    }),
+    RedisModule.forRoot(redisConfig),
     OrmModule,
     AuthModule,
     UserModule,
