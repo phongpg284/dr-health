@@ -17,15 +17,16 @@ export class UserService {
     const { password, rePassword, email, firstName, lastName } = createUserDto;
     if (password !== rePassword) return 'Password unmatched!';
     let hashPassword: string;
+
     try {
       hashPassword = await argon2.hash(password);
     } catch (error) {
       logger.log('Error hash password!');
-      return 'Error create account!';
+      return `Error create account: ${error}`;
     }
 
     const user = await this.userRepository.findOne({ email });
-    if (user) return 'User exist!';
+    if (user) return 'User already exist!';
 
     const newUser = new User();
     newUser.email = email;

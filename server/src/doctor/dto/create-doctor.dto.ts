@@ -1,1 +1,4 @@
-export class CreateDoctorDto {}
+export class CreateDoctorDto {
+  accountId!: string;
+  patientId?: string;
+}

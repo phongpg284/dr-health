@@ -477,15 +477,6 @@
       "schema": "public",
       "indexes": [
         {
-          "columnNames": [
-            "patient_id"
-          ],
-          "composite": false,
-          "keyName": "medical_record_patient_id_unique",
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "medical_record_pkey",
           "columnNames": [
             "id"

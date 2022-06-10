@@ -1,4 +1,5 @@
-import { Entity, Property } from '@mikro-orm/core';
+import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core';
+import { Notification } from 'src/notification/entities/notification.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
 @Entity()
@@ -17,4 +18,7 @@ export class User extends BaseEntity {
 
   @Property({ nullable: true })
   role?: string;
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications = new Collection<User>(this);
 }

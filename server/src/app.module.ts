@@ -13,6 +13,7 @@ import { TokenModule } from './token/token.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { redisConfig } from './config/redis';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { redisConfig } from './config/redis';
     DeviceModule,
     MedicalRecordModule,
     MedicalStatModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
