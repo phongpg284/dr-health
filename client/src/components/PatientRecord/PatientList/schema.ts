@@ -81,23 +81,28 @@ export const GET_INFO_DEVICE = gql`
             name
             SpO2 {
                 data
+                createdAt
             }
             SpO2Threshold
             heartRate {
                 data
+                createdAt
             }
             heartRateThreshold
             bodyTemp {
                 data
+                createdAt
             }
             bodyTempThreshold
             diastole {
                 data
+                createdAt
             }
             diasLowThreshold
             diasHighThreshold
             systolic {
                 data
+                createdAt
             }
             sysLowThreshold
             sysHighThreshold
