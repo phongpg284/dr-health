@@ -15,11 +15,12 @@ export class DeviceService {
   ) {}
 
   async create(createDeviceDto: CreateDeviceDto) {
-    const { name, type, isConnect, patientId } = createDeviceDto;
+    const { name, type, code, isConnect, patientId } = createDeviceDto;
     try {
       const newDevice = new Device();
       newDevice.name = name;
       newDevice.type = 'medical';
+      newDevice.code = code;
       newDevice.isConnect = isConnect ?? false;
       newDevice.patient = await this.patientService.findOne(+patientId);
       await this.deviceRepository.persistAndFlush(newDevice);

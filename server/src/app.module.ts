@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { redisConfig } from './config/redis';
 import { NotificationModule } from './notification/notification.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { NotificationModule } from './notification/notification.module';
     MedicalRecordModule,
     MedicalStatModule,
     NotificationModule,
+    MqttModule,
   ],
   controllers: [AppController],
   providers: [AppService],

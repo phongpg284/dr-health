@@ -10,6 +10,9 @@ export class Device extends BaseEntity {
   @Property()
   type!: string;
 
+  @Property()
+  code!: string;
+
   @OneToOne()
   patient: Patient;
 

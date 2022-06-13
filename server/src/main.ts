@@ -1,8 +1,9 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PORT } from './config';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import mqttConnect from './mqtt/mqtt';
 
 const logger = new Logger('Server');
 
@@ -21,6 +22,7 @@ async function bootstrap() {
   await app.listen(PORT, () => {
     logger.log(`Successfully listening on PORT: ${PORT}`);
   });
+  await mqttConnect();
 }
 
 bootstrap();
