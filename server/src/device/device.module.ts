@@ -15,5 +15,6 @@ import { PatientModule } from 'src/patient/patient.module';
   ],
   controllers: [DeviceController],
   providers: [DeviceService],
+  exports: [DeviceService],
 })
 export class DeviceModule {}

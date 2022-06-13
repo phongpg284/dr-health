@@ -1,7 +1,7 @@
 import { Options } from '@mikro-orm/core';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { Logger } from '@nestjs/common';
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from './config';
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from '.';
 
 const logger = new Logger('MikroORM');
 

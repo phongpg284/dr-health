@@ -1,9 +1,6 @@
 import { MQTT_BRAND } from '.';
 
-export const DEVICE_TOPIC = `${MQTT_BRAND}/+/+`;
 export const NODE_TOPIC = `${MQTT_BRAND}/+/+/+`;
-export const PROPERTY_TOPIC = `${MQTT_BRAND}/+/+/+/+`;
-export const ATTRIBUTE_TOPIC = `${MQTT_BRAND}/+/+/+/+/+`;
 
 export const TEMPERATURE = 'temperature';
 export const HUMIDITY = 'humidity';
