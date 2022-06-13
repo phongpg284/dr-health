@@ -6,6 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Patient } from 'src/patient/entities/patient.entity';
+import { Role } from 'src/constant/enums';
+import { Doctor } from 'src/doctor/entities/doctor.entity';
 
 @Injectable()
 export class UserService {
@@ -14,6 +16,8 @@ export class UserService {
     private readonly userRepository: EntityRepository<User>,
     @InjectRepository(Patient)
     private readonly patientRepository: EntityRepository<Patient>,
+    @InjectRepository(Doctor)
+    private readonly doctorRepository: EntityRepository<Doctor>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -39,11 +43,19 @@ export class UserService {
       newUser.role = role;
       newUser.password = hashPassword;
 
-      if (role === 'patient') {
-        const newPatient = new Patient();
-        newPatient.account = newUser;
-        console.log(newPatient);
-        await this.patientRepository.persistAndFlush(newPatient);
+      switch (role) {
+        case Role.PATIENT:
+          const newPatient = new Patient();
+          newPatient.account = newUser;
+          await this.patientRepository.persistAndFlush(newPatient);
+          break;
+        case Role.DOCTOR:
+          const newDoctor = new Doctor();
+          newDoctor.account = newUser;
+          await this.doctorRepository.persistAndFlush(newDoctor);
+          break;
+        default:
+          break;
       }
 
       await this.userRepository.persistAndFlush(newUser);
