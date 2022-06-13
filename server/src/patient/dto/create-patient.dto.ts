@@ -1,4 +1,4 @@
 export class CreatePatientDto {
-  accountId!: string;
-  doctorId?: string;
+  accountId!: number;
+  doctorId?: number;
 }

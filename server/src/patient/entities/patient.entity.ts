@@ -10,10 +10,10 @@ export class Patient extends BaseEntity {
   @OneToOne()
   account: User;
 
-  @ManyToOne(() => Doctor)
+  @ManyToOne(() => Doctor, { nullable: true })
   doctor: Doctor;
 
-  @OneToOne()
+  @OneToOne({ nullable: true })
   device: Device;
 
   @OneToMany(() => MedicalRecord, (medicalRecord) => medicalRecord.patient)

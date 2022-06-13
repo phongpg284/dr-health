@@ -323,6 +323,138 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "account_id": {
+          "name": "account_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "doctor_id": {
+          "name": "doctor_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "device_id": {
+          "name": "device_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        }
+      },
+      "name": "patient",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "account_id"
+          ],
+          "composite": false,
+          "keyName": "patient_account_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "device_id"
+          ],
+          "composite": false,
+          "keyName": "patient_device_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "patient_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "patient_account_id_foreign": {
+          "constraintName": "patient_account_id_foreign",
+          "columnNames": [
+            "account_id"
+          ],
+          "localTableName": "public.patient",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        },
+        "patient_doctor_id_foreign": {
+          "constraintName": "patient_doctor_id_foreign",
+          "columnNames": [
+            "doctor_id"
+          ],
+          "localTableName": "public.patient",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.doctor",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "patient_device_id_foreign": {
+          "constraintName": "patient_device_id_foreign",
+          "columnNames": [
+            "device_id"
+          ],
+          "localTableName": "public.patient",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.device",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "name": {
           "name": "name",
           "type": "varchar(255)",
@@ -395,136 +527,6 @@
             "id"
           ],
           "referencedTableName": "public.patient",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "account_id": {
-          "name": "account_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "doctor_id": {
-          "name": "doctor_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "device_id": {
-          "name": "device_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        }
-      },
-      "name": "patient",
-      "schema": "public",
-      "indexes": [
-        {
-          "columnNames": [
-            "account_id"
-          ],
-          "composite": false,
-          "keyName": "patient_account_id_unique",
-          "primary": false,
-          "unique": true
-        },
-        {
-          "columnNames": [
-            "device_id"
-          ],
-          "composite": false,
-          "keyName": "patient_device_id_unique",
-          "primary": false,
-          "unique": true
-        },
-        {
-          "keyName": "patient_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "patient_account_id_foreign": {
-          "constraintName": "patient_account_id_foreign",
-          "columnNames": [
-            "account_id"
-          ],
-          "localTableName": "public.patient",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.user",
-          "updateRule": "cascade"
-        },
-        "patient_doctor_id_foreign": {
-          "constraintName": "patient_doctor_id_foreign",
-          "columnNames": [
-            "doctor_id"
-          ],
-          "localTableName": "public.patient",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.doctor",
-          "updateRule": "cascade"
-        },
-        "patient_device_id_foreign": {
-          "constraintName": "patient_device_id_foreign",
-          "columnNames": [
-            "device_id"
-          ],
-          "localTableName": "public.patient",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.device",
           "updateRule": "cascade"
         }
       }
