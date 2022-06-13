@@ -7,13 +7,14 @@ export interface UserRequest {
   id: number;
   email: string;
   tokenID?: string;
+  role: string;
 }
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService, private tokenService: TokenService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findOneByEmail(email);
+    const user = await this.userService.findOne({ email });
     const isMatchPassword = await argon2.verify(user.password, password);
     if (user && isMatchPassword) {
       const { password, ...result } = user;

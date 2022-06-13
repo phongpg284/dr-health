@@ -14,10 +14,10 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-
   }
 
   async validate(payload: any) {
-    console.log(payload);
     return {
       id: payload.id,
       email: payload.email,
+      role: payload.role,
       tokenID: payload.tokenID,
     };
   }

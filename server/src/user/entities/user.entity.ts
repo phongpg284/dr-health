@@ -16,8 +16,8 @@ export class User extends BaseEntity {
   @Property()
   password!: string;
 
-  @Property({ nullable: true })
-  role?: string;
+  @Property()
+  role!: string;
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications = new Collection<User>(this);

@@ -1,6 +1,6 @@
 import * as argon2 from 'argon2';
 import { Injectable } from '@nestjs/common';
-import { EntityRepository, wrap } from '@mikro-orm/core';
+import { EntityRepository, FilterQuery, wrap } from '@mikro-orm/core';
 import { InjectRepository, logger } from '@mikro-orm/nestjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -47,9 +47,14 @@ export class UserService {
     }
   }
 
-  async findOne(id: number) {
+  async findOneById(id: number) {
     const user = await this.userRepository.findOne({ id });
     if (!user) return 'No user found!';
+    return user;
+  }
+
+  async findOne(params: FilterQuery<User>) {
+    const user = await this.userRepository.findOneOrFail(params, { fields: ['id', 'email', 'role', 'password'] });
     return user;
   }
 
