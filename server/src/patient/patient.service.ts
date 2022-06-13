@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
-import { InjectRepository, logger } from '@mikro-orm/nestjs';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Patient } from './entities/patient.entity';
 import { EntityRepository, FilterQuery, wrap } from '@mikro-orm/core';
 import { User } from 'src/user/entities/user.entity';
+import { Device } from 'src/device/entities/device.entity';
 
 @Injectable()
 export class PatientService {
@@ -13,7 +14,10 @@ export class PatientService {
     private readonly patientRepository: EntityRepository<Patient>,
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
+    @InjectRepository(Device)
+    private readonly deviceRepository: EntityRepository<Device>,
   ) {}
+
   async create(createPatientDto: CreatePatientDto) {
     const { accountId, doctorId } = createPatientDto;
     try {
@@ -25,11 +29,11 @@ export class PatientService {
       await this.patientRepository.persistAndFlush(newPatient);
       return newPatient;
     } catch (error) {
-      logger.log(`Error create account: ${error}`);
+      Logger.log(`Error create patient: ${error}`);
       throw new HttpException(
         {
           message: 'Error create patient',
-          errors: { error },
+          errors: error,
         },
         HttpStatus.BAD_REQUEST,
       );
@@ -41,7 +45,7 @@ export class PatientService {
       const patients = await this.patientRepository.findAll();
       return patients;
     } catch (error) {
-      logger.error(error);
+      Logger.error(error);
       throw new Error(error);
     }
   }
@@ -63,5 +67,22 @@ export class PatientService {
 
   async remove(id: number) {
     return this.patientRepository.remove({ id });
+  }
+
+  async addDevice(deviceId: number, id: number) {
+    try {
+      const patient = await this.patientRepository.findOne({ id });
+      const device = await this.deviceRepository.findOne({ id: deviceId });
+      patient.device = device;
+      await this.patientRepository.flush();
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: 'Error add patient to doctor',
+          errors: error,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

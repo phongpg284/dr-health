@@ -1,4 +1,3 @@
 export class CreateDoctorDto {
-  accountId!: string;
-  patientId?: string;
+  accountId!: number;
 }

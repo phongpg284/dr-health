@@ -1,6 +1,6 @@
 export class CreateDeviceDto {
   name!: string;
   type!: string;
-  isConnect: boolean;
+  isConnect?: boolean;
   patientId: string;
 }
