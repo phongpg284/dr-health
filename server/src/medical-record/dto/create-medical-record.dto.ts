@@ -1,1 +1,3 @@
-export class CreateMedicalRecordDto {}
+export class CreateMedicalRecordDto {
+  patientId: number;
+}

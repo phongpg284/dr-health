@@ -1,28 +1,19 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 
-// import { Question } from 'src/question/entities/question.entity';
 import { User } from 'src/user/entities/user.entity';
-import { UserModule } from 'src/user/user.module';
 import { Patient } from 'src/patient/entities/patient.entity';
-import { PatientModule } from 'src/patient/patient.module';
-// import { QuestionModule } from 'src/question/question.module';
-// import { RecordModule } from 'src/record/record.module';
-// import { SurveyModule } from 'src/survey/survey.module';
-// import { Survey } from 'src/survey/entities/survey.entity';
-// import { Record } from 'src/record/entities/record.entity';
+import { Doctor } from 'src/doctor/entities/doctor.entity';
+import { Device } from 'src/device/entities/device.entity';
+import { MedicalRecord } from 'src/medical-record/entities/medical-record.entity';
+import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
 
 @Module({
   imports: [
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature({
-      entities: [User, Patient],
+      entities: [User, Patient, Doctor, Device, MedicalRecord, MedicalStat],
     }),
-    UserModule,
-    PatientModule,
-    // RecordModule,
-    // QuestionModule,
-    // SurveyModule,
   ],
   exports: [MikroOrmModule],
 })
