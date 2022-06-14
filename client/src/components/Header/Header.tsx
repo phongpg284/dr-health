@@ -1,32 +1,29 @@
-import { useAppDispatch, useAppSelector } from "../../app/store";
-import { updateToken } from "../../app/authSlice";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { ADD_DEVICE, GET_DEVICE_STATUS, GET_DOCTOR_PROFILE, GET_PATIENT_PROFILE, REMOVE_DEVICE } from "./schema";
+import "./header.scss";
 import React, { useEffect, useState, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/store";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./header.scss";
+import { message, Modal, Tooltip } from "antd";
+import { motion } from "framer-motion";
+import { isMobile } from "react-device-detect";
 
 //icon
-
 import { BiCalendarPlus } from "react-icons/bi";
 import { FaPhoneAlt, FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical } from "react-icons/fa";
-//image
-
+import { IoGameControllerOutline, IoWatch } from "react-icons/io5";
+import { HiSwitchHorizontal } from "react-icons/hi";
+import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import AbstractMini from "../../assets/abstract-mini.svg";
 import logo from "../../assets/logo1.png";
 import defaultAvatar from "../../assets/default-avatar.png";
 import defaultAvatarPatient from "../../assets/default-avatar-patient.png";
+
 import NotificationIcon from "components/NotificationIcon";
-import { IoGameControllerOutline, IoWatch } from "react-icons/io5";
+import { updateToken } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
-import { message, Modal, Tooltip } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from "react-icons/ai";
-import { HiSwitchHorizontal } from "react-icons/hi";
-import { motion } from "framer-motion";
-import { isMobile } from "react-device-detect";
-import { IoMdClose } from "react-icons/io";
+import { useApi } from "utils/api";
 
 export default function Header() {
     const MenuRef = React.useRef<HTMLDivElement>(null);
@@ -233,7 +230,9 @@ function LinkDropDown({ title, to, children }: { title: string; to?: string; chi
 }
 
 function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
-    const userAccountInfo = useAppSelector((state) => state.account);
+    const user = useAppSelector((state) => state.account);
+    const isPatient = user?.role === "patient";
+    const isDoctor = user?.role === "doctor";
 
     const wrapperRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -249,48 +248,29 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
         };
     }, [wrapperRef, show]);
 
-    const [getDoctorProfile, { data: doctorProfile }] = useLazyQuery(GET_DOCTOR_PROFILE);
-    const [getPatientProfile, { data: patientProfile }] = useLazyQuery(GET_PATIENT_PROFILE);
-    const [getDeviceStatus, { data: deviceStatus }] = useLazyQuery(GET_DEVICE_STATUS);
+    const [data, setData] = useState<any>({});
+    const api = useApi();
     const [isDeviceConnect, setIsDeviceConnect] = useState(false);
 
     useEffect(() => {
-        if (userAccountInfo.role && userAccountInfo.id) {
-            if (userAccountInfo.role == "doctor") {
-                getDoctorProfile({
-                    variables: {
-                        id: userAccountInfo.id,
-                    },
-                });
+        if (user.role && user.id) {
+            if (user.role == "doctor") {
+                api.get(`/doctor/${user.id}`).then(res => setData(res.data))
             }
-            if (userAccountInfo.role == "patient") {
-                getPatientProfile({
-                    variables: {
-                        id: userAccountInfo.id,
-                    },
-                });
+            if (user.role == "patient") {
+                api.get(`/patient/${user.id}`).then(res => setData(res.data))
             }
         }
-    }, [userAccountInfo.role]);
+    }, [user.role]);
 
     useEffect(() => {
-        if (patientProfile && patientProfile?.getPatient?.deviceId) {
-            getDeviceStatus({
-                variables: {
-                    id: patientProfile?.getPatient?.deviceId,
-                },
-            });
+        if (user?.role === 'patient' && data?.device) {
+            api.get(`/doctor/${user.id}`).then(res => setData(setIsDeviceConnect(res?.data?.isConnect)))
         }
-    }, [patientProfile]);
-
-    useEffect(() => {
-        if (deviceStatus?.getDevice?.isConnect) {
-            setIsDeviceConnect(deviceStatus.getDevice?.isConnect);
-        }
-    }, [deviceStatus]);
+    }, [data]);
 
     const ContactUs = () => {
-        if (patientProfile)
+        if (isPatient)
             return (
                 <div
                     className="header_contact"
@@ -308,22 +288,16 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     const dispatch = useAppDispatch();
 
     const SigninTextName = () => {
-        let nameSigninText = "";
-        if (doctorProfile) {
-            nameSigninText = doctorProfile.getDoctor.fullName;
-        }
-        if (patientProfile) {
-            nameSigninText = patientProfile.getPatient.fullName;
-        }
+        const nameSigninText = data.getDoctor.fullName;
         return <>{` ${nameSigninText}`}</>;
     };
 
     const RecordsButton = () => {
         let records = "";
-        if (doctorProfile) {
+        if (isDoctor) {
             records = "Ghi âm";
         }
-        if (patientProfile) {
+        if (isPatient) {
             records = "Hồ sơ bệnh nhân";
         }
         return <div>{records}</div>;
@@ -342,20 +316,20 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     };
     const Reflecter = () => {
         let reflecter = "";
-        if (doctorProfile) {
+        if (isDoctor) {
             reflecter = "Hồ sơ bệnh nhân";
         }
-        if (patientProfile) {
+        if (isPatient) {
             reflecter = "Bác sĩ";
         }
         return <div>{reflecter}</div>;
     };
     const reflecterHref = () => {
         let reflecter = "";
-        if (doctorProfile) {
+        if (isDoctor) {
             reflecter = "/patients";
         }
-        if (patientProfile) {
+        if (isPatient) {
             reflecter = "/doctor";
         }
         return reflecter;
@@ -445,7 +419,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                 <div className="dropdown_content">
                     <div className="drop_header">
                         <img src={AbstractMini} className="bg" />
-                        {userAccountInfo.role === "patient" && (
+                        {user.role === "patient" && (
                             <div className="drop_user">
                                 <div className="drop_role">
                                     <Tooltip overlay="Đổi trạng thái bệnh nhân/người thân">
@@ -459,7 +433,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                                 </div>
                             </div>
                         )}
-                        {userAccountInfo.role === "doctor" && (
+                        {user.role === "doctor" && (
                             <div className="drop_user" style={{ color: "black", width: "auto" }}>
                                 <div className="drop_role">
                                     <span>Bác sĩ</span>
@@ -480,7 +454,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                             <FaBell className="header_pi_icon" />
                             <Link to="/notifications">Thông báo</Link>
                         </div>
-                        {doctorProfile && (
+                        {isDoctor && (
                             <div className="drop_item">
                                 <FaUserInjured className="header_pi_icon" />
                                 <Link to={reflecterHref()}>
@@ -488,7 +462,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                                 </Link>
                             </div>
                         )}
-                        {patientProfile && (
+                        {isPatient && (
                             <div className="drop_item">
                                 <FaLaptopMedical className="header_pi_icon" />
                                 <Link to="/record">
@@ -496,7 +470,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                                 </Link>
                             </div>
                         )}
-                        {patientProfile && (
+                        {isPatient && (
                             <div className="drop_item">
                                 <IoGameControllerOutline className="header_pi_icon" />
                                 {isRelative && (
@@ -511,7 +485,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                                 )}
                             </div>
                         )}
-                        {patientProfile && (
+                        {isPatient && (
                             <div onClick={handleClickDeviceStatus} className="drop_item">
                                 <IoWatch className="header_pi_icon" />
                                 {isDeviceConnect && <div className="text">Gỡ thiết bị</div>}
@@ -519,7 +493,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                             </div>
                         )}
 
-                        {doctorProfile && (
+                        {isDoctor && (
                             <div className="drop_item">
                                 <BiCalendarPlus className="header_pi_icon" />
                                 <Link to="/calendar">Đặt lịch dùng thuốc</Link>

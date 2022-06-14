@@ -1,29 +1,19 @@
 import "./index.scss"
 import dayjs from "dayjs";
-import { useQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 import { useEffect, useState } from "react";
 import { DatePicker, Input, Table } from "antd";
-import { GET_DOCTOR } from "./schema";
 import useInputDoctor from "./useInputDoctor";
 import BG from '../../assets/abstract12.svg'
+import usePromise from "utils/usePromise";
+import { get } from "lodash";
 
 export const DoctorRecord = () => {
   const account = useAppSelector(state => state.account);
   const [dataSource, setDataSource] = useState<any>();
 
-  const { data: doctorData } = useQuery(GET_DOCTOR, {
-    variables: {
-      id: account.id
-    },
-    fetchPolicy: "network-only"
-  });
-
-  const [data, setData] = useState<any>();
-  useEffect(() => {
-    if (doctorData && doctorData.getDoctor)
-      setData(doctorData.getDoctor)
-  })
+  const [doctorData] = usePromise(`/doctor/${account.id}`);
+  const data = get(doctorData, "data");
 
   const [fullName, editFullName, onChangeFullName, onConfirmFullName] = useInputDoctor("fullName", data?.fullName, account.id!);
   const [phone, editPhone, onChangePhone, onConfirmPhone] = useInputDoctor("phone", data?.phone, account.id!);

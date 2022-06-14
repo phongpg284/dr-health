@@ -4,7 +4,6 @@ import { Badge, Empty } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { GET_ACCOUNT_NOTIFICATIONS, NOTIFICATIONS_SUBSCRIPTION, SEEN_ALL_NOTIFICATION, UPDATE_NOTIFICATION } from "./schema";
 
 import { useAppSelector } from "app/store";

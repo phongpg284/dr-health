@@ -1,46 +1,36 @@
-//icon
-
-import { DropdownButton, Dropdown } from 'react-bootstrap';
-
-//other
+import "./newCalendar.scss"
 
 import dayjs from "dayjs"
 import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Input } from 'antd';
-import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from './handleEvent';
+import { motion } from 'framer-motion'
 import { useAppSelector, useAppDispatch } from 'app/store';
 import { updateMedicineSet, updateMessage } from 'app/medicineSlice';
+
 import SetSteps from './Items/SetSteps';
 import CheckBox from './Items/Checkbox';
 import { MedicineCard } from './Items/MedicineCard';
-import "./newCalendar.scss"
-
+import ScheduleCalendar from '../Profile/MedicineSchedule'
+import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from './handleEvent';
+import { get } from 'lodash';
 
 import PatientAvatar from 'assets/default-avatar-patient.png'
-
-import { motion } from 'framer-motion'
-
-import { CREATE_MEDICINE, GET_MEDICINES, GET_PATIENTS_OF_DOCTOR, SAVE_MEDICINE_SCHEDULE } from './schema';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import usePromise from "utils/usePromise";
 
-import ScheduleCalendar from '../Profile/MedicineSchedule'
 
 const { TextArea } = Input;
 
 export default function Calendar() {
     const account = useAppSelector((state) => state.account)
-    const { data: patientData } = useQuery(GET_PATIENTS_OF_DOCTOR, {
-        variables: {
-            id: account.id
-        }
-    });
+    const [patientData] = usePromise(`/doctor/patient/${account.id}`);
     const [patientList, setPatientList] = useState([]);
     const [patientChoose, setPatientChoose] = useState<any>();
     useEffect(() => {
         if (patientData) {
-            setPatientList(patientData.getPatientsOfDoctor);
-            setPatientChoose(patientData.getPatientsOfDoctor[0])
+            setPatientList(get(patientData, 'data'));
+            setPatientChoose(get(patientData, 'data')?.[0])
         }
     }, [patientData]);
 

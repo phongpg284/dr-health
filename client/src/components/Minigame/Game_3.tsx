@@ -16,7 +16,7 @@ import { GiPauseButton } from 'react-icons/gi';
 import { MdRestartAlt } from 'react-icons/md';
 import { TrophyOutlined } from '@ant-design/icons';
 import { updateGame } from 'app/game';
-import { REACT_APP_GAME_FILES_URL } from 'app/config';
+import { REACT_APP_GAME_FILES_URL } from 'config/config';
 
 const { confirm } = Modal
 
