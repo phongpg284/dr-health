@@ -2,12 +2,17 @@ import { Controller, Inject, Logger } from '@nestjs/common';
 import { MessagePattern, Payload, Ctx, MqttContext } from '@nestjs/microservices';
 import { ClientProxy } from '@nestjs/microservices';
 import { NODE_TOPIC } from 'src/config/topic';
+import { MedicalStatService } from 'src/medical-stat/medical-stat.service';
 import { MqttService } from './mqtt.service';
 
 const logger = new Logger('MQTT');
 @Controller('mqtt')
 export class MqttController {
-  constructor(@Inject('MQTT_SERVICE') private client: ClientProxy, private readonly mqttService: MqttService) {}
+  constructor(
+    @Inject('MQTT_SERVICE') private client: ClientProxy,
+    private readonly mqttService: MqttService,
+    private readonly medicalStatService: MedicalStatService,
+  ) {}
 
   @MessagePattern(NODE_TOPIC)
   async getDevicePayload(@Payload() data: string, @Ctx() context: MqttContext) {

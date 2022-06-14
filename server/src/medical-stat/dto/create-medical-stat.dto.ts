@@ -1,1 +1,6 @@
-export class CreateMedicalStatDto {}
+export class CreateMedicalStatDto {
+  type!: string;
+  unit?: string;
+  value: number | string;
+  patientId!: number;
+}

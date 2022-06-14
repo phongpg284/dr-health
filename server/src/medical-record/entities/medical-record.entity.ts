@@ -7,7 +7,4 @@ import { BaseEntity } from 'src/utils/BaseEntity';
 export class MedicalRecord extends BaseEntity {
   @ManyToOne(() => Patient)
   patient: Patient;
-
-  @OneToMany(() => MedicalStat, (medicalStat) => medicalStat.medicalRecord)
-  medicalStats = new Collection<MedicalStat>(this);
 }

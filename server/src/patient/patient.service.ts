@@ -6,6 +6,7 @@ import { Patient } from './entities/patient.entity';
 import { EntityRepository, FilterQuery, wrap } from '@mikro-orm/core';
 import { User } from 'src/user/entities/user.entity';
 import { Device } from 'src/device/entities/device.entity';
+import { Doctor } from 'src/doctor/entities/doctor.entity';
 
 @Injectable()
 export class PatientService {
@@ -14,6 +15,8 @@ export class PatientService {
     private readonly patientRepository: EntityRepository<Patient>,
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
+    @InjectRepository(Doctor)
+    private readonly doctorRepository: EntityRepository<Doctor>,
     @InjectRepository(Device)
     private readonly deviceRepository: EntityRepository<Device>,
   ) {}
@@ -24,7 +27,7 @@ export class PatientService {
       const newPatient = new Patient();
       newPatient.account = await this.userRepository.findOne({ id: accountId });
 
-      if (doctorId) newPatient.account = await this.userRepository.findOne({ id: doctorId });
+      if (doctorId) newPatient.doctor = await this.doctorRepository.findOne({ id: doctorId });
 
       await this.patientRepository.persistAndFlush(newPatient);
       return newPatient;

@@ -473,6 +473,15 @@
           "nullable": false,
           "mappedType": "string"
         },
+        "code": {
+          "name": "code",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "patient_id": {
           "name": "patient_id",
           "type": "int",
@@ -641,8 +650,8 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "unit": {
-          "name": "unit",
+        "value": {
+          "name": "value",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -650,8 +659,17 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "medical_record_id": {
-          "name": "medical_record_id",
+        "unit": {
+          "name": "unit",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "patient_id": {
+          "name": "patient_id",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
@@ -675,16 +693,16 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "medical_stat_medical_record_id_foreign": {
-          "constraintName": "medical_stat_medical_record_id_foreign",
+        "medical_stat_patient_id_foreign": {
+          "constraintName": "medical_stat_patient_id_foreign",
           "columnNames": [
-            "medical_record_id"
+            "patient_id"
           ],
           "localTableName": "public.medical_stat",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.medical_record",
+          "referencedTableName": "public.patient",
           "updateRule": "cascade"
         }
       }

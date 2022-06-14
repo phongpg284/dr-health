@@ -6,15 +6,36 @@ export enum Role {
   ADMIN = 'admin',
 }
 
-export const ENVIRONMENT_STATS_VN = {
-  [TEMPERATURE]: 'Nhiệt độ',
-  [HUMIDITY]: 'Độ ẩm',
+export const ENVIRONMENT_STATS = {
+  [TEMPERATURE]: {
+    label: 'Nhiệt độ',
+    type: 'temperature',
+  },
+  [HUMIDITY]: {
+    label: 'Độ ẩm',
+    type: 'humidity',
+  },
 };
 
-export const MEDICAL_STATS_VN = {
-  [SPO2]: 'SpO2',
-  [HEART_RATE]: 'Nhịp tim',
-  [BODY_TEMP]: 'Nhiệt độ',
-  [DIASTOLE]: 'Tâm trương',
-  [SYSTOLIC]: 'Tâm thu',
+export const MEDICAL_STATS = {
+  [SPO2]: {
+    label: 'SpO2',
+    type: 'spO2',
+  },
+  [HEART_RATE]: {
+    label: 'Nhịp tim',
+    type: 'heart_rate',
+  },
+  [BODY_TEMP]: {
+    label: 'Nhiệt độ',
+    type: 'body_temp',
+  },
+  [DIASTOLE]: {
+    label: 'Tâm trương',
+    type: 'diastole',
+  },
+  [SYSTOLIC]: {
+    label: 'Tâm thu',
+    type: 'systolic',
+  },
 };

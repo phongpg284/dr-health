@@ -7,12 +7,13 @@ import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { Device } from 'src/device/entities/device.entity';
 import { MedicalRecord } from 'src/medical-record/entities/medical-record.entity';
 import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
+import { Notification } from 'src/notification/entities/notification.entity';
 
 @Module({
   imports: [
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature({
-      entities: [User, Patient, Doctor, Device, MedicalRecord, MedicalStat],
+      entities: [User, Patient, Doctor, Device, MedicalRecord, MedicalStat, Notification],
     }),
   ],
   exports: [MikroOrmModule],
