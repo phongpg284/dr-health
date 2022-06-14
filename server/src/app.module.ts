@@ -15,6 +15,7 @@ import { RedisModule } from '@nestjs-modules/ioredis';
 import { redisConfig } from './config/redis';
 import { NotificationModule } from './notification/notification.module';
 import { MqttModule } from './mqtt/mqtt.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { MqttModule } from './mqtt/mqtt.module';
     MedicalStatModule,
     NotificationModule,
     MqttModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

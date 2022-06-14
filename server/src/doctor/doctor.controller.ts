@@ -37,4 +37,9 @@ export class DoctorController {
     console.log(+id, patientId);
     return this.doctorService.addPatient(+id, patientId);
   }
+
+  @Get('/patients/:id')
+  getPatients(@Param('id') id: string) {
+    return this.doctorService.getPatients(+id);
+  }
 }

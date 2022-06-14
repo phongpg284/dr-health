@@ -81,4 +81,9 @@ export class DoctorService {
       );
     }
   }
+
+  async getPatients(id: number) {
+    const doctor = await this.doctorRepository.findOneOrFail(id, { populate: ['patients'] });
+    return doctor.patients;
+  }
 }

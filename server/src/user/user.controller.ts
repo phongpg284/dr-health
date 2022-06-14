@@ -3,11 +3,12 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { NotificationService } from 'src/notification/notification.service';
 
 // @UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private readonly notificationService: NotificationService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -22,6 +23,11 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
+  }
+
+  @Get('/notifications/:id')
+  getAllNotifications(@Param('id') id: string) {
+    return this.notificationService.findAllByUser(+id);
   }
 
   @Patch(':id')

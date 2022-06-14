@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { User } from './entities/user.entity';
-import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Patient } from 'src/patient/entities/patient.entity';
-import { Doctor } from 'src/doctor/entities/doctor.entity';
+import { OrmModule } from 'src/orm/orm.module';
+import { NotificationModule } from 'src/notification/notification.module';
 
 @Module({
-  imports: [
-    MikroOrmModule.forFeature({
-      entities: [User, Patient, Doctor],
-    }),
-  ],
+  imports: [OrmModule, NotificationModule],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],

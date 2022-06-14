@@ -20,5 +20,5 @@ export class User extends BaseEntity {
   role!: string;
 
   @OneToMany(() => Notification, (notification) => notification.user)
-  notifications = new Collection<User>(this);
+  notifications = new Collection<Notification>(this);
 }
