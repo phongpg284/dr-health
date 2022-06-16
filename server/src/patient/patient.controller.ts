@@ -3,11 +3,10 @@ import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { GetMedicalStatQuery } from 'src/medical-stat/dto/get-medical-stat.dto';
-import { EventsGateway } from 'src/events/events.gateway';
 
 @Controller('patient')
 export class PatientController {
-  constructor(private readonly patientService: PatientService, private readonly eventService: EventsGateway) {}
+  constructor(private readonly patientService: PatientService) {}
 
   @Post()
   create(@Body() createPatientDto: CreatePatientDto) {
@@ -16,7 +15,6 @@ export class PatientController {
 
   @Get()
   async findAll() {
-    await this.eventService.sendNotification();
     return this.patientService.findAll();
   }
 
