@@ -14,7 +14,7 @@ export class Patient extends BaseEntity {
   @ManyToOne(() => Doctor, { nullable: true })
   doctor: Doctor;
 
-  @OneToOne({ nullable: true })
+  @OneToOne({ nullable: true, inversedBy: 'patient' })
   device: Device;
 
   @OneToMany(() => MedicalRecord, (medicalRecord) => medicalRecord.patient, { hidden: true })

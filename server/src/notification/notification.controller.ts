@@ -33,6 +33,11 @@ export class NotificationController {
     return this.notificationService.update(+id, updateNotificationDto);
   }
 
+  @Patch(':id')
+  async seenAllNotifications(@Param('id') id: string) {
+    return this.notificationService.seenAllNotifications(+id);
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.notificationService.remove(+id);

@@ -5,6 +5,7 @@ import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Notification } from './entities/notification.entity';
 import { User } from 'src/user/entities/user.entity';
+import { EntityManager } from '@mikro-orm/postgresql';
 
 @Injectable()
 export class NotificationService {
@@ -13,6 +14,7 @@ export class NotificationService {
     private readonly notificationRepository: EntityRepository<Notification>,
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
+    private readonly em: EntityManager,
   ) {}
 
   async create(createNotificationDto: CreateNotificationDto) {
@@ -69,6 +71,15 @@ export class NotificationService {
 
     wrap(notification).assign(updateNotificationDto);
     await this.notificationRepository.persistAndFlush(notification);
+  }
+
+  async seenAllNotifications(userId: number) {
+    const qb = this.em
+      .createQueryBuilder(Notification)
+      .update({ status: 'seen' })
+      .where({ user_id: userId, status: 'unseen' });
+    const res = await qb.execute();
+    return res;
   }
 
   async remove(id: number) {

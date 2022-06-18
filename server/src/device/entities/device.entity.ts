@@ -13,7 +13,7 @@ export class Device extends BaseEntity {
   @Property()
   code!: string;
 
-  @OneToOne()
+  @OneToOne({ nullable: true, mappedBy: 'device' })
   patient: Patient;
 
   @Property({ default: false })

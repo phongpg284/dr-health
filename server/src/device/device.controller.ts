@@ -33,8 +33,13 @@ export class DeviceController {
     return this.deviceService.remove(+id);
   }
 
-  @Post('/add_device:id&:device_id')
-  addDevice(@Param('id') id: number, @Param('patient_id') patientId: number) {
-    return this.patientService.addDevice(+id, patientId);
+  @Post('/add_device:id&:patient_id')
+  addDevice(@Param('id') id: string, @Param('patient_id') patientId: string) {
+    return this.patientService.addDevice(+id, +patientId);
+  }
+
+  @Post('/remove_device:id')
+  removeDevice(@Param('id') id: string) {
+    return this.patientService.removeDevice(+id);
   }
 }

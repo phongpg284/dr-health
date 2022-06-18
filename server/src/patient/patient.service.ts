@@ -83,15 +83,30 @@ export class PatientService {
       const patient = await this.patientRepository.findOne({ id });
       const device = await this.deviceRepository.findOne({ id: deviceId });
       patient.device = device;
-      await this.patientRepository.flush();
+      await this.patientRepository.persistAndFlush(patient);
     } catch (error) {
+      Logger.log(error);
       throw new HttpException(
         {
-          message: 'Error add patient to doctor',
+          message: 'Error add device',
           errors: error,
         },
         HttpStatus.BAD_REQUEST,
       );
+    }
+  }
+
+  async removeDevice(deviceId: number) {
+    try {
+      const patient = await this.patientRepository.findOne({ device: deviceId });
+      if (!patient) {
+        Logger.log('Device already not connect to patients');
+        throw new Error('Device already not connect to patients');
+      }
+      patient.device = null;
+      await this.patientRepository.flush();
+    } catch (error) {
+      return new HttpException(error, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -111,8 +126,7 @@ export class PatientService {
       const res = await qb.execute();
       return res;
     } catch (error) {
-      Logger.log(error);
-      throw new HttpException(
+      return new HttpException(
         {
           message: 'Error get medical stats',
           errors: error,
