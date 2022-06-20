@@ -344,41 +344,31 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
         );
     };
 
-    const [removeDevice] = useMutation(REMOVE_DEVICE);
-    const [addDevice] = useMutation(ADD_DEVICE);
     const [isDeviceStatusModalOpen, setIsDeviceStatusModalOpen] = useState(false);
 
     const handleOkRemove = () => {
-        removeDevice({
-            variables: {
-                id: patientProfile?.getPatient?.deviceId,
-                isConnect: false,
-            },
-        }).then((res) => {
-            const data = res?.data?.removeDevice?.split(":");
-            if (data[0] === "Success") {
+        api.post(`/device/remove_device/${data.device.id}`)
+        .then((res) => {
+            const data = res?.data
+            if (data.status === "Success") {
                 message.success(data[1]);
                 setIsDeviceConnect(false);
             }
-            if (data[0] === "Error") {
+            if (data.status === "Error") {
                 message.error(data[1]);
             }
         });
     };
 
     const handleOkAdd = () => {
-        addDevice({
-            variables: {
-                id: patientProfile?.getPatient?.deviceId,
-                isConnect: false,
-            },
-        }).then((res) => {
-            const data = res?.data?.addDevice?.split(":");
-            if (data[0] === "Success") {
+        api.post(`/device/add_device/${data.device.id}`)
+        .then((res) => {
+            const data = res?.data
+            if (data.status === "Success") {
                 message.success(data[1]);
-                setIsDeviceConnect(true);
+                setIsDeviceConnect(false);
             }
-            if (data[0] === "Error") {
+            if (data.status === "Error") {
                 message.error(data[1]);
             }
         });
@@ -468,21 +458,6 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
                                 <Link to="/record">
                                     <RecordsButton />
                                 </Link>
-                            </div>
-                        )}
-                        {isPatient && (
-                            <div className="drop_item">
-                                <IoGameControllerOutline className="header_pi_icon" />
-                                {isRelative && (
-                                    <Link to="/add-games">
-                                        <div>Thêm trò chơi</div>
-                                    </Link>
-                                )}
-                                {!isRelative && (
-                                    <Link to="/minigame">
-                                        <div>Trò chơi</div>
-                                    </Link>
-                                )}
                             </div>
                         )}
                         {isPatient && (

@@ -1,9 +1,8 @@
 import "./index.scss";
 import dayjs from "dayjs";
 import { Empty } from "antd";
-import { useMutation } from "@apollo/client";
 import { HiOutlineClipboardCheck, HiOutlineClipboardCopy } from "react-icons/hi";
-import { UPDATE_NOTIFICATION } from "components/NotificationIcon/schema";
+import { useApi } from "utils/api";
 interface INotificationDropdownProps {
     data: INotification[];
 }
@@ -19,17 +18,11 @@ interface INotification {
 }
 
 const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
-    const [seenNotification] = useMutation(UPDATE_NOTIFICATION);
-
+    const api = useApi();
     const handleClickNotification = (id: string, url: string) => (e: any) => {
-        seenNotification({
-            variables: {
-                inputs: {
-                    _id: id,
-                    seen: true,
-                },
-            },
-        });
+        api.patch(`/notification/${id}`, {
+            status: 'seen'
+        })
         if (url)
         window.open(url);
         // history.push(`/notifications/${params}`);

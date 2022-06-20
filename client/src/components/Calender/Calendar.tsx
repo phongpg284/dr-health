@@ -24,13 +24,13 @@ const { TextArea } = Input;
 
 export default function Calendar() {
     const account = useAppSelector((state) => state.account)
-    const [patientData] = usePromise(`/doctor/patient/${account.id}`);
-    const [patientList, setPatientList] = useState([]);
+    const [patientData] = usePromise<unknown[]>(`/doctor/patient/${account.id}`);
+    const [patientList, setPatientList] = useState<unknown[]>([]);
     const [patientChoose, setPatientChoose] = useState<any>();
     useEffect(() => {
         if (patientData) {
-            setPatientList(get(patientData, 'data'));
-            setPatientChoose(get(patientData, 'data')?.[0])
+            setPatientList(patientData);
+            setPatientChoose(patientData?.[0])
         }
     }, [patientData]);
 
@@ -42,21 +42,21 @@ export default function Calendar() {
     const [currentStep, setStep] = useState(-1)
 
     const [medicineList, setMedicineList] = useState<any[]>([]);
-    const { data: medicineData } = useQuery(GET_MEDICINES);
-    const [createMedicine] = useMutation(CREATE_MEDICINE);
+    // const { data: medicineData } = useQuery(GET_MEDICINES);
+    // const [createMedicine] = useMutation(CREATE_MEDICINE);
 
-    useEffect(() => {
-        if (medicineData) {
-            const arr = medicineData?.getMedicines.map((medicine: any) => medicine.name);
-            const set = new Set(arr);
-            const newArr: any[] = [];
-            set.forEach((item: any) => {
-                if (item != "")
-                    newArr.push(item);
-            })
-            setMedicineList(newArr);
-        }
-    }, [medicineData])
+    // useEffect(() => {
+    //     if (medicineData) {
+    //         const arr = medicineData?.getMedicines.map((medicine: any) => medicine.name);
+    //         const set = new Set(arr);
+    //         const newArr: any[] = [];
+    //         set.forEach((item: any) => {
+    //             if (item != "")
+    //                 newArr.push(item);
+    //         })
+    //         setMedicineList(newArr);
+    //     }
+    // }, [medicineData])
 
 
     //Phase 2
@@ -73,7 +73,7 @@ export default function Calendar() {
     }, [])
 
     //Phase 3 
-    const [saveSchedule] = useMutation(SAVE_MEDICINE_SCHEDULE);
+    // const [saveSchedule] = useMutation(SAVE_MEDICINE_SCHEDULE);
 
     //
     function onTextChange(value: any) {
@@ -93,14 +93,14 @@ export default function Calendar() {
     }
 
     function handleAddNewMedicine() {
-        createMedicine({
-            variables: {
-                inputs: { name: inputValue }
-            }
-        }).then(() => {
-            setMedicineList(state => [...state, inputValue])
-            setInputValue("")
-        })
+        // createMedicine({
+        //     variables: {
+        //         inputs: { name: inputValue }
+        //     }
+        // }).then(() => {
+        //     setMedicineList(state => [...state, inputValue])
+        //     setInputValue("")
+        // })
     }
 
     function handleSubmitSchedule() {
@@ -118,11 +118,11 @@ export default function Calendar() {
             _id: patientChoose?._id,
             medicineSchedule: medicineSchedule
         }
-        saveSchedule({
-            variables: {
-                inputs: inputs
-            }
-        })
+        // saveSchedule({
+        //     variables: {
+        //         inputs: inputs
+        //     }
+        // })
         setStep(-1)
     }
 

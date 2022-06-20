@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useApi } from "./api";
+import { get } from "lodash";
 
-type ResponseValueType<T> = null | AxiosResponse<T> | { error: AxiosResponse };
+type ResponseValueType<T> = null | AxiosResponse<T> | { error: AxiosError };
 
-const usePromise = <ResponseType = unknown>(url: string, dependencies = []): [ResponseValueType<ResponseType>, boolean] => {
+const usePromise = <ResponseType = any>(url: string, dependencies = []): [ResponseType, boolean, ResponseValueType<ResponseType>] => {
   const [response, setResponse] = useState<ResponseValueType<ResponseType>>(null);
   const [loaded, setLoaded] = useState(false);
   const api = useApi();
@@ -17,7 +18,7 @@ const usePromise = <ResponseType = unknown>(url: string, dependencies = []): [Re
       .then((result: AxiosResponse<ResponseType>) => {
         setResponse(result);
       })
-      .catch((error: AxiosResponse) => {
+      .catch((error: AxiosError) => {
         setResponse({ error });
       })
       .finally(() => {
@@ -25,7 +26,7 @@ const usePromise = <ResponseType = unknown>(url: string, dependencies = []): [Re
       });
   }, dependencies);
 
-  return [response, loaded];
+  return [get(response, "data", {}), loaded, response];
 };
 
 export default usePromise;

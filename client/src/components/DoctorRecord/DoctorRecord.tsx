@@ -12,8 +12,7 @@ export const DoctorRecord = () => {
   const account = useAppSelector(state => state.account);
   const [dataSource, setDataSource] = useState<any>();
 
-  const [doctorData] = usePromise(`/doctor/${account.id}`);
-  const data = get(doctorData, "data");
+  const [data] = usePromise<any>(`/doctor/${account.id}`);
 
   const [fullName, editFullName, onChangeFullName, onConfirmFullName] = useInputDoctor("fullName", data?.fullName, account.id!);
   const [phone, editPhone, onChangePhone, onConfirmPhone] = useInputDoctor("phone", data?.phone, account.id!);

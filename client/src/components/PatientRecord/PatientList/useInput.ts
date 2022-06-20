@@ -1,9 +1,9 @@
-import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { UPDATE_PATIENT } from "./schema";
 import dayjs from "dayjs";
+import { useApi } from "utils/api";
 
 const useInput = (key: string, initValue: any, patientId: string) => {
+    const api = useApi();
     const [value, setValue] = useState(initValue);
     const [editValue, setEditValue] = useState(false);
 
@@ -15,8 +15,7 @@ const useInput = (key: string, initValue: any, patientId: string) => {
         setValue(dayjs(dateString, "DD/MM/YYYY"));
     };
 
-    const [updatePatient] = useMutation(UPDATE_PATIENT);
-
+    
     const onConfirmUpdate = () => {
         if (!editValue) setEditValue(true);
         else {
@@ -24,19 +23,14 @@ const useInput = (key: string, initValue: any, patientId: string) => {
             let inputs;
             if (key === "age")
                 inputs = {
-                    _id: patientId,
                     [key]: parseFloat(value),
                 };
             else
                 inputs = {
-                    _id: patientId,
                     [key]: value,
                 };
-            updatePatient({
-                variables: {
-                    inputs: inputs,
-                },
-            }).then((res)=>{
+            api.post(`/patient/${patientId}`, inputs)
+            .then((res)=>{
 
                 console.log("patient success",res)
             }).catch((err)=>{

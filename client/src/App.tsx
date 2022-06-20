@@ -12,8 +12,6 @@ import * as GreetingBotStore from "./app/GreetingBot";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
-const AddMinigame = lazy(() => import("pages/AddMinigame"));
-const Minigame = lazy(() => import("components/Minigame"));
 const HospitalMap = lazy(() => import('pages/HospitalMap'));
 const NotificationsPage = lazy(() => import("pages/Notifications"));
 const PatientCardsList = lazy(() => import("components/PatientRecord/PatientCardsList"));
@@ -83,8 +81,6 @@ function MyRouter() {
                 <Main exact path="/phuc-hoi" component={FirstAid} />
                 <Main exact path="/so-cuu" component={FirstAid2} />
 
-                <PrivateRoute exact path="/minigame" component={Minigame} />
-                {role === "patient" && <PrivateRoute exact path="/add-games" component={AddMinigame} />}
                 <PrivateRoute exact path="/profile" component={ProfilePage} />
                 <PrivateRoute exact path="/calendar" component={CalendarPage} />
                 <Route exact path="/notifications" component={NotificationsPage} />

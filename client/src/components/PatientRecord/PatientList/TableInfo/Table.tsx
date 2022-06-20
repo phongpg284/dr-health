@@ -1,14 +1,13 @@
 import "./index.scss";
-import { useLazyQuery } from "@apollo/client";
 import { ReactElement, useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 
-import { GET_INFO_DEVICE } from "../schema";
 import useInput from "../useInput";
 import { MdModeEditOutline } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc";
+import usePromise from "utils/usePromise";
 
 export const InfoTable = ({ data }: any) => {
     return <PatientInfoTable data={data} />;
@@ -39,21 +38,11 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
         data._id
     );
 
-    const [getDevice, { data: deviceData }] = useLazyQuery(GET_INFO_DEVICE);
+    const [deviceData] = usePromise(`/device/${data.deviceId}`);
     const [isDeviceConnect, setIsDeviceConnect] = useState(false);
 
     useEffect(() => {
-        if (data && data.deviceId) {
-            getDevice({
-                variables: {
-                    id: data.deviceId,
-                },
-            });
-        }
-    }, [data]);
-
-    useEffect(() => {
-        if (deviceData?.getDevice?.isConnect) setIsDeviceConnect(deviceData?.getDevice?.isConnect);
+        if (deviceData.isConnect) setIsDeviceConnect(deviceData?.isConnect);
     }, [deviceData]);
 
     return (

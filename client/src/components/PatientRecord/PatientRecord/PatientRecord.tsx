@@ -1,14 +1,12 @@
 import "./index.scss";
 
 import { useEffect, useState } from "react";
-import { useLazyQuery, useQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 
 import { InfoTable } from "../PatientList/TableInfo/Table";
 import MedicineSchedule from "../PatientList/MedicineSchedule";
 import useInputDevice from "../PatientList/useInputDevice";
 
-import { GET_DEVICE, GET_PATIENT } from "./schema";
 import ThresholdStats from "../PatientList/ThresholdStats";
 
 import thermo from "../../../assets/themo.png";
@@ -19,34 +17,13 @@ import blood from "../../../assets/blood.png";
 
 import PatientTestHistory from "../PatientList/PatientTestHistory";
 import Exercises from "../PatientList/Exercises";
+import usePromise from "utils/usePromise";
 
 const PatientRecord = () => {
     const account = useAppSelector((state) => state.account);
-    const [patientData, setPatientData] = useState<any>();
-    const { data } = useQuery(GET_PATIENT, {
-        variables: {
-            id: account.id,
-        },
-        fetchPolicy: "no-cache",
-    });
+    const [patientData] = usePromise(`/patient/${account.id}`);
 
-    const [getDevice, { data: deviceData }] = useLazyQuery(GET_DEVICE, {
-        fetchPolicy: "network-only",
-    });
-
-    useEffect(() => {
-        if (data) setPatientData(data.getPatient);
-    }, [data]);
-
-    useEffect(() => {
-        if (patientData) {
-            getDevice({
-                variables: {
-                    id: patientData.deviceId,
-                },
-            });
-        }
-    }, [patientData]);
+    const deviceData: any = {}
 
     const [thresholdStatus, setThresholdStatus] = useState({
         spO2: false,
@@ -64,22 +41,6 @@ const PatientRecord = () => {
         });
     };
 
-    const [heartRate, editHeartRate, onChangeHeartRate, onConfirmHeartRate, onCancelEditHeartRate] = useInputDevice("heartRate", 0, deviceData?.getDevice?._id);
-    const [SpO2, editSpO2, onChangeSpO2, onConfirmSpO2, onCancelEditSpO2] = useInputDevice("SpO2", 0, deviceData?.getDevice?._id);
-    const [bodyTemp, editBodyTemp, onChangeBodyTemp, onConfirmBodyTemp, onCancelEditBodyTemp] = useInputDevice("bodyTemp", 0, deviceData?.getDevice?._id);
-
-    const handleEnablePushData = (key: string) => {
-        if (key === "heartRate") onConfirmHeartRate();
-        if (key === "SpO2") onConfirmSpO2();
-        if (key === "bodyTemp") onConfirmBodyTemp();
-    };
-
-    const handleCancelEditAll = () => {
-        onCancelEditHeartRate();
-        onCancelEditSpO2();
-        onCancelEditBodyTemp();
-    };
-
     return (
         <div className="patient-wrapper">
             <div className="patient-choose"></div>
@@ -90,7 +51,7 @@ const PatientRecord = () => {
                         <div className="patient-info-detail">
                             <InfoTable data={patientData} />
                         </div>
-                        <PatientTestHistory patientId={patientData._id} />
+                        {/* <PatientTestHistory patientId={patientData.id} /> */}
                         <div className="patient-info-right-content">
                             <div className="patient-info-sub-info">
                                 <div className="patient-info-Exercises">
