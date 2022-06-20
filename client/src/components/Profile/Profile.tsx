@@ -75,8 +75,8 @@ function UserCard() {
             <VscSymbolNamespace />
           </div>
           <div className="data">
-            {isDoctor && data.firstName && ` ${data.firstName} ${data.lastName}(Bác sĩ)`}
-            {isPatient && data.firstName && ` ${data.firstName} ${data.lastName} (Bệnh nhân)`}
+            {isDoctor && data.fullName && ` ${data.fullName} (Bác sĩ)`}
+            {isPatient && data.fullName && ` ${data.fullName} (Bệnh nhân)`}
           </div>
         </div>
 

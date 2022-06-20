@@ -199,9 +199,9 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
   const [notificationsList, setNotificationsList] = useState<any>([]);
 
   const [notifications] = usePromise(`/user/notifications/${id}`)
-
   useEffect(() => {
-    setUnseen(notifications.filter((notification: any) => notification.status !== "seen").length);
+    console.log(notifications)
+    setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
     setNotificationsList(notifications);
   }, [notifications]);
 

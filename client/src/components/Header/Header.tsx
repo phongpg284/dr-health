@@ -254,12 +254,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
 
     useEffect(() => {
         if (user.role && user.id) {
-            if (user.role == "doctor") {
-                api.get(`/doctor/${user.id}`).then(res => setData(res.data))
-            }
-            if (user.role == "patient") {
-                api.get(`/patient/${user.id}`).then(res => setData(res.data))
-            }
+            api.get(`/user/${user.id}`).then(res => setData(res.data))
         }
     }, [user.role]);
 
@@ -288,7 +283,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     const dispatch = useAppDispatch();
 
     const SigninTextName = () => {
-        const nameSigninText = data.getDoctor.fullName;
+        const nameSigninText = data.fullName;
         return <>{` ${nameSigninText}`}</>;
     };
 
@@ -307,6 +302,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
         dispatch(
             updateToken({
                 accessToken: "",
+                refreshToken: "",
                 email: "",
                 role: "",
                 id: "",

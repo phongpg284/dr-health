@@ -10,6 +10,7 @@ import { updateToken } from "../../app/authSlice";
 import * as GreetingBotStore from "../../app/GreetingBot";
 import Abstract13 from "assets/abstract13.svg";
 import { useApi } from "utils/api";
+import { AxiosError } from "axios";
 
 interface ILoginInputForm {
   email: string;
@@ -29,20 +30,26 @@ const Login = () => {
   const api = useApi();
 
   const handleLogin = (params: any) => {
-    api.post("/auth/login", params).then((res) => {
-      const data = res.data;
-      if (data && data.login.message === "Matched user") {
-        dispatch(
-          updateToken({
-            accessToken: data.login.accessToken,
-            email: data.login.email,
-            role: data.login.role,
-            id: data.login.id,
-          })
-        );
-        history.push("/");
-      } else setShowError(data.login.message);
-    });
+    api
+      .post("/auth/login", params)
+      .then((res) => {
+        const data = res.data;
+        if (data && data.accessToken && data.refreshToken) {
+          dispatch(
+            updateToken({
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
+              email: data.email,
+              role: data.role,
+              id: data.id,
+            })
+          );
+          history.push("/");
+        } 
+      })
+      .catch((error: AxiosError) => {
+        setShowError((error.response?.data as any)?.message);
+      });
   };
 
   const handleSubmit = (data: ILoginInputForm) => {

@@ -2,40 +2,51 @@ import React, { createContext, useContext, useEffect } from "react";
 import { AxiosInstance } from "axios";
 import { useStore } from "react-redux";
 import axiosInstance from "config/axios-config";
+import { useAppDispatch } from "app/store";
+import { updateToken } from "app/authSlice";
 
 const ApiContext = createContext(axiosInstance);
 
 const ApiProvider: React.FC = ({ children }) => {
   const store = useStore();
+  const dispatch = useAppDispatch();
+  const state = store.getState();
+  const { account } = state;
+
+  const getnewAccessToken = (instance: AxiosInstance, refreshToken: string) => {
+    return instance
+      .post(
+        "/auth/refresh",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + refreshToken,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(
+          updateToken({
+            id: account.id,
+            accessToken: res.data.accessToken,
+            refreshToken: res.data.refreshToken,
+            email: account.email,
+            role: account.role
+          })
+        );
+      });
+  };
 
   useEffect(() => {
     axiosInstance.interceptors.request.use(
       (config) => {
-        const state = store.getState();
-        const {
-          global_reducer: {
-            current_user: { attributes },
-          },
-        } = state;
 
         config.headers = {
           "Content-Type": "application/json",
           ...config.headers,
-          "access-token": attributes["access-token"],
-          client: attributes.client,
-          uid: attributes.uid,
+          Authorization: 'Bearer ' + account.accessToken 
         };
-
-        if (attributes["jwt-token"]) {
-          config.headers.Authorization = `Bearer ${attributes["jwt-token"]}`;
-        }
-
-        const segmentAID = localStorage.getItem("ajs_anonymous_id");
-
-        if (segmentAID) {
-          config.headers["X-AnonymousId"] = segmentAID.replace(/['"]+/g, "");
-        }
-
+        console.log("before", config);
         return config;
       },
       (error) => {
@@ -45,6 +56,11 @@ const ApiProvider: React.FC = ({ children }) => {
 
     axiosInstance.interceptors.response.use(
       (response) => {
+        const { status, data} = response;
+        if (status === 401 && data?.message === 'Unauthorized') {
+          getnewAccessToken(axiosInstance, account.refreshToken)
+        }
+        console.log("after", response);
         return response;
       },
       (error) => {
