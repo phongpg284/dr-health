@@ -4,11 +4,8 @@ import { BaseEntity } from 'src/utils/BaseEntity';
 
 @Entity()
 export class User extends BaseEntity {
-  @Property()
-  firstName!: string;
-
-  @Property()
-  lastName!: string;
+  @Property({ default: 'Demo Full Name' })
+  fullName!: string;
 
   @Property()
   email!: string;

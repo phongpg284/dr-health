@@ -18,8 +18,8 @@ export class PatientController {
     return this.patientService.findAll();
   }
 
-  @Get('get_medical_stats/:id')
-  getMedicalStats(@Param('id') id: string, @Body() query: GetMedicalStatQuery) {
+  @Post('get_medical_stats/:id')
+  getMedicalStats(@Param('id') id: string, @Body() query?: GetMedicalStatQuery) {
     return this.patientService.getStats(+id, query);
   }
 

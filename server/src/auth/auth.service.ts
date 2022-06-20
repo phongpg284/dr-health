@@ -14,13 +14,15 @@ export class AuthService {
   constructor(private userService: UserService, private tokenService: TokenService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findOne({ email });
+    const user = await this.userService.findOneByEmail(email);
+    if (!user) return { message: 'User not found!' };
+
     const isMatchPassword = await argon2.verify(user.password, password);
     if (user && isMatchPassword) {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    return { message: 'Wrong password!' };
   }
 
   async refresh(user: UserRequest) {
@@ -46,6 +48,9 @@ export class AuthService {
     const accessToken = await this.tokenService.signToken(user);
     const refreshToken = await this.tokenService.signRefreshToken(user);
     return {
+      id: user.id,
+      role: user.role,
+      email: user.email,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };

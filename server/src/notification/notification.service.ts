@@ -53,11 +53,11 @@ export class NotificationService {
 
   async findAllByUser(id: number) {
     try {
-      const user = await this.userRepository.findOne(id, { populate: ['notifications'] });
+      const user = await this.userRepository.findOneOrFail(id, { populate: ['notifications'] });
       return user.notifications;
     } catch (error) {
       logger.error(error);
-      throw new Error(error);
+      return new HttpException(error, HttpStatus.BAD_REQUEST);
     }
   }
 

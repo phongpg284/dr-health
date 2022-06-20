@@ -60,7 +60,8 @@ export class PatientService {
   }
 
   async findOne(params: FilterQuery<Patient>) {
-    const patient = await this.patientRepository.findOneOrFail(params);
+    const patient = await this.patientRepository.findOne(params);
+    if (!patient) throw new HttpException('Patient not found', HttpStatus.BAD_REQUEST);
     return patient;
   }
 
@@ -111,7 +112,6 @@ export class PatientService {
   }
 
   async getStats(id: number, query: GetMedicalStatQuery) {
-    console.log(id, query);
     try {
       const { startDate, endDate, filterStats, lowThreshold, highThreshold } = query ?? {};
       const qb = this.em.createQueryBuilder(MedicalStat).where({ patient_id: id });
@@ -123,10 +123,18 @@ export class PatientService {
       if (filterStats) qb.select(filterStats);
       else qb.select('*');
 
-      const res = await qb.execute();
+      const data: any[] = await qb.execute();
+      const res = data.reduce((prev, current) => {
+        console.log(prev[current.type]);
+        const { patient, type, ...currentStat } = current;
+        return {
+          ...prev,
+          [type]: prev[type] ? [...prev[type], currentStat] : [currentStat],
+        };
+      }, {});
       return res;
     } catch (error) {
-      return new HttpException(
+      throw new HttpException(
         {
           message: 'Error get medical stats',
           errors: error,

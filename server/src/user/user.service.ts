@@ -21,7 +21,7 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { password, rePassword, email, firstName, lastName, role } = createUserDto;
+    const { password, rePassword, email, fullName, role } = createUserDto;
     if (password !== rePassword) throw new HttpException('Error: password unmatched!', HttpStatus.BAD_REQUEST);
     let hashPassword: string;
 
@@ -38,8 +38,7 @@ export class UserService {
       hashPassword = await argon2.hash(password);
       const newUser = new User();
       newUser.email = email;
-      newUser.firstName = firstName;
-      newUser.lastName = lastName;
+      newUser.fullName = fullName;
       newUser.role = role;
       newUser.password = hashPassword;
 
@@ -82,8 +81,13 @@ export class UserService {
   }
 
   async findOne(params: FilterQuery<User>) {
-    const user = await this.userRepository.findOneOrFail(params, { fields: ['id', 'email', 'role', 'password'] });
+    const user = await this.userRepository.findOneOrFail(params, { fields: ['id', 'email', 'role', 'fullName'] });
     return user;
+  }
+
+  async getNotifications(id: number) {
+    const user = await this.userRepository.findOneOrFail(id, { populate: ['notifications'] });
+    return user.notifications;
   }
 
   async findOneByEmail(email: string) {
