@@ -26,7 +26,7 @@ const usePromise = <ResponseType = any>(url: string, dependencies = []): [Respon
       });
   }, dependencies);
 
-  return [get(response, "data", []), loaded, response];
+  return [get(response, "data", null), loaded, response];
 };
 
 export default usePromise;

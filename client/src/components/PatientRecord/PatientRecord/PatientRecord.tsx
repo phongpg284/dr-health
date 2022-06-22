@@ -21,7 +21,7 @@ import usePromise from "utils/usePromise";
 
 const PatientRecord = () => {
     const account = useAppSelector((state) => state.account);
-    const [patientData] = usePromise(`/patient/${account.id}`);
+    const [patientData] = usePromise(`/user/role/${account.id}`);
 
     const deviceData: any = {}
 
@@ -40,7 +40,7 @@ const PatientRecord = () => {
             };
         });
     };
-
+    console.log(patientData)
     return (
         <div className="patient-wrapper">
             <div className="patient-choose"></div>
@@ -111,7 +111,7 @@ const PatientRecord = () => {
                                 />
                             </div>
                         </div>
-                        <Chart id={patientData.deviceId} thresholdStatus={handleChangeThresholdStatus} />
+                        <Chart id={patientData.id} thresholdStatus={handleChangeThresholdStatus} />
                     </div>
                 </div>
             )}

@@ -38,12 +38,12 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
         data._id
     );
 
-    const [deviceData] = usePromise(`/device/${data.deviceId}`);
     const [isDeviceConnect, setIsDeviceConnect] = useState(false);
 
     useEffect(() => {
-        if (deviceData.isConnect) setIsDeviceConnect(deviceData?.isConnect);
-    }, [deviceData]);
+        if (data?.device) setIsDeviceConnect(true);
+        else setIsDeviceConnect(false)
+    }, [data]);
 
     return (
         <div className="patient-info-table">

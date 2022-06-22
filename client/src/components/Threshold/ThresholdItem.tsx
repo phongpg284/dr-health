@@ -311,8 +311,6 @@ export const ThresholdItem: React.FC<ThresholdItemProps> = ({ id, type, property
             }
         }
     }, [patientDevice])
-    console.log(patient);
-
 
     return (<>
         <div className="threshold_item th_justart" style={{ marginTop: property != 0 && property != 3 ? "0px" : "60px" }}>

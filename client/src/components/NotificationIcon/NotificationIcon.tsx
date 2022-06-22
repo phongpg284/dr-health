@@ -162,7 +162,7 @@ function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
 //   });
 
   useEffect(() => {
-    setUnseen(notifications.filter((notification: any) => notification.status !== "seen").length);
+    setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
     setNotificationsList(notifications);
   }, [notifications]);
 
@@ -200,7 +200,6 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
 
   const [notifications] = usePromise(`/user/notifications/${id}`)
   useEffect(() => {
-    console.log(notifications)
     setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
     setNotificationsList(notifications);
   }, [notifications]);

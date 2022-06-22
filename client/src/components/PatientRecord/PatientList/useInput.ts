@@ -31,7 +31,6 @@ const useInput = (key: string, initValue: any, patientId: string) => {
                 };
             api.post(`/patient/${patientId}`, inputs)
             .then((res)=>{
-
                 console.log("patient success",res)
             }).catch((err)=>{
                 console.log(" patient error",err)

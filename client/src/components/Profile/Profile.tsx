@@ -27,11 +27,11 @@ import { useApi } from "utils/api";
 
 export default function Profile() {
   const user = useAppSelector((state) => state.account);
-  const [patientData] = usePromise(`/patient/${user.id}`);
+  const [patientData] = usePromise(`/user/role/${user.id}`);
 
   const medicineSchedule = React.useMemo(() => {
     if (user.role === "patient") {
-      return patientData.getPatient.medicineSchedule;
+      return patientData?.medicineSchedule;
     }
   }, [user]);
 
@@ -57,12 +57,7 @@ function UserCard() {
 
   useEffect(() => {
     if (user.role && user.id) {
-      if (user.role == "doctor") {
-        api.get(`/doctor/${user.id}`).then((res) => setData(res.data));
-      }
-      if (user.role == "patient") {
-        api.get(`/patient/${user.id}`).then((res) => setData(res.data));
-      }
+      api.get(`/user/role/${user.id}`).then((res) => setData(res.data));
     }
   }, [user.role]);
 

@@ -51,7 +51,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 const Chart = ({ id, thresholdStatus }: any) => {
-    const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/get_medical_stats/${id}`);
+    const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`);
 
     const [opacityState, setOpacityState] = useState({
         spO2: 0.2,
@@ -117,10 +117,10 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 function ListChart({ deviceData }: { deviceData: any }) {
     const diastole = React.useMemo(() => {
-        return deviceData.diastole.map((item: any) => item.data);
+        return deviceData?.diastole?.map((item: any) => item.data) ?? [];
     }, [deviceData]);
     const systolic = React.useMemo(() => {
-        return deviceData.systolic.map((item: any) => item.data);
+        return deviceData?.systolic?.map((item: any) => item.data)?? [];
     }, [deviceData]);
 
     return (
@@ -210,21 +210,21 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
     const [type, setType] = useState(arrType[0]);
 
     const SpO2 = React.useMemo(() => {
-        return deviceData.SpO2.map((item: any) => item.data);
+        return deviceData?.SpO2?.map((item: any) => item.data) ?? [];
     }, [deviceData]);
     const bodyTemp = React.useMemo(() => {
-        return deviceData.bodyTemp.map((item: any) => item.data);
+        return deviceData?.bodyTemp?.map((item: any) => item.data) ?? [];
     }, [deviceData]);
 
     const heartRate = React.useMemo(() => {
-        return deviceData.heartRate.map((item: any) => item.data);
+        return deviceData?.heartRate?.map((item: any) => item.data) ?? [];
     }, [deviceData]);
 
     const face = React.useMemo(() => {
-        return deviceData.face.map((item: any) => item.data);
+        return deviceData?.face?.map((item: any) => item.data) ?? [];
     }, [deviceData]);
     const armMovement = React.useMemo(() => {
-        const arr = deviceData.armMovement.map((item: any) => item.data);
+        const arr = deviceData?.armMovement?.map((item: any) => item.data) ?? [];
         const finalArr = [];
         let positive = 0;
         let negative = 0;
@@ -247,7 +247,7 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
         return finalArr;
     }, [deviceData]);
     const voice = React.useMemo(() => {
-        const arr = deviceData.voice.map((item: any) => item.data);
+        const arr = deviceData?.voice?.map((item: any) => item.data) ?? [];
         const finalArr = [];
         let positive = 0;
         let negative = 0;
