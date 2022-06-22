@@ -3,10 +3,14 @@ import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { GetMedicalStatQuery } from 'src/medical-stat/dto/get-medical-stat.dto';
+import { MedicalThresholdService } from 'src/medical-threshold/medical-threshold.service';
 
 @Controller('patient')
 export class PatientController {
-  constructor(private readonly patientService: PatientService) {}
+  constructor(
+    private readonly patientService: PatientService,
+    private readonly medicalThresholdService: MedicalThresholdService,
+  ) {}
 
   @Post()
   create(@Body() createPatientDto: CreatePatientDto) {
@@ -18,9 +22,14 @@ export class PatientController {
     return this.patientService.findAll();
   }
 
-  @Post('get_medical_stats/:id')
+  @Get('medical_stats/:id')
   getMedicalStats(@Param('id') id: string, @Body() query?: GetMedicalStatQuery) {
     return this.patientService.getStats(+id, query);
+  }
+
+  @Get('medical_threshold/:id')
+  getMedicalThreshold(@Param('id') id: string) {
+    return this.medicalThresholdService.getThresholdForPatient(+id);
   }
 
   @Get(':id')

@@ -20,8 +20,8 @@ export class DoctorService {
   async create(createDoctorDto: CreateDoctorDto) {
     const { accountId } = createDoctorDto;
     try {
-      const newDoctor = new Doctor();
-      newDoctor.account = await this.userRepository.findOne({ id: accountId });
+      const account = await this.userRepository.findOneOrFail({ id: accountId });
+      const newDoctor = new Doctor(account);
 
       await this.doctorRepository.persistAndFlush(newDoctor);
       return newDoctor;

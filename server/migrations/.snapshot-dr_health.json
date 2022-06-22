@@ -71,11 +71,84 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "dob": {
+          "name": "dob",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "job": {
+          "name": "job",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "ethnic": {
+          "name": "ethnic",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "nationality": {
+          "name": "nationality",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
         }
       },
       "name": "user",
       "schema": "public",
       "indexes": [
+        {
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "keyName": "user_email_unique",
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "user_pkey",
           "columnNames": [
@@ -217,6 +290,124 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "sp_o2threshold": {
+          "name": "sp_o2threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "heart_rate_threshold": {
+          "name": "heart_rate_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "body_temp_threshold": {
+          "name": "body_temp_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "dias_high_threshold": {
+          "name": "dias_high_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "dias_low_threshold": {
+          "name": "dias_low_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "sys_high_threshold": {
+          "name": "sys_high_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "sys_low_threshold": {
+          "name": "sys_low_threshold",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        }
+      },
+      "name": "medical_threshold",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "medical_threshold_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "account_id": {
           "name": "account_id",
           "type": "int",
@@ -226,8 +417,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "address": {
-          "name": "address",
+        "department": {
+          "name": "department",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -235,15 +426,14 @@
           "nullable": true,
           "mappedType": "string"
         },
-        "dob": {
-          "name": "dob",
-          "type": "timestamptz(0)",
+        "degree": {
+          "name": "degree",
+          "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "length": 6,
-          "mappedType": "datetime"
+          "mappedType": "string"
         }
       },
       "name": "doctor",
@@ -426,6 +616,15 @@
           "primary": false,
           "nullable": true,
           "mappedType": "integer"
+        },
+        "medical_threshold_id": {
+          "name": "medical_threshold_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
         }
       },
       "name": "patient",
@@ -446,6 +645,15 @@
           ],
           "composite": false,
           "keyName": "patient_device_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "medical_threshold_id"
+          ],
+          "composite": false,
+          "keyName": "patient_medical_threshold_id_unique",
           "primary": false,
           "unique": true
         },
@@ -496,6 +704,19 @@
             "id"
           ],
           "referencedTableName": "public.device",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "patient_medical_threshold_id_foreign": {
+          "constraintName": "patient_medical_threshold_id_foreign",
+          "columnNames": [
+            "medical_threshold_id"
+          ],
+          "localTableName": "public.patient",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medical_threshold",
           "deleteRule": "set null",
           "updateRule": "cascade"
         }

@@ -16,6 +16,7 @@ import { redisConfig } from './config/redis';
 import { NotificationModule } from './notification/notification.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { EventsModule } from './events/events.module';
+import { MedicalThresholdModule } from './medical-threshold/medical-threshold.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { EventsModule } from './events/events.module';
     NotificationModule,
     MqttModule,
     EventsModule,
+    MedicalThresholdModule,
   ],
   controllers: [AppController],
   providers: [AppService],

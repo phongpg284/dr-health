@@ -10,6 +10,7 @@ import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { GetMedicalStatQuery } from 'src/medical-stat/dto/get-medical-stat.dto';
 import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
 import { EntityManager } from '@mikro-orm/postgresql';
+import { MedicalThreshold } from 'src/medical-threshold/entities/medical-threshold.entity';
 
 @Injectable()
 export class PatientService {
@@ -30,9 +31,8 @@ export class PatientService {
   async create(createPatientDto: CreatePatientDto) {
     const { accountId, doctorId } = createPatientDto;
     try {
-      const newPatient = new Patient();
-      newPatient.account = await this.userRepository.findOne({ id: accountId });
-
+      const account = await this.userRepository.findOneOrFail({ id: accountId });
+      const newPatient = new Patient(account);
       if (doctorId) newPatient.doctor = await this.doctorRepository.findOne({ id: doctorId });
 
       await this.patientRepository.persistAndFlush(newPatient);

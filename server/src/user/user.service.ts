@@ -44,13 +44,11 @@ export class UserService {
 
       switch (role) {
         case Role.PATIENT:
-          const newPatient = new Patient();
-          newPatient.account = newUser;
+          const newPatient = new Patient(newUser);
           await this.patientRepository.persistAndFlush(newPatient);
           break;
         case Role.DOCTOR:
-          const newDoctor = new Doctor();
-          newDoctor.account = newUser;
+          const newDoctor = new Doctor(newUser);
           await this.doctorRepository.persistAndFlush(newDoctor);
           break;
         default:
@@ -83,6 +81,20 @@ export class UserService {
   async findOne(params: FilterQuery<User>) {
     const user = await this.userRepository.findOneOrFail(params, { fields: ['id', 'email', 'role', 'fullName'] });
     return user;
+  }
+
+  async getRoleData(id: number) {
+    try {
+      const user = await this.userRepository.findOneOrFail(id, { fields: ['role'] });
+      if (user.role === 'patient') {
+        return await this.patientRepository.findOneOrFail({ account: user.id });
+      }
+      if (user.role === 'doctor') {
+        return await this.doctorRepository.findOneOrFail({ account: user.id });
+      }
+    } catch (error) {
+      return new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async getNotifications(id: number) {
