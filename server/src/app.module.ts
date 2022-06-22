@@ -17,6 +17,8 @@ import { NotificationModule } from './notification/notification.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { EventsModule } from './events/events.module';
 import { MedicalThresholdModule } from './medical-threshold/medical-threshold.module';
+import { PrescriptionModule } from './prescription/prescription.module';
+import { MedicinePrescriptionModule } from './medicine-prescription/medicine-prescription.module';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { MedicalThresholdModule } from './medical-threshold/medical-threshold.mo
     MqttModule,
     EventsModule,
     MedicalThresholdModule,
+    PrescriptionModule,
+    MedicinePrescriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

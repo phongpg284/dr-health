@@ -4,6 +4,7 @@ import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { MedicalRecord } from 'src/medical-record/entities/medical-record.entity';
 import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
 import { MedicalThreshold } from 'src/medical-threshold/entities/medical-threshold.entity';
+import { Prescription } from 'src/prescription/entities/prescription.entity';
 import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
@@ -27,6 +28,9 @@ export class Patient extends BaseEntity {
 
   @OneToOne({ nullable: true, inversedBy: 'patient', orphanRemoval: true })
   medicalThreshold: MedicalThreshold;
+
+  @OneToMany(() => Prescription, (prescription) => prescription.patient, { hidden: true })
+  prescriptions = new Collection<Prescription>(this);
 
   @OneToMany(() => MedicalRecord, (medicalRecord) => medicalRecord.patient, { hidden: true })
   medicalRecords = new Collection<MedicalRecord>(this);

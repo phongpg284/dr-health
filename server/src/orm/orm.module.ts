@@ -9,12 +9,25 @@ import { MedicalRecord } from 'src/medical-record/entities/medical-record.entity
 import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { MedicalThreshold } from 'src/medical-threshold/entities/medical-threshold.entity';
+import { Prescription } from 'src/prescription/entities/prescription.entity';
+import { MedicinePrescription } from 'src/medicine-prescription/entities/medicine-prescription.entity';
 
 @Module({
   imports: [
     MikroOrmModule.forRoot(),
     MikroOrmModule.forFeature({
-      entities: [User, Patient, Doctor, Device, MedicalRecord, MedicalStat, Notification, MedicalThreshold],
+      entities: [
+        User,
+        Patient,
+        Doctor,
+        Device,
+        MedicalRecord,
+        MedicalStat,
+        Notification,
+        MedicalThreshold,
+        Prescription,
+        MedicinePrescription,
+      ],
     }),
   ],
   exports: [MikroOrmModule],
