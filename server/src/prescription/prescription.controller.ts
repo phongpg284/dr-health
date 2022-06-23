@@ -12,11 +12,6 @@ export class PrescriptionController {
     return this.prescriptionService.create(createPrescriptionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.prescriptionService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.prescriptionService.findOne(+id);

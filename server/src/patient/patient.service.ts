@@ -10,7 +10,6 @@ import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { GetMedicalStatQuery } from 'src/medical-stat/dto/get-medical-stat.dto';
 import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { MedicalThreshold } from 'src/medical-threshold/entities/medical-threshold.entity';
 
 @Injectable()
 export class PatientService {
@@ -137,6 +136,21 @@ export class PatientService {
       throw new HttpException(
         {
           message: 'Error get medical stats',
+          errors: error,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async getPrescriptions(id: number) {
+    try {
+      const patient = await this.patientRepository.findOneOrFail(id, { populate: ['prescriptions'] });
+      return patient.prescriptions;
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: 'Error get prescriptions',
           errors: error,
         },
         HttpStatus.BAD_REQUEST,
