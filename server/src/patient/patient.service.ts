@@ -124,7 +124,6 @@ export class PatientService {
 
       const data: any[] = await qb.execute();
       const res = data.reduce((prev, current) => {
-        console.log(prev[current.type]);
         const { patient, type, ...currentStat } = current;
         return {
           ...prev,

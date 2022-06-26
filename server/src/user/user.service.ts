@@ -79,7 +79,7 @@ export class UserService {
   }
 
   async findOne(params: FilterQuery<User>) {
-    const user = await this.userRepository.findOneOrFail(params, { fields: ['id', 'email', 'role', 'fullName'] });
+    const user = await this.userRepository.findOneOrFail(params);
     return user;
   }
 

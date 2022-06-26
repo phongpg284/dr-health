@@ -135,6 +135,15 @@
           "primary": false,
           "nullable": true,
           "mappedType": "string"
+        },
+        "identity": {
+          "name": "identity",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
         }
       },
       "name": "user",
