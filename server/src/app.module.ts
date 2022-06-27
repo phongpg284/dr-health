@@ -19,6 +19,7 @@ import { EventsModule } from './events/events.module';
 import { MedicalThresholdModule } from './medical-threshold/medical-threshold.module';
 import { PrescriptionModule } from './prescription/prescription.module';
 import { MedicinePrescriptionModule } from './medicine-prescription/medicine-prescription.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { MedicinePrescriptionModule } from './medicine-prescription/medicine-pre
     MedicalThresholdModule,
     PrescriptionModule,
     MedicinePrescriptionModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],

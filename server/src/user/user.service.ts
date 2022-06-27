@@ -79,7 +79,7 @@ export class UserService {
   }
 
   async findOne(params: FilterQuery<User>) {
-    const user = await this.userRepository.findOneOrFail(params);
+    const user = await this.userRepository.findOneOrFail(params, { populate: ['address'] });
     return user;
   }
 
@@ -109,7 +109,6 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOne({ id });
-
     wrap(user).assign(updateUserDto);
     await this.userRepository.persistAndFlush(user);
   }

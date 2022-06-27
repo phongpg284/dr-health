@@ -57,10 +57,10 @@ function UserCard() {
 
   useEffect(() => {
     if (user.role && user.id) {
-      api.get(`/user/role/${user.id}`).then((res) => setData(res.data));
+      api.get(`/user/${user.id}`).then((res) => setData(res.data));
     }
   }, [user.role]);
-
+console.log(data);
   return (
     <div className="userCard">
       <Image className="userAvatar" src={isDoctor ? defaultAvatar : defaultAvatarPatient} />
@@ -79,30 +79,20 @@ function UserCard() {
           <div className="label">
             <BsTelephone />
           </div>
-          <div className="data">
-            {isDoctor && data.phone && ` ${data.phone}`}
-            {isPatient && data.phone && ` ${data.phone}`}
-          </div>
+          <div className="data">{data.phone && ` ${data.phone}`}</div>
         </div>
         <div className="userInfoRow">
           <div className="label">
             <IoMailOutline />
           </div>
-          <div className="data">
-            {isDoctor && data.email && ` ${data.email}`}
-            {isPatient && data.email && ` ${data.email}`}
-          </div>
+          <div className="data">{data.email && ` ${data.email}`}</div>
         </div>
 
         <div className="userInfoRow">
           <div className="label">
             <MdOutlineLastPage />
           </div>
-          <div className="data">
-            {isDoctor && data.age && data.age}
-            {isPatient && data.age && data.age}
-            &nbsp; tuổi
-          </div>
+          <div className="data">{data.age && `${data.age} tuổi`}</div>
         </div>
 
         {isDoctor && data.education && (
@@ -111,39 +101,6 @@ function UserCard() {
               <BsStar />
             </div>
             <div className="data">{data.education}</div>
-          </div>
-        )}
-        {isPatient && data.height && (
-          <div className="userInfoRow">
-            <div className="label">
-              <AiOutlineColumnHeight />
-            </div>
-
-            <div className="data">{`Cao ${data.height} m`}</div>
-          </div>
-        )}
-        {isPatient && data.weight && (
-          <div className="userInfoRow">
-            <div className="label">
-              <MdOutlineMonitorWeight />
-            </div>
-            <div className="data">{`Nặng ${data.weight} kg`}</div>
-          </div>
-        )}
-        {isPatient && data.weight && data.height && (
-          <div className="userInfoRow">
-            <div className="label">
-              <MdOutlineCalculate />
-            </div>
-            <div className="data">{` ${getBMI(data.height, data.weight).toFixed(2)} (BMI)`}</div>
-          </div>
-        )}
-        {isPatient && data.weight && data.height && (
-          <div className="userInfoRow">
-            <div className="label">
-              <MdOutlineHealthAndSafety />
-            </div>
-            <div className="data">{` ${getDiagnostic(getBMI(data.height, data.weight))}`}</div>
           </div>
         )}
       </div>

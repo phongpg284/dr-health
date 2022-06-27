@@ -1,41 +1,18 @@
 import "./index.scss";
-import { ReactElement, useEffect, useState } from "react";
-import { DatePicker, message } from "antd";
 import dayjs from "dayjs";
-
-import useInput from "../useInput";
-import { MdModeEditOutline } from "react-icons/md";
-import { AiOutlineCheck } from "react-icons/ai";
-import { VscChromeClose } from "react-icons/vsc";
-import usePromise from "utils/usePromise";
+import { message } from "antd";
+import Select from "react-select";
+import { ReactElement, useEffect, useState } from "react";
+import { useAppSelector } from "app/store";
+import * as Yup from "yup";
 import { useFormik } from "formik";
 import InputDate from "components/InputDate";
-import Select from "react-select";
-import FormItemLabel from "antd/lib/form/FormItemLabel";
 import SubmitButton from "components/SubmitButton";
-import { validationDefault } from "./validate";
-import * as Yup from "yup";
 import { useApi } from "utils/api";
-import { useAppSelector } from "app/store";
+import { validationDefault } from "./validate";
 
 export const InfoTable = ({ data }: any) => {
   return <PatientInfoTable data={data} />;
-};
-
-export const formatDob = (dob: any, type?: any) => {
-  if (!dob) return "";
-
-  if (type === "dashes") {
-    if (dob.indexOf("/") === -1) return dob;
-    const [mm, dd, yyyy] = dob.split("/");
-    return `${yyyy}-${mm}-${dd}`;
-  }
-
-  if (dob.indexOf("/") >= 0) return dob;
-  if (dob.indexOf("-") === -1) return dob;
-  const [yyyy, mm, dd] = dob.split("-");
-  console.log(yyyy, mm, dd);
-  return `${mm}/${dd}/${yyyy}`;
 };
 
 function PatientInfoTable({ data }: { data: any }): ReactElement {
@@ -49,17 +26,23 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
       phone: data.phone || "",
       gender: data.gender || "",
       ethnic: data.ethnic || "",
-      dob: formatDob(data.dob),
-      street: data.street || "",
-      ward: data.ward || "",
-      district: data.district || "",
-      province: data.province || "",
+      dob: dayjs(data.dob).format('DD/MM/YYYY'),
+      address: {
+        location: data.address.location || "",
+        ward: data.address.ward || "",
+        wardCode: data.address.wardCode || null,
+        district: data.address.district || "",
+        districtCode: data.address.districtCode || null,
+        province: data.address.province || "",
+        provinceCode: data.address.provinceCode || null,
+      }
     },
     // validationSchema: Yup.object().shape(validationDefault),
     onSubmit: (values) => {
-      console.log(values);
-      api.post(`/user/${account.id}`, values).then(() => message.success("Cập nhật hồ sơ thành công"));
-      console.log('hehe');
+      api
+        .post(`/user/${account.id}`, values)
+        .then(() => message.success("Cập nhật hồ sơ thành công"))
+        .catch(() => message.error("Cập nhật lỗi"));
     },
   });
 
@@ -74,18 +57,20 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
   }, []);
 
   useEffect(() => {
-    if (formik.values.province)
-      fetch(`https://provinces.open-api.vn/api/p/${formik.values.province}?depth=2`)
+    console.log(formik.values);
+    if (formik.values.address.provinceCode)
+      fetch(`https://provinces.open-api.vn/api/p/${formik.values.address.provinceCode}?depth=2`)
         .then((res) => res.json())
         .then((data) => setDistricts(data.districts));
-  }, [formik.values.province]);
+  }, [formik.values.address.provinceCode]);
 
   useEffect(() => {
-    if (formik.values.district)
-      fetch(`https://provinces.open-api.vn/api/d/${formik.values.district}?depth=2`)
+    if (formik.values.address.districtCode)
+      fetch(`https://provinces.open-api.vn/api/d/${formik.values.address.districtCode}?depth=2`)
         .then((res) => res.json())
         .then((data) => setWards(data.wards));
-  }, [formik.values.district]);
+  }, [formik.values.address.districtCode]);
+
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -132,7 +117,7 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
       <div className="columns">
         <div className="column">
           <div className="label">Địa chỉ</div>
-          <input className="input-text" name="street" value={formik.values.street} onChange={formik.handleChange} placeholder="Address" />
+          <input className="input-text" name="address.location" value={formik.values.address.location} onChange={formik.handleChange} placeholder="Address" />
         </div>
       </div>
       <div className="columns">
@@ -145,7 +130,15 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
             options={provinces}
             isClearable
             name="province"
-            onChange={(value) => formik.setFieldValue("province", value.code)}
+            defaultValue={{
+              name: data.address?.province,
+              code: data.address?.provinceCode,
+            }}
+            onChange={(value) => {
+              console.log(value)
+              formik.setFieldValue("address.province", value?.name)
+              formik.setFieldValue("address.provinceCode", value?.code)
+            }}
           />
         </div>
         <div className="column">
@@ -155,10 +148,16 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
             getOptionLabel={(e: any) => e.name}
             getOptionValue={(e: any) => e.code}
             isClearable
+            defaultValue={{
+              name: data.address?.district ?? '',
+              code: data.address?.districtCode ?? null,
+            }}
             options={districts}
             name="district"
-            onChange={(value) => formik.setFieldValue("district", value.code)}
-          />
+            onChange={(value) => {
+              formik.setFieldValue("address.district", value?.name)
+              formik.setFieldValue("address.districtCode", value?.code)
+            }}          />
         </div>
         <div className="column">
           <div className="label">Phường/Xã</div>
@@ -166,11 +165,17 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
             placeholder="Ward..."
             getOptionLabel={(e: any) => e.name}
             getOptionValue={(e: any) => e.code}
+            defaultValue={{
+              name: data.address?.ward,
+              code: data.address?.wardCode,
+            }}
             isClearable
             options={wards}
             name="ward"
-            onChange={(value) => formik.setFieldValue("ward", value.code)}
-          />
+            onChange={(value) => {
+              formik.setFieldValue("address.ward", value?.name)
+              formik.setFieldValue("address.wardCode", value?.code)
+            }}          />
         </div>
       </div>
       <SubmitButton type="submit">Lưu thay đổi</SubmitButton>

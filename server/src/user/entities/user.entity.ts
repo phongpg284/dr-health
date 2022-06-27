@@ -1,6 +1,7 @@
-import { Collection, Entity, OneToMany, Property, Unique } from '@mikro-orm/core';
+import { Collection, Entity, OneToMany, OneToOne, Property, Unique } from '@mikro-orm/core';
 import { Transform } from 'class-transformer';
 import dayjs from 'dayjs';
+import { Address } from 'src/address/entities/address.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
@@ -35,19 +36,10 @@ export class User extends BaseEntity {
   job?: string;
 
   @Property({ nullable: true })
-  address?: string;
-
-  @Property({ nullable: true })
-  ward?: string;
-
-  @Property({ nullable: true })
-  district?: string;
-
-  @Property({ nullable: true })
-  province?: string;
-
-  @Property({ nullable: true })
   ethnic?: string;
+
+  @OneToOne({ nullable: true, inversedBy: 'user' })
+  address: Address;
 
   @Property({ nullable: true })
   nationality?: string;
