@@ -26,6 +26,7 @@ export class TokenService {
       email: user.email,
       id: user.id,
       role: user.role,
+      roleId: user.roleId,
       expireAt: Date.now() + EXPIRE_JWT_SECRET_KEY,
     };
     const accessToken = this.jwtService.sign(payload, {
@@ -43,6 +44,7 @@ export class TokenService {
       email: user.email,
       id: user.id,
       role: user.role,
+      roleId: user.roleId,
     };
     const refreshToken = this.jwtService.sign(payload, {
       secret: REFRESH_JWT_SECRET_KEY,

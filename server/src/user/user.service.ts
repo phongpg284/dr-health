@@ -104,7 +104,14 @@ export class UserService {
 
   async findOneByEmail(email: string) {
     const user = await this.userRepository.findOne({ email });
-    return user;
+    if (user?.role === 'patient') {
+      const patient = await this.patientRepository.findOne({ account: user.id });
+      return { user: user, roleId: patient.id };
+    } else if (user?.role === 'doctor') {
+      const doctor = await this.doctorRepository.findOne({ account: user.id });
+      return { user: user, roleId: doctor.id };
+    }
+    return { user };
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

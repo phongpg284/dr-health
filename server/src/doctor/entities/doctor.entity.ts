@@ -1,4 +1,5 @@
 import { Collection, Entity, OneToMany, OneToOne, Property } from '@mikro-orm/core';
+import { Appointment } from 'src/appointment/entities/appointment.entity';
 import { Patient } from 'src/patient/entities/patient.entity';
 import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
@@ -20,4 +21,7 @@ export class Doctor extends BaseEntity {
 
   @Property({ nullable: true })
   degree?: string;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.doctor, { hidden: true })
+  appointments = new Collection<Appointment>(this);
 }

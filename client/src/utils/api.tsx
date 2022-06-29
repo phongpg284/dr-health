@@ -31,7 +31,8 @@ const ApiProvider: React.FC = ({ children }) => {
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
             email: account.email,
-            role: account.role
+            role: account.role,
+            roleId: account.roleId
           })
         );
       });

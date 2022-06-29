@@ -42,6 +42,7 @@ const Login = () => {
               email: data.email,
               role: data.role,
               id: data.id,
+              roleId: data?.roleId,
             })
           );
           history.push("/");

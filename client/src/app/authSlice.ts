@@ -6,6 +6,7 @@ interface AuthState {
     role: string;
     email: string;
     id: string;
+    roleId: string;
 }
 
 const initialState: Partial<AuthState> = {
@@ -14,6 +15,7 @@ const initialState: Partial<AuthState> = {
     role: "",
     email: "",
     id: "",
+    roleId: "",
 };
 
 export const authSlice = createSlice({
@@ -26,6 +28,7 @@ export const authSlice = createSlice({
             state.email = action.payload.email;
             state.role = action.payload.role;
             state.id = action.payload.id;
+            state.roleId = action.payload.roleId;
         },
     },
 });

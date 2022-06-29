@@ -8,19 +8,20 @@ export interface UserRequest {
   email: string;
   tokenID?: string;
   role: string;
+  roleId?: string;
 }
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService, private tokenService: TokenService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findOneByEmail(email);
+    const { user, roleId } = await this.userService.findOneByEmail(email);
     if (!user) return { message: 'User not found!' };
 
     const isMatchPassword = await argon2.verify(user.password, password);
     if (user && isMatchPassword) {
       const { password, ...result } = user;
-      return result;
+      return { ...result, roleId };
     }
     return { message: 'Wrong password!' };
   }
@@ -51,6 +52,7 @@ export class AuthService {
       id: user.id,
       role: user.role,
       email: user.email,
+      roleId: user.roleId,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };

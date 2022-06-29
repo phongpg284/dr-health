@@ -12,6 +12,7 @@ import { MedicalThreshold } from 'src/medical-threshold/entities/medical-thresho
 import { Prescription } from 'src/prescription/entities/prescription.entity';
 import { MedicinePrescription } from 'src/medicine-prescription/entities/medicine-prescription.entity';
 import { Address } from 'src/address/entities/address.entity';
+import { Appointment } from 'src/appointment/entities/appointment.entity';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { Address } from 'src/address/entities/address.entity';
         Prescription,
         MedicinePrescription,
         Address,
+        Appointment,
       ],
     }),
   ],

@@ -20,6 +20,7 @@ import { MedicalThresholdModule } from './medical-threshold/medical-threshold.mo
 import { PrescriptionModule } from './prescription/prescription.module';
 import { MedicinePrescriptionModule } from './medicine-prescription/medicine-prescription.module';
 import { AddressModule } from './address/address.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AddressModule } from './address/address.module';
     PrescriptionModule,
     MedicinePrescriptionModule,
     AddressModule,
+    AppointmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
