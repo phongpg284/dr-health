@@ -34,7 +34,6 @@ export class DoctorController {
 
   @Post('/add_patient:id&:patient_id')
   addPatient(@Param('id') id: number, @Param('patient_id') patientId: number) {
-    console.log(+id, patientId);
     return this.doctorService.addPatient(+id, patientId);
   }
 
