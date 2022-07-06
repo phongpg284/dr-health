@@ -2,7 +2,7 @@ import "./header.scss";
 import React, { useEffect, useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { message, Modal, Tooltip } from "antd";
 import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
@@ -231,6 +231,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   const user = useAppSelector((state) => state.account);
   const isPatient = user?.role === "patient";
   const isDoctor = user?.role === "doctor";
+  const history = useHistory();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -307,6 +308,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
         roleId: "",
       })
     );
+    history.push("/");
     window.location.reload();
   };
   const Reflecter = () => {

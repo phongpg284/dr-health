@@ -1,11 +1,9 @@
 import "./index.scss";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "app/store";
 
 import { InfoTable } from "../PatientList/TableInfo/Table";
-import MedicineSchedule from "../PatientList/MedicineSchedule";
-import useInputDevice from "../PatientList/useInputDevice";
 
 import ThresholdStats from "../PatientList/ThresholdStats";
 
@@ -19,6 +17,7 @@ import PatientTestHistory from "../PatientList/PatientTestHistory";
 import Exercises from "../PatientList/Exercises";
 import usePromise from "utils/usePromise";
 import { Tabs } from "antd";
+import MedicineSchedule from "components/Profile/MedicineSchedule";
 const { TabPane } = Tabs;
 
 const PatientRecord = () => {
@@ -101,7 +100,7 @@ const PatientRecord = () => {
               </div>
             </TabPane>
             <TabPane tab="Chỉ số" key="chart">
-              <Chart id={patientData.id} thresholdStatus={handleChangeThresholdStatus} />
+              <Chart id={account.roleId} thresholdStatus={handleChangeThresholdStatus} />
             </TabPane>
           </Tabs>
         </div>

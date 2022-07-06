@@ -3,4 +3,6 @@ export class CreateMedicalStatDto {
   unit?: string;
   value: number | string;
   patientId!: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

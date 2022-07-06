@@ -18,12 +18,14 @@ export class MedicalStatService {
 
   async create(createMedicalStatDto: CreateMedicalStatDto) {
     console.log(createMedicalStatDto);
-    const { patientId, type, unit, value } = createMedicalStatDto;
+    const { patientId, type, unit, value, createdAt, updatedAt } = createMedicalStatDto;
     try {
       const newMedicalStat = new MedicalStat();
       newMedicalStat.type = type;
       newMedicalStat.unit = unit;
       newMedicalStat.value = +value;
+      newMedicalStat.createdAt = createdAt;
+      newMedicalStat.updatedAt = updatedAt;
       const patient = await this.patientRepository.findOne(+patientId);
       patient.medicalRecords.add(newMedicalStat);
 

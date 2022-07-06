@@ -85,12 +85,9 @@
 
 .patient-info-medicine {
     @include gradientBox;
-    flex-grow: 1;
-    flex-basis: 200px;
-    max-width: 100vw;
-    max-height: 530px;
-    padding: 0 !important;
-    overflow-y: scroll;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 20px;
 }
 
 .patient-info-stats-normal {

@@ -25,6 +25,7 @@
     "framer-motion": "4.1.17",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.6.1",
+    "node-fetch": "^3.2.6",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-chartjs-2": "^4.1.0",
