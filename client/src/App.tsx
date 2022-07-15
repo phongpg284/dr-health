@@ -22,7 +22,7 @@ const CalendarPage = lazy(() => import("pages/Calendar/CalendarPage"));
 const ProfilePage = lazy(() => import("pages/Profile/ProfilePage"));
 const ThresholdPage = lazy(() => import("pages/Threshold/ThresholdPage"));
 const FirstAid = lazy(() => import("pages/FirstAid"));
-const FirstAid2 = lazy(() => import("pages/FirstAid2"));
+// const FirstAid2 = lazy(() => import("pages/FirstAid2"));
 const StrokePoint = lazy(() => import("pages/StrokePoint"));
 const UploadBlood = lazy(() => import("pages/UploadBlood"));
 const ProjectionPhoto = lazy(() => import("pages/ProjectionPhoto"));
@@ -79,7 +79,7 @@ function MyRouter() {
         <Main exact path="/" component={Home} />
 
         <Main exact path="/phuc-hoi" component={FirstAid} />
-        <Main exact path="/so-cuu" component={FirstAid2} />
+        {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/calendar" component={CalendarPage} />
