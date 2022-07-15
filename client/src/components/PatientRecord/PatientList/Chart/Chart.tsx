@@ -2,11 +2,11 @@ import "../../PatientRecord/index.scss";
 import React, { useEffect, useState } from "react";
 // import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement, registerables } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
-import { Menu, Dropdown, Button } from "antd";
+import { Menu, Dropdown, Button, DatePicker } from "antd";
 
 import "./Chart.scss";
 
@@ -17,8 +17,18 @@ import BloodIcon from "assets/chart/blood.png";
 import ThermalIcon from "assets/chart/thermal.png";
 import SpO2Icon from "assets/chart/spo2.png";
 import PressIcon from "assets/chart/press.svg";
+import BloodEdgeIcon from "assets/chart/blood_edge.png";
+import ThermalEdgeIcon from "assets/chart/thermal_edge.png";
+import SpO2EdgeIcon from "assets/chart/spo2_edge.png";
+import PressEdgeIcon from "assets/chart/press_edge.png";
 import { StatsWrapper } from "./style";
 import StatTracking from "./Stat";
+import "chartjs-adapter-date-fns";
+import zoomPlugin from "chartjs-plugin-zoom";
+
+import dayjs from "dayjs";
+import { enGB } from "date-fns/locale";
+ChartJS.register(...registerables, zoomPlugin);
 
 const vnLegend = {
   spO2: "Chỉ số SpO2",
@@ -86,10 +96,10 @@ const Chart = ({ id, thresholdStatus }: any) => {
   return (
     <div className="patient-info-graph-wrapper">
       <StatsWrapper>
-        <StatTracking icon={BloodIcon} color="#fff5f6" name="Nhịp tim" value={99} unit="bpm" textColor="#fc6371" />
-        <StatTracking icon={ThermalIcon} color="#f4f3fa" name="Nhiệt độ" value={99} unit="C" textColor="#7c72c8" />
-        <StatTracking icon={SpO2Icon} color="#eaf3ee" name="Nồng độ SpO2" value={99} unit="%" textColor="#338d5a" />
-        <StatTracking icon={PressIcon} color="#fbf4e8" name="Huyết áp" value={99} unit="bbpm" textColor="#338d5a" />
+        <StatTracking icon={BloodIcon} edge={BloodEdgeIcon} color="#fff5f6" name="Nhịp tim" value={99} unit="bpm" textColor="#fc6371" />
+        <StatTracking icon={ThermalIcon} edge={ThermalEdgeIcon} color="#f4f3fa" name="Nhiệt độ" value={99} unit="C" textColor="#7c72c8" />
+        <StatTracking icon={SpO2Icon} edge={SpO2EdgeIcon} color="#eaf3ee" name="Nồng độ SpO2" value={99} unit="%" textColor="#338d5a" />
+        <StatTracking icon={PressIcon} edge={PressEdgeIcon} color="#fbf4e8" name="Huyết áp" value={99} unit="bbpm" textColor="#da8e16" />
       </StatsWrapper>
       {loaded && medicalStats && <ListChart deviceData={medicalStats} />}
     </div>
@@ -107,7 +117,7 @@ function ListChart({ deviceData }: { deviceData: any }) {
 
   return (
     <div className="listChart">
-      <ChartDiasAndSys diastole={diastole} systolic={systolic} />
+      {/* <ChartDiasAndSys diastole={diastole} systolic={systolic} /> */}
       {/* <SingleLineChart arr={SpO2} title="SpO2" color="coral"/> */}
       <MultipleChart deviceData={deviceData} />
     </div>
@@ -188,69 +198,32 @@ function ChartDiasAndSys({ diastole, systolic }: { diastole: any[]; systolic: an
 }
 
 function MultipleChart({ deviceData }: { deviceData: any }) {
-  const arrType = ["SpO2", "Nhiệt độ", "Nhịp tim", "Gương mặt", "Cử chỉ tay", "Giọng nói"];
+  const arrType = ["SpO2", "Nhiệt độ", "Nhịp tim"];
+
   const [type, setType] = useState(arrType[0]);
+  const [timeType, setTimeType] = useState("Ngày");
+  const [dateStart, setDateStart] = useState(dayjs("2022-6-9").startOf("day").toDate());
+
+  const filterArr = {
+    Ngày: (item: any) => dayjs(item?.createdAt) < dayjs(dateStart).add(1, "day") && dayjs(item.createdAt) > dayjs(dateStart),
+    Tuần: (item: any) => dayjs(item?.createdAt) < dayjs(dateStart).add(1, "week") && dayjs(item.createdAt) > dayjs(dateStart),
+    Tháng: (item: any) => dayjs(item?.createdAt) < dayjs(dateStart).add(1, "month") && dayjs(item.createdAt) > dayjs(dateStart),
+  };
 
   const SpO2 = React.useMemo(() => {
-    return deviceData?.spO2?.map((item: any) => item.value) ?? [];
-  }, [deviceData]);
+    console.log(timeType, dateStart);
+    console.log(deviceData.spO2);
+    const res = deviceData?.spO2?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+    // return res.flatMap((ele: any) => [ele, { x: null, y: ele?.y }]);
+    return res;
+  }, [deviceData, timeType, dateStart]);
   const bodyTemp = React.useMemo(() => {
-    return deviceData?.bodyTemp?.map((item: any) => item.value) ?? [];
-  }, [deviceData]);
+    return deviceData?.bodyTemp?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+  }, [deviceData, timeType, dateStart]);
 
   const heartRate = React.useMemo(() => {
-    return deviceData?.heartRate?.map((item: any) => item.value) ?? [];
-  }, [deviceData]);
-
-  const face = React.useMemo(() => {
-    return deviceData?.face?.map((item: any) => item.value) ?? [];
-  }, [deviceData]);
-  const armMovement = React.useMemo(() => {
-    const arr = deviceData?.armMovement?.map((item: any) => item.value) ?? [];
-    const finalArr = [];
-    let positive = 0;
-    let negative = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 1) {
-        positive += 1;
-      } else {
-        negative += 1;
-      }
-
-      if ((i + 1) % 5 === 0) {
-        finalArr.push({
-          positive,
-          negative,
-        });
-        positive = 0;
-        negative = 0;
-      }
-    }
-    return finalArr;
-  }, [deviceData]);
-  const voice = React.useMemo(() => {
-    const arr = deviceData?.voice?.map((item: any) => item.value) ?? [];
-    const finalArr = [];
-    let positive = 0;
-    let negative = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 1) {
-        positive += 1;
-      } else {
-        negative += 1;
-      }
-
-      if ((i + 1) % 5 === 0) {
-        finalArr.push({
-          positive,
-          negative,
-        });
-        positive = 0;
-        negative = 0;
-      }
-    }
-    return finalArr;
-  }, [deviceData]);
+    return deviceData?.heartRate?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+  }, [deviceData, timeType, dateStart]);
 
   const MyMenu = (
     <Menu>
@@ -266,22 +239,45 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
     </Menu>
   );
 
+  const TimeMenu = (
+    <Menu>
+      {["Ngày", "Tuần", "Tháng"].map((item: any) => {
+        if (item !== type) {
+          return (
+            <Menu.Item>
+              <div onClick={() => setTimeType(item)}>{item}</div>
+            </Menu.Item>
+          );
+        }
+      })}
+    </Menu>
+  );
+
+  const onChangeDatePick = (date: any, dateString: string) => {
+    setDateStart(dayjs(date, "DD/MM/YYYY").startOf("day").toDate());
+  };
+
   return (
     <div className="myChartWrapper">
       <div className="chartContent">
         <div className="dropDownSpace">
           <Dropdown overlay={MyMenu} placement="bottomCenter" arrow>
-            <Button>
+            <Button style={{ marginRight: "10px" }}>
               {type + " "} <DownOutlined />
             </Button>
           </Dropdown>
+          <Dropdown overlay={TimeMenu} placement="bottomCenter" arrow>
+            <Button style={{ marginRight: "10px" }}>
+              {timeType + " "} <DownOutlined />
+            </Button>
+          </Dropdown>
+          <Dropdown overlay={TimeMenu} placement="bottomCenter" arrow>
+            <DatePicker onChange={onChangeDatePick} format={"DD/MM/YYYY"} />
+          </Dropdown>
         </div>
-        {type === arrType[0] && <SingleLineChart arr={SpO2} title={type} color="darkblue" />}
-        {type === arrType[1] && <SingleLineChart arr={bodyTemp} title={type} color="coral" />}
-        {type === arrType[2] && <SingleLineChart arr={heartRate} title={type} color="brown" />}
-        {type === arrType[3] && <FaceChart arr={face} />}
-        {type === arrType[4] && <StackBarChart arr={armMovement} title={type} />}
-        {type === arrType[5] && <StackBarChart arr={voice} title={type} />}
+        {type === arrType[0] && <SingleLineChart arr={SpO2} title={type} color="darkblue" timeType={timeType} dateStart={dateStart} />}
+        {type === arrType[1] && <SingleLineChart arr={bodyTemp} title={type} color="coral" timeType={timeType} dateStart={dateStart} />}
+        {type === arrType[2] && <SingleLineChart arr={heartRate} title={type} color="brown" timeType={timeType} dateStart={dateStart} />}
       </div>
     </div>
   );
@@ -365,128 +361,88 @@ function StackBarChart({ arr, title }: { arr: any[]; title: string }) {
   );
 }
 
-function FaceChart({ arr }: { arr: any[] }) {
-  const min = 0;
-  const max = arr.length - 1;
-
-  const [range, setRange] = useState({
-    min: 0,
-    max: max,
-  });
-
-  React.useEffect(() => {
-    if (arr.length > 100) {
-      setRange({
-        min: max - 100,
-        max: max,
-      });
-    }
-  }, [arr]);
-
+function SingleLineChart(props: { arr: any[]; title: string; color: string; timeType: string; dateStart: Date }) {
+  const { arr, title, color, timeType, dateStart } = props;
+  console.log(arr);
+  const getChartType = (type: string) => {
+    if (type === "Ngày") return "hour";
+    if (type === "Tháng") return "day";
+  };
+  console.log(getChartType(timeType));
   const options = {
+    animation: false,
+    spanGaps: true,
     responsive: true,
+    scales: {
+      y: {
+        // title: {
+        //   display: true,
+        //   text: "Weight in lbs",
+        // },
+        min: 0,
+      },
+      x: {
+        adapters: {
+          date: {
+            locale: enGB,
+          },
+        },
+        type: "time",
+        distribution: "linear",
+        min: dateStart,
+        max: dayjs(dateStart).add(1, "day").toDate(),
+        time: {
+          parser: "yyyy/MM/dd HH:mm:ss",
+          unit: getChartType(timeType),
+        },
+        // title: {
+        //   display: true,
+        //   text: "Date",
+        // },
+      },
+    },
     plugins: {
-      legend: {
-        position: "top" as const,
+      legend: { position: "top" },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+            mode: "x",
+          },
+          mode: "x",
+        },
+      },
+    },
+    tension: 1,
+    transitions: {
+      zoom: {
+        animation: {
+          duration: 1000,
+          easing: "easeOutCubic",
+        },
       },
     },
   };
 
-  const arrSlice = React.useMemo(() => {
-    return arr.slice(range.min, range.max);
-  }, [arr, range]);
-
   const data = {
-    labels: arrSlice.map(() => ""),
-    datasets: [
-      {
-        label: "Gương mặt",
-        data: arrSlice,
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <Bar options={options} data={data} height="80vh" />
-      <div className="rangeWrapper">
-        <InputRange
-          maxValue={max}
-          minValue={min}
-          value={range}
-          onChange={(value) => {
-            if (typeof value !== "number") {
-              setRange(value);
-            }
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function SingleLineChart(props: { arr: any[]; title: string; color: string }) {
-  const { arr, title, color } = props;
-
-  const min = 0;
-  const max = arr.length - 1;
-
-  const [range, setRange] = useState({
-    min: 0,
-    max: max,
-  });
-
-  React.useEffect(() => {
-    if (arr.length > 100) {
-      setRange({
-        min: max - 100,
-        max: max,
-      });
-    }
-  }, [arr]);
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-    },
-    tension: 0.5,
-  };
-
-  const arrSlice = React.useMemo(() => {
-    return arr.slice(range.min, range.max);
-  }, [arr, range]);
-
-  const data = {
-    labels: arrSlice.map(() => ""),
+    labels: arr?.map(() => ""),
     datasets: [
       {
         label: title,
-        data: arrSlice,
+        data: arr,
         backgroundColor: color,
         borderColor: color,
+        pointRadius: 0,
       },
     ],
   };
 
   return (
     <div>
-      <Line options={options} data={data} height="80vh" />
-      <div className="rangeWrapper">
-        <InputRange
-          maxValue={max}
-          minValue={min}
-          value={range}
-          onChange={(value) => {
-            if (typeof value !== "number") {
-              setRange(value);
-            }
-          }}
-        />
-      </div>
+      <Bar options={options as any} data={data} height="100vh" />
     </div>
   );
 }

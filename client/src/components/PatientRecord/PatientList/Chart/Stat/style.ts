@@ -12,10 +12,18 @@ export const StatWrapper = styled.div<{ color: string }>`
   width: 250px;
   font-size: 16px;
   background-color: ${({ color }) => color};
+  position: relative;
 `;
 
 export const StatIcon = styled.img`
   height: 40px;
+`;
+
+export const StatEdge = styled.img`
+  height: 80px;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
 export const StatName = styled.div`
@@ -34,5 +42,6 @@ export const StatPercentage = styled.div`
 
 export const StatValue = styled.div<{ color: string }>`
   color: ${({ color }) => color};
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 500;
 `;
