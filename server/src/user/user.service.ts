@@ -21,8 +21,9 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { password, rePassword, email, fullName, role } = createUserDto;
-    if (password !== rePassword) throw new HttpException('Error: password unmatched!', HttpStatus.BAD_REQUEST);
+    const { password, confirmPassword, email, fullName, role } = createUserDto;
+    console.log(createUserDto);
+    if (password !== confirmPassword) throw new HttpException('Error: password unmatched!', HttpStatus.BAD_REQUEST);
     let hashPassword: string;
 
     const user = await this.userRepository.findOne({ email });
