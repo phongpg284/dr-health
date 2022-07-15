@@ -2,19 +2,19 @@ name: Deploy to production
 description: Reload Server
 author: Phong Phi
 
-branding: 
+branding:
   color: blue
   icon: command
 
-inputs: 
-  port: 
+inputs:
+  port:
     description: "Server port"
     required: true
-  db_name: 
-    description: "Database name"
+  db_port:
+    description: "Database port"
     required: true
-  db_endpoint: 
-    description: "database endpoint"
+  db_name:
+    description: "Database name"
     required: true
   db_username:
     description: "Database authentication username"
@@ -22,23 +22,48 @@ inputs:
   db_password:
     description: "Database authentication password"
     required: true
-  jwt_key:
-    description: "Jwt key for validate"
+  redis_host:
+    description: "Redis server host"
+    required: true
+  redis_port:
+    description: "Redis server port"
+    required: true
+  redis_password:
+    description: "Redis server authentication password"
+    required: true
+  jwt_secret_key:
+    description: "JWT secret key"
+    required: true
+  refresh_jwt_secret_key:
+    description: "JWT refresh secret key"
+    required: true
+  expire_jwt_secret_key:
+    description: "JWT secret key expire time"
+    required: true
+  expire_refresh_jwt_secret_key:
+    description: "JWT refresh secret key expire time"
     required: true
   server_name:
     description: "Server pm2 name"
     required: true
-runs: 
+runs:
   using: composite
-  steps: 
+  steps:
     - name: Restart Server
       shell: bash
-      env: 
+      env:
         NODE_ENV: production
         PORT: ${{ inputs.port }}
+        DB_PORT: ${{ inputs.DB_PORT }}
         DB_NAME: ${{ inputs.db_name }}
-        DB_ENDPOINT: ${{ inputs.db_endpoint }}
+        DB_HOST: ${{ inputs.DB_HOST }}
         DB_USERNAME: ${{ inputs.db_username }}
         DB_PASSWORD: ${{ inputs.db_password }}
-        JWT_KEY: ${{ inputs.jwt_key }}
+        REDIS_HOST: ${{ inputs.REDIS_HOST }}
+        REDIS_PORT: ${{ inputs.REDIS_PORT }}
+        REDIS_PASSWORD: ${{ inputs.REDIS_PASSWORD }}
+        JWT_SECRET_KEY: ${{ inputs.JWT_SECRET_KEY }}
+        REFRESH_JWT_SECRET_KEY: ${{ inputs.REFRESH_JWT_SECRET_KEY }}
+        EXPIRE_JWT_SECRET_KEY: ${{ inputs.EXPIRE_JWT_SECRET_KEY }}
+        EXPIRE_REFRESH_JWT_SECRET_KEY: ${{ inputs.EXPIRE_REFRESH_JWT_SECRET_KEY }}
       run: pm2 reload ${{ inputs.server_name }} --update-env
