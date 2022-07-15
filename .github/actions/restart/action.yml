@@ -54,16 +54,16 @@ runs:
       env:
         NODE_ENV: production
         PORT: ${{ inputs.port }}
-        DB_PORT: ${{ inputs.DB_PORT }}
+        DB_PORT: ${{ inputs.db_port }}
         DB_NAME: ${{ inputs.db_name }}
-        DB_HOST: ${{ inputs.DB_HOST }}
+        DB_HOST: ${{ inputs.db_host }}
         DB_USERNAME: ${{ inputs.db_username }}
         DB_PASSWORD: ${{ inputs.db_password }}
-        REDIS_HOST: ${{ inputs.REDIS_HOST }}
-        REDIS_PORT: ${{ inputs.REDIS_PORT }}
-        REDIS_PASSWORD: ${{ inputs.REDIS_PASSWORD }}
-        JWT_SECRET_KEY: ${{ inputs.JWT_SECRET_KEY }}
-        REFRESH_JWT_SECRET_KEY: ${{ inputs.REFRESH_JWT_SECRET_KEY }}
-        EXPIRE_JWT_SECRET_KEY: ${{ inputs.EXPIRE_JWT_SECRET_KEY }}
-        EXPIRE_REFRESH_JWT_SECRET_KEY: ${{ inputs.EXPIRE_REFRESH_JWT_SECRET_KEY }}
+        REDIS_HOST: ${{ inputs.redis_host }}
+        REDIS_PORT: ${{ inputs.redis_port }}
+        REDIS_PASSWORD: ${{ inputs.redis_password }}
+        JWT_SECRET_KEY: ${{ inputs.jwt_secret_key }}
+        REFRESH_JWT_SECRET_KEY: ${{ inputs.refresh_jwt_secret_key }}
+        EXPIRE_JWT_SECRET_KEY: ${{ inputs.expire_jwt_secret_key }}
+        EXPIRE_REFRESH_JWT_SECRET_KEY: ${{ inputs.expire_refresh_jwt_secret_key }}
       run: pm2 reload ${{ inputs.server_name }} --update-env
