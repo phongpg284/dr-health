@@ -16,7 +16,7 @@ jobs:
       - uses: actions/cache@v2
         id: yarn-cache
         with:
-          path: './client/node_modules'
+          path: "./client/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('./client/yarn.lock') }}
 
       - name: Install dependencies
@@ -30,8 +30,8 @@ jobs:
         with:
           generate_sourcemap: false
           repository: client
-          websocket_server_hostname: "wss://dr-health.com.vn/graphql"
-          api_server_hostname: "https://dr-health.com.vn/graphql"
+          websocket_server_hostname: "https://dr-health.com.vn"
+          api_server_hostname: "https://dr-health.com.vn/api"
 
       - name: Deploy to production
         uses: ./.github/actions/deploy
