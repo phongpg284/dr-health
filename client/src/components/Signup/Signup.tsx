@@ -39,7 +39,7 @@ const Signup = () => {
   const api = useApi();
 
   const handleSubmit = (data: IFormData) => {
-    const { confirmPassword, role, ...accountInfo } = data;
+    const { role, ...accountInfo } = data;
     if (role)
       api
         .post("/user", {
