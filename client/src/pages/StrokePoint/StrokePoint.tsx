@@ -1,19 +1,15 @@
-import React from 'react';
 import './StrokePoint.scss'
+import React from 'react';
+import { toast } from 'react-toastify'
 import BG from '../../assets/abstract12.svg'
 
 import { useAppDispatch, useAppSelector } from 'app/store'
 import * as GreetingBot from 'app/GreetingBot';
-
-
-import { GET_QUESTIONS, GET_PATIENTS_OF_DOCTOR, UPLOAD_TEST } from './schema';
-import { useMutation, useQuery } from '@apollo/client';
-
-import { toast } from 'react-toastify'
+import usePromise from 'utils/usePromise';
 
 function StrokePoint() {
     const dispatch = useAppDispatch();
-    const [uploadTest] = useMutation(UPLOAD_TEST);
+    // const [uploadTest] = useMutation(UPLOAD_TEST);
 
     const [patient, setPatient] = React.useState<string | null>(null);
     function onPatientInformationChange(value: string | null) {
@@ -45,11 +41,11 @@ function StrokePoint() {
         }
         const inputs = { patientId: patient, questions: newPoints };
 
-        await uploadTest({
-            variables: {
-                inputs
-            }
-        })
+        // await uploadTest({
+        //     variables: {
+        //         inputs
+        //     }
+        // })
     }
 
 
@@ -78,11 +74,8 @@ interface PatientInformation {
 }
 function PatientInformation({ onChange }: PatientInformation) {
     const account = useAppSelector((state) => state.account)
-    const { data: patientData } = useQuery(GET_PATIENTS_OF_DOCTOR, {
-        variables: {
-            id: account.id
-        }
-    });
+    const [patientData] = usePromise(`/doctor/patients/${account.id}`);
+
     const listPatient = React.useMemo(() => {
         if (patientData) {
             return patientData.getPatientsOfDoctor;
@@ -322,12 +315,11 @@ interface StrokeTable {
     onChangePoints: (value: DataPoint[]) => void,
 }
 function StrokeTable({ onChangePoints }: StrokeTable) {
+    // const { data: questions } = useQuery(GET_QUESTIONS, {
+    //     fetchPolicy: "network-only"
+    // });
 
-    const { data: questions } = useQuery(GET_QUESTIONS, {
-        fetchPolicy: "network-only"
-    });
-
-
+    const questions: any = [];
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
     }

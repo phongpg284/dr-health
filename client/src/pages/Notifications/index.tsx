@@ -1,11 +1,10 @@
 import "./index.css";
 import Notifications from "components/Notifications";
 import { useAppSelector } from "app/store";
-import { GET_ACCOUNT_NOTIFICATIONS, NOTIFICATIONS_SUBSCRIPTION } from "components/NotificationIcon/schema";
-import { useLazyQuery, useSubscription } from "@apollo/client";
 import Header from "components/Header";
 import { Empty } from "antd";
 import { useEffect, useState } from "react";
+import usePromise from "utils/usePromise";
 
 interface INotification {
   _id: string;
@@ -21,38 +20,27 @@ const NotificationsPage = () => {
   const { id, role } = useAppSelector((state) => state.account);
 
   const [notificationsList, setNotificationsList] = useState<any>([]);
-  const [fetchData, { data }] = useLazyQuery(GET_ACCOUNT_NOTIFICATIONS, {
-    variables: {
-      inputs: { id, role },
-    },
-    fetchPolicy: "network-only"
-  });
+  const [data]= usePromise(`/user/notifications/${id}`);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const { data: newNotification } = useSubscription(
+  //   NOTIFICATIONS_SUBSCRIPTION,
+  //   {
+  //     variables: { id },
+  //   }
+  // );
 
-  const { data: newNotification } = useSubscription(
-    NOTIFICATIONS_SUBSCRIPTION,
-    {
-      variables: { id },
-    }
-  );
-
-  
-
-  useEffect(() => {
-    if (newNotification?.newNotification) {
-      setNotificationsList((data: INotification[]) => [
-        ...data,
-        newNotification.newNotification,
-      ]);
-    }
-  }, [newNotification]);
+  // useEffect(() => {
+  //   if (newNotification?.newNotification) {
+  //     setNotificationsList((data: INotification[]) => [
+  //       ...data,
+  //       newNotification.newNotification,
+  //     ]);
+  //   }
+  // }, [newNotification]);
 
   useEffect(() => {
     if(data)
-    setNotificationsList(data.getAccountNotifications);
+    setNotificationsList(data);
   },[data]);
 
   return (

@@ -1,46 +1,36 @@
-//icon
-
-import { DropdownButton, Dropdown } from 'react-bootstrap';
-
-//other
+import "./newCalendar.scss"
 
 import dayjs from "dayjs"
 import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Input } from 'antd';
-import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from './handleEvent';
+import { motion } from 'framer-motion'
 import { useAppSelector, useAppDispatch } from 'app/store';
 import { updateMedicineSet, updateMessage } from 'app/medicineSlice';
+
 import SetSteps from './Items/SetSteps';
 import CheckBox from './Items/Checkbox';
 import { MedicineCard } from './Items/MedicineCard';
-import "./newCalendar.scss"
-
+import ScheduleCalendar from '../Profile/MedicineSchedule'
+import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from './handleEvent';
+import { get } from 'lodash';
 
 import PatientAvatar from 'assets/default-avatar-patient.png'
-
-import { motion } from 'framer-motion'
-
-import { CREATE_MEDICINE, GET_MEDICINES, GET_PATIENTS_OF_DOCTOR, SAVE_MEDICINE_SCHEDULE } from './schema';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import usePromise from "utils/usePromise";
 
-import ScheduleCalendar from '../Profile/MedicineSchedule'
 
 const { TextArea } = Input;
 
 export default function Calendar() {
     const account = useAppSelector((state) => state.account)
-    const { data: patientData } = useQuery(GET_PATIENTS_OF_DOCTOR, {
-        variables: {
-            id: account.id
-        }
-    });
-    const [patientList, setPatientList] = useState([]);
+    const [patientData] = usePromise<unknown[]>(`/doctor/patient/${account.id}`);
+    const [patientList, setPatientList] = useState<unknown[]>([]);
     const [patientChoose, setPatientChoose] = useState<any>();
     useEffect(() => {
         if (patientData) {
-            setPatientList(patientData.getPatientsOfDoctor);
-            setPatientChoose(patientData.getPatientsOfDoctor[0])
+            setPatientList(patientData);
+            setPatientChoose(patientData?.[0])
         }
     }, [patientData]);
 
@@ -52,21 +42,21 @@ export default function Calendar() {
     const [currentStep, setStep] = useState(-1)
 
     const [medicineList, setMedicineList] = useState<any[]>([]);
-    const { data: medicineData } = useQuery(GET_MEDICINES);
-    const [createMedicine] = useMutation(CREATE_MEDICINE);
+    // const { data: medicineData } = useQuery(GET_MEDICINES);
+    // const [createMedicine] = useMutation(CREATE_MEDICINE);
 
-    useEffect(() => {
-        if (medicineData) {
-            const arr = medicineData?.getMedicines.map((medicine: any) => medicine.name);
-            const set = new Set(arr);
-            const newArr: any[] = [];
-            set.forEach((item: any) => {
-                if (item != "")
-                    newArr.push(item);
-            })
-            setMedicineList(newArr);
-        }
-    }, [medicineData])
+    // useEffect(() => {
+    //     if (medicineData) {
+    //         const arr = medicineData?.getMedicines.map((medicine: any) => medicine.name);
+    //         const set = new Set(arr);
+    //         const newArr: any[] = [];
+    //         set.forEach((item: any) => {
+    //             if (item != "")
+    //                 newArr.push(item);
+    //         })
+    //         setMedicineList(newArr);
+    //     }
+    // }, [medicineData])
 
 
     //Phase 2
@@ -83,7 +73,7 @@ export default function Calendar() {
     }, [])
 
     //Phase 3 
-    const [saveSchedule] = useMutation(SAVE_MEDICINE_SCHEDULE);
+    // const [saveSchedule] = useMutation(SAVE_MEDICINE_SCHEDULE);
 
     //
     function onTextChange(value: any) {
@@ -103,14 +93,14 @@ export default function Calendar() {
     }
 
     function handleAddNewMedicine() {
-        createMedicine({
-            variables: {
-                inputs: { name: inputValue }
-            }
-        }).then(() => {
-            setMedicineList(state => [...state, inputValue])
-            setInputValue("")
-        })
+        // createMedicine({
+        //     variables: {
+        //         inputs: { name: inputValue }
+        //     }
+        // }).then(() => {
+        //     setMedicineList(state => [...state, inputValue])
+        //     setInputValue("")
+        // })
     }
 
     function handleSubmitSchedule() {
@@ -128,11 +118,11 @@ export default function Calendar() {
             _id: patientChoose?._id,
             medicineSchedule: medicineSchedule
         }
-        saveSchedule({
-            variables: {
-                inputs: inputs
-            }
-        })
+        // saveSchedule({
+        //     variables: {
+        //         inputs: inputs
+        //     }
+        // })
         setStep(-1)
     }
 

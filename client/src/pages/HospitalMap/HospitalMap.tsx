@@ -1,16 +1,17 @@
-import React, { ReactElement } from 'react'
-import Header from '../../components/Header'
-import ReactMapGL, { Marker } from 'react-map-gl';
 import './HospitalMap.scss'
-import hospitalList, { HospitalProps } from './hospitalList'
+import React, { ReactElement } from 'react'
+import { Modal } from 'react-bootstrap'
+import ReactMapGL, { Marker } from 'react-map-gl';
+import mapboxgl from 'mapbox-gl'
 import { VscSymbolNamespace } from 'react-icons/vsc';
 import { FaRegAddressCard } from 'react-icons/fa';
-import { MdLocalHospital, MdOutlineLocalPhone } from 'react-icons/md';
 import { IoMdPin } from 'react-icons/io';
-import { Modal } from 'react-bootstrap'
-import AbstractOneLine from '../../assets/abstract-one-line.svg';
+import { MdLocalHospital, MdOutlineLocalPhone } from 'react-icons/md';
 import { isMobile } from 'react-device-detect'
-import mapboxgl from 'mapbox-gl'
+
+import Header from '../../components/Header'
+import hospitalList, { HospitalProps } from './hospitalList'
+import AbstractOneLine from '../../assets/abstract-one-line.svg';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

@@ -1,21 +1,22 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
 import dayjs from "dayjs";
 import { BsCheck } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
 import "./index.scss";
-import schema from "./schema";
 
 function Exercises({ data, role }: any) {
-    const result = useQuery(schema.getAllExercisesOfPatient, {
-        variables: {
-            id: data._id,
-        },
-    });
+    const result = {
+        data: []
+    } 
+    // useQuery(schema.getAllExercisesOfPatient, {
+    //     variables: {
+    //         id: data._id,
+    //     },
+    // });
     const exercises = React.useMemo(() => {
         if (result && result.data) {
-            return result.data.getAllExercisesOfPatient;
+            return result.data;
         }
         return null;
     }, [result]);

@@ -1,219 +1,184 @@
 import "./index.scss";
-import { useLazyQuery } from "@apollo/client";
-import { ReactElement, useEffect, useState } from "react";
-import { DatePicker } from "antd";
 import dayjs from "dayjs";
-
-import { GET_INFO_DEVICE } from "../schema";
-import useInput from "../useInput";
-import { MdModeEditOutline } from "react-icons/md";
-import { AiOutlineCheck } from "react-icons/ai";
-import { VscChromeClose } from "react-icons/vsc";
+import { message } from "antd";
+import Select from "react-select";
+import { ReactElement, useEffect, useState } from "react";
+import { useAppSelector } from "app/store";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import InputDate from "components/InputDate";
+import SubmitButton from "components/SubmitButton";
+import { useApi } from "utils/api";
+import { validationDefault } from "./validate";
 
 export const InfoTable = ({ data }: any) => {
-    return <PatientInfoTable data={data} />;
+  return <PatientInfoTable data={data} />;
 };
 
 function PatientInfoTable({ data }: { data: any }): ReactElement {
-    const [fullName, editFullName, onChangeFullName, onConfirmFullName, onCancelFullName] = useInput("fullName", data.fullName, data._id);
-    const [phone, editPhone, onChangePhone, onConfirmPhone, onCancelPhone] = useInput("phone", data.phone, data._id);
-    const [relativePhone, editRelativePhone, onChangeRelativePhone, onConfirmRelativePhone, onCancelRelativePhone] = useInput("relativePhone", data.relativePhone, data._id);
-    const [address, editAddress, onChangeAddress, onConfirmAddress, onCancelAddress] = useInput("address", data.address, data._id);
-    const [email, editEmail, onChangeEmail, onConfirmEmail, onCancelEmail] = useInput("email", data.email, data._id);
-    const [gender, editGender, onChangeGender, onConfirmGender, onCancelGender] = useInput("gender", data.gender, data._id);
-    const [age, editAge, onChangeAge, onConfirmAge, onCancelAge] = useInput("age", data.age, data._id);
-    const [bloodType, editBloodType, onChangeBloodType, onConfirmBloodType, onCancelBloodType] = useInput("bloodType", data.bloodType, data._id);
-    const [birth, editBirth, onChangeBirth, onConfirmBirth, onCancelBirth] = useInput("birth", data.birth, data._id);
-    const [street, editStreet, onChangeStreet, onConfirmStreet, onCancelStreet] = useInput("street", data.street, data._id);
-    const [ward, editWard, onChangeWard, onConfirmWard, onCancelWard] = useInput("ward", data.ward, data._id);
-    const [district, editDistrict, onChangeDistrict, onConfirmDistrict, onCancelDistrict] = useInput("district", data.district, data._id);
-    const [province, editProvince, onChangeProvince, onConfirmProvince, onCancelProvince] = useInput("province", data.province, data._id);
+  const account = useAppSelector((state) => state.account);
+  const api = useApi();
+  const formik = useFormik({
+    initialValues: {
+      fullName: data.fullName || "",
+      email: data.email || "",
+      identity: data.identity || "",
+      phone: data.phone || "",
+      gender: data.gender || "",
+      ethnic: data.ethnic || "",
+      dob: dayjs(data.dob).format('DD/MM/YYYY'),
+      address: {
+        location: data?.address?.location || "",
+        ward: data?.address?.ward || "",
+        wardCode: data?.address?.wardCode || null,
+        district: data?.address?.district || "",
+        districtCode: data?.address?.districtCode || null,
+        province: data?.address?.province || "",
+        provinceCode: data?.address?.provinceCode || null,
+      }
+    },
+    // validationSchema: Yup.object().shape(validationDefault),
+    onSubmit: (values) => {
+      api
+        .post(`/user/${account.id}`, values)
+        .then(() => message.success("Cập nhật hồ sơ thành công"))
+        .catch(() => message.error("Cập nhật lỗi"));
+    },
+  });
 
-    const [ethnic, editEthnic, onChangeEthnic, onConfirmEthnic, onCancelEthnic] = useInput("ethnic", data.ethnic, data._id);
-    const [nationalId, editNationalId, onChangeNationalId, onConfirmNationalId, onCancelNationalId] = useInput("nationalId", data.nationalId, data._id);
-    const [nationality, editNationality, onChangeNationality, onConfirmNationality, onCancelNationality] = useInput("nationality", data.nationality, data._id);
-    const [job, editJob, onChangeJob, onConfirmJob, onCancelJob] = useInput("job", data.job, data._id);
-    const [pathologicalDescription, editPathologicalDescription, onChangePathologicalDescription, onConfirmPathologicalDescription, onCancelPathologicalDescription] = useInput(
-        "pathologicalDescription",
-        data.pathologicalDescription,
-        data._id
-    );
+  const [wards, setWards] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [provinces, setProvinces] = useState([]);
 
-    const [getDevice, { data: deviceData }] = useLazyQuery(GET_INFO_DEVICE);
-    const [isDeviceConnect, setIsDeviceConnect] = useState(false);
+  useEffect(() => {
+    fetch("https://provinces.open-api.vn/api/p/")
+      .then((res) => res.json())
+      .then((data) => setProvinces(data));
+  }, []);
 
-    useEffect(() => {
-        if (data && data.deviceId) {
-            getDevice({
-                variables: {
-                    id: data.deviceId,
-                },
-            });
-        }
-    }, [data]);
+  useEffect(() => {
+    console.log(formik.values);
+    if (formik.values.address.provinceCode)
+      fetch(`https://provinces.open-api.vn/api/p/${formik.values.address.provinceCode}?depth=2`)
+        .then((res) => res.json())
+        .then((data) => setDistricts(data.districts));
+  }, [formik.values.address.provinceCode]);
 
-    useEffect(() => {
-        if (deviceData?.getDevice?.isConnect) setIsDeviceConnect(deviceData?.getDevice?.isConnect);
-    }, [deviceData]);
+  useEffect(() => {
+    if (formik.values.address.districtCode)
+      fetch(`https://provinces.open-api.vn/api/d/${formik.values.address.districtCode}?depth=2`)
+        .then((res) => res.json())
+        .then((data) => setWards(data.wards));
+  }, [formik.values.address.districtCode]);
 
-    return (
-        <div className="patient-info-table">
-            <table className="table table-default ">
-                <tbody>
-                    <DataRow
-                        label="Họ và tên"
-                        isEdit={editFullName}
-                        value={fullName || data.fullName}
-                        onChange={onChangeFullName}
-                        onConfirm={onConfirmFullName}
-                        onCancel={onCancelFullName}
-                    />
-                    <DataRow label="Số điện thoại" isEdit={editPhone} value={phone || data.phone} onChange={onChangePhone} onConfirm={onConfirmPhone} onCancel={onCancelPhone} />
-                    <DataRow
-                        label="Số điện thoại người thân"
-                        isEdit={editRelativePhone}
-                        value={relativePhone || data.relativePhone}
-                        onChange={onChangeRelativePhone}
-                        onConfirm={onConfirmRelativePhone}
-                        onCancel={onCancelRelativePhone}
-                    />
-                    <DataRow
-                        label="Địa chỉ nhà"
-                        isEdit={editAddress}
-                        value={address || data.address}
-                        onChange={onChangeAddress}
-                        onConfirm={onConfirmAddress}
-                        onCancel={onCancelAddress}
-                    />
-                    <DataRow label="Tên đường" isEdit={editStreet} value={street || data.street} onChange={onChangeStreet} onConfirm={onConfirmStreet} onCancel={onCancelStreet} />
-                    <DataRow label="Phường/Xã" isEdit={editWard} value={ward || data.ward} onChange={onChangeWard} onConfirm={onConfirmWard} onCancel={onCancelWard} />
 
-                    <DataRow
-                        label="Quận/Huyện"
-                        isEdit={editDistrict}
-                        value={district || data.district}
-                        onChange={onChangeDistrict}
-                        onConfirm={onConfirmDistrict}
-                        onCancel={onCancelDistrict}
-                    />
-
-                    <DataRow
-                        label="Tỉnh/Thành phố"
-                        isEdit={editProvince}
-                        value={province || data.province}
-                        onChange={onChangeProvince}
-                        onConfirm={onConfirmProvince}
-                        onCancel={onCancelProvince}
-                    />
-                    <DataRow label="Email" isEdit={editEmail} value={email || data.email} onChange={onChangeEmail} onConfirm={onConfirmEmail} onCancel={onCancelEmail} />
-                    <DataRow label="Giới tính" isEdit={editGender} value={gender || data.gender} onChange={onChangeGender} onConfirm={onConfirmGender} onCancel={onCancelGender} />
-                    <DataRow label="Tuổi" type="number" isEdit={editAge} value={age || data.age} onChange={onChangeAge} onConfirm={onConfirmAge} onCancel={onCancelAge} />
-                    <DataRow
-                        label="Nhóm máu"
-                        isEdit={editBloodType}
-                        value={bloodType || data.bloodType}
-                        onChange={onChangeBloodType}
-                        onConfirm={onConfirmBloodType}
-                        onCancel={onCancelBloodType}
-                    />
-                    <DataRow
-                        label="Ngày sinh"
-                        type="date"
-                        isEdit={editBirth}
-                        value={birth || data.birth}
-                        onChange={onChangeBirth}
-                        onConfirm={onConfirmBirth}
-                        onCancel={onCancelBirth}
-                    />
-                    <DataRow label="Dân tộc" value={ethnic || data.ethnic} isEdit={editEthnic} onChange={onChangeEthnic} onConfirm={onConfirmEthnic} onCancel={onCancelEthnic} />
-                    <DataRow
-                        label="CMND/CCCD"
-                        value={nationalId || data.nationalId}
-                        isEdit={editNationalId}
-                        onChange={onChangeNationalId}
-                        onConfirm={onConfirmNationalId}
-                        onCancel={onCancelNationalId}
-                    />
-                    <DataRow
-                        label="Quốc tịch"
-                        value={nationality || data.nationality}
-                        isEdit={editNationality}
-                        onChange={onChangeNationality}
-                        onConfirm={onConfirmNationality}
-                        onCancel={onCancelNationality}
-                    />
-                    <DataRow label="Nghề nghiệp" value={job || data.job} isEdit={editJob} onChange={onChangeJob} onConfirm={onConfirmJob} onCancel={onCancelJob} />
-                    <DataRow
-                        label="Bệnh nền"
-                        value={pathologicalDescription || data.pathologicalDescription}
-                        isEdit={editPathologicalDescription}
-                        onChange={onChangePathologicalDescription}
-                        onConfirm={onConfirmPathologicalDescription}
-                        onCancel={onCancelPathologicalDescription}
-                    />
-
-                    <DataRow label="Tình trạng thiết bị" value={isDeviceConnect ? "Đang kết nối" : "Không kết nối"} />
-                </tbody>
-            </table>
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Họ và tên</div>
+          <input className="input-text" name="fullName" value={formik.values.fullName} onChange={formik.handleChange} placeholder="Full name" />
         </div>
-    );
-}
+      </div>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Email</div>
+          <input className="input-text" name="email" value={formik.values.email} onChange={formik.handleChange} placeholder="Email" />
+        </div>
+        <div className="column">
+          <div className="label">Căn cước công dân</div>
+          <input className="input-text" name="identity" value={formik.values.identity} onChange={formik.handleChange} placeholder="Identity number" />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Giới tính</div>
+          <select className="input-text" name="gender" value={formik.values.gender} onChange={formik.handleChange} placeholder="Gender">
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+          </select>
+        </div>
+        <div className="column">
+          <div className="label">Dân tộc</div>
+          <input className="input-text" name="ethnic" value={formik.values.ethnic} onChange={formik.handleChange} placeholder="Ethnic" />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Ngày sinh</div>
+          <InputDate default_value={formik.values.dob} event_handler={formik.handleChange} />
+        </div>
 
-interface DataRowProps {
-    label: string;
-    value: any;
-    isEdit?: boolean;
-    onConfirm?: any;
-    onCancel?: any;
-    type?: string;
-    onChange?: any;
-}
-
-function DataRow(props: DataRowProps) {
-    const { label, value, isEdit, onConfirm, onCancel, type, onChange } = props;
-
-    return (
-        <tr className={isEdit ? "editable" : ""}>
-            <td>
-                <div className="labelSpace">
-                    <span>{label}</span>
-                </div>
-            </td>
-            <td>
-                <div className="dataSpace">
-                    {type === "date" &&
-                        (isEdit ? <DatePicker className="input" onChange={onChange} format={"DD/MM/YYYY"} /> : <div className="data">{dayjs(value).format("DD/MM/YYYY")}</div>)}
-
-                    {type !== "date" && (!isEdit ? <div className="data">{value}</div> : <input className="input" type={type || "text"} value={value} onChange={onChange} />)}
-                </div>
-            </td>
-            <td>
-                {isEdit !== undefined && (
-                    <div className="btnSpace">
-                        {!isEdit ? (
-                            <button className="editBtn edit" onClick={onConfirm}>
-                                <span>
-                                    <MdModeEditOutline />
-                                </span>
-                            </button>
-                        ) : (
-                            <>
-                                {" "}
-                                <button className="editBtn confirm" onClick={onConfirm}>
-                                    <span>
-                                        <AiOutlineCheck />
-                                    </span>
-                                </button>
-                                <button className="editBtn cancel" onClick={onCancel}>
-                                    <span>
-                                        <VscChromeClose />
-                                    </span>
-                                </button>
-                            </>
-                        )}
-                    </div>
-                )}
-            </td>
-        </tr>
-    );
+        <div className="column">
+          <div className="label">Số điện thoại</div>
+          <input className="input-text" name="phone" value={formik.values.phone} onChange={formik.handleChange} placeholder="Phone number" />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Địa chỉ</div>
+          <input className="input-text" name="address.location" value={formik.values.address.location} onChange={formik.handleChange} placeholder="Address" />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Tỉnh/Thành phố</div>
+          <Select
+            placeholder="Province..."
+            getOptionLabel={(e: any) => e.name}
+            getOptionValue={(e: any) => e.code}
+            options={provinces}
+            isClearable
+            name="province"
+            defaultValue={{
+              name: data.address?.province,
+              code: data.address?.provinceCode,
+            }}
+            onChange={(value) => {
+              console.log(value)
+              formik.setFieldValue("address.province", value?.name)
+              formik.setFieldValue("address.provinceCode", value?.code)
+            }}
+          />
+        </div>
+        <div className="column">
+          <div className="label">Quận/Huyện</div>
+          <Select
+            placeholder="District..."
+            getOptionLabel={(e: any) => e.name}
+            getOptionValue={(e: any) => e.code}
+            isClearable
+            defaultValue={{
+              name: data.address?.district ?? '',
+              code: data.address?.districtCode ?? null,
+            }}
+            options={districts}
+            name="district"
+            onChange={(value) => {
+              formik.setFieldValue("address.district", value?.name)
+              formik.setFieldValue("address.districtCode", value?.code)
+            }}          />
+        </div>
+        <div className="column">
+          <div className="label">Phường/Xã</div>
+          <Select
+            placeholder="Ward..."
+            getOptionLabel={(e: any) => e.name}
+            getOptionValue={(e: any) => e.code}
+            defaultValue={{
+              name: data.address?.ward,
+              code: data.address?.wardCode,
+            }}
+            isClearable
+            options={wards}
+            name="ward"
+            onChange={(value) => {
+              formik.setFieldValue("address.ward", value?.name)
+              formik.setFieldValue("address.wardCode", value?.code)
+            }}          />
+        </div>
+      </div>
+      <SubmitButton type="submit">Lưu thay đổi</SubmitButton>
+    </form>
+  );
 }

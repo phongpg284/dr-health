@@ -1,9 +1,8 @@
 import "../../PatientRecord/index.scss";
-import { useLazyQuery, useSubscription } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 // import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement, registerables } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
@@ -11,9 +10,25 @@ import { Menu, Dropdown, Button, DatePicker } from "antd";
 
 import "./Chart.scss";
 
-import { GET_INFO_DEVICE, NEW_DEVICE_DATA } from "../schema";
 import { DownOutlined } from "@ant-design/icons";
+import usePromise from "utils/usePromise";
+import { GetMedicalStatsResponse } from "common/types";
+import BloodIcon from "assets/chart/blood.png";
+import ThermalIcon from "assets/chart/thermal.png";
+import SpO2Icon from "assets/chart/spo2.png";
+import PressIcon from "assets/chart/press.svg";
+import BloodEdgeIcon from "assets/chart/blood_edge.png";
+import ThermalEdgeIcon from "assets/chart/thermal_edge.png";
+import SpO2EdgeIcon from "assets/chart/spo2_edge.png";
+import PressEdgeIcon from "assets/chart/press_edge.png";
+import { StatsWrapper } from "./style";
+import StatTracking from "./Stat";
+import "chartjs-adapter-date-fns";
+import zoomPlugin from "chartjs-plugin-zoom";
+
 import dayjs from "dayjs";
+import { enGB } from "date-fns/locale";
+ChartJS.register(...registerables, zoomPlugin);
 
 const vnLegend = {
   spO2: "Chỉ số SpO2",
@@ -52,138 +67,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 const Chart = ({ id, thresholdStatus }: any) => {
-  const [fetchData, { data: deviceData, loading: deviceLoading }] = useLazyQuery(GET_INFO_DEVICE, {
-    variables: {
-      id: id,
-    },
-    fetchPolicy: "network-only",
-  });
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const { data: newDeviceData, loading } = useSubscription(NEW_DEVICE_DATA, {
-    variables: {
-      id: id,
-    },
-  });
-
-  const [graphData, setGraphData] = useState<any>([]);
-  const [bloodPressGraphData, setBloodPressGraphData] = useState<any>([]);
-
-  useEffect(() => {
-    if (!loading && newDeviceData?.newDeviceData) {
-      // fetchData();
-      const newData = newDeviceData?.newDeviceData;
-      if (newData.key === "diastole" || newData.key === "systolic") {
-        if (bloodPressGraphData.length === 0) {
-          const pseudoObj = {
-            [newData.key]: newData.value.data,
-          };
-          setBloodPressGraphData([pseudoObj]);
-        } else if (bloodPressGraphData[bloodPressGraphData?.length - 1]?.[newData.key]) {
-          const pseudoObj = {
-            [newData.key]: newData.value.data,
-          };
-          setBloodPressGraphData([...bloodPressGraphData, pseudoObj]);
-        } else {
-          const newState = bloodPressGraphData;
-          newState[newState.length - 1][newData.key] = newData.value.data;
-          setBloodPressGraphData(newState);
-        }
-      } else {
-        if (graphData.length === 0) {
-          const pseudoObj = {
-            [newData.key]: newData.value.data,
-          };
-          setGraphData([pseudoObj]);
-        } else if (graphData[graphData?.length - 1]?.[newData.key]) {
-          const pseudoObj = {
-            [newData.key]: newData.value.data,
-          };
-          setGraphData([...graphData, pseudoObj]);
-        } else {
-          const newState = graphData;
-          newState[newState.length - 1][newData.key] = newData.value.data;
-          setGraphData(newState);
-        }
-      }
-    }
-  }, [newDeviceData]);
-
-  useEffect(() => {
-    if (!deviceLoading && deviceData && deviceData.getDevice) {
-      const { SpO2, bodyTemp, heartRate, diastole, systolic } = deviceData.getDevice;
-
-      // Convert to graph data
-      const reSpO2 = SpO2?.slice().reverse() || [];
-      const reBodyTemp = bodyTemp?.slice().reverse() || [];
-      const reHeartRate = heartRate?.slice().reverse() || [];
-
-      const graphConvert: any = [];
-      const maxLength = Math.max(reSpO2?.length || 0, reBodyTemp?.length || 0, reHeartRate?.length || 0);
-      for (let i = 0; i < maxLength; i++) {
-        graphConvert.push({
-          // name: i,
-          spO2: reSpO2[i]?.data || undefined,
-          bodyTemp: reBodyTemp[i]?.data || undefined,
-          heartRate: reHeartRate[i]?.data || undefined,
-        });
-      }
-      setGraphData(graphConvert.reverse());
-
-      // Convert to blood press graph data
-      const reDiastole = diastole?.slice().reverse() || [];
-      const reSystolic = systolic?.slice().reverse() || [];
-
-      const bloodPressGraphConvert: any = [];
-      const maxLengthBloodPress = Math.max(reDiastole?.length || 0, reSystolic?.length || 0);
-      for (let i = 0; i < maxLengthBloodPress; i++) {
-        bloodPressGraphConvert.push({
-          // name: i,
-          diastole: reDiastole[i]?.data || undefined,
-          systolic: reSystolic[i]?.data || undefined,
-        });
-      }
-      setBloodPressGraphData(bloodPressGraphConvert.reverse());
-    }
-  }, [deviceData, deviceLoading]);
-
-  useEffect(() => {
-    if (graphData?.[graphData?.length - 1]?.spO2) {
-      let overThreshold = false;
-      overThreshold = graphData[graphData?.length - 1].spO2 < deviceData?.getDevice?.SpO2Threshold;
-      thresholdStatus("spO2", overThreshold);
-    }
-    if (graphData?.[graphData?.length - 1]?.heartRate) {
-      let overThreshold = false;
-      overThreshold = graphData[graphData.length - 1].heartRate > deviceData?.getDevice?.heartRateThreshold;
-      thresholdStatus("heartRate", overThreshold);
-    }
-    if (graphData?.[graphData?.length - 1]?.bodyTemp) {
-      let overThreshold = false;
-      overThreshold = graphData[graphData.length - 1].bodyTemp > deviceData?.getDevice?.bodyTempThreshold;
-      thresholdStatus("bodyTemp", overThreshold);
-    }
-  }, [graphData]);
-
-  useEffect(() => {
-    if (bloodPressGraphData?.[bloodPressGraphData?.length - 1]?.diastole) {
-      let overThreshold = false;
-      overThreshold =
-        bloodPressGraphData[bloodPressGraphData?.length - 1].diastole < deviceData?.getDevice?.diasLowThreshold ||
-        bloodPressGraphData[bloodPressGraphData?.length - 1].diastole > deviceData?.getDevice?.diasHighThreshold;
-      thresholdStatus("bloodPress", overThreshold);
-    }
-    if (bloodPressGraphData?.[bloodPressGraphData?.length - 1]?.systolic) {
-      let overThreshold = false;
-      overThreshold =
-        bloodPressGraphData[bloodPressGraphData?.length - 1].systolic < deviceData?.getDevice?.sysLowThreshold ||
-        bloodPressGraphData[bloodPressGraphData?.length - 1].systolic > deviceData?.getDevice?.sysHighThreshold;
-      thresholdStatus("bloodPress", overThreshold);
-    }
-  }, [bloodPressGraphData]);
+  const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`);
 
   const [opacityState, setOpacityState] = useState({
     spO2: 0.2,
@@ -211,36 +95,13 @@ const Chart = ({ id, thresholdStatus }: any) => {
 
   return (
     <div className="patient-info-graph-wrapper">
-      {/* <div className="graph_container">
-                <div className="patient-info-graph">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={bloodPressGraphData} margin={{ top: 15, right: 30, left: 10, bottom: 5 }}>
-                            <XAxis tick={false} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend verticalAlign="top" align="left" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} formatter={renderDescriptionLegend} />
-                            <Line yAxisId="1" type="monotone" dataKey="systolic" stroke="#ff9900" strokeOpacity={opacityState.systolic} strokeWidth={3} />
-                            <Line yAxisId="0" type="monotone" dataKey="diastole" stroke="#ff0000" strokeOpacity={opacityState.diastole} strokeWidth={3} />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
-            <div className="graph_container">
-                <div className="patient-info-graph">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={graphData} margin={{ top: 15, right: 30, left: 10, bottom: 5 }}>
-                            <XAxis tick={false} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend verticalAlign="top" align="left" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} formatter={renderDescriptionLegend} />
-                            <Line yAxisId="0" type="monotone" dataKey="spO2" stroke="#3930e6" strokeOpacity={opacityState.spO2} strokeWidth={3} />
-                            <Line yAxisId="1" type="monotone" dataKey="bodyTemp" stroke="#19ba19" strokeOpacity={opacityState.bodyTemp} strokeWidth={3} />
-                            <Line yAxisId="2" type="monotone" dataKey="heartRate" stroke="#ff2600" strokeOpacity={opacityState.heartRate} strokeWidth={3} />
-                        </LineChart>
-                    </ResponsiveContainer>
-
-                </div>
-            </div>  */}
-
-      {deviceData?.getDevice && <ListChart deviceData={deviceData.getDevice} />}
+      <StatsWrapper>
+        <StatTracking icon={BloodIcon} edge={BloodEdgeIcon} color="#fff5f6" name="Nhịp tim" value={99} unit="bpm" textColor="#fc6371" />
+        <StatTracking icon={ThermalIcon} edge={ThermalEdgeIcon} color="#f4f3fa" name="Nhiệt độ" value={99} unit="C" textColor="#7c72c8" />
+        <StatTracking icon={SpO2Icon} edge={SpO2EdgeIcon} color="#eaf3ee" name="Nồng độ SpO2" value={99} unit="%" textColor="#338d5a" />
+        <StatTracking icon={PressIcon} edge={PressEdgeIcon} color="#fbf4e8" name="Huyết áp" value={99} unit="bbpm" textColor="#da8e16" />
+      </StatsWrapper>
+      {loaded && medicalStats && <ListChart deviceData={medicalStats} />}
     </div>
   );
 };
@@ -248,14 +109,15 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 function ListChart({ deviceData }: { deviceData: any }) {
   const diastole = React.useMemo(() => {
-    return deviceData.diastole.map((item: any) => item.data);
+    return deviceData?.diastole?.map((item: any) => item.value) ?? [];
   }, [deviceData]);
   const systolic = React.useMemo(() => {
-    return deviceData.systolic.map((item: any) => item.data);
+    return deviceData?.systolic?.map((item: any) => item.value) ?? [];
   }, [deviceData]);
+
   return (
     <div className="listChart">
-      <ChartDiasAndSys diastole={diastole} systolic={systolic} />
+      {/* <ChartDiasAndSys diastole={diastole} systolic={systolic} /> */}
       {/* <SingleLineChart arr={SpO2} title="SpO2" color="coral"/> */}
       <MultipleChart deviceData={deviceData} />
     </div>
@@ -336,10 +198,11 @@ function ChartDiasAndSys({ diastole, systolic }: { diastole: any[]; systolic: an
 }
 
 function MultipleChart({ deviceData }: { deviceData: any }) {
-  const arrType = ["SpO2", "Nhiệt độ", "Nhịp tim", "Gương mặt", "Cử chỉ tay", "Giọng nói"];
+  const arrType = ["SpO2", "Nhiệt độ", "Nhịp tim"];
+
   const [type, setType] = useState(arrType[0]);
   const [timeType, setTimeType] = useState("Ngày");
-  const [dateStart, setDateStart] = useState(dayjs('2021-12-9').startOf('day').toDate());
+  const [dateStart, setDateStart] = useState(dayjs("2022-6-9").startOf("day").toDate());
 
   const filterArr = {
     Ngày: (item: any) => dayjs(item?.createdAt) < dayjs(dateStart).add(1, "day") && dayjs(item.createdAt) > dayjs(dateStart),
@@ -348,65 +211,19 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
   };
 
   const SpO2 = React.useMemo(() => {
-    return deviceData.SpO2.filter((filterArr as any)?.[timeType]);
-  }, [deviceData, dateStart, timeType]);
+    console.log(timeType, dateStart);
+    console.log(deviceData.spO2);
+    const res = deviceData?.spO2?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+    // return res.flatMap((ele: any) => [ele, { x: null, y: ele?.y }]);
+    return res;
+  }, [deviceData, timeType, dateStart]);
   const bodyTemp = React.useMemo(() => {
-    return deviceData.bodyTemp.filter((filterArr as any)?.[timeType]);
-  }, [deviceData, dateStart, timeType]);
+    return deviceData?.bodyTemp?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+  }, [deviceData, timeType, dateStart]);
 
   const heartRate = React.useMemo(() => {
-    return deviceData.heartRate.filter((filterArr as any)?.[timeType]);
-  }, [deviceData, dateStart, timeType]);
-
-  const face = React.useMemo(() => {
-    return deviceData.face.map((item: any) => item.data);
-  }, [deviceData]);
-  const armMovement = React.useMemo(() => {
-    const arr = deviceData.armMovement.map((item: any) => item.data);
-    const finalArr = [];
-    let positive = 0;
-    let negative = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 1) {
-        positive += 1;
-      } else {
-        negative += 1;
-      }
-
-      if ((i + 1) % 5 === 0) {
-        finalArr.push({
-          positive,
-          negative,
-        });
-        positive = 0;
-        negative = 0;
-      }
-    }
-    return finalArr;
-  }, [deviceData]);
-  const voice = React.useMemo(() => {
-    const arr = deviceData.voice.map((item: any) => item.data);
-    const finalArr = [];
-    let positive = 0;
-    let negative = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 1) {
-        positive += 1;
-      } else {
-        negative += 1;
-      }
-
-      if ((i + 1) % 5 === 0) {
-        finalArr.push({
-          positive,
-          negative,
-        });
-        positive = 0;
-        negative = 0;
-      }
-    }
-    return finalArr;
-  }, [deviceData]);
+    return deviceData?.heartRate?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+  }, [deviceData, timeType, dateStart]);
 
   const MyMenu = (
     <Menu>
@@ -437,7 +254,7 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
   );
 
   const onChangeDatePick = (date: any, dateString: string) => {
-    setDateStart(dayjs(date, "DD/MM/YYYY").startOf('day').toDate());
+    setDateStart(dayjs(date, "DD/MM/YYYY").startOf("day").toDate());
   };
 
   return (
@@ -458,12 +275,9 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
             <DatePicker onChange={onChangeDatePick} format={"DD/MM/YYYY"} />
           </Dropdown>
         </div>
-        {type === arrType[0] && <SingleLineChart arr={SpO2} title={type} color="darkblue" />}
-        {type === arrType[1] && <SingleLineChart arr={bodyTemp} title={type} color="coral" />}
-        {type === arrType[2] && <SingleLineChart arr={heartRate} title={type} color="brown" />}
-        {type === arrType[3] && <FaceChart arr={face} />}
-        {type === arrType[4] && <StackBarChart arr={armMovement} title={type} />}
-        {type === arrType[5] && <StackBarChart arr={voice} title={type} />}
+        {type === arrType[0] && <SingleLineChart arr={SpO2} title={type} color="darkblue" timeType={timeType} dateStart={dateStart} />}
+        {type === arrType[1] && <SingleLineChart arr={bodyTemp} title={type} color="coral" timeType={timeType} dateStart={dateStart} />}
+        {type === arrType[2] && <SingleLineChart arr={heartRate} title={type} color="brown" timeType={timeType} dateStart={dateStart} />}
       </div>
     </div>
   );
@@ -547,127 +361,88 @@ function StackBarChart({ arr, title }: { arr: any[]; title: string }) {
   );
 }
 
-function FaceChart({ arr }: { arr: any[] }) {
-  const min = 0;
-  const max = arr.length - 1;
-
-  const [range, setRange] = useState({
-    min: 0,
-    max: max,
-  });
-
-  React.useEffect(() => {
-    if (arr.length > 100) {
-      setRange({
-        min: max - 100,
-        max: max,
-      });
-    }
-  }, [arr]);
-
+function SingleLineChart(props: { arr: any[]; title: string; color: string; timeType: string; dateStart: Date }) {
+  const { arr, title, color, timeType, dateStart } = props;
+  console.log(arr);
+  const getChartType = (type: string) => {
+    if (type === "Ngày") return "hour";
+    if (type === "Tháng") return "day";
+  };
+  console.log(getChartType(timeType));
   const options = {
+    animation: false,
+    spanGaps: true,
     responsive: true,
+    scales: {
+      y: {
+        // title: {
+        //   display: true,
+        //   text: "Weight in lbs",
+        // },
+        min: 0,
+      },
+      x: {
+        adapters: {
+          date: {
+            locale: enGB,
+          },
+        },
+        type: "time",
+        distribution: "linear",
+        min: dateStart,
+        max: dayjs(dateStart).add(1, "day").toDate(),
+        time: {
+          parser: "yyyy/MM/dd HH:mm:ss",
+          unit: getChartType(timeType),
+        },
+        // title: {
+        //   display: true,
+        //   text: "Date",
+        // },
+      },
+    },
     plugins: {
-      legend: {
-        position: "top" as const,
+      legend: { position: "top" },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+            mode: "x",
+          },
+          mode: "x",
+        },
+      },
+    },
+    tension: 1,
+    transitions: {
+      zoom: {
+        animation: {
+          duration: 1000,
+          easing: "easeOutCubic",
+        },
       },
     },
   };
 
-  const arrSlice = React.useMemo(() => {
-    return arr.slice(range.min, range.max);
-  }, [arr, range]);
-
   const data = {
-    labels: arrSlice.map(() => ""),
-    datasets: [
-      {
-        label: "Gương mặt",
-        data: arrSlice,
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <Bar options={options} data={data} height="80vh" />
-      <div className="rangeWrapper">
-        <InputRange
-          maxValue={max}
-          minValue={min}
-          value={range}
-          onChange={(value) => {
-            if (typeof value !== "number") {
-              setRange(value);
-            }
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function SingleLineChart(props: { arr: any[]; title: string; color: string }) {
-  const { arr, title, color } = props;
-
-  const min = 0;
-  const max = arr.length - 1;
-
-  const [range, setRange] = useState({
-    min: 0,
-    max: max,
-  });
-
-  React.useEffect(() => {
-    if (arr.length > 100) {
-      setRange({
-        min: max - 100,
-        max: max,
-      });
-    }
-  }, [arr]);
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-    },
-  };
-
-  const arrSlice = React.useMemo(() => {
-    return arr.slice(range.min, range.max);
-  }, [arr, range]);
-
-  const data = {
-    labels: arrSlice.map((item) => dayjs(item.createdAt).format('DD/MM HH:mm:ss')),
+    labels: arr?.map(() => ""),
     datasets: [
       {
         label: title,
-        data: arrSlice.map((item) => item.data),
+        data: arr,
         backgroundColor: color,
         borderColor: color,
+        pointRadius: 0,
       },
     ],
   };
 
   return (
     <div>
-      <Line options={options} data={data} height="80vh" />
-      <div className="rangeWrapper">
-        <InputRange
-          maxValue={max}
-          minValue={min}
-          value={range}
-          onChange={(value) => {
-            if (typeof value !== "number") {
-              setRange(value);
-            }
-          }}
-        />
-      </div>
+      <Bar options={options as any} data={data} height="100vh" />
     </div>
   );
 }

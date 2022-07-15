@@ -1,16 +1,16 @@
 import "./login.scss";
-import { useLazyQuery } from "@apollo/client";
-import { useAppDispatch } from "../../app/store";
-import { updateToken } from "../../app/authSlice";
 import React, { useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { LOGIN } from "./schema";
 
-import * as GreetingBotStore from '../../app/GreetingBot'
-import Abstract13 from 'assets/abstract13.svg'
+import { useAppDispatch } from "../../app/store";
+import { updateToken } from "../../app/authSlice";
+import * as GreetingBotStore from "../../app/GreetingBot";
+import Abstract13 from "assets/abstract13.svg";
+import { useApi } from "utils/api";
+import { AxiosError } from "axios";
 
 interface ILoginInputForm {
   email: string;
@@ -19,49 +19,50 @@ interface ILoginInputForm {
 }
 
 const LoginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Must be a valid email")
-    .required("Email required!"),
+  email: yup.string().email("Must be a valid email").required("Email required!"),
   password: yup.string().required("Password required!"),
 });
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const [loginEmail, setLoginEmail] = useState<string>("");
   const [showError, setShowError] = useState<string>("");
-  const [login] = useLazyQuery(LOGIN, {
-    onCompleted(data) {
-      if (data && data.login.message === "Matched user") {
-        dispatch(
-          updateToken({
-            accessToken: data.login.accessToken,
-            email: data.login.email,
-            role: data.login.role,
-            id: data.login.id,
-          })
-        );
-        history.push("/");
-      } else setShowError(data.login.message);
-    },
-  });
+  const api = useApi();
+
+  const handleLogin = (params: any) => {
+    api
+      .post("/auth/login", params)
+      .then((res) => {
+        const data = res.data;
+        if (data && data.accessToken && data.refreshToken) {
+          dispatch(
+            updateToken({
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
+              email: data.email,
+              role: data.role,
+              id: data.id,
+              roleId: data?.roleId,
+            })
+          );
+          history.push("/");
+        } 
+      })
+      .catch((error: AxiosError) => {
+        setShowError((error.response?.data as any)?.message);
+      });
+  };
 
   const handleSubmit = (data: ILoginInputForm) => {
-    setLoginEmail(data.email);
-    login({
-      variables: {
-        inputs: {
-          ...data,
-          role: data.role ? "doctor" : "patient",
-        },
-      },
+    handleLogin({
+      ...data,
+      role: data.role ? "doctor" : "patient",
     });
   };
 
   React.useEffect(() => {
-    dispatch(GreetingBotStore.setGreetingName(GreetingBotStore.GreetingNameType.LoginPage))
-  }, [])
+    dispatch(GreetingBotStore.setGreetingName(GreetingBotStore.GreetingNameType.LoginPage));
+  }, []);
 
   return (
     <div className="login-form">
@@ -77,23 +78,10 @@ const Login = () => {
           validationSchema={LoginSchema}
           onSubmit={handleSubmit}
         >
-          {({
-            handleSubmit,
-            handleChange,
-            handleBlur,
-            values,
-            touched,
-            isValid,
-            errors,
-          }) => (
+          {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
             <Form onSubmit={handleSubmit}>
-              <Form.Group
-                className="login-form-input"
-                controlId="formBasicEmail"
-              >
-                <Form.Label className="login-form-label">
-                  Email
-                </Form.Label>
+              <Form.Group className="login-form-input" controlId="formBasicEmail">
+                <Form.Label className="login-form-label">Email</Form.Label>
 
                 <Form.Control
                   type="email"
@@ -107,13 +95,8 @@ const Login = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group
-                className="login-form-input"
-                controlId="formBasicPassword"
-              >
-                <Form.Label className="login-form-label">
-                  Mật khẩu
-                </Form.Label>
+              <Form.Group className="login-form-input" controlId="formBasicPassword">
+                <Form.Label className="login-form-label">Mật khẩu</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="password"
@@ -122,10 +105,6 @@ const Login = () => {
                     onChange={handleChange}
                     isInvalid={!!errors.password}
                   />
-                  {/* <InputGroup.Text onClick={handleVisiblePassword}>
-                    {isPasswordShow && <EyeOutlined />}
-                    {!isPasswordShow && <EyeInvisibleOutlined />}
-                  </InputGroup.Text> */}
                   <Form.Control.Feedback type="invalid" className="input-error">
                     {errors.password}
                   </Form.Control.Feedback>
@@ -133,23 +112,20 @@ const Login = () => {
               </Form.Group>
               <Form.Group className="login-form-role-check">
                 <div className="role_checker">Bác sĩ?</div>
-                <Form.Check
-                  size={20}
-                  name="role"
-                  onChange={handleChange}
-                  id="validationFormik0"
-                />
+                <Form.Check size={20} name="role" onChange={handleChange} id="validationFormik0" />
               </Form.Group>
-              <div className="errors">
-                {showError && <div>{showError}</div>}
-              </div>
+              <div className="errors">{showError && <div>{showError}</div>}</div>
 
               <Button className="submitBtn" type="submit">
                 Đăng nhập
               </Button>
-              <Link className="create-account-link" to="./signup">Tạo tài khoản</Link>
+              <Link className="create-account-link" to="./signup">
+                Tạo tài khoản
+              </Link>
 
-              <Link className="backToHome" to="/">Về trang chủ</Link>
+              <Link className="backToHome" to="/">
+                Về trang chủ
+              </Link>
             </Form>
           )}
         </Formik>

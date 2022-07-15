@@ -1,5 +1,4 @@
 import "./threshold.scss"
-import { useLazyQuery, useMutation } from "@apollo/client";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "antd"
 
@@ -11,7 +10,6 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 // other
 
-import { GET_PATIENT, GET_PATIENT_DEVICE, UPDATE_THRESHOLD } from "./schema"
 
 const { confirm } = Modal
 
@@ -32,10 +30,12 @@ interface ThresholdCardProps {
 */
 
 export const ThresholdCard: React.FC<ThresholdCardProps> = ({ id, property, unit, Icon, type, color }) => {
-    const [getPatient, { data: patient }] = useLazyQuery(GET_PATIENT);
-    const [getDevice, { data: patientDevice }] = useLazyQuery(GET_PATIENT_DEVICE);
+    const patient:any = {};
+    const patientDevice:any = {};
+    // const [getPatient, { data: patient }] = useLazyQuery(GET_PATIENT);
+    // const [getDevice, { data: patientDevice }] = useLazyQuery(GET_PATIENT_DEVICE);
 
-    const [updateThreshold] = useMutation(UPDATE_THRESHOLD)
+    // const [updateThreshold] = useMutation(UPDATE_THRESHOLD)
 
     const [current, setCurrent] = useState([0, 0])
     const [threshold, setThreshold] = useState([0, 0, 0, 0])
@@ -134,13 +134,13 @@ export const ThresholdCard: React.FC<ThresholdCardProps> = ({ id, property, unit
         switch (property) {
             case 0: {
                 setThreshold([Number(thresholdInput.current?.value)])
-                updateThreshold({
-                    variables: {
-                        value: Number(thresholdInput.current?.value),
-                        property: 1,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(thresholdInput.current?.value),
+                //         property: 1,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
                 break;
             }
             case 1: {
@@ -150,56 +150,56 @@ export const ThresholdCard: React.FC<ThresholdCardProps> = ({ id, property, unit
                     Number(sisThresholdMin.current?.value),
                     Number(sisThresholdMax.current?.value),
                 ])
-                updateThreshold({
-                    variables: {
-                        value: Number(diasThresholdMin.current?.value),
-                        property: 4,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
-                updateThreshold({
-                    variables: {
-                        value: Number(diasThresholdMax.current?.value),
-                        property: 5,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
-                updateThreshold({
-                    variables: {
-                        value: Number(sisThresholdMin.current?.value),
-                        property: 6,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
-                updateThreshold({
-                    variables: {
-                        value: Number(sisThresholdMax.current?.value),
-                        property: 7,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(diasThresholdMin.current?.value),
+                //         property: 4,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(diasThresholdMax.current?.value),
+                //         property: 5,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(sisThresholdMin.current?.value),
+                //         property: 6,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(sisThresholdMax.current?.value),
+                //         property: 7,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
                 break;
             }
             case 2: {
                 setThreshold([Number(thresholdInput.current?.value)])
-                updateThreshold({
-                    variables: {
-                        value: Number(thresholdInput.current?.value),
-                        property: 2,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(thresholdInput.current?.value),
+                //         property: 2,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
                 break;
             }
             case 3: {
                 setThreshold([Number(thresholdInput.current?.value)])
-                updateThreshold({
-                    variables: {
-                        value: Number(thresholdInput.current?.value),
-                        property: 3,
-                        id: patient.getPatient.deviceId,
-                    }
-                })
+                // updateThreshold({
+                //     variables: {
+                //         value: Number(thresholdInput.current?.value),
+                //         property: 3,
+                //         id: patient.getPatient.deviceId,
+                //     }
+                // })
                 break;
             }
         }
@@ -229,22 +229,22 @@ export const ThresholdCard: React.FC<ThresholdCardProps> = ({ id, property, unit
 
     useEffect(() => {
         if (id) {
-            getPatient({
-                variables: {
-                    id: id
-                }
-            })
+            // getPatient({
+            //     variables: {
+            //         id: id
+            //     }
+            // })
         }
 
     }, [])
 
     useEffect(() => {
         if (patient) {
-            getDevice({
-                variables: {
-                    id: patient.getPatient?.deviceId
-                }
-            })
+            // getDevice({
+            //     variables: {
+            //         id: patient.getPatient?.deviceId
+            //     }
+            // })
         }
     }, [patient])
 
