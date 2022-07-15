@@ -16,7 +16,7 @@ jobs:
       - uses: actions/cache@v2
         id: yarn-cache
         with:
-          path: './client/node_modules'
+          path: "./client/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('./server/yarn.lock') }}
 
       - name: Install dependencies
@@ -29,9 +29,16 @@ jobs:
         uses: ./.github/actions/restart
         with:
           port: ${{ secrets.SERVER_PORT }}
+          db_port: ${{ secrets.DB_PORT }}
           db_name: ${{ secrets.DB_NAME }}
-          db_endpoint: ${{ secrets.DB_ENDPOINT }}
+          db_host: ${{ secrets.DB_HOST }}
           db_username: ${{ secrets.DB_USERNAME }}
           db_password: ${{ secrets.DB_PASSWORD }}
-          jwt_key: ${{ secrets.JWT_KEY }}
+          redis_host: ${{ secrets.REDIS_HOST }}
+          redis_port: ${{ secrets.REDIS_PORT }}
+          redis_password: ${{ secrets.REDIS_PASSWORD }}
+          jwt_secret_key: ${{ secrets.JWT_SECRET_KEY }}
+          refresh_jwt_secret_key: ${{ secrets.REFRESH_JWT_SECRET_KEY }}
+          expire_jwt_secret_key: ${{ secrets.EXPIRE_JWT_SECRET_KEY }}
+          expire_refresh_jwt_secret_key: ${{ secrets.EXPIRE_REFRESH_JWT_SECRET_KEY }}
           server_name: ${{ secrets.SERVER_NAME }}

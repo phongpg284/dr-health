@@ -1,16 +1,12 @@
 import "./index.scss";
-import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 import { useReactMediaRecorder } from "react-media-recorder";
 
-import { RECORDING_DOCTOR, UPLOAD } from "./schema";
 
 import { Divider, Input } from "antd";
 
 import microIcon from "../../../../assets/micro.png";
 import { useState, useEffect, memo } from "react";
-import { render } from "@testing-library/react";
-import { doTypesOverlap } from "graphql";
 import { downloadRecord } from "./downloadRecords";
 
 interface Record {
@@ -55,12 +51,12 @@ const AudioRecord = ({ patientId }: any) => {
       },
     });
 
-  const [uploadRecord] = useMutation(UPLOAD);
-  const { loading, error, data } = useQuery(RECORDING_DOCTOR, {
-    variables: {
-      id: patientId,
-    },
-  });
+  // const [uploadRecord] = useMutation(UPLOAD);
+  // const { loading, error, data } = useQuery(RECORDING_DOCTOR, {
+  //   variables: {
+  //     id: patientId,
+  //   },
+  // });
 
   const getRecords = async (data: any) => {
     const recordings: Record[] = [];
@@ -77,9 +73,9 @@ const AudioRecord = ({ patientId }: any) => {
     setRecords(recordings);
   };
 
-  useEffect(() => {
-    getRecords(data);
-  }, [data]);
+  // useEffect(() => {
+  //   getRecords(data);
+  // }, [data]);
 
   
 
@@ -100,16 +96,16 @@ const AudioRecord = ({ patientId }: any) => {
         const file = new File([data], recordName + ".mp3", {
           type: "audio/wav",
         });
-        uploadRecord({
-          variables: {
-            ownerId: account.id,
-            receiverId: patientId,
-            file: file,
-          },
-        }).then(() => {
-          updateRecordList(data);
-          clearBlobUrl();
-        });
+        // uploadRecord({
+        //   variables: {
+        //     ownerId: account.id,
+        //     receiverId: patientId,
+        //     file: file,
+        //   },
+        // }).then(() => {
+        //   updateRecordList(data);
+        //   clearBlobUrl();
+        // });
       });
   };
 

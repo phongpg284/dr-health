@@ -1,25 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import "react-toastify/dist/ReactToastify.css";
+import React from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import reportWebVitals from "./reportWebVitals";
+import { ToastContainer } from "react-toastify";
+import App from "./App";
 import store from "./app/store";
-import MyApolloProvider from "./app/ApolloProvider";
-import GreetingBot from './components/GreetingBot'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import GreetingBot from "./components/GreetingBot";
+import { ApiProvider } from "utils/api";
 
 ReactDOM.render(
   <Provider store={store}>
     <ToastContainer />
     <GreetingBot />
-    <MyApolloProvider>
-      <React.StrictMode>
+    <React.StrictMode>
+      <ApiProvider>
         <App />
-      </React.StrictMode>
-    </MyApolloProvider>
+      </ApiProvider>
+    </React.StrictMode>
   </Provider>,
   document.getElementById("root")
 );

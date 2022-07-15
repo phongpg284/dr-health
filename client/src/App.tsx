@@ -8,14 +8,11 @@ import Main from "pages/Main";
 import LoginPage from "./pages/Login/LoginPage";
 import SignupPage from "./pages/Signup/SignupPage";
 import { Home } from "components/Home";
-import FirstAid2 from "pages/FirstAid2";
 import * as GreetingBotStore from "./app/GreetingBot";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
-const AddMinigame = lazy(() => import("pages/AddMinigame"));
-const Minigame = lazy(() => import("components/Minigame"));
-const HospitalMap = lazy(() => import('pages/HospitalMap'));
+const HospitalMap = lazy(() => import("pages/HospitalMap"));
 const NotificationsPage = lazy(() => import("pages/Notifications"));
 const PatientCardsList = lazy(() => import("components/PatientRecord/PatientCardsList"));
 const PatientRecord = lazy(() => import("components/PatientRecord/PatientRecord"));
@@ -33,33 +30,33 @@ const ProjectionPhoto = lazy(() => import("pages/ProjectionPhoto"));
 export const FooterContext = createContext<any>(null);
 
 function App() {
-    const dispatch = useAppDispatch();
-    const { accessToken } = useAppSelector((state) => state.account);
-    const [isAuth, setIsAuth] = useState(true);
-    const [route, setRoute] = useState("/");
-    const footerRef = useRef<any>();
+  const dispatch = useAppDispatch();
+  const { accessToken } = useAppSelector((state) => state.account);
+  const [isAuth, setIsAuth] = useState(true);
+  const [route, setRoute] = useState("/");
+  const footerRef = useRef<any>();
 
-    const [hasRunEffect, setRunEffect] = useState(false);
-    useEffect(() => {
-        setRunEffect(true);
-        dispatch(GreetingBotStore.reset());
-    }, []);
-    useEffect(() => {
-        setRoute(window.location.pathname);
-    }, [window.location.pathname]);
+  const [hasRunEffect, setRunEffect] = useState(false);
+  useEffect(() => {
+    setRunEffect(true);
+    dispatch(GreetingBotStore.reset());
+  }, []);
+  useEffect(() => {
+    setRoute(window.location.pathname);
+  }, [window.location.pathname]);
 
-    useEffect(() => {
-        if (accessToken) setIsAuth(true);
-        else setIsAuth(false);
-    }, [accessToken]);
+  useEffect(() => {
+    if (accessToken) setIsAuth(true);
+    else setIsAuth(false);
+  }, [accessToken]);
 
-    return (
-        <div className="App">
-            <Suspense fallback={<Spin />}>
-                <FooterContext.Provider value={footerRef}>{hasRunEffect && <MyRouter />}</FooterContext.Provider>
-            </Suspense>        
-        </div>
-    );
+  return (
+    <div className="App">
+      <Suspense fallback={<Spin />}>
+        <FooterContext.Provider value={footerRef}>{hasRunEffect && <MyRouter />}</FooterContext.Provider>
+      </Suspense>
+    </div>
+  );
 }
 
 function MyRouter() {
@@ -82,10 +79,8 @@ function MyRouter() {
         <Main exact path="/" component={Home} />
 
         <Main exact path="/phuc-hoi" component={FirstAid} />
-        <Main exact path="/so-cuu" component={FirstAid2} />
+        {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
-        <PrivateRoute exact path="/minigame" component={Minigame} />
-        {role === "patient" && <PrivateRoute exact path="/add-games" component={AddMinigame} />}
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/calendar" component={CalendarPage} />
         <Route exact path="/notifications" component={NotificationsPage} />

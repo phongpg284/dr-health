@@ -1,4 +1,4 @@
-import { REACT_APP_DOWNLOAD_URL } from "app/config";
+import { REACT_APP_DOWNLOAD_URL } from "config/config";
 
 export const downloadRecord = async (
   fileName: string,

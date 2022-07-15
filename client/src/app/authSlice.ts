@@ -1,30 +1,36 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
-  accessToken: string;
-  role: string;
-  email: string;
-  id: string;
+    accessToken: string;
+    refreshToken: string;
+    role: string;
+    email: string;
+    id: string;
+    roleId: string;
 }
 
 const initialState: Partial<AuthState> = {
-  accessToken: "",
-  role: "",
-  email: "",
-  id: "",
+    accessToken: "",
+    refreshToken: "",
+    role: "",
+    email: "",
+    id: "",
+    roleId: "",
 };
 
 export const authSlice = createSlice({
-  name: "authenticate",
-  initialState,
-  reducers: {
-    updateToken: (state, action: PayloadAction<AuthState>) => {
-      (state.accessToken = action.payload.accessToken),
-        (state.email = action.payload.email),
-        (state.role = action.payload.role),
-        (state.id = action.payload.id);
+    name: "authenticate",
+    initialState,
+    reducers: {
+        updateToken: (state: any, action: PayloadAction<AuthState>) => {
+            state.accessToken = action.payload.accessToken;
+            state.refreshToken = action.payload.refreshToken;
+            state.email = action.payload.email;
+            state.role = action.payload.role;
+            state.id = action.payload.id;
+            state.roleId = action.payload.roleId;
+        },
     },
-  },
 });
 
 export const { updateToken } = authSlice.actions;

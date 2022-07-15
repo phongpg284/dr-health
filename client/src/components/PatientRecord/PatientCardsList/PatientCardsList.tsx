@@ -1,18 +1,17 @@
 import "./index.scss";
 import dayjs from "dayjs";
-import { useMutation, useQuery } from "@apollo/client";
 import { useAppSelector } from "app/store";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { GET_PATIENTS_OF_DOCTOR } from "../PatientList/schema";
+import { Tooltip } from "antd";
+import usePromise from "utils/usePromise";
+import { get } from "lodash";
 
 import { BiLinkExternal } from "react-icons/bi";
 import Avatar from "../../../assets/default-avatar-patient.png";
 import BG from "assets/abstract12.svg";
 import Experiment from "./Experiment";
 import { BsFillCameraVideoFill } from "react-icons/bs";
-import { Tooltip } from "antd";
-import { CREATE_MEETING } from "./schema";
 
 const defaultList = [
     {
@@ -320,58 +319,13 @@ const defaultList = [
         fullName: "Nguyễn Thu Hạnh",
         gender: "Nữ",
         index: 0,
-    },
-    {
-        age: 20,
-        birth: "2002-05-01T17:00:00.000Z",
-        fullName: "Nguyễn Kim Anh",
-        gender: "Nam",
-        index: 1,
-    },
-    {
-        age: 19,
-        birth: "2003-04-02T17:00:00.000Z",
-        fullName: "Trần Kim Yến",
-        gender: "Nữ",
-        index: 1,
-    },
-    {
-        age: 18,
-        birth: "2004-12-09T17:00:00.000Z",
-        fullName: "Nguyễn Yên Hoa",
-        gender: "Nữ",
-        index: 0,
-    },
-    {
-        age: 19,
-        birth: "2003-04-02T17:00:00.000Z",
-        fullName: "Trần Hà Thu",
-        gender: "Nữ",
-        index: 1,
-    },
-    {
-        age: 18,
-        birth: "2004-12-09T17:00:00.000Z",
-        fullName: "Nguyễn Hương Thảo",
-        gender: "Nữ",
-        index: 0,
-    },
+    }
 ];
 
 const PatientCardsList = () => {
     const account = useAppSelector((state) => state.account);
-    const { data } = useQuery(GET_PATIENTS_OF_DOCTOR, {
-        variables: {
-            id: account.id,
-        },
-    });
-    const [createMeeting] = useMutation(CREATE_MEETING);
-
-    const [patientData, setPatientData] = useState<any>(null);
-
-    useEffect(() => {
-        if (data && data.getPatientsOfDoctor) setPatientData(data.getPatientsOfDoctor);
-    }, [data]);
+    const [patientData] = usePromise(`/doctor/patients/${account.id}`);
+    // const [createMeeting] = useMutation(CREATE_MEETING);
 
     const patientDataArray = React.useMemo(() => {
         if (!patientData) return [];
@@ -387,11 +341,11 @@ const PatientCardsList = () => {
     const handleClickVideoCall = (id: string) => {
         const meetingLink = `https://video.dr-health.com.vn/${id?.slice(0, 10) || "adss43ghj4h3"}`;
         const inputs = { patientId: id, meetingId: meetingLink };
-        createMeeting({
-            variables: {
-                inputs,
-            },
-        });
+        // createMeeting({
+        //     variables: {
+        //         inputs,
+        //     },
+        // });
         window.open(meetingLink);
     };
 
