@@ -80,7 +80,9 @@ export class UserService {
   }
 
   async findOne(params: FilterQuery<User>) {
+    console.log(params);
     const user = await this.userRepository.findOneOrFail(params, { populate: ['address'] });
+    console.log(user);
     return user;
   }
 
