@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BODY_TEMP, DIASTOLE, HEART_RATE, HUMIDITY, SPO2, SYSTOLIC, TEMPERATURE } from 'src/config/topic';
+import { BLOOD_PRESS, BODY_TEMP, DIASTOLE, HEART_RATE, HUMIDITY, SPO2, SYSTOLIC, TEMPERATURE } from 'src/config/topic';
 import { MEDICAL_STATS } from 'src/constant/enums';
 import { DeviceService } from 'src/device/device.service';
 import { MedicalStatService } from 'src/medical-stat/medical-stat.service';
 import { NotificationService } from 'src/notification/notification.service';
 import { PatientService } from 'src/patient/patient.service';
-import topicParse from 'src/utils/topicTest';
+import { topicParse, topicValueParse } from 'src/utils/topicParse';
 
 @Injectable()
 export class MqttService {
@@ -91,6 +91,15 @@ export class MqttService {
           patientId: patient.id,
           type: MEDICAL_STATS[BODY_TEMP].type,
           value: filterErrorValue(nodeStat, payload),
+        });
+        break;
+      case BLOOD_PRESS:
+        const values = topicValueParse(payload);
+        await this.medicalStatService.create({
+          patientId: patient.id,
+          type: MEDICAL_STATS[BLOOD_PRESS].type,
+          value: filterErrorValue(nodeStat, values.value),
+          secondValue: filterErrorValue(nodeStat, values.secondValue),
         });
         break;
       case SYSTOLIC:

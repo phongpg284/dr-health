@@ -1,6 +1,6 @@
 import { MQTT_BRAND } from 'src/config';
 
-const topicParse = (topics: string): [boolean, string, string, string, string] => {
+export const topicParse = (topics: string): [boolean, string, string, string, string] => {
   let isValidTopic = true;
   const topicElement = topics.split('/');
   const nodeBrand = topicElement[0];
@@ -11,4 +11,15 @@ const topicParse = (topics: string): [boolean, string, string, string, string] =
   return [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat];
 };
 
-export default topicParse;
+export const topicValueParse = (values: string) => {
+  const parseValues = values.split(',').map((v) => +v);
+  if (parseValues.length > 1)
+    return {
+      value: parseValues[0],
+    };
+  else
+    return {
+      value: parseValues[0],
+      secondValue: parseValues[1],
+    };
+};
