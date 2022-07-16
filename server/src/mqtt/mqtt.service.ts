@@ -98,8 +98,8 @@ export class MqttService {
         await this.medicalStatService.create({
           patientId: patient.id,
           type: MEDICAL_STATS[BLOOD_PRESS].type,
-          value: filterErrorValue(nodeStat, values.value),
-          secondValue: filterErrorValue(nodeStat, values.secondValue),
+          value: values.value,
+          secondValue: values.secondValue,
         });
         break;
       case SYSTOLIC:
