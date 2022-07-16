@@ -5,6 +5,7 @@ import { DeviceService } from 'src/device/device.service';
 import { MedicalStatService } from 'src/medical-stat/medical-stat.service';
 import { NotificationService } from 'src/notification/notification.service';
 import { PatientService } from 'src/patient/patient.service';
+import topicParse from 'src/utils/topicTest';
 
 @Injectable()
 export class MqttService {
@@ -15,10 +16,11 @@ export class MqttService {
     private readonly medicalStatService: MedicalStatService,
   ) {}
   handleMQTTNodeTopic = async (topic: string, payload: string) => {
-    const topicElement = topic.split('/');
-    const deviceCode = topicElement[1];
-    const nodeType = topicElement[2];
-    const nodeStat = topicElement[3];
+    const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);
+    if (!isValidTopic) {
+      Logger.error('Failed topic parse!');
+      return;
+    }
 
     const device = await this.deviceService.findOne({ code: deviceCode });
     if (!device) {
@@ -54,7 +56,6 @@ export class MqttService {
       return Math.round(parseFloat(value));
     };
 
-    console.log(nodeStat);
     switch (nodeStat) {
       case TEMPERATURE:
         await this.medicalStatService.create({
