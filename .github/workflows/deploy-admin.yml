@@ -1,0 +1,31 @@
+name: Deploy production admin dashboard
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "admin-dashboard/**"
+
+jobs:
+  deploy-admin-dashboard:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        uses: ./.github/actions/install
+        with:
+          repository: admin-dashboard
+
+      - name: Build main branch, confirgured to use production server
+        uses: ./.github/actions/build
+        with:
+          generate_sourcemap: false
+          repository: admin-dashboard
+
+      - name: Deploy to production
+        uses: ./.github/actions/deploy
+        with:
+          repository: admin-dashboard
+          production_destination: "/var/www/dr-health-admin"
