@@ -1,10 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BODY_TEMP, DIASTOLE, HEART_RATE, HUMIDITY, SPO2, SYSTOLIC, TEMPERATURE } from 'src/config/topic';
+import { BLOOD_PRESS, BODY_TEMP, DIASTOLE, HEART_RATE, HUMIDITY, SPO2, SYSTOLIC, TEMPERATURE } from 'src/config/topic';
 import { MEDICAL_STATS } from 'src/constant/enums';
 import { DeviceService } from 'src/device/device.service';
 import { MedicalStatService } from 'src/medical-stat/medical-stat.service';
 import { NotificationService } from 'src/notification/notification.service';
 import { PatientService } from 'src/patient/patient.service';
+import { topicParse, topicValueParse } from 'src/utils/topicParse';
 
 @Injectable()
 export class MqttService {
@@ -15,10 +16,11 @@ export class MqttService {
     private readonly medicalStatService: MedicalStatService,
   ) {}
   handleMQTTNodeTopic = async (topic: string, payload: string) => {
-    const topicElement = topic.split('/');
-    const deviceCode = topicElement[1];
-    const nodeType = topicElement[2];
-    const nodeStat = topicElement[3];
+    const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);
+    if (!isValidTopic) {
+      Logger.error('Failed topic parse!');
+      return;
+    }
 
     const device = await this.deviceService.findOne({ code: deviceCode });
     if (!device) {
@@ -54,7 +56,6 @@ export class MqttService {
       return Math.round(parseFloat(value));
     };
 
-    console.log(nodeStat);
     switch (nodeStat) {
       case TEMPERATURE:
         await this.medicalStatService.create({
@@ -90,6 +91,15 @@ export class MqttService {
           patientId: patient.id,
           type: MEDICAL_STATS[BODY_TEMP].type,
           value: filterErrorValue(nodeStat, payload),
+        });
+        break;
+      case BLOOD_PRESS:
+        const values = topicValueParse(payload);
+        await this.medicalStatService.create({
+          patientId: patient.id,
+          type: MEDICAL_STATS[BLOOD_PRESS].type,
+          value: values.value,
+          secondValue: values.secondValue,
         });
         break;
       case SYSTOLIC:

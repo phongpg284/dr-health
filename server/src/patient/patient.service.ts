@@ -123,7 +123,6 @@ export class PatientService {
       else qb.select('*');
 
       const data: any[] = await qb.execute();
-      console.log(data);
       const res = data.reduce((prev, current) => {
         const { patient, type, ...currentStat } = current;
         return {

@@ -22,7 +22,6 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const { password, confirmPassword, email, fullName, role } = createUserDto;
-    console.log(createUserDto);
     if (password !== confirmPassword) throw new HttpException('Error: password unmatched!', HttpStatus.BAD_REQUEST);
     let hashPassword: string;
 

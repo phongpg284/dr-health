@@ -6,6 +6,7 @@ export const TEMPERATURE = 'temperature';
 export const HUMIDITY = 'humidity';
 export const SPO2 = 'SpO2';
 export const HEART_RATE = 'Heart_Rate';
+export const BLOOD_PRESS = 'Blood_Press';
 export const BODY_TEMP = 'Body_Temp';
 export const SYSTOLIC = 'Systolic';
 export const DIASTOLE = 'Diastole';
