@@ -1,5 +1,8 @@
 import React from 'react'
 
+const Doctor = React.lazy(() => import('./views/list/doctor/Doctor'))
+const Device = React.lazy(() => import('./views/list/device/Device'))
+const Patient = React.lazy(() => import('./views/list/patient/Patient'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -17,7 +20,7 @@ const Placeholders = React.lazy(() => import('./views/base/placeholders/Placehol
 const Popovers = React.lazy(() => import('./views/base/popovers/Popovers'))
 const Progress = React.lazy(() => import('./views/base/progress/Progress'))
 const Spinners = React.lazy(() => import('./views/base/spinners/Spinners'))
-const Tables = React.lazy(() => import('./views/base/tables/Tables'))
+const Tables = React.lazy(() => import('./views/theme/colors/Tables'))
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
 
 // Buttons
@@ -53,9 +56,11 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/theme', name: 'Theme', element: Colors, exact: true },
-  { path: '/theme/colors', name: 'Colors', element: Colors },
-  { path: '/theme/typography', name: 'Typography', element: Typography },
+  { path: '/list', name: 'Theme', element: Colors, exact: true },
+  { path: '/list/user', name: 'Users', element: Colors },
+  { path: '/list/patient', name: 'Patients', element: Patient },
+  { path: '/list/doctor', name: 'Doctors', element: Doctor },
+  { path: '/list/device', name: 'Devices', element: Device },
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },
   { path: '/base/breadcrumbs', name: 'Breadcrumbs', element: Breadcrumbs },
