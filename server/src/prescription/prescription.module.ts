@@ -3,9 +3,10 @@ import { PrescriptionService } from './prescription.service';
 import { PrescriptionController } from './prescription.controller';
 import { OrmModule } from 'src/orm/orm.module';
 import { PatientModule } from 'src/patient/patient.module';
+import { MedicinePrescriptionModule } from 'src/medicine-prescription/medicine-prescription.module';
 
 @Module({
-  imports: [OrmModule, PatientModule],
+  imports: [OrmModule, PatientModule, MedicinePrescriptionModule],
   controllers: [PrescriptionController],
   providers: [PrescriptionService],
   exports: [PrescriptionService],

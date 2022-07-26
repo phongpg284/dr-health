@@ -3,6 +3,7 @@ import { Transform } from 'class-transformer';
 import dayjs from 'dayjs';
 import { Address } from 'src/address/entities/address.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
+import { Schedule } from 'src/schedule/entities/schedule.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
 @Entity()
@@ -49,4 +50,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications = new Collection<Notification>(this);
+
+  @OneToMany(() => Schedule, (schedule) => schedule.user, { hidden: true })
+  schedules = new Collection<Schedule>(this);
 }

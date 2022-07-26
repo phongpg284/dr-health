@@ -35,6 +35,63 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "medicine",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "medicine_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "sp_o2threshold": {
           "name": "sp_o2threshold",
           "type": "int",
@@ -904,135 +961,6 @@
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
-        },
-        "doctor_id": {
-          "name": "doctor_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "default": "'Meeting'",
-          "mappedType": "string"
-        },
-        "date": {
-          "name": "date",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "link": {
-          "name": "link",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
-        "duration": {
-          "name": "duration",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        }
-      },
-      "name": "appointment",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "appointment_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "appointment_patient_id_foreign": {
-          "constraintName": "appointment_patient_id_foreign",
-          "columnNames": [
-            "patient_id"
-          ],
-          "localTableName": "public.appointment",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.patient",
-          "updateRule": "cascade"
-        },
-        "appointment_doctor_id_foreign": {
-          "constraintName": "appointment_doctor_id_foreign",
-          "columnNames": [
-            "doctor_id"
-          ],
-          "localTableName": "public.appointment",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.doctor",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "patient_id": {
-          "name": "patient_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
         }
       },
       "name": "medical_record",
@@ -1289,6 +1217,35 @@
           "nullable": false,
           "mappedType": "integer"
         },
+        "note": {
+          "name": "note",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "start_date_range": {
+          "name": "start_date_range",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "end_date_range": {
+          "name": "end_date_range",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "time": {
           "name": "time",
           "type": "timestamptz(0)",
@@ -1334,6 +1291,307 @@
             "id"
           ],
           "referencedTableName": "public.prescription",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "time": {
+          "name": "time",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "appointment_id": {
+          "name": "appointment_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "medicine_prescription_id": {
+          "name": "medicine_prescription_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        }
+      },
+      "name": "schedule",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "appointment_id"
+          ],
+          "composite": false,
+          "keyName": "schedule_appointment_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "schedule_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "schedule_user_id_foreign": {
+          "constraintName": "schedule_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.schedule",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        },
+        "schedule_appointment_id_foreign": {
+          "constraintName": "schedule_appointment_id_foreign",
+          "columnNames": [
+            "appointment_id"
+          ],
+          "localTableName": "public.schedule",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.appointment",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "schedule_medicine_prescription_id_foreign": {
+          "constraintName": "schedule_medicine_prescription_id_foreign",
+          "columnNames": [
+            "medicine_prescription_id"
+          ],
+          "localTableName": "public.schedule",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medicine_prescription",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "patient_id": {
+          "name": "patient_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "doctor_id": {
+          "name": "doctor_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "schedule_id": {
+          "name": "schedule_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'Meeting'",
+          "mappedType": "string"
+        },
+        "time": {
+          "name": "time",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "link": {
+          "name": "link",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "duration": {
+          "name": "duration",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "appointment",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "schedule_id"
+          ],
+          "composite": false,
+          "keyName": "appointment_schedule_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "appointment_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "appointment_patient_id_foreign": {
+          "constraintName": "appointment_patient_id_foreign",
+          "columnNames": [
+            "patient_id"
+          ],
+          "localTableName": "public.appointment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.patient",
+          "updateRule": "cascade"
+        },
+        "appointment_doctor_id_foreign": {
+          "constraintName": "appointment_doctor_id_foreign",
+          "columnNames": [
+            "doctor_id"
+          ],
+          "localTableName": "public.appointment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.doctor",
+          "updateRule": "cascade"
+        },
+        "appointment_schedule_id_foreign": {
+          "constraintName": "appointment_schedule_id_foreign",
+          "columnNames": [
+            "schedule_id"
+          ],
+          "localTableName": "public.appointment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.schedule",
           "updateRule": "cascade"
         }
       }

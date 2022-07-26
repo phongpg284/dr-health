@@ -6,6 +6,7 @@ interface InputProps {
   type?: string;
   event_handler?: (e: React.ChangeEvent) => void;
   error?: string;
+  disabled?: boolean;
 }
 
 const InputDate: React.FC<InputProps> = ({ default_value, type, ...props }) => {

@@ -84,7 +84,7 @@ export class DoctorService {
 
   async getPatients(id: number) {
     const doctor = await this.doctorRepository.findOneOrFail({ account: id });
-    const res = await this.patientRepository.find({ doctor: doctor.id }, { populate: ['account'] });
+    const res = await this.patientRepository.find({ doctor: doctor.id }, { populate: ['account', 'account.address'] });
 
     return res.map((patient) => patient.account);
   }

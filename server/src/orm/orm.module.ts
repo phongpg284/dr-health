@@ -13,6 +13,8 @@ import { Prescription } from 'src/prescription/entities/prescription.entity';
 import { MedicinePrescription } from 'src/medicine-prescription/entities/medicine-prescription.entity';
 import { Address } from 'src/address/entities/address.entity';
 import { Appointment } from 'src/appointment/entities/appointment.entity';
+import { Medicine } from 'src/medicine/entities/medicine.entity';
+import { Schedule } from 'src/schedule/entities/schedule.entity';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { Appointment } from 'src/appointment/entities/appointment.entity';
         MedicinePrescription,
         Address,
         Appointment,
+        Medicine,
+        Schedule,
       ],
     }),
   ],

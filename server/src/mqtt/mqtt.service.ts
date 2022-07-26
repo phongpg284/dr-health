@@ -72,7 +72,6 @@ export class MqttService {
         });
         break;
       case SPO2:
-        console.log('h', patient.id);
         await this.medicalStatService.create({
           patientId: patient.id,
           type: MEDICAL_STATS[SPO2].type,

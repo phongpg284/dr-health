@@ -28,7 +28,7 @@
     "framer-motion": "4.1.17",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.6.1",
-    "node-fetch": "^3.2.6",
+    "node-fetch": "^3.2.9",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-chartjs-2": "^4.1.0",
@@ -83,6 +83,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
     "@types/react-input-mask": "^3.0.1",
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.25",

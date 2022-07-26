@@ -11,11 +11,11 @@ import SubmitButton from "components/SubmitButton";
 import { useApi } from "utils/api";
 import { validationDefault } from "./validate";
 
-export const InfoTable = ({ data }: any) => {
-  return <PatientInfoTable data={data} />;
+export const InfoTable = ({ data, editable = true }: any) => {
+  return <PatientInfoTable data={data} editable={editable} />;
 };
 
-function PatientInfoTable({ data }: { data: any }): ReactElement {
+function PatientInfoTable({ data, editable }: any): ReactElement {
   const account = useAppSelector((state) => state.account);
   const api = useApi();
   const formik = useFormik({
@@ -26,7 +26,7 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
       phone: data.phone || "",
       gender: data.gender || "",
       ethnic: data.ethnic || "",
-      dob: dayjs(data.dob).format('DD/MM/YYYY'),
+      dob: dayjs(data.dob).format("DD/MM/YYYY"),
       address: {
         location: data?.address?.location || "",
         ward: data?.address?.ward || "",
@@ -35,7 +35,7 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
         districtCode: data?.address?.districtCode || null,
         province: data?.address?.province || "",
         provinceCode: data?.address?.provinceCode || null,
-      }
+      },
     },
     // validationSchema: Yup.object().shape(validationDefault),
     onSubmit: (values) => {
@@ -71,53 +71,52 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
         .then((data) => setWards(data.wards));
   }, [formik.values.address.districtCode]);
 
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="columns">
         <div className="column">
           <div className="label">Họ và tên</div>
-          <input className="input-text" name="fullName" value={formik.values.fullName} onChange={formik.handleChange} placeholder="Full name" />
+          <input className="input-text" name="fullName" value={formik.values.fullName} onChange={formik.handleChange} placeholder="Full name" disabled={!editable} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
           <div className="label">Email</div>
-          <input className="input-text" name="email" value={formik.values.email} onChange={formik.handleChange} placeholder="Email" />
+          <input className="input-text" name="email" value={formik.values.email} onChange={formik.handleChange} placeholder="Email" disabled={!editable} />
         </div>
         <div className="column">
           <div className="label">Căn cước công dân</div>
-          <input className="input-text" name="identity" value={formik.values.identity} onChange={formik.handleChange} placeholder="Identity number" />
+          <input className="input-text" name="identity" value={formik.values.identity} onChange={formik.handleChange} placeholder="Identity number" disabled={!editable} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
           <div className="label">Giới tính</div>
-          <select className="input-text" name="gender" value={formik.values.gender} onChange={formik.handleChange} placeholder="Gender">
+          <select className="input-text" name="gender" value={formik.values.gender} onChange={formik.handleChange} placeholder="Gender" disabled={!editable}>
             <option value="male">Nam</option>
             <option value="female">Nữ</option>
           </select>
         </div>
         <div className="column">
           <div className="label">Dân tộc</div>
-          <input className="input-text" name="ethnic" value={formik.values.ethnic} onChange={formik.handleChange} placeholder="Ethnic" />
+          <input className="input-text" name="ethnic" value={formik.values.ethnic} onChange={formik.handleChange} placeholder="Ethnic" disabled={!editable} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
           <div className="label">Ngày sinh</div>
-          <InputDate default_value={formik.values.dob} event_handler={formik.handleChange} />
+          <InputDate default_value={formik.values.dob} event_handler={formik.handleChange} disabled={!editable} />
         </div>
 
         <div className="column">
           <div className="label">Số điện thoại</div>
-          <input className="input-text" name="phone" value={formik.values.phone} onChange={formik.handleChange} placeholder="Phone number" />
+          <input className="input-text" name="phone" value={formik.values.phone} onChange={formik.handleChange} placeholder="Phone number" disabled={!editable} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
           <div className="label">Địa chỉ</div>
-          <input className="input-text" name="address.location" value={formik.values.address.location} onChange={formik.handleChange} placeholder="Address" />
+          <input className="input-text" name="address.location" value={formik.values.address.location} onChange={formik.handleChange} placeholder="Address" disabled={!editable} />
         </div>
       </div>
       <div className="columns">
@@ -135,10 +134,11 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
               code: data.address?.provinceCode,
             }}
             onChange={(value) => {
-              console.log(value)
-              formik.setFieldValue("address.province", value?.name)
-              formik.setFieldValue("address.provinceCode", value?.code)
+              console.log(value);
+              formik.setFieldValue("address.province", value?.name);
+              formik.setFieldValue("address.provinceCode", value?.code);
             }}
+            isDisabled={!editable}
           />
         </div>
         <div className="column">
@@ -149,15 +149,17 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
             getOptionValue={(e: any) => e.code}
             isClearable
             defaultValue={{
-              name: data.address?.district ?? '',
+              name: data.address?.district ?? "",
               code: data.address?.districtCode ?? null,
             }}
             options={districts}
             name="district"
             onChange={(value) => {
-              formik.setFieldValue("address.district", value?.name)
-              formik.setFieldValue("address.districtCode", value?.code)
-            }}          />
+              formik.setFieldValue("address.district", value?.name);
+              formik.setFieldValue("address.districtCode", value?.code);
+            }}
+            isDisabled={!editable}
+          />
         </div>
         <div className="column">
           <div className="label">Phường/Xã</div>
@@ -173,9 +175,11 @@ function PatientInfoTable({ data }: { data: any }): ReactElement {
             options={wards}
             name="ward"
             onChange={(value) => {
-              formik.setFieldValue("address.ward", value?.name)
-              formik.setFieldValue("address.wardCode", value?.code)
-            }}          />
+              formik.setFieldValue("address.ward", value?.name);
+              formik.setFieldValue("address.wardCode", value?.code);
+            }}
+            isDisabled={!editable}
+          />
         </div>
       </div>
       <SubmitButton type="submit">Lưu thay đổi</SubmitButton>

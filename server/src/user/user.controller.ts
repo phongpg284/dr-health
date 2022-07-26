@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { NotificationService } from 'src/notification/notification.service';
 import { PatientService } from 'src/patient/patient.service';
+import { ScheduleService } from 'src/schedule/schedule.service';
 
 // @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -13,6 +14,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly notificationService: NotificationService,
     private readonly patientService: PatientService,
+    private readonly scheduleService: ScheduleService,
   ) {}
 
   @Post()
@@ -38,6 +40,11 @@ export class UserController {
   @Get('/notifications/:id')
   getAllNotifications(@Param('id') id: string) {
     return this.notificationService.findAllByUser(+id);
+  }
+
+  @Get('/schedules/:id')
+  getAllSchedules(@Param('id') id: string) {
+    return this.scheduleService.findAllByUser(+id);
   }
 
   @Post(':id')

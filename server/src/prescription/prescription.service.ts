@@ -2,6 +2,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MedicinePrescription } from 'src/medicine-prescription/entities/medicine-prescription.entity';
+import { MedicinePrescriptionService } from 'src/medicine-prescription/medicine-prescription.service';
 import { PatientService } from 'src/patient/patient.service';
 import { CreatePrescriptionDto } from './dto/create-prescription.dto';
 import { UpdatePrescriptionDto } from './dto/update-prescription.dto';
@@ -13,18 +14,23 @@ export class PrescriptionService {
     @InjectRepository(Prescription)
     private readonly prescriptionRepository: EntityRepository<Prescription>,
     private readonly patientService: PatientService,
+    private readonly medicinePrescriptionService: MedicinePrescriptionService,
   ) {}
 
   async create(createPrescriptionDto: CreatePrescriptionDto) {
     try {
-      const { patientId, medicinePescriptions } = createPrescriptionDto;
+      const { patientId, medicineSchedule } = createPrescriptionDto;
       const patient = await this.patientService.findOne({ id: +patientId });
       const prescription = new Prescription(patient);
-      medicinePescriptions.forEach(({ medicine, quantity, time }) => {
-        const medicinePrescription = new MedicinePrescription(prescription, medicine, quantity, time);
-        prescription.medicinePrescriptions.add(medicinePrescription);
+
+      const schedules = await this.medicinePrescriptionService.createMedicinePrescriptionList({
+        prescription,
+        schedules: medicineSchedule,
       });
-      await this.prescriptionRepository.flush();
+      (schedules as MedicinePrescription[]).forEach((s) => {
+        prescription.medicinePrescriptions.add(s);
+      });
+      await this.prescriptionRepository.persistAndFlush(prescription);
       return prescription;
     } catch (error) {
       return new Error(error);
@@ -40,7 +46,7 @@ export class PrescriptionService {
   }
 
   async findOne(id: number) {
-    const prescription = await this.prescriptionRepository.findOne(id);
+    const prescription = await this.prescriptionRepository.findOne(id, { populate: ['medicinePrescriptions'] });
     if (!prescription) throw new HttpException('Prescription not found', HttpStatus.BAD_REQUEST);
     return prescription;
   }

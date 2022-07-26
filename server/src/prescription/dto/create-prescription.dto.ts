@@ -1,6 +1,12 @@
-import { CreateMedicinePrescriptionDto } from 'src/medicine-prescription/dto/create-medicine-prescription.dto';
+export interface MedicineSchedule {
+  name: string;
+  note?: string;
+  quantity: number;
+  scheduleDateRange: [Date, Date];
+  scheduleHours: Date[];
+}
 
 export class CreatePrescriptionDto {
   patientId: string;
-  medicinePescriptions?: Omit<CreateMedicinePrescriptionDto, 'prescriptionId'>[];
+  medicineSchedule?: MedicineSchedule[];
 }
