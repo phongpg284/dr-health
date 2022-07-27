@@ -8,7 +8,6 @@ import Chart from "./Chart/Chart";
 
 import { InfoTable } from "./TableInfo/Table";
 
-import MedicineSchedule from "./MedicineSchedule";
 import Pathological from "./Pathological";
 
 import useInputDevice from "./useInputDevice";
@@ -22,6 +21,7 @@ import PatientTestHistory from "./PatientTestHistory";
 import Exercises from "./Exercises";
 import usePromise from "utils/usePromise";
 import { GetMedicalStatsResponse } from "common/types";
+import MedicineSchedule from "components/Profile/MedicineSchedule";
 const { TabPane } = Tabs;
 
 const PatientList = ({ match }: any) => {
@@ -71,7 +71,7 @@ const PatientList = ({ match }: any) => {
             </TabPane>
             <TabPane tab="Lịch thuốc" key="medicine">
               <div className="patient-info-medicine">
-                <MedicineSchedule medicineSchedule={patientList[patientId].medicineSchedule} />
+                <MedicineSchedule patientAccountId={patientList[patientId].id} />
               </div>
             </TabPane>
             <TabPane tab="Stats1" key="stat_1">

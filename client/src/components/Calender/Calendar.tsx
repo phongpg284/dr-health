@@ -249,7 +249,7 @@ export default function Calendar() {
             transition={{ type: "tween", duration: 0.5 }}
             className="medicineCalendar"
           >
-            <ScheduleCalendar medicineSchedule={patientChoose?.medicineSchedule} />
+            <ScheduleCalendar patientAccountId={patientChoose?.account} />
           </motion.div>
         </div>
       </div>

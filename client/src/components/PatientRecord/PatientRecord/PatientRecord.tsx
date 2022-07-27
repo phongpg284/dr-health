@@ -63,7 +63,7 @@ const PatientRecord = () => {
             </TabPane>
             <TabPane tab="Lịch thuốc" key="medicine">
               <div className="patient-info-medicine">
-                <MedicineSchedule medicineSchedule={patientData.medicineSchedule} />
+                <MedicineSchedule patientAccountId={patientData.id} />
               </div>
             </TabPane>
             <TabPane tab="Stats1" key="stat_1">

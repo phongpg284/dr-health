@@ -42,3 +42,9 @@ export const formatToParts = (date: DateType, formatObj: Intl.DateTimeFormatOpti
     }),
     {}
   );
+
+export function getClearDate(date: Date) {
+  const clearDate = new Date(date);
+  clearDate.setHours(0, 0, 0, 0);
+  return clearDate;
+}

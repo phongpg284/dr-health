@@ -41,7 +41,7 @@ export default function Profile() {
         <UserCard />
 
         <div id="medicineCalendar" className="calendarContainer">
-          <MedicineSchedule medicineSchedule={medicineSchedule} />
+          <MedicineSchedule patientAccountId={+user.id!} />
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ function UserCard() {
       api.get(`/user/${user.id}`).then((res) => setData(res.data));
     }
   }, [user.role]);
-console.log(data);
+  console.log(data);
   return (
     <div className="userCard">
       <Image className="userAvatar" src={isDoctor ? defaultAvatar : defaultAvatarPatient} />

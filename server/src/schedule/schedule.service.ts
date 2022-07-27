@@ -65,7 +65,7 @@ export class ScheduleService {
       const user = await this.userRepository.findOneOrFail(id, {
         populate: ['schedules.appointment', 'schedules.medicinePrescription'],
       });
-      return user.notifications;
+      return user.schedules;
     } catch (error) {
       Logger.error(error);
       return new HttpException(error, HttpStatus.BAD_REQUEST);
