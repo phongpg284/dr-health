@@ -83,7 +83,7 @@ function MyRouter() {
 
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/calendar" component={CalendarPage} />
-        <Route exact path="/notifications" component={NotificationsPage} />
+        <PrivateRoute exact path="/notifications" component={NotificationsPage} />
         <PrivateRoute exact path="/threshold/:id" component={ThresholdPage} />
         {role === "doctor" && (
           <>

@@ -1,4 +1,5 @@
-import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { Entity, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
+import { Appointment } from 'src/appointment/entities/appointment.entity';
 import { User } from 'src/user/entities/user.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
@@ -13,6 +14,12 @@ export class Notification extends BaseEntity {
   @Property()
   status!: string;
 
+  @Property()
+  type: string;
+
   @ManyToOne(() => User)
   user: User;
+
+  @ManyToOne(() => Appointment, { nullable: true })
+  appointment: Appointment;
 }

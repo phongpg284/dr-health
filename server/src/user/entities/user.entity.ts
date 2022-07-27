@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, OneToOne, Property, Unique } from '@mikro-orm/core';
 import { Transform } from 'class-transformer';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import { Address } from 'src/address/entities/address.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { Schedule } from 'src/schedule/entities/schedule.entity';

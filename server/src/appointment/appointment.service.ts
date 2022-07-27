@@ -1,7 +1,9 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import * as dayjs from 'dayjs';
 import { DoctorService } from 'src/doctor/doctor.service';
+import { NotificationService } from 'src/notification/notification.service';
 import { PatientService } from 'src/patient/patient.service';
 import { Schedule } from 'src/schedule/entities/schedule.entity';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
@@ -15,6 +17,7 @@ export class AppointmentService {
     private readonly appointmentRepository: EntityRepository<Appointment>,
     private readonly doctorService: DoctorService,
     private readonly patientService: PatientService,
+    private readonly notificationService: NotificationService,
   ) {}
   async create(createAppointmentDto: CreateAppointmentDto) {
     try {
@@ -28,6 +31,20 @@ export class AppointmentService {
         newAppointment.schedules.add(newScheduleForPatient);
         newAppointment.schedules.add(newScheduleForDoctor);
         await this.appointmentRepository.persistAndFlush(newAppointment);
+        await this.notificationService.create({
+          patientId: +patientId,
+          title: 'Cuộc hẹn với bác sĩ tạo thành công',
+          content: `Bạn có cuộc hẹn với bác sĩ vào lúc ${dayjs(time).format('DD/MM/YYYY HH:mm')}`,
+          type: 'appointment',
+          appoinment: newAppointment,
+        });
+        await this.notificationService.create({
+          doctorId: +doctorId,
+          title: 'Cuộc hẹn với bệnh nhân tạo thành công',
+          content: `Bạn có cuộc hẹn với bệnh nhân vào lúc ${dayjs(time).format('DD/MM/YYYY HH:mm')}`,
+          type: 'appointment',
+          appoinment: newAppointment,
+        });
       }
     } catch (error) {
       return new Error(error);

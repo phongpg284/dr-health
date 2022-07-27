@@ -6,6 +6,8 @@ import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Notification } from './entities/notification.entity';
 import { User } from 'src/user/entities/user.entity';
 import { EntityManager } from '@mikro-orm/postgresql';
+import { Patient } from 'src/patient/entities/patient.entity';
+import { Doctor } from 'src/doctor/entities/doctor.entity';
 
 @Injectable()
 export class NotificationService {
@@ -14,20 +16,32 @@ export class NotificationService {
     private readonly notificationRepository: EntityRepository<Notification>,
     @InjectRepository(User)
     private readonly userRepository: EntityRepository<User>,
+    @InjectRepository(Patient)
+    private readonly patientRepository: EntityRepository<Patient>,
+    @InjectRepository(Doctor)
+    private readonly doctorRepository: EntityRepository<Doctor>,
     private readonly em: EntityManager,
   ) {}
 
   async create(createNotificationDto: CreateNotificationDto) {
-    const { title, content, userId } = createNotificationDto;
+    const { title, content, type, userId, patientId, doctorId, appoinment } = createNotificationDto;
+    console.log(createNotificationDto);
     try {
       const newNotification = new Notification();
       newNotification.title = title;
       newNotification.content = content;
       newNotification.status = 'unseen';
+      newNotification.type = type ?? 'default';
+      newNotification.appointment = appoinment;
 
-      const user = await this.userRepository.findOne(userId);
+      let user;
+      if (userId) user = await this.userRepository.findOne(userId);
+      if (patientId) user = (await this.patientRepository.findOne(patientId, { populate: ['account'] })).account;
+      if (doctorId) user = (await this.doctorRepository.findOne(doctorId, { populate: ['account'] })).account;
+      console.log(user);
       user.notifications.add(newNotification);
-      await this.userRepository.flush();
+      console.log(user, newNotification);
+      await this.userRepository.persistAndFlush(user);
 
       return newNotification;
     } catch (error) {

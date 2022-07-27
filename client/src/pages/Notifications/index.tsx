@@ -19,42 +19,19 @@ interface INotification {
 const NotificationsPage = () => {
   const { id, role } = useAppSelector((state) => state.account);
 
-  const [notificationsList, setNotificationsList] = useState<any>([]);
-  const [data]= usePromise(`/user/notifications/${id}`);
-
-  // const { data: newNotification } = useSubscription(
-  //   NOTIFICATIONS_SUBSCRIPTION,
-  //   {
-  //     variables: { id },
-  //   }
-  // );
-
-  // useEffect(() => {
-  //   if (newNotification?.newNotification) {
-  //     setNotificationsList((data: INotification[]) => [
-  //       ...data,
-  //       newNotification.newNotification,
-  //     ]);
-  //   }
-  // }, [newNotification]);
-
-  useEffect(() => {
-    if(data)
-    setNotificationsList(data);
-  },[data]);
+  const [notificationsList] = usePromise(`/user/notifications/${id}`);
+  console.log(notificationsList);
 
   return (
     <div>
-      <Header />
       <div className="notifications-page">
-        {notificationsList && (
-          <Notifications data={notificationsList} />
-        )}
-        {!notificationsList && (
-        <div className="notifications-empty">
-          <Empty image={Empty.PRESENTED_IMAGE_DEFAULT} description="No notifications" />
-        </div>
-      )}
+        {notificationsList && <Notifications data={notificationsList} />}
+        {!notificationsList ||
+          (notificationsList.length === 0 && (
+            <div className="notifications-empty">
+              <Empty image={Empty.PRESENTED_IMAGE_DEFAULT} description="Không có thông báo" />
+            </div>
+          ))}
       </div>
     </div>
   );
