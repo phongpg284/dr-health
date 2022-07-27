@@ -211,10 +211,7 @@ function MultipleChart({ deviceData }: { deviceData: any }) {
   };
 
   const SpO2 = React.useMemo(() => {
-    console.log(timeType, dateStart);
-    console.log(deviceData.spO2);
     const res = deviceData?.spO2?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
-    // return res.flatMap((ele: any) => [ele, { x: null, y: ele?.y }]);
     return res;
   }, [deviceData, timeType, dateStart]);
   const bodyTemp = React.useMemo(() => {
@@ -363,12 +360,10 @@ function StackBarChart({ arr, title }: { arr: any[]; title: string }) {
 
 function SingleLineChart(props: { arr: any[]; title: string; color: string; timeType: string; dateStart: Date }) {
   const { arr, title, color, timeType, dateStart } = props;
-  console.log(arr);
   const getChartType = (type: string) => {
     if (type === "Ngày") return "hour";
     if (type === "Tháng") return "day";
   };
-  console.log(getChartType(timeType));
   const options = {
     animation: false,
     spanGaps: true,

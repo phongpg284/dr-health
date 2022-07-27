@@ -60,7 +60,6 @@ function UserCard() {
       api.get(`/user/${user.id}`).then((res) => setData(res.data));
     }
   }, [user.role]);
-  console.log(data);
   return (
     <div className="userCard">
       <Image className="userAvatar" src={isDoctor ? defaultAvatar : defaultAvatarPatient} />

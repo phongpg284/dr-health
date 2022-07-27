@@ -113,7 +113,6 @@ export default function Calendar() {
       patientId: patientChoose.id,
       medicineSchedule: medicineSchedule,
     };
-    console.log(inputs);
     saveSchedule(inputs);
     setStep(-1);
   }

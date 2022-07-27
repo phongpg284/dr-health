@@ -13,7 +13,6 @@ interface Props {
 function MedicineSchedule(props: Props): ReactElement {
   const { patientAccountId } = props;
   const [medicineSchedule] = usePromise<Record<string, unknown>[]>(`/user/schedules/${patientAccountId}`);
-  console.log(medicineSchedule);
 
   function getClearDate(date: Date) {
     const clearDate = new Date(date);
@@ -25,7 +24,6 @@ function MedicineSchedule(props: Props): ReactElement {
     if (!medicineSchedule) return;
     const date = new Date(value.toISOString());
     const schedules = getScheduleOfDate(date, medicineSchedule);
-    // console.log(date, schedules);
     let selected = false;
     if (selectDate) {
       const dateSelected = new Date(selectDate.toISOString());

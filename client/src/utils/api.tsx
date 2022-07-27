@@ -32,7 +32,7 @@ const ApiProvider: React.FC = ({ children }) => {
             refreshToken: res.data.refreshToken,
             email: account.email,
             role: account.role,
-            roleId: account.roleId
+            roleId: account.roleId,
           })
         );
       });
@@ -41,13 +41,11 @@ const ApiProvider: React.FC = ({ children }) => {
   useEffect(() => {
     axiosInstance.interceptors.request.use(
       (config) => {
-
         config.headers = {
           "Content-Type": "application/json",
           ...config.headers,
-          Authorization: 'Bearer ' + account.accessToken 
+          Authorization: "Bearer " + account.accessToken,
         };
-        console.log("before", config);
         return config;
       },
       (error) => {
@@ -57,11 +55,10 @@ const ApiProvider: React.FC = ({ children }) => {
 
     axiosInstance.interceptors.response.use(
       (response) => {
-        const { status, data} = response;
-        if (status === 401 && data?.message === 'Unauthorized') {
-          getnewAccessToken(axiosInstance, account.refreshToken)
+        const { status, data } = response;
+        if (status === 401 && data?.message === "Unauthorized") {
+          getnewAccessToken(axiosInstance, account.refreshToken);
         }
-        console.log("after", response);
         return response;
       },
       (error) => {

@@ -57,7 +57,6 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
   }, []);
 
   useEffect(() => {
-    console.log(formik.values);
     if (formik.values.address.provinceCode)
       fetch(`https://provinces.open-api.vn/api/p/${formik.values.address.provinceCode}?depth=2`)
         .then((res) => res.json())
@@ -134,7 +133,6 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
               code: data.address?.provinceCode,
             }}
             onChange={(value) => {
-              console.log(value);
               formik.setFieldValue("address.province", value?.name);
               formik.setFieldValue("address.provinceCode", value?.code);
             }}
