@@ -8,7 +8,7 @@ import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 const logger = new Logger('Server');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   const mqttApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.MQTT,
     options: {
