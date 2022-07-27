@@ -23,7 +23,7 @@ function MedicineSchedule(props: Props): ReactElement {
   function dateCellRender(value: moment.Moment) {
     if (!medicineSchedule) return;
     const date = new Date(value.toISOString());
-    const schedules = getScheduleOfDate(date, medicineSchedule);
+    const schedules = getScheduleOfDate(date, medicineSchedule ?? []);
     let selected = false;
     if (selectDate) {
       const dateSelected = new Date(selectDate.toISOString());
@@ -86,6 +86,26 @@ function MedicineScheduleItem({ schedule, selected, unselect }: { unselect: any;
                       )}
                     </>
                   )}
+                  {sche.type === "appointment" && (
+                    <>
+                      <div>
+                        <b>{sche?.appointment?.name}</b>
+                      </div>
+                      <div>
+                        Thời gian: &nbsp;
+                        <span>{moment(new Date(sche?.time)).format("HH:mm")}</span>
+                      </div>
+                      <div>
+                        Thời lượng: <span> {sche?.appointment?.duration} phút</span>
+                      </div>
+                      <div>
+                        Link:{" "}
+                        <a href={sche?.appointment?.link} target="_blank" rel="noreferrer">
+                          {sche?.appointment?.link}
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
@@ -93,9 +113,11 @@ function MedicineScheduleItem({ schedule, selected, unselect }: { unselect: any;
         </Modal.Body>
       </Modal>
       <ul className="dateCellData">
-        {Array.from(scheduleSet).map((sche: any, i: number) => (
-          <li key={i}>{sche}</li>
-        ))}
+        {Array.from(scheduleSet)
+          .concat(schedule.filter((s: any) => s?.type === "appointment").map((s: any) => s?.appointment.name))
+          .map((sche: any, i: number) => (
+            <li key={i}>{sche}</li>
+          ))}
       </ul>
     </div>
   );

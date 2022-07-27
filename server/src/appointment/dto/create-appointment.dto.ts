@@ -3,6 +3,6 @@ export class CreateAppointmentDto {
   doctorId: string;
   name: string;
   link: string;
-  date: number;
+  time: Date;
   duration: number;
 }

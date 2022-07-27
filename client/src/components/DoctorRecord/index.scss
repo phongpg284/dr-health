@@ -16,24 +16,28 @@
 
 .doctor-record-wrapper {
   position: relative;
-  padding:1rem;
-  .doctorContainer{
-    margin:auto;
+  padding: 1rem;
+
+  .doctorContainer {
+    margin: auto;
     max-width: 1000px;
   }
-  .doctorRecordBg{
-    width:100%;
+
+  .doctorRecordBg {
+    width: 100%;
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     z-index: -1;
   }
-  .ant-table{
-    border:1px solid #ccc;
-    background:rgba(255, 255, 255, 0.5);
-    
+
+  .ant-table {
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.5);
+
   }
-  .ant-table-tbody{
-    background:transparent;
+
+  .ant-table-tbody {
+    background: transparent;
   }
 }

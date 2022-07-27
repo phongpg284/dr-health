@@ -1,11 +1,37 @@
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { DoctorService } from 'src/doctor/doctor.service';
+import { PatientService } from 'src/patient/patient.service';
+import { Schedule } from 'src/schedule/entities/schedule.entity';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
+import { Appointment } from './entities/appointment.entity';
 
 @Injectable()
 export class AppointmentService {
-  create(createAppointmentDto: CreateAppointmentDto) {
-    return 'This action adds a new appointment';
+  constructor(
+    @InjectRepository(Appointment)
+    private readonly appointmentRepository: EntityRepository<Appointment>,
+    private readonly doctorService: DoctorService,
+    private readonly patientService: PatientService,
+  ) {}
+  async create(createAppointmentDto: CreateAppointmentDto) {
+    try {
+      const { patientId, doctorId, time, duration, name, link } = createAppointmentDto;
+      const patient = await this.patientService.findOne({ id: +patientId });
+      const doctor = await this.doctorService.findOne({ id: +doctorId });
+      if (patient && doctor) {
+        const newAppointment = new Appointment(patient, doctor, name, time, link, duration);
+        const newScheduleForPatient = new Schedule(patient.account, 'appointment', time, null, newAppointment);
+        const newScheduleForDoctor = new Schedule(doctor.account, 'appointment', time, null, newAppointment);
+        newAppointment.schedules.add(newScheduleForPatient);
+        newAppointment.schedules.add(newScheduleForDoctor);
+        await this.appointmentRepository.persistAndFlush(newAppointment);
+      }
+    } catch (error) {
+      return new Error(error);
+    }
   }
 
   findAll() {

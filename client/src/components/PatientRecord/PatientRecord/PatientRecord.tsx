@@ -18,6 +18,7 @@ import Exercises from "../PatientList/Exercises";
 import usePromise from "utils/usePromise";
 import { Tabs } from "antd";
 import MedicineSchedule from "components/Profile/MedicineSchedule";
+import AppointmentSchedule from "../PatientList/AppointmentSchedule";
 const { TabPane } = Tabs;
 
 const PatientRecord = () => {
@@ -101,6 +102,9 @@ const PatientRecord = () => {
             </TabPane>
             <TabPane tab="Chỉ số" key="chart">
               <Chart id={account.roleId} thresholdStatus={handleChangeThresholdStatus} />
+            </TabPane>
+            <TabPane tab="Lịch hẹn" key="apppointment">
+              <AppointmentSchedule id={patientData.id} />
             </TabPane>
           </Tabs>
         </div>

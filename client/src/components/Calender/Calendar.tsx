@@ -248,7 +248,7 @@ export default function Calendar() {
             transition={{ type: "tween", duration: 0.5 }}
             className="medicineCalendar"
           >
-            <ScheduleCalendar patientAccountId={patientChoose?.account} />
+            {patientChoose?.id && <ScheduleCalendar patientAccountId={patientChoose?.id} />}
           </motion.div>
         </div>
       </div>

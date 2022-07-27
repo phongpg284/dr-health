@@ -32,7 +32,7 @@ export class Schedule extends BaseEntity {
   @Property()
   type: ScheduleType;
 
-  @OneToOne({ nullable: true })
+  @ManyToOne(() => Appointment, { nullable: true })
   appointment: Appointment;
 
   @ManyToOne(() => MedicinePrescription, { nullable: true })

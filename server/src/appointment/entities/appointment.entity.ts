@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
+import { Collection, Entity, ManyToOne, OneToMany, OneToOne, Property } from '@mikro-orm/core';
 import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { Patient } from 'src/patient/entities/patient.entity';
 import { Schedule } from 'src/schedule/entities/schedule.entity';
@@ -22,9 +22,6 @@ export class Appointment extends BaseEntity {
   @ManyToOne(() => Doctor)
   doctor: Doctor;
 
-  @OneToOne()
-  schedule: Schedule;
-
   @Property({ default: 'Meeting' })
   name: string;
 
@@ -36,4 +33,7 @@ export class Appointment extends BaseEntity {
 
   @Property()
   duration: number;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.appointment, { hidden: true })
+  schedules = new Collection<Schedule>(this);
 }

@@ -22,6 +22,7 @@ import Exercises from "./Exercises";
 import usePromise from "utils/usePromise";
 import { GetMedicalStatsResponse } from "common/types";
 import MedicineSchedule from "components/Profile/MedicineSchedule";
+import AppointmentSchedule from "./AppointmentSchedule";
 const { TabPane } = Tabs;
 
 const PatientList = ({ match }: any) => {
@@ -74,7 +75,7 @@ const PatientList = ({ match }: any) => {
                 <MedicineSchedule patientAccountId={patientList[patientId].id} />
               </div>
             </TabPane>
-            <TabPane tab="Stats1" key="stat_1">
+            <TabPane tab="Ngưỡng chỉ số" key="threshold">
               <div className="patient-info-stats">
                 <ThresholdStats
                   id={patientList[patientId]._id}
@@ -125,6 +126,9 @@ const PatientList = ({ match }: any) => {
             </TabPane>
             <TabPane tab="Chỉ số" key="chart">
               <Chart id={patientList[patientId].id} thresholdStatus={handleChangeThresholdStatus} />
+            </TabPane>
+            <TabPane tab="Lịch hẹn" key="apppointment">
+              <AppointmentSchedule id={patientList[patientId].id} />
             </TabPane>
           </Tabs>
         </div>
