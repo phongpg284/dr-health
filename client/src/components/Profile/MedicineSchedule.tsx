@@ -24,15 +24,10 @@ function MedicineSchedule(props: Props): ReactElement {
     if (!medicineSchedule) return;
     const date = new Date(value.toISOString());
     const schedules = getScheduleOfDate(date, medicineSchedule ?? []);
-    let selected = false;
-    if (selectDate) {
-      const dateSelected = new Date(selectDate.toISOString());
-      if (getClearDate(dateSelected).getTime() === getClearDate(date).getTime()) {
-        selected = true;
-      }
-    }
+    const dateSelected = selectDate ? new Date(selectDate.toISOString()) : undefined;
+    const selected = (dateSelected && getClearDate(dateSelected).getTime() === getClearDate(date).getTime()) ?? false;
 
-    return <MedicineScheduleItem unselect={unselect} selected={selected} schedule={schedules} />;
+    return <MedicineScheduleItem unselect={unselect} selected={selected} schedule={schedules} value={value} />;
   }
 
   const [selectDate, setSelectDate] = React.useState<moment.Moment | null>(null);
@@ -47,12 +42,12 @@ function MedicineSchedule(props: Props): ReactElement {
 
   return (
     <div className="customSchedule">
-      <Calendar value={selectDate || undefined} onSelect={onSelect} dateCellRender={dateCellRender} />
+      <Calendar onSelect={onSelect} dateCellRender={dateCellRender} />
     </div>
   );
 }
 
-function MedicineScheduleItem({ schedule, selected, unselect }: { unselect: any; selected: boolean; schedule: any }) {
+function MedicineScheduleItem({ schedule, selected, unselect, value }: { value: any; unselect: any; selected: boolean; schedule: any }) {
   const scheduleSet = new Set<string>();
   schedule.forEach((s: any) => {
     if (s?.type === "medicine_prescription") scheduleSet.add(s?.medicinePrescription?.medicine);
@@ -62,7 +57,7 @@ function MedicineScheduleItem({ schedule, selected, unselect }: { unselect: any;
       <Modal show={selected} onHide={unselect} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-            Lịch ngày {new Date(schedule?.[0]?.time).getDate()}/ {new Date(schedule?.[0]?.time).getMonth() + 1}
+            Lịch ngày {new Date(value).getDate()}/ {new Date(value).getMonth() + 1}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
