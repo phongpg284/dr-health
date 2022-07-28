@@ -31,14 +31,8 @@ function UploadBlood() {
   }
   async function submit() {
     const newPoints = points.concat([]);
-    // for (const i in defaultQuestions) {
-    //     const index = newPoints.findIndex((point) => point.id === defaultQuestions[i].id);
-    //     if (index >= 0) {
-    //         newPoints.splice(index, 1);
-    //     }
-    // }
     const inputs = { patientId: patient, questions: newPoints };
-
+    console.log(inputs);
     // await createPatientBlood({
     //     variables: {
     //         inputs,
@@ -60,7 +54,7 @@ function UploadBlood() {
                 </h2> */}
       </div>
       <PatientInformation onChange={onPatientInformationChange} />
-      <BloodCriteria onChangePoints={onChangePoints} />
+      {patient && <BloodCriteria onChangePoints={onChangePoints} />}
       <button onClick={handleSubmit} className="submitButton">
         Gửi thông tin
       </button>
@@ -74,9 +68,10 @@ interface PatientInformation {
 function PatientInformation({ onChange }: PatientInformation) {
   const account = useAppSelector((state) => state.account);
   const [patientData] = usePromise(`/doctor/patients/${account.id}`);
+
   const listPatient = React.useMemo(() => {
     if (patientData) {
-      return patientData.getPatientsOfDoctor;
+      return patientData;
     } else {
       return [];
     }
@@ -99,8 +94,8 @@ function PatientInformation({ onChange }: PatientInformation) {
           className="patientInput"
         >
           <option value="">Chọn bệnh nhân</option>
-          {listPatient.map((patient: any) => (
-            <option key={patient.id} value={patient._id}>
+          {listPatient?.map((patient: any) => (
+            <option key={patient.id} value={patient.id}>
               {patient.fullName}
             </option>
           ))}
@@ -114,70 +109,92 @@ export default UploadBlood;
 
 const defaultQuestions = [
   {
-    title: "Số lượng hồng cầu (T/L)",
+    title: "Số lượng hồng cầu (RBC)",
+    unit: "T/L",
   },
   {
-    title: "Lượng huyết sắc tố (d/dL)",
+    title: "Lượng huyết sắc tố (Hb)",
+    unit: "g/dL",
   },
   {
-    title: "Thể tích khối hồng cầu (%)",
+    title: "Thể tích khối hồng cầu (HCT)",
+    unit: "%",
   },
   {
-    title: "Thể tích trung bình hồng cầu (fL)",
+    title: "Thể tích trung bình hồng cầu (MCV)",
+    unit: "fL",
   },
   {
-    title: "Lượng huyết sắc tố trung bình hồng cầu (pg)",
+    title: "Lượng huyết sắc tố trung bình hồng cầu (MCH)",
+    unit: "pg",
   },
   {
-    title: "Nồng độ huyết sắc tố trung bình hồng cầu (g/dL)",
+    title: "Nồng độ huyết sắc tố trung bình hồng cầu (MCHC)",
+    unit: "g/dL",
   },
   {
-    title: "Độ phân bố kích thước hồng cầu (%)",
+    title: "Độ phân bố kích thước hồng cầu",
+    unit: "%",
   },
   {
-    title: "Số lượng bạch cầu (G/L)",
+    title: "Số lượng bạch cầu (WBC)",
+    unit: "G/L",
   },
   {
-    title: "Tỷ lệ phần trăm bạch cầu đoạn trung tính (%)",
+    title: "Tỷ lệ phần trăm bạch cầu đoạn trung tính (GRAN %)",
+    unit: "%",
   },
   {
-    title: "Tỷ lệ phần trăm bạch cầu lympho (%)",
+    title: "Tỷ lệ phần trăm bạch cầu Lympho",
+    unit: "%",
   },
   {
-    title: "Tỷ lệ phần trăm bạch cầu mono (%)",
+    title: "Tỷ lệ phần trăm bạch cầu Mono",
+    unit: "%",
   },
   {
-    title: "Tỷ lệ phần trăm bạch cầu đoạn ưa axit (%)",
+    title: "Tỷ lệ phần trăm bạch cầu đoạn ưa axit",
+    unit: "%",
   },
   {
-    title: "Tỷ lệ phần trăm bạch cầu đoạn ưa base (%)",
+    title: "Tỷ lệ phần trăm bạch cầu đoạn ưa base",
+    unit: "%",
   },
   {
-    title: "Số lượng bạch cầu đoạn trung tính (G/L)",
+    title: "Số lượng bạch cầu đoạn trung tính",
+    unit: "G/L",
   },
   {
-    title: "Số lượng bạch cầu lympho (G/L)",
+    title: "Số lượng bạch cầu lympho",
+    unit: "G/L",
   },
   {
-    title: "Số lượng bạch cầu Mono (G/L)",
+    title: "Số lượng bạch cầu Mono",
+    unit: "G/L",
   },
   {
-    title: "Số lượng bạch cầu đoạn ưa axit (G/L)",
+    title: "Số lượng bạch cầu đoạn ưa axit",
+    unit: "G/L",
   },
   {
-    title: "Số lượng bạch cầu đoạn ưa base (G/L)",
+    title: "Số lượng bạch cầu đoạn ưa base",
+    unit: "G/L",
   },
   {
-    title: "Số lượng tiểu cầu (G/L)",
+    title: "Số lượng tiểu cầu",
+    unit: "G/L",
   },
   {
-    title: "Thể tích trung bình tiểu cầu (fL)",
+    title: "Thể tích trung bình tiểu cầu (MPV)",
+    unit: "fL",
   },
   {
-    title: "Thể tích khối tiểu cầu (%)",
+    title: "Thể tích khối tiểu cầu (PCT)",
+    unit: "%",
   },
   {
-    title: "Độ phân bố kích thước tiểu cầu (%)",
+    title: "Độ phân bố kích thước tiểu cầu (PDW)",
+    unit: "%",
   },
 ];
 
@@ -200,8 +217,7 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
   }
 
   const allQuestion = React.useMemo(() => {
-    if (!questions || !questions.clientGetQuestions) return;
-    const arr = defaultQuestions.concat(questions.clientGetQuestions);
+    const arr = defaultQuestions;
 
     return arr;
   }, [questions]);
@@ -210,11 +226,12 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
 
   React.useEffect(() => {
     if (!allQuestion || allQuestion.length == 0) return;
-    const arr = allQuestion.map((item: any) => ({ id: item.id, point: 0 }));
+    const arr = allQuestion.map((item: any, index: number) => ({ id: index, point: 0 }));
     setResultPoint(arr);
   }, [allQuestion]);
 
   function onChangeItem(value: number, id: number) {
+    console.log(value, id);
     const newArr = [...resultPoint];
     const index = newArr.findIndex((item) => item.id === id);
     if (index >= 0) {
@@ -225,6 +242,7 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
     setResultPoint(newArr);
   }
 
+  console.log(resultPoint);
   React.useEffect(() => {
     onChangePoints(resultPoint);
   }, [resultPoint]);
@@ -239,8 +257,9 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
       <table className="stroke_table table table-bordered">
         <thead>
           <tr>
-            <th>Tiêu chí</th>
+            <th>Danh mục</th>
             <th>Giá trị</th>
+            <th>Đơn vị</th>
           </tr>
         </thead>
         <tbody>
@@ -274,6 +293,9 @@ function BloodItem({ question, onChangeItem, id }: StrokeItem) {
         <div className="answers">
           <InputNumber onChange={(e) => onChangeItem(Number(e), id)} />
         </div>
+      </td>
+      <td>
+        <div className="unit">{defaultQuestions?.[id - 1]?.unit}</div>
       </td>
     </tr>
   );
