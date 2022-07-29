@@ -13,7 +13,7 @@ const config: Options = {
   password: DB_PASSWORD,
   dbName: DB_NAME,
   entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.ts'],
+  entitiesTs: ['src/modules/**/*.entity.ts'],
   logger: logger.log.bind(logger),
   debug: true,
   metadataProvider: TsMorphMetadataProvider,

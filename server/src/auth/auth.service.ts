@@ -1,6 +1,6 @@
 import * as argon2 from 'argon2';
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/modules/user/user.service';
 import { TokenService } from 'src/token/token.service';
 
 export interface UserRequest {

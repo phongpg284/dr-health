@@ -2,7 +2,7 @@ import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer, WsRes
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Server } from 'socket.io';
-import { Notification } from 'src/notification/entities/notification.entity';
+import { Notification } from 'src/modules/notification/entities/notification.entity';
 
 @WebSocketGateway({
   cors: {

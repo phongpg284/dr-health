@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 
-import { User } from 'src/user/entities/user.entity';
-import { Patient } from 'src/patient/entities/patient.entity';
-import { Doctor } from 'src/doctor/entities/doctor.entity';
-import { Device } from 'src/device/entities/device.entity';
-import { MedicalRecord } from 'src/medical-record/entities/medical-record.entity';
-import { MedicalStat } from 'src/medical-stat/entities/medical-stat.entity';
-import { Notification } from 'src/notification/entities/notification.entity';
-import { MedicalThreshold } from 'src/medical-threshold/entities/medical-threshold.entity';
-import { Prescription } from 'src/prescription/entities/prescription.entity';
-import { MedicinePrescription } from 'src/medicine-prescription/entities/medicine-prescription.entity';
-import { Address } from 'src/address/entities/address.entity';
-import { Appointment } from 'src/appointment/entities/appointment.entity';
-import { Medicine } from 'src/medicine/entities/medicine.entity';
-import { Schedule } from 'src/schedule/entities/schedule.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { Patient } from 'src/modules/patient/entities/patient.entity';
+import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
+import { Device } from 'src/modules/device/entities/device.entity';
+import { MedicalRecord } from 'src/modules/medical-record/entities/medical-record.entity';
+import { MedicalStat } from 'src/modules/medical-stat/entities/medical-stat.entity';
+import { Notification } from 'src/modules/notification/entities/notification.entity';
+import { MedicalThreshold } from 'src/modules/medical-threshold/entities/medical-threshold.entity';
+import { Prescription } from 'src/modules/prescription/entities/prescription.entity';
+import { MedicinePrescription } from 'src/modules/medicine-prescription/entities/medicine-prescription.entity';
+import { Address } from 'src/modules/address/entities/address.entity';
+import { Appointment } from 'src/modules/appointment/entities/appointment.entity';
+import { Medicine } from 'src/modules/medicine/entities/medicine.entity';
+import { Schedule } from 'src/modules/schedule/entities/schedule.entity';
 
 @Module({
   imports: [
