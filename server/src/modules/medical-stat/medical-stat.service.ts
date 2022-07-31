@@ -27,7 +27,7 @@ export class MedicalStatService {
       newMedicalStat.createdAt = createdAt ?? new Date();
       newMedicalStat.updatedAt = updatedAt ?? new Date();
       const patient = await this.patientRepository.findOne(+patientId);
-      patient.medicalRecords.add(newMedicalStat);
+      patient.medicalStats.add(newMedicalStat);
 
       await this.patientRepository.flush();
       return newMedicalStat;

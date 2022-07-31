@@ -43,6 +43,169 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "role",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "role_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "code": {
+          "name": "code",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "role_id": {
+          "name": "role_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "permission",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "permission_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "permission_role_id_foreign": {
+          "constraintName": "permission_role_id_foreign",
+          "columnNames": [
+            "role_id"
+          ],
+          "localTableName": "public.permission",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.role",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
         }
       },
       "name": "medicine",
@@ -263,6 +426,142 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "value": {
+          "name": "value",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "blood_test_stat",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "blood_test_stat_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "unit": {
+          "name": "unit",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "blood_test_stat_id": {
+          "name": "blood_test_stat_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "blood_stat",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "blood_stat_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "blood_stat_blood_test_stat_id_foreign": {
+          "constraintName": "blood_stat_blood_test_stat_id_foreign",
+          "columnNames": [
+            "blood_test_stat_id"
+          ],
+          "localTableName": "public.blood_stat",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.blood_test_stat",
+          "updateRule": "cascade"
+        }
+      }
     },
     {
       "columns": {
@@ -1121,11 +1420,47 @@
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
+        },
+        "blood_test_id": {
+          "name": "blood_test_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "supersonic_test_id": {
+          "name": "supersonic_test_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         }
       },
       "name": "medical_record",
       "schema": "public",
       "indexes": [
+        {
+          "columnNames": [
+            "blood_test_id"
+          ],
+          "composite": false,
+          "keyName": "medical_record_blood_test_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "supersonic_test_id"
+          ],
+          "composite": false,
+          "keyName": "medical_record_supersonic_test_id_unique",
+          "primary": false,
+          "unique": true
+        },
         {
           "keyName": "medical_record_pkey",
           "columnNames": [
@@ -1148,6 +1483,209 @@
             "id"
           ],
           "referencedTableName": "public.patient",
+          "updateRule": "cascade"
+        },
+        "medical_record_blood_test_id_foreign": {
+          "constraintName": "medical_record_blood_test_id_foreign",
+          "columnNames": [
+            "blood_test_id"
+          ],
+          "localTableName": "public.medical_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.blood_test",
+          "updateRule": "cascade"
+        },
+        "medical_record_supersonic_test_id_foreign": {
+          "constraintName": "medical_record_supersonic_test_id_foreign",
+          "columnNames": [
+            "supersonic_test_id"
+          ],
+          "localTableName": "public.medical_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.supersonic_test",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "medical_record_id": {
+          "name": "medical_record_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "blood_test_stat_id": {
+          "name": "blood_test_stat_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "blood_test",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "composite": false,
+          "keyName": "blood_test_medical_record_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "blood_test_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "blood_test_medical_record_id_foreign": {
+          "constraintName": "blood_test_medical_record_id_foreign",
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "localTableName": "public.blood_test",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medical_record",
+          "updateRule": "cascade"
+        },
+        "blood_test_blood_test_stat_id_foreign": {
+          "constraintName": "blood_test_blood_test_stat_id_foreign",
+          "columnNames": [
+            "blood_test_stat_id"
+          ],
+          "localTableName": "public.blood_test",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.blood_test_stat",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "medical_record_id": {
+          "name": "medical_record_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "supersonic_test",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "composite": false,
+          "keyName": "supersonic_test_medical_record_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "supersonic_test_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "supersonic_test_medical_record_id_foreign": {
+          "constraintName": "supersonic_test_medical_record_id_foreign",
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "localTableName": "public.supersonic_test",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medical_record",
           "updateRule": "cascade"
         }
       }
