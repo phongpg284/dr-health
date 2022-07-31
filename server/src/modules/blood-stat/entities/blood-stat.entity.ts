@@ -8,5 +8,5 @@ export class BloodStat extends BaseEntity {
   unit: string;
 
   @ManyToOne(() => BloodTestStat)
-  bloodTestStat = BloodTestStat;
+  bloodTestStat: BloodTestStat;
 }

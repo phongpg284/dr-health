@@ -24,7 +24,7 @@ export class DeviceService {
       newDevice.isConnect = isConnect ?? false;
       newDevice.patient = await this.patientService.findOne(+patientId);
       await this.deviceRepository.persistAndFlush(newDevice);
-      this.patientService.addDevice(newDevice.id, +patientId);
+      this.patientService.addDevice(newDevice.id.toString(), +patientId);
       return newDevice;
     } catch (error) {
       Logger.log(`Error create device: ${error}`);

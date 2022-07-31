@@ -78,12 +78,23 @@ export class PatientService {
     return this.patientRepository.remove({ id });
   }
 
-  async addDevice(deviceId: number, id: number) {
+  async addDevice(deviceId: string, id: number) {
     try {
       const patient = await this.patientRepository.findOne({ id });
-      const device = await this.deviceRepository.findOne({ id: deviceId });
+      console.log(deviceId, id);
+      const device = await this.deviceRepository.findOne({ code: deviceId });
+      if (!patient || !device)
+        return {
+          message: 'Kết nối thiết bị thất bại!',
+          status: 'Fail',
+        };
+
       patient.device = device;
       await this.patientRepository.persistAndFlush(patient);
+      return {
+        message: 'Kết nối thiết bị thành công!',
+        status: 'Success',
+      };
     } catch (error) {
       Logger.log(error);
       throw new HttpException(

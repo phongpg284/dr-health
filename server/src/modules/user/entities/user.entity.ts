@@ -28,6 +28,9 @@ export class User extends BaseEntity {
   gender?: string;
 
   @Property({ nullable: true })
+  avatar?: string;
+
+  @Property({ nullable: true })
   @Transform(({ value }) => {
     dayjs(value).toDate();
   })

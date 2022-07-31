@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { Image } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { message, Modal, Tooltip } from "antd";
+import { Input, message, Modal, Tooltip } from "antd";
 import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
 
@@ -342,6 +342,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   };
 
   const [isDeviceStatusModalOpen, setIsDeviceStatusModalOpen] = useState(false);
+  const [deviceCode, setDeviceCode] = useState("");
 
   const handleOkRemove = () => {
     api.post(`/device/remove_device/${data.device.id}`).then((res) => {
@@ -357,21 +358,21 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   };
 
   const handleOkAdd = () => {
-    api.post(`/device/add_device/${data.device.id}`).then((res) => {
+    api.post(`/device/add_device${deviceCode}&${user?.roleId}`).then((res) => {
       const data = res?.data;
+      console.log(data);
       if (data.status === "Success") {
-        message.success(data[1]);
+        message.success(data?.message);
         setIsDeviceConnect(false);
-      }
-      if (data.status === "Error") {
-        message.error(data[1]);
+      } else {
+        message.error(data?.message);
       }
     });
   };
 
   function confirmRemove() {
     Modal.confirm({
-      title: "Xác nhận gỡ thiết bị vòng tay",
+      title: "Xác nhận gỡ thiết bị",
       icon: <ExclamationCircleOutlined />,
       content: "Vui lòng dừng sử dụng thiết bị trước khi xác nhận!",
       okText: "Xác nhận",
@@ -382,9 +383,9 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
 
   function confirmAdd() {
     Modal.confirm({
-      title: "Xác nhận thêm thiết bị vòng tay",
+      title: "Xác nhận kết nối thiết bị",
       icon: <ExclamationCircleOutlined />,
-      content: "Vui lòng bật thiết bị trước khi xác nhận!",
+      content: <DeviceCode />,
       okText: "Xác nhận",
       cancelText: "Hủy",
       onOk: handleOkAdd,
@@ -398,6 +399,16 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     if (isDeviceConnect) confirmRemove();
     else confirmAdd();
   };
+
+  const handleChangeDeviceCode = (e: any) => {
+    console.log(e?.target?.value);
+    setDeviceCode(e?.target?.value);
+  };
+
+  const DeviceCode = () => {
+    return <Input placeholder="Nhập mã thiết bị" onChange={handleChangeDeviceCode} />;
+  };
+
   return (
     <div className="user_dropdown_conatiner">
       <div ref={wrapperRef} className={`user_dropdown ${!show && "hide"}`}>

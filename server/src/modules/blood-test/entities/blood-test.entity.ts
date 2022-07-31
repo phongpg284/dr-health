@@ -9,5 +9,5 @@ export class BloodTest extends BaseEntity {
   medicalRecord: MedicalRecord;
 
   @ManyToOne(() => BloodTestStat)
-  bloodTestStat = BloodTestStat;
+  bloodTestStat: BloodTestStat;
 }
