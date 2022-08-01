@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import usePromise from "utils/usePromise";
 
 interface INotification {
-  _id: string;
+  id: string;
   title: string;
   content: string;
   accountId: string;

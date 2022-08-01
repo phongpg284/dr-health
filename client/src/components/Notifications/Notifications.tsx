@@ -11,11 +11,15 @@ interface INotification {
   id: string;
   title: string;
   content: string;
-  accountId: string;
-  role: string;
   status: string;
+  type: "appointment" | "default";
   createdAt: string;
   mapUrl?: string;
+  appointment?: {
+    id: number;
+    duration: number;
+    link: string;
+  };
 }
 
 const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
@@ -50,10 +54,18 @@ const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
 
             <div className="contentWrapper">
               <div className="notifications_item_content">{notification.content.charAt(0).toUpperCase() + notification.content.slice(1)}</div>
-              <div className="notifications_item_map">
-                <b>Địa chỉ: </b>
-                {notification.mapUrl}
-              </div>
+              {notification?.mapUrl && (
+                <div className="notifications_item_map">
+                  <b>Địa chỉ: </b>
+                  {notification.mapUrl}
+                </div>
+              )}
+              {notification?.appointment?.link && (
+                <div className="notifications_item_map">
+                  <b>Tham gia cuộc họp tại: </b>
+                  <a style={{ color: "#3a88fc", textDecoration: "underline" }}>{notification.appointment.link}</a>
+                </div>
+              )}
               <div className="notifications_item_create_time">{dayjs(new Date(notification.createdAt)).fromNow()}</div>
             </div>
           </div>

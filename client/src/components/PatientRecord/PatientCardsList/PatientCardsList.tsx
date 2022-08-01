@@ -358,7 +358,7 @@ const PatientCardsList = () => {
       <div className="patientList">
         {patientDataArray &&
           patientDataArray.map((patient: any) => (
-            <div className="profile-contentinfo-item-patient" key={patient._id}>
+            <div className="profile-contentinfo-item-patient" key={patient.id}>
               <div className="profile-patient-in">
                 <div className="profile-patient-avatar">
                   <img src={Avatar} alt="patient-avatar" />

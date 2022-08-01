@@ -58,7 +58,7 @@ export class NotificationService {
 
   async findAll() {
     try {
-      return await this.notificationRepository.findAll();
+      return await this.notificationRepository.findAll({ populate: ['appointment'] });
     } catch (error) {
       logger.error(error);
       throw new Error(error);
@@ -67,7 +67,9 @@ export class NotificationService {
 
   async findAllByUser(id: number) {
     try {
-      const user = await this.userRepository.findOneOrFail(id, { populate: ['notifications'] });
+      const user = await this.userRepository.findOneOrFail(id, {
+        populate: ['notifications', 'notifications.appointment'],
+      });
       return user.notifications;
     } catch (error) {
       logger.error(error);

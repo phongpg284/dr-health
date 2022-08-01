@@ -1,6 +1,7 @@
 .header_notifications {
     cursor: pointer;
 }
+
 .modal_noti {
     font-family: BeVietNam;
     padding: 0 !important;
@@ -9,6 +10,7 @@
         padding: 0 !important;
         overflow: hidden;
         background: linear-gradient(45deg, #1d4350 0%, #a43931 100%);
+        border-radius: 10px;
     }
 
     .notifications_dropdown {
@@ -17,6 +19,7 @@
         filter: drop-shadow(-2px 4px 4px rgba(0, 0, 0, 0.25));
         min-width: 300px;
     }
+
     .notifications_dropsetting {
         position: relative;
     }
@@ -31,15 +34,16 @@
         font-size: 1.6rem;
         font-weight: bold;
     }
+
     .notifications_dropdown_box {
-        border-radius: 10px;
+        border-radius: 0px;
         overflow: hidden;
-        border-radius: 0;
         position: relative;
         box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
         // background: linear-gradient(45deg, #1d4350 0%, #a43931 100%);
         color: white;
         padding: 0.5em;
+
         .bg {
             z-index: -1;
             opacity: 0.6;
@@ -55,6 +59,7 @@
         justify-content: space-between;
         align-items: center;
     }
+
     .close_btn {
         color: white;
         font-size: 2rem;
@@ -70,6 +75,7 @@
         font-size: 1.1rem;
         text-decoration: underline;
         display: none;
+
         &:hover {
             background: none;
         }
@@ -87,12 +93,14 @@
     .notifications_noti_box {
         max-height: 500px;
         margin-bottom: 10px;
+
         // background: linear-gradient(45deg, #1d4350 0%, #a43931 100%);
         // background: rgb(255, 0, 104);
         // background: linear-gradient(225deg, rgb(137, 255, 183) 0%, rgb(150, 204, 255) 100%);
         @media (max-width: 575px) {
             max-height: 550px;
         }
+
         overflow-y: auto;
     }
 
@@ -105,9 +113,12 @@
                 align-items: center;
                 padding: 1rem;
                 background: rgba(255, 255, 255, 0.8);
+
                 .notifications_item_title {
                     flex: 1;
                     font-weight: bold;
+                    font-size: 1.1rem;
+
                     .unseenDot {
                         width: 10px;
                         height: 10px;
@@ -117,6 +128,7 @@
                         margin-left: 1rem;
                     }
                 }
+
                 .notifications_item_icon_back {
                     display: flex;
                     padding: 5px;
@@ -127,10 +139,12 @@
                     margin-right: 13px;
                     background: white;
                 }
+
                 .notifications_item_icon_seen {
                     border: 2px #5dd2ff solid;
                     color: #5dd2ff;
                 }
+
                 .notifications_item_icon_unseen {
                     border: 2px #75fd7c solid;
                     color: #75fd7c;
@@ -150,9 +164,10 @@
     }
 
     .notifications_item_map {
-        span{
-            color:white;
+        span {
+            color: white;
         }
+
         a {
             &:hover {
                 background-color: transparent;
@@ -161,7 +176,7 @@
     }
 
     .notifications_item_content {
-        // font-size: 1rem;
+        font-size: 1rem;
         margin-bottom: 1em;
         overflow-wrap: break-word;
         overflow-y: hidden;

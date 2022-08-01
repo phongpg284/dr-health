@@ -27,13 +27,18 @@ interface INotificationDropdownProps {
 }
 
 interface INotification {
-  _id: string;
+  id: string;
   title: string;
   content: string;
-  accountId: string;
-  role: string;
-  seen: boolean;
+  status: string;
+  type: "appointment" | "default";
   createdAt: string;
+  mapUrl?: string;
+  appointment?: {
+    id: number;
+    duration: number;
+    link: string;
+  };
 }
 
 const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHide }) => {
@@ -52,7 +57,7 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
     <>
       {data &&
         data.map((notification: any) => (
-          <div key={notification._id} className="notifications_item" onClick={handleClickNotification(notification._id, notification?.mapUrl)}>
+          <div key={notification.id} className="notifications_item" onClick={handleClickNotification(notification._id, notification?.mapUrl)}>
             <div className="content_container">
               <div className="head">
                 {!notification.seen && (
@@ -81,12 +86,11 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
                       <a href={notification.mapUrl}>{notification.mapUrl}</a>
                     </>
                   )}
-                  {notification?.meetingUrl && (
-                    <>
-                      <a role="button" onClick={() => window.open(notification.meetingUrl)} style={{ color: "#1890ff" }}>
-                        {notification.meetingUrl}
-                      </a>
-                    </>
+                  {notification?.appointment?.link && (
+                    <div className="notifications_item_map">
+                      <div>Tham gia cuộc họp tại: </div>
+                      <a style={{ color: "#3a88fc", textDecoration: "underline" }}>{notification.appointment.link}</a>
+                    </div>
                   )}
                 </div>
               </div>
@@ -155,26 +159,26 @@ function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
   const [unseen, setUnseen] = useState<number>(0);
   const [notificationsList, setNotificationsList] = useState<any>([]);
 
-  const [notifications] = usePromise(`/user/notifications/${id}`)
+  const [notifications] = usePromise(`/user/notifications/${id}`);
 
-//   const { data: newNotification } = useSubscription(NOTIFICATIONS_SUBSCRIPTION, {
-//     variables: { id },
-//   });
+  //   const { data: newNotification } = useSubscription(NOTIFICATIONS_SUBSCRIPTION, {
+  //     variables: { id },
+  //   });
 
   useEffect(() => {
     setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
     setNotificationsList(notifications);
   }, [notifications]);
 
-//   useEffect(() => {
-//     if (newNotification?.newNotification) {
-//       setUnseen((x) => (x || 0) + 1);
-//       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
-//       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
-//         history.push("/so-cuu");
-//       }
-//     }
-//   }, [newNotification]);
+  //   useEffect(() => {
+  //     if (newNotification?.newNotification) {
+  //       setUnseen((x) => (x || 0) + 1);
+  //       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
+  //       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
+  //         history.push("/so-cuu");
+  //       }
+  //     }
+  //   }, [newNotification]);
 
   function onHide() {
     setShow(false);
@@ -198,21 +202,21 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
   const [unseen, setUnseen] = useState<number>(0);
   const [notificationsList, setNotificationsList] = useState<any>([]);
 
-  const [notifications] = usePromise(`/user/notifications/${id}`)
+  const [notifications] = usePromise(`/user/notifications/${id}`);
   useEffect(() => {
     setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
     setNotificationsList(notifications);
   }, [notifications]);
 
-//   useEffect(() => {
-//     if (newNotification?.newNotification) {
-//       setUnseen((x) => (x || 0) + 1);
-//       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
-//       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
-//         history.push("/so-cuu");
-//       }
-//     }
-//   }, [newNotification]);
+  //   useEffect(() => {
+  //     if (newNotification?.newNotification) {
+  //       setUnseen((x) => (x || 0) + 1);
+  //       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
+  //       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
+  //         history.push("/so-cuu");
+  //       }
+  //     }
+  //   }, [newNotification]);
 
   return (
     <>
