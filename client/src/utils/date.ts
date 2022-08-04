@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 type DateType = Date | string | number;
 
 export const differenceInYears = (date: Date | string): number => {
@@ -47,4 +48,24 @@ export function getClearDate(date: Date) {
   const clearDate = new Date(date);
   clearDate.setHours(0, 0, 0, 0);
   return clearDate;
+}
+
+export function getDateOfWeek(date: Date | dayjs.Dayjs) {
+  const day = dayjs(date).day();
+  switch (day) {
+    case 0:
+      return "Chủ nhật";
+    case 1:
+      return "Thứ hai";
+    case 2:
+      return "Thứ ba";
+    case 3:
+      return "Thứ tư";
+    case 4:
+      return "Thứ năm";
+    case 5:
+      return "Thứ sáu";
+    case 6:
+      return "Thứ bảy";
+  }
 }
