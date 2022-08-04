@@ -199,7 +199,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
           <SingleLineChart
             data={timeType === "Giờ" ? SpO2 : calculateStat(timeType as any, deviceData.spO2, dateStart)}
             title={arrType[0].label}
-            color="darkblue"
+            color="#3ca067"
             timeType={timeType}
             dateStart={dateStart}
             type="bar"
@@ -210,7 +210,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
           <SingleLineChart
             data={timeType === "Giờ" ? bodyTemp : calculateStat(timeType as any, deviceData.body_temp, dateStart)}
             title={arrType[1].label}
-            color="coral"
+            color="#5648be"
             timeType={timeType}
             dateStart={dateStart}
             type="bar"
@@ -233,8 +233,8 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             data={timeType === "Giờ" ? systolic : calculateStat(timeType as any, deviceData.bloodpress, dateStart, true)}
             secondData={timeType === "Giờ" ? diastole : calculateStat(timeType as any, deviceData.bloodpress, dateStart, true)}
             title={arrType[3].label}
-            color="blue"
-            secondColor="red"
+            color="#2a68c5"
+            secondColor="#dd3e3e"
             timeType={timeType}
             dateStart={dateStart}
             type={timeType === "Giờ" ? "line" : "bar"}
@@ -248,14 +248,14 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
 
 function SingleLineChart(props: { data: any; title: string; color: string | [string, string]; timeType: string; dateStart: Date; type: string; average?: boolean }) {
   const { data, title, color, timeType, dateStart, type, average = false } = props;
+  let delayed: any;
 
   const options = {
-    animation: false,
     spanGaps: true,
     responsive: true,
     scales: {
       y: {
-        ...(getThresholdChart(title) !== "auto" && { min: (getThresholdChart(title) as any).min, max: (getThresholdChart(title) as any).max }),
+        ...(getThresholdChart(title) !== "auto" && { suggestedMin: (getThresholdChart(title) as any).min, suggestedMax: (getThresholdChart(title) as any).max }),
       },
       x: {
         adapters: {
@@ -276,7 +276,15 @@ function SingleLineChart(props: { data: any; title: string; color: string | [str
       },
     },
     plugins: {
-      legend: { position: "top" },
+      legend: {
+        position: "top",
+        labels: {
+          font: {
+            size: 30,
+          },
+          boxWidth: 70,
+        },
+      },
       zoom: {
         zoom: {
           wheel: {
@@ -307,7 +315,23 @@ function SingleLineChart(props: { data: any; title: string; color: string | [str
       },
     },
     interaction: {
-      mode: "index",
+      intersect: false,
+      mode: "x",
+    },
+    tooltip: {
+      position: "nearest",
+    },
+    animation: {
+      onComplete: () => {
+        delayed = true;
+      },
+      delay: (context: any) => {
+        let delay = 0;
+        if (context.type === "data" && context.mode === "default" && !delayed) {
+          delay = context.dataIndex * 300 + context.datasetIndex * 100;
+        }
+        return delay;
+      },
     },
   };
   if (average) {
@@ -388,7 +412,15 @@ function DoubleLineChart(props: {
       },
     },
     plugins: {
-      legend: { position: "top" },
+      legend: {
+        position: "top",
+        labels: {
+          font: {
+            size: 30,
+          },
+          boxWidth: 70,
+        },
+      },
       zoom: {
         zoom: {
           wheel: {
@@ -419,7 +451,12 @@ function DoubleLineChart(props: {
       },
     },
     interaction: {
-      mode: "index",
+      intersect: false,
+      mode: "nearest",
+      axis: "x",
+    },
+    tooltip: {
+      position: "nearest",
     },
   };
   if (average) {
