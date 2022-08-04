@@ -1,7 +1,6 @@
 import { isArray } from "lodash";
 import { StatEdge, StatIcon, StatName, StatPercentage, StatValue, StatWrapper } from "./style";
 const StatTracking = ({ icon, edge, color, selectedType, value, unit, textColor, onClick, type, date }: any) => {
-  console.log(value);
   return (
     <StatWrapper color={color} onClick={() => onClick(type)} selected={type?.key === selectedType?.key}>
       <StatIcon src={icon} />

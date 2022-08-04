@@ -231,7 +231,6 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
   }, [allQuestion]);
 
   function onChangeItem(value: number, id: number) {
-    console.log(value, id);
     const newArr = [...resultPoint];
     const index = newArr.findIndex((item) => item.id === id);
     if (index >= 0) {
@@ -242,7 +241,6 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
     setResultPoint(newArr);
   }
 
-  console.log(resultPoint);
   React.useEffect(() => {
     onChangePoints(resultPoint);
   }, [resultPoint]);

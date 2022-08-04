@@ -1,9 +1,7 @@
-import { GetMedicalStatsResponse, MedicalStat } from "common/types";
-
+import { MedicalStat } from "common/types";
 import dayjs from "dayjs";
-import { getClearDate } from "./date";
 
-const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", startDay: Date) => {
+export const calculateStat = (type: "Ngày" | "Tháng" | "Tuần", data: MedicalStat[], startDay: Date) => {
   const arr: Record<string, string[]> = {};
   let start = 0;
   if (type === "Ngày") {
@@ -35,7 +33,6 @@ const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", start
     };
   } else if (type === "Tháng") {
     const startDate = dayjs(startDay).startOf("M").toDate();
-    console.log(startDate, data);
     const maxRange = dayjs(startDate).daysInMonth();
     for (let i = 0; i < maxRange; i++) {
       if (!arr[i]) arr[i] = [];
@@ -46,7 +43,6 @@ const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", start
         start += 1;
       }
     }
-    console.log(arr);
     const avg: number[] = [];
     const label: string[] = [];
     Object.entries(arr).forEach(([key, value]) => {
@@ -58,17 +54,12 @@ const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", start
           .format("DD/MM")
       );
     });
-    console.log({
-      data: avg,
-      label: label,
-    });
     return {
       data: avg,
       label: label,
     };
   } else if (type === "Tuần") {
     const startDate = dayjs(startDay).startOf("w").toDate();
-    console.log(startDate, data);
     const maxRange = 7;
     for (let i = 0; i < maxRange; i++) {
       if (!arr[i]) arr[i] = [];
@@ -79,7 +70,6 @@ const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", start
         start += 1;
       }
     }
-    console.log(arr);
     const avg: number[] = [];
     const label: string[] = [];
     Object.entries(arr).forEach(([key, value]) => {
@@ -91,18 +81,9 @@ const average = (data: MedicalStat[], type: "Ngày" | "Tháng" | "Tuần", start
           .format("DD/MM")
       );
     });
-    console.log({
-      data: avg,
-      label: label,
-    });
     return {
       data: avg,
       label: label,
     };
   }
-};
-
-export const calculateStat = (type: "Ngày" | "Tháng" | "Tuần", data: MedicalStat[], startDate: Date) => {
-  const result = average(data, type, startDate);
-  return result;
 };

@@ -81,7 +81,6 @@ export class PatientService {
   async addDevice(deviceId: string, id: number) {
     try {
       const patient = await this.patientRepository.findOne({ id });
-      console.log(deviceId, id);
       const device = await this.deviceRepository.findOne({ code: deviceId });
       if (!patient || !device)
         return {

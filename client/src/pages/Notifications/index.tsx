@@ -20,7 +20,6 @@ const NotificationsPage = () => {
   const { id, role } = useAppSelector((state) => state.account);
 
   const [notificationsList] = usePromise(`/user/notifications/${id}`);
-  console.log(notificationsList);
 
   return (
     <div>

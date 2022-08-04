@@ -25,7 +25,6 @@ export class NotificationService {
 
   async create(createNotificationDto: CreateNotificationDto) {
     const { title, content, type, userId, patientId, doctorId, appoinment } = createNotificationDto;
-    console.log(createNotificationDto);
     try {
       const newNotification = new Notification();
       newNotification.title = title;
@@ -38,9 +37,7 @@ export class NotificationService {
       if (userId) user = await this.userRepository.findOne(userId);
       if (patientId) user = (await this.patientRepository.findOne(patientId, { populate: ['account'] })).account;
       if (doctorId) user = (await this.doctorRepository.findOne(doctorId, { populate: ['account'] })).account;
-      console.log(user);
       user.notifications.add(newNotification);
-      console.log(user, newNotification);
       await this.userRepository.persistAndFlush(user);
 
       return newNotification;

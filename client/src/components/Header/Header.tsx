@@ -360,7 +360,6 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   const handleOkAdd = () => {
     api.post(`/device/add_device${deviceCode}&${user?.roleId}`).then((res) => {
       const data = res?.data;
-      console.log(data);
       if (data.status === "Success") {
         message.success(data?.message);
         setIsDeviceConnect(false);
@@ -401,7 +400,6 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   };
 
   const handleChangeDeviceCode = (e: any) => {
-    console.log(e?.target?.value);
     setDeviceCode(e?.target?.value);
   };
 

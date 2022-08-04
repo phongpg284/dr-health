@@ -274,9 +274,6 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
     Tháng: (item: any) => dayjs(item?.createdAt) > dayjs(dateStart),
   };
 
-  console.log(deviceData);
-  console.log(calculateStat("Ngày", deviceData.spO2, dateStart));
-
   const SpO2 = React.useMemo(() => {
     const res = deviceData?.spO2?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
     return res;
@@ -584,7 +581,6 @@ function SingleLineChart(props: { arr: any; title: string; color: string | [stri
       },
     ],
   };
-  console.log(arr);
   if (title === "Huyết áp") {
     const multisetData = {
       labels: arr?.[0]?.map(() => ""),
