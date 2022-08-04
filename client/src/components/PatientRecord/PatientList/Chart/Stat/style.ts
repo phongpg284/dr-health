@@ -5,13 +5,15 @@ const roundWrapper = css`
   margin: 20px;
 `;
 
-export const StatWrapper = styled.div<{ color: string }>`
+export const StatWrapper = styled.div<{ color: string; selected: boolean }>`
   ${roundWrapper}
   text-align: left;
   padding: 20px;
   width: 250px;
   font-size: 16px;
   background-color: ${({ color }) => color};
+  opacity: ${({ selected }) => (selected ? "1" : "0.5")};
+  border: ${({ selected, color }) => (selected ? `3px solid ${color}` : "none")};
   position: relative;
 `;
 
@@ -31,17 +33,16 @@ export const StatName = styled.div`
   color: #323a42;
   font-size: 24px;
   margin-top: 15px;
-  margin-bottom: 10px;
 `;
 
 export const StatPercentage = styled.div`
-  color: #929aad;
   margin-top: 5px;
-  margin-bottom: 10px;
+  font-size: 0.9rem;
+  font-style: italic;
 `;
 
 export const StatValue = styled.div<{ color: string }>`
   color: ${({ color }) => color};
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 500;
 `;
