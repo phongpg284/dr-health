@@ -760,6 +760,15 @@
           "nullable": true,
           "mappedType": "string"
         },
+        "avatar": {
+          "name": "avatar",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
         "dob": {
           "name": "dob",
           "type": "timestamptz(0)",
