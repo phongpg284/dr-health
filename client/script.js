@@ -104,7 +104,7 @@ const saveData = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        type: "bloodpress",
+        type: "blood_press",
         unit: "bpm",
         value: element.data,
         secondValue: systolic[index].data,

@@ -118,9 +118,9 @@ const Chart = ({ id, thresholdStatus }: any) => {
           edge={PressEdgeIcon}
           color="#fbf4e8"
           selectedType={type}
-          value={[medicalStats?.bloodpress?.[medicalStats?.bloodpress?.length - 1]?.value, medicalStats?.bloodpress?.[medicalStats?.bloodpress?.length - 1]?.secondValue]}
+          value={[medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.value, medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.secondValue]}
           unit="mmHg"
-          date={dayjs(medicalStats?.bloodpress?.[medicalStats?.bloodpress?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
+          date={dayjs(medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
           textColor="#da8e16"
         />
       </StatsWrapper>
@@ -136,7 +136,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalStatsResponse; selectedType: any }) {
   const [timeType, setTimeType] = useState("Giờ");
-  const [dateStart, setDateStart] = useState(dayjs("2022-7-2").startOf("day").toDate());
+  const [dateStart, setDateStart] = useState(dayjs(new Date()).startOf("day").toDate());
 
   const filterArr = {
     Giờ: (item: any) => dayjs(item?.createdAt) > dayjs(dateStart),
@@ -159,13 +159,13 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
   }, [deviceData, timeType, dateStart]);
 
   const diastole = React.useMemo(() => {
-    return deviceData?.bloodpress?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
+    return (
+      deviceData?.blood_press?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.secondValue, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? []
+    );
   }, [deviceData, timeType, dateStart]);
 
   const systolic = React.useMemo(() => {
-    return (
-      deviceData?.bloodpress?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.secondValue, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? []
-    );
+    return deviceData?.blood_press?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
   }, [deviceData, timeType, dateStart]);
 
   const TimeMenu = (
@@ -230,8 +230,8 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
         )}
         {selectedType === arrType[3].key && (
           <DoubleLineChart
-            data={timeType === "Giờ" ? systolic : calculateStat(timeType as any, deviceData.bloodpress, dateStart, true)}
-            secondData={timeType === "Giờ" ? diastole : calculateStat(timeType as any, deviceData.bloodpress, dateStart, true)}
+            data={timeType === "Giờ" ? systolic : calculateStat(timeType as any, deviceData.blood_press, dateStart, true)}
+            secondData={timeType === "Giờ" ? diastole : calculateStat(timeType as any, deviceData.blood_press, dateStart, true)}
             title={arrType[3].label}
             color="#2a68c5"
             secondColor="#dd3e3e"

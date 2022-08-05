@@ -1,4 +1,4 @@
-type MedicalStatsKey = "spO2" | "heart_rate" | "body_temp" | "bloodpress";
+type MedicalStatsKey = "spO2" | "heart_rate" | "body_temp" | "blood_press";
 export type MedicalStat = {
   createdAt: Date;
   updatedAt: Date;
