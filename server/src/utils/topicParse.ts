@@ -13,13 +13,14 @@ export const topicParse = (topics: string): [boolean, string, string, string, st
 
 export const topicValueParse = (values: string) => {
   const parseValues = values.split(',').map((v) => +v);
+  console.log(parseValues);
   if (parseValues.length > 1)
     return {
       value: parseValues[0],
+      secondValue: parseValues[1],
     };
   else
     return {
       value: parseValues[0],
-      secondValue: parseValues[1],
     };
 };
