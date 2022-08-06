@@ -180,7 +180,7 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
           />
         </div>
       </div>
-      <SubmitButton type="submit">Lưu thay đổi</SubmitButton>
+      {editable && <SubmitButton type="submit">Lưu thay đổi</SubmitButton>}
     </form>
   );
 }

@@ -349,6 +349,8 @@ const PatientCardsList = () => {
     window.open(meetingLink);
   };
 
+  console.log(patientDataArray.sort((a: any, b: any) => a.id - b.id));
+
   return (
     <div className="patient-card-list-wrapper">
       <img src={BG} className="doctorRecordBg" alt="" />
@@ -357,31 +359,33 @@ const PatientCardsList = () => {
 
       <div className="patientList">
         {patientDataArray &&
-          patientDataArray.map((patient: any) => (
-            <div className="profile-contentinfo-item-patient" key={patient.id}>
-              <div className="profile-patient-in">
-                <div className="profile-patient-avatar">
-                  <img src={Avatar} alt="patient-avatar" />
+          patientDataArray
+            ?.sort((a: any, b: any) => a.email > b.email)
+            .map((patient: any) => (
+              <div className="profile-contentinfo-item-patient" key={patient.id}>
+                <div className="profile-patient-in">
+                  <div className="profile-patient-avatar">
+                    <img src={Avatar} alt="patient-avatar" />
+                  </div>
+                  <div className="profile-patient-text-carry">
+                    <div className="profile-patient-text">Họ và tên:{` ${patient?.fullName} `}</div>
+                    <div className="profile-patient-text">Tuổi:{` ${patient?.age || ""}`}</div>
+                    <div className="profile-patient-text">Ngày sinh:{` ${patient?.dob ? dayjs(patient?.dob).format("DD/MM/YYYY") : ""}`}</div>
+                    <div className="profile-patient-text">Giới tính:{` ${patient?.gender || ""}`}</div>
+                  </div>
                 </div>
-                <div className="profile-patient-text-carry">
-                  <div className="profile-patient-text">Họ và tên:{` ${patient?.fullName} `}</div>
-                  <div className="profile-patient-text">Tuổi:{` ${patient?.age || ""}`}</div>
-                  <div className="profile-patient-text">Ngày sinh:{` ${dayjs(patient?.birth).format("DD/MM/YYYY")}`}</div>
-                  <div className="profile-patient-text">Giới tính:{` ${patient?.gender || ""}`}</div>
+                <div onClick={() => handleClickVideoCall(patient?._id)} className="profile-patient-video-call">
+                  <Tooltip overlay={"Bắt đầu cuộc gọi"}>
+                    <BsFillCameraVideoFill />
+                  </Tooltip>
                 </div>
+                <Link to={`/patients/${patient.index}`} className="profile-patient-textdetail">
+                  <Tooltip overlay={"Chi tiết"}>
+                    <BiLinkExternal />
+                  </Tooltip>
+                </Link>
               </div>
-              <div onClick={() => handleClickVideoCall(patient?._id)} className="profile-patient-video-call">
-                <Tooltip overlay={"Bắt đầu cuộc gọi"}>
-                  <BsFillCameraVideoFill />
-                </Tooltip>
-              </div>
-              <Link to={`/patients/${patient.index}`} className="profile-patient-textdetail">
-                <Tooltip overlay={"Chi tiết"}>
-                  <BiLinkExternal />
-                </Tooltip>
-              </Link>
-            </div>
-          ))}
+            ))}
       </div>
     </div>
   );
