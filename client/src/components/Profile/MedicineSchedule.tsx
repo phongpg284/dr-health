@@ -83,7 +83,7 @@ function MedicineScheduleItem({ schedule, selected, unselect, value }: { value: 
                   )}
                   {sche.type === "appointment" && (
                     <>
-                      <div>
+                      <div style={{ fontSize: "18px" }}>
                         <b>{sche?.appointment?.name}</b>
                       </div>
                       <div>

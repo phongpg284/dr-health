@@ -65,10 +65,10 @@ export class DoctorService {
     return this.doctorRepository.remove({ id });
   }
 
-  async addPatient(id: number, patientId: number) {
+  async addPatient(id: number, patientCode: string) {
     try {
       const doctor = await this.doctorRepository.findOne({ id });
-      const patient = await this.patientRepository.findOne({ id: patientId });
+      const patient = await this.patientRepository.findOne({ code: patientCode });
       doctor.patients.add(patient);
       await this.doctorRepository.flush();
     } catch (error) {
@@ -86,6 +86,11 @@ export class DoctorService {
     const doctor = await this.doctorRepository.findOneOrFail({ account: id });
     const res = await this.patientRepository.find({ doctor: doctor.id }, { populate: ['account.address'] });
 
-    return res.map((patient) => patient.account);
+    return res.reverse().map((patient) => {
+      return {
+        ...patient.account,
+        code: patient?.code,
+      };
+    });
   }
 }

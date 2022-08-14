@@ -9,9 +9,10 @@ import { getBMI, getDiagnostic } from "helpers/diagnostic";
 
 //icon
 
-import { FaUserNurse } from "react-icons/fa";
+import { FaBriefcaseMedical, FaUserNurse } from "react-icons/fa";
 import { MdOutlineCalculate, MdOutlineHealthAndSafety, MdOutlineLastPage, MdOutlineMonitorWeight, MdOutlinePersonalInjury } from "react-icons/md";
 import { BsCalendarCheck, BsClipboardData, BsStar, BsTelephone } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
 import { VscSymbolNamespace } from "react-icons/vsc";
 import { IoMailOutline } from "react-icons/io5";
 import { AiOutlineColumnHeight } from "react-icons/ai";
@@ -24,6 +25,7 @@ import defaultAvatarPatient from "assets/default-avatar-patient.png";
 import MedicineSchedule from "./MedicineSchedule";
 import usePromise from "utils/usePromise";
 import { useApi } from "utils/api";
+import { differenceInYears } from "utils/date";
 
 export default function Profile() {
   const user = useAppSelector((state) => state.account);
@@ -38,7 +40,7 @@ export default function Profile() {
   return (
     <div className="profile_all">
       <div className="profile_carry">
-        <UserCard />
+        <UserCard roleData={patientData} />
 
         <div id="medicineCalendar" className="calendarContainer">
           <MedicineSchedule patientAccountId={+user.id!} />
@@ -48,7 +50,7 @@ export default function Profile() {
   );
 }
 
-function UserCard() {
+function UserCard({ roleData }: any) {
   const user = useAppSelector((state) => state.account);
   const api = useApi();
   const [data, setData] = useState<any>({});
@@ -66,7 +68,7 @@ function UserCard() {
       <div className="userInfo">
         <div className="userInfoRow">
           <div className="label">
-            <VscSymbolNamespace />
+            <CgProfile />
           </div>
           <div className="data">
             {isDoctor && data.fullName && ` ${data.fullName} (Bác sĩ)`}
@@ -89,18 +91,26 @@ function UserCard() {
 
         <div className="userInfoRow">
           <div className="label">
-            <MdOutlineLastPage />
+            <BsCalendarCheck />
           </div>
-          <div className="data">{data.age && `${data.age} tuổi`}</div>
+          <div className="data">{data.dob && `${differenceInYears(data.dob)} tuổi`}</div>
         </div>
 
-        {isDoctor && data.education && (
-          <div className="userInfoRow">
-            <div className="label">
-              <BsStar />
+        {isDoctor && data.job && (
+          <>
+            <div className="userInfoRow">
+              <div className="label">
+                <BsStar />
+              </div>
+              <div className="data">{roleData?.degree}</div>
             </div>
-            <div className="data">{data.education}</div>
-          </div>
+            <div className="userInfoRow">
+              <div className="label">
+                <FaBriefcaseMedical />
+              </div>
+              <div className="data">{roleData?.department}</div>
+            </div>
+          </>
         )}
       </div>
 

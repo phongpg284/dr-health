@@ -50,9 +50,9 @@ const AppointmentSchedule = ({ id }: any) => {
       <h1 className="schedule-title">Lịch hẹn meeting</h1>
       <div className="schedule-list">
         {account.role === "doctor" && (
-          <Button variant="primary" onClick={handleClickAddMeeting}>
+          <button className="button-62" onClick={handleClickAddMeeting}>
             Đặt lịch hẹn
-          </Button>
+          </button>
         )}
         <Modal title="Đặt lịch hẹn" visible={showAddMeeting} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
           <Form form={form} name="basic" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} initialValues={{ remember: true }} autoComplete="off">

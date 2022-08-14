@@ -166,8 +166,12 @@ function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
   //   });
 
   useEffect(() => {
-    setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
-    setNotificationsList(notifications);
+    console.log(notifications);
+
+    if (notifications) {
+      setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
+      setNotificationsList(notifications);
+    }
   }, [notifications]);
 
   //   useEffect(() => {

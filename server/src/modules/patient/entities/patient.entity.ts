@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToOne, OneToMany, OneToOne } from '@mikro-orm/core';
+import { Collection, Entity, ManyToOne, OneToMany, OneToOne, Property } from '@mikro-orm/core';
 import { Appointment } from 'src/modules/appointment/entities/appointment.entity';
 import { Device } from 'src/modules/device/entities/device.entity';
 import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
@@ -16,7 +16,11 @@ export class Patient extends BaseEntity {
     this.account = account;
     this.doctor = doctor;
     this.medicalThreshold = new MedicalThreshold();
+    this.code = Math.random().toString(36).slice(2, 10);
   }
+
+  @Property({ default: Math.random().toString(36).slice(2, 10) })
+  code?: string;
 
   @OneToOne()
   account: User;

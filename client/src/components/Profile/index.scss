@@ -6,6 +6,7 @@
     flex-direction: column;
     padding: 2rem 0;
     margin-top: 7rem;
+
     .userCard {
         margin-bottom: 1rem;
         font-family: Raleway;
@@ -15,6 +16,7 @@
         // background: rgb(157, 104, 255);
         // background: linear-gradient(45deg, rgba(157, 104, 255, 1) 0%, rgba(255, 159, 192, 1) 100%);
         border-radius: 10px;
+
         .userAvatar {
             border: 1.5px solid #a43931;
             background: white !important;
@@ -24,11 +26,13 @@
             position: relative;
             transform: translateY(-50%) scale(2);
             box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);
+
             @media only screen and (max-width: 600px) {
                 width: 50px;
                 height: 50px;
             }
         }
+
         .userInfo {
             margin: 2rem auto;
             width: 100%;
@@ -54,6 +58,7 @@
                 margin-bottom: 0.5rem;
                 transition: all 0.5s ease-in-out;
                 box-shadow: 0 0px 5px 1px rgba(0, 0, 0, 0);
+
                 @media only screen and (max-width: 600px) {
                     width: auto;
                 }
@@ -63,9 +68,11 @@
                 }
 
                 .label {
-                    font-size: 2em;
+                    font-size: 1.8em;
                 }
+
                 .data {
+                    margin-top: 7px;
                     flex: 1;
                     text-align: left;
                 }
@@ -81,9 +88,11 @@
         align-items: center;
         justify-content: center;
         background-clip: text;
+
         @media only screen and (max-width: 600px) {
             flex-direction: column;
         }
+
         .buttonProfile {
             flex: 1;
             padding: 1rem;
@@ -92,6 +101,7 @@
             text-transform: uppercase;
             font-size: 1.3em;
             border-right: 1px solid white;
+
             @media only screen and (max-width: 600px) {
                 width: 100%;
                 display: flex;
@@ -102,6 +112,7 @@
                 &:last-child {
                     border-bottom: none;
                 }
+
                 span {
                     flex: 1;
                     text-align: center;
@@ -109,9 +120,11 @@
                     margin-left: 0.5rem;
                 }
             }
+
             &:last-child {
                 border-right: none;
             }
+
             .btnProfileIcon {
                 line-height: 0;
                 font-size: 2em;
@@ -119,6 +132,7 @@
             }
         }
     }
+
     .profile_calendar {
         border-radius: 20px !important;
         border: 8px solid #5371dd !important;

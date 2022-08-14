@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useAppSelector } from "app/store";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Tooltip } from "antd";
+import { Tooltip, Modal, message, Input } from "antd";
 import usePromise from "utils/usePromise";
 import { get } from "lodash";
 
@@ -12,315 +12,7 @@ import Avatar from "../../../assets/default-avatar-patient.png";
 import BG from "assets/abstract12.svg";
 import Experiment from "./Experiment";
 import { BsFillCameraVideoFill } from "react-icons/bs";
-
-const defaultList = [
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Nguyễn Kim Anh",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Thế Anh",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thùy Trang",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 32,
-    birth: "1990-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Thế Anh",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Phương Thảo",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 40,
-    birth: "1982-05-07T17:00:00.000Z",
-    fullName: "Nguyễn Thị Thùy Chi",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Nguyễn Phương Thảo",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Thanh Giang",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thanh Hằng",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 20,
-    birth: "2002-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Thế Khang",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Thanh Phong",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 35,
-    birth: "1987-01-09T17:00:00.000Z",
-    fullName: "Nguyễn Thị Nữ",
-    gender: "Nữ",
-    index: 0,
-  },
-
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Trần Thị Huyền",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Anh Khoa",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thị Ngọc Ngân",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 20,
-    birth: "2002-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Kim Anh",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 26,
-    birth: "1996-04-02T17:00:00.000Z",
-    fullName: "Trần Thị Yến",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thị Nga",
-    gender: "Nữ",
-    index: 0,
-  },
-
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Nguyễn Ái Khanh",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Văn Nam",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Trần Thị Kiều Chi",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 20,
-    birth: "2002-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Văn Toàn",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Ánh Vy",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Mai Thu",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Nguyễn Thu Thảo",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Hoàng Phúc",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Ngọc Yến",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 20,
-    birth: "2002-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Duy Anh",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Yến Mai",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thu Hiền",
-    gender: "Nữ",
-    index: 0,
-  },
-
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Trần Huyền Trân",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Khoa Đăng",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thu Hạnh",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 20,
-    birth: "2002-05-01T17:00:00.000Z",
-    fullName: "Nguyễn Kim Anh",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Kim Yến",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Yên Hoa",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Hà Thu",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Hương Thảo",
-    gender: "Nữ",
-    index: 0,
-  },
-
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Trần Yến Mai",
-    gender: "Nữ",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thu Hiền",
-    gender: "Nữ",
-    index: 0,
-  },
-
-  {
-    age: 18,
-    birth: "2004-09-09T17:00:00.000Z",
-    fullName: "Trần Huyền Trân",
-    gender: "Nữ",
-    index: 0,
-  },
-  {
-    age: 19,
-    birth: "2003-04-02T17:00:00.000Z",
-    fullName: "Nguyễn Khoa Đăng",
-    gender: "Nam",
-    index: 1,
-  },
-  {
-    age: 18,
-    birth: "2004-12-09T17:00:00.000Z",
-    fullName: "Nguyễn Thu Hạnh",
-    gender: "Nữ",
-    index: 0,
-  },
-];
+import { useApi } from "utils/api";
 
 const PatientCardsList = () => {
   const account = useAppSelector((state) => state.account);
@@ -349,14 +41,41 @@ const PatientCardsList = () => {
     window.open(meetingLink);
   };
 
-  console.log(patientDataArray.sort((a: any, b: any) => a.id - b.id));
+  const [showAddPatient, setShowAddPatient] = useState(false);
+  const api = useApi();
 
+  const confirmAddMeeting = () => {
+    api
+      .post(`/doctor/add_patient${account?.roleId}&${patientCode}`)
+      .then(() => message.success("Thêm bệnh nhân thành công"))
+      .catch(() => message.error("Thêm bệnh nhân không thành công"))
+      .finally(() => {
+        setShowAddPatient(false);
+      });
+  };
+  const handleClickAddPatient = () => {
+    setShowAddPatient(true);
+  };
+  const handleClickCancelAddMeeting = () => {
+    setShowAddPatient(false);
+  };
+  const [patientCode, setPatientCode] = useState("");
+
+  const handleChangePatientCode = (e: any) => {
+    setPatientCode(e?.target?.value);
+  };
   return (
     <div className="patient-card-list-wrapper">
       <img src={BG} className="doctorRecordBg" alt="" />
       {/* <Experiment/> */}
       <h1 className="patient-card-list-title">Quản lý bệnh nhân</h1>
 
+      <button className="button-62" onClick={handleClickAddPatient}>
+        Thêm bệnh nhân
+      </button>
+      <Modal title="Thêm bệnh nhân" visible={showAddPatient} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
+        <Input placeholder="Nhập mã bệnh nhân" onChange={handleChangePatientCode} />
+      </Modal>
       <div className="patientList">
         {patientDataArray &&
           patientDataArray
@@ -368,6 +87,7 @@ const PatientCardsList = () => {
                     <img src={Avatar} alt="patient-avatar" />
                   </div>
                   <div className="profile-patient-text-carry">
+                    <div className="profile-patient-text">Mã bệnh nhân:{` ${patient?.code} `}</div>
                     <div className="profile-patient-text">Họ và tên:{` ${patient?.fullName} `}</div>
                     <div className="profile-patient-text">Tuổi:{` ${patient?.age || ""}`}</div>
                     <div className="profile-patient-text">Ngày sinh:{` ${patient?.dob ? dayjs(patient?.dob).format("DD/MM/YYYY") : ""}`}</div>

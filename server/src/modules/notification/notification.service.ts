@@ -75,7 +75,8 @@ export class NotificationService {
   }
 
   async findOne(params: FilterQuery<Notification>) {
-    const notification = await this.notificationRepository.findOneOrFail(params);
+    const notification = await this.notificationRepository.findOne(params);
+    if (!notification) throw new HttpException('Notification not found', HttpStatus.BAD_REQUEST);
     return notification;
   }
 

@@ -20,6 +20,7 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
   const api = useApi();
   const formik = useFormik({
     initialValues: {
+      code: data.code || "",
       fullName: data.fullName || "",
       email: data.email || "",
       identity: data.identity || "",
@@ -72,6 +73,12 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <div className="columns">
+        <div className="column">
+          <div className="label">Mã bệnh nhân</div>
+          <input className="input-text" name="fullName" value={formik.values.code} disabled />
+        </div>
+      </div>
       <div className="columns">
         <div className="column">
           <div className="label">Họ và tên</div>

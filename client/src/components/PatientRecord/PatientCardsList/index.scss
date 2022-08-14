@@ -20,6 +20,7 @@
     // z-index:-2;
     margin-top: -50px;
     padding-top: 50px;
+
     .doctorRecordBg {
         width: 100%;
         position: absolute;
@@ -51,31 +52,38 @@
     width: 100%;
     display: flex;
     border-bottom: 1px solid #ccc;
-    background:rgba(255, 255, 255,0);
-    color:white;
+    background: rgba(255, 255, 255, 0);
+    color: white;
+
     &:nth-child(even) {
-        background:rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.1);
     }
+
     &:last-child {
         border-bottom: none;
     }
+
     @media only screen and (max-width: 600px) {
         flex-direction: column;
+
         .profile-patient-textdetail {
             align-items: flex-end;
             justify-content: flex-end;
             width: 100%;
         }
+
         .profile-patient-text-carry {
             text-align: left;
             margin: 0;
             padding: 0.5rem;
-            color:white;
+            color: white;
         }
+
         .profile-patient-avatar {
             margin: 0.3rem;
             margin-left: 0.5rem;
         }
+
         .profile-patient-in {
             padding: 0.5rem;
         }
@@ -87,6 +95,7 @@
     display: flex;
     align-items: center;
 }
+
 .profile-patient-avatar {
     width: 4rem;
     height: 4rem;
@@ -96,11 +105,13 @@
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.25);
     border: 3px solid black;
     border-radius: 50%;
+
     img {
         width: 100%;
         height: 100%;
     }
 }
+
 .profile-patient-text-carry {
     margin-left: 20px;
     height: 100%;
@@ -108,11 +119,13 @@
     align-items: start;
     padding: 1rem;
 }
+
 .profile-patient-text {
     color: white;
     font-family: BeVietNam;
     font-size: 1.1rem;
 }
+
 .profile-patient-textdetail {
     color: white;
     font-weight: bold;
@@ -132,6 +145,7 @@
     align-items: center;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+
     &:hover {
         color: rgb(25, 152, 255);
     }
@@ -141,11 +155,14 @@
     .carousel {
         margin: 1rem auto;
         width: 50%;
+
         @media only screen and (max-width: 600px) {
             width: 95%;
         }
+
         .item {
             padding: 1rem;
+
             .img_item {
                 width: 100%;
                 box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.452);
@@ -154,4 +171,38 @@
             }
         }
     }
+}
+
+
+/* CSS */
+.button-62 {
+    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+    border: 0;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    width: 180px;
+    height: 50px;
+}
+
+.button-62:not([disabled]):focus {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-62:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }

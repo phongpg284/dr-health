@@ -1001,6 +1001,16 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "code": {
+          "name": "code",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "default": "'iieqzs2e'",
+          "mappedType": "string"
+        },
         "account_id": {
           "name": "account_id",
           "type": "int",
