@@ -13,6 +13,7 @@ import BG from "assets/abstract12.svg";
 import Experiment from "./Experiment";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { useApi } from "utils/api";
+import { differenceInYears } from "utils/date";
 
 const PatientCardsList = () => {
   const account = useAppSelector((state) => state.account);
@@ -89,9 +90,9 @@ const PatientCardsList = () => {
                   <div className="profile-patient-text-carry">
                     <div className="profile-patient-text">Mã bệnh nhân:{` ${patient?.code} `}</div>
                     <div className="profile-patient-text">Họ và tên:{` ${patient?.fullName} `}</div>
-                    <div className="profile-patient-text">Tuổi:{` ${patient?.age || ""}`}</div>
+                    <div className="profile-patient-text">Tuổi:{`${patient?.dob ? differenceInYears(patient?.dob) : ""}`}</div>
                     <div className="profile-patient-text">Ngày sinh:{` ${patient?.dob ? dayjs(patient?.dob).format("DD/MM/YYYY") : ""}`}</div>
-                    <div className="profile-patient-text">Giới tính:{` ${patient?.gender || ""}`}</div>
+                    <div className="profile-patient-text">Giới tính:{` ${(patient?.gender === "male" ? "Nam" : patient?.gender === "female" ? "Nữ" : "") ?? ""}`}</div>
                   </div>
                 </div>
                 <div onClick={() => handleClickVideoCall(patient?._id)} className="profile-patient-video-call">

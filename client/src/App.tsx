@@ -9,6 +9,7 @@ import LoginPage from "./pages/Login/LoginPage";
 import SignupPage from "./pages/Signup/SignupPage";
 import { Home } from "components/Home";
 import * as GreetingBotStore from "./app/GreetingBot";
+import io from "socket.io-client";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
@@ -28,6 +29,7 @@ const UploadBlood = lazy(() => import("pages/UploadBlood"));
 const ProjectionPhoto = lazy(() => import("pages/ProjectionPhoto"));
 
 export const FooterContext = createContext<any>(null);
+export const SocketContext = createContext<any>(null);
 
 function App() {
   const dispatch = useAppDispatch();
@@ -59,46 +61,66 @@ function App() {
   );
 }
 
+const socket = io("localhost:5000");
 function MyRouter() {
   const { role } = useAppSelector((state) => state.account);
   const [isAuth, setIsAuth] = useState(true);
   const [route, setRoute] = useState("/");
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true);
+      console.log("socket connect");
+    });
+
+    socket.on("disconnect", () => {
+      setIsConnected(false);
+      console.log("socket disconnect");
+    });
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+    };
+  }, []);
 
   return (
-    <BrowserRouter>
-      {!isAuth && route !== "/" && <Redirect to="/login" />}
+    <SocketContext.Provider value={socket}>
+      <BrowserRouter>
+        {!isAuth && route !== "/" && <Redirect to="/login" />}
 
-      <Switch>
-        <Route path="/news" component={News} />
-        <Route path="/ho-tro" component={Addition} />
+        <Switch>
+          <Route path="/news" component={News} />
+          <Route path="/ho-tro" component={Addition} />
 
-        <Main path="/co-so-dieu-tri" component={HospitalMap} />
+          <Main path="/co-so-dieu-tri" component={HospitalMap} />
 
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={SignupPage} />
-        <Main exact path="/" component={Home} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Main exact path="/" component={Home} />
 
-        <Main exact path="/phuc-hoi" component={FirstAid} />
-        {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
+          <Main exact path="/phuc-hoi" component={FirstAid} />
+          {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
-        <PrivateRoute exact path="/profile" component={ProfilePage} />
-        <PrivateRoute exact path="/calendar" component={CalendarPage} />
-        <PrivateRoute exact path="/notifications" component={NotificationsPage} />
-        <PrivateRoute exact path="/threshold/:id" component={ThresholdPage} />
-        {role === "doctor" && (
-          <>
-            <PrivateRoute exact path="/patients" component={PatientCardsList} />
-            <PrivateRoute exact path="/patients/:id" component={PatientList} />
-            <PrivateRoute exact path="/record" component={DoctorRecord} />
-            <PrivateRoute exact path="/stroke_point" component={StrokePoint} />
-            <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
-            <PrivateRoute exact path="/projection_photo" component={ProjectionPhoto} />
-          </>
-        )}
-        {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}
-        {!role && <PrivateRoute exact path="/record" component={PatientRecord} />}
-      </Switch>
-    </BrowserRouter>
+          <PrivateRoute exact path="/profile" component={ProfilePage} />
+          <PrivateRoute exact path="/calendar" component={CalendarPage} />
+          <PrivateRoute exact path="/notifications" component={NotificationsPage} />
+          <PrivateRoute exact path="/threshold/:id" component={ThresholdPage} />
+          {role === "doctor" && (
+            <>
+              <PrivateRoute exact path="/patients" component={PatientCardsList} />
+              <PrivateRoute exact path="/patients/:id" component={PatientList} />
+              <PrivateRoute exact path="/record" component={DoctorRecord} />
+              <PrivateRoute exact path="/stroke_point" component={StrokePoint} />
+              <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
+              <PrivateRoute exact path="/projection_photo" component={ProjectionPhoto} />
+            </>
+          )}
+          {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}
+          {!role && <PrivateRoute exact path="/record" component={PatientRecord} />}
+        </Switch>
+      </BrowserRouter>
+    </SocketContext.Provider>
   );
 }
 

@@ -7,6 +7,7 @@ import { PatientModule } from 'src/modules/patient/patient.module';
 import { NotificationModule } from 'src/modules/notification/notification.module';
 import { OrmModule } from 'src/orm/orm.module';
 import { MedicalStatModule } from 'src/modules/medical-stat/medical-stat.module';
+import { EventsModule } from 'src/events/events.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MedicalStatModule } from 'src/modules/medical-stat/medical-stat.module'
     PatientModule,
     NotificationModule,
     MedicalStatModule,
+    EventsModule,
   ],
   controllers: [MqttController],
   providers: [MqttService],

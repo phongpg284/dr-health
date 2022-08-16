@@ -2,6 +2,7 @@ import { FilterQuery, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable, Logger } from '@nestjs/common';
+import { EventsGateway } from 'src/events/events.gateway';
 import { Patient } from '../patient/entities/patient.entity';
 import { CreateMedicalStatDto } from './dto/create-medical-stat.dto';
 import { UpdateMedicalStatDto } from './dto/update-medical-stat.dto';
@@ -14,6 +15,7 @@ export class MedicalStatService {
     private readonly medicalStatRepository: EntityRepository<MedicalStat>,
     @InjectRepository(Patient)
     private readonly patientRepository: EntityRepository<Patient>,
+    private readonly eventGateway: EventsGateway,
   ) {}
 
   async create(createMedicalStatDto: CreateMedicalStatDto) {

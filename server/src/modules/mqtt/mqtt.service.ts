@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { BLOOD_PRESS, BODY_TEMP, DIASTOLE, HEART_RATE, HUMIDITY, SPO2, SYSTOLIC, TEMPERATURE } from 'src/config/topic';
 import { MEDICAL_STATS } from 'src/constant/enums';
+import { EventsGateway } from 'src/events/events.gateway';
 import { DeviceService } from 'src/modules/device/device.service';
 import { MedicalStatService } from 'src/modules/medical-stat/medical-stat.service';
 import { NotificationService } from 'src/modules/notification/notification.service';
@@ -14,6 +15,7 @@ export class MqttService {
     private readonly patientService: PatientService,
     private readonly notificationService: NotificationService,
     private readonly medicalStatService: MedicalStatService,
+    private readonly eventGateway: EventsGateway,
   ) {}
   handleMQTTNodeTopic = async (topic: string, payload: string) => {
     const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);

@@ -1,10 +1,8 @@
 import "../../PatientRecord/index.scss";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement, registerables } from "chart.js";
-import { Line, Bar } from "react-chartjs-2";
-import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import { Menu, Dropdown, Button, DatePicker } from "antd";
 
@@ -29,8 +27,10 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import dayjs from "dayjs";
 import moment from "moment";
 
-import { enGB } from "date-fns/locale";
 import { calculateStat } from "utils/stats";
+import SingleLineChart from "./SingleLineChart";
+import DoubleLineChart from "./DoubleLineChart";
+import { SocketContext } from "App";
 ChartJS.register(...registerables, zoomPlugin);
 
 const arrType = [
@@ -52,25 +52,33 @@ const arrType = [
   },
 ] as const;
 
-const getThresholdChart = (label: any) => {
+export const getThresholdChart = (label: any) => {
   if (label === arrType[0].label) return { max: 100, min: 90 };
   if (label === arrType[1].label) return { max: 45, min: 30 };
   else return "auto";
 };
 
-const getChartType = (type: string) => {
+export const getChartType = (type: string) => {
   if (type === "Giờ") return "minute";
   if (type === "Ngày") return "hour";
   if (type === "Tháng") return "day";
 };
 
 const Chart = ({ id, thresholdStatus }: any) => {
-  const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`);
+  const [refetch, setRefetch] = useState(false);
+  const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`, [refetch] as any);
   const [type, setType] = useState<typeof arrType[number]>(arrType[2]);
 
   const handleClickStatTracking = (key: typeof arrType[number]) => {
     setType(key);
   };
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRefetch((prev) => !prev);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="patient-info-graph-wrapper">
@@ -124,7 +132,7 @@ const Chart = ({ id, thresholdStatus }: any) => {
           textColor="#da8e16"
         />
       </StatsWrapper>
-      {loaded && medicalStats && (
+      {medicalStats && (
         <div className="listChart">
           <MultipleChart deviceData={medicalStats} selectedType={type?.key} />
         </div>
@@ -184,10 +192,37 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
     setDateStart(dayjs(date, "DD/MM/YYYY").startOf("day").toDate());
   };
 
+  const socket = useContext(SocketContext);
+  useEffect(() => {
+    if (socket) {
+      console.log("havesocket");
+      socket.onAny((event: any, payload: any) => {
+        console.log("socket test receive:", event, payload);
+      });
+      socket.on("stat", (payload: any) => {
+        console.log("socket stat receive: ", payload);
+      });
+      socket.on("connect", () => {
+        console.log("socket connect");
+      });
+
+      socket.on("disconnect", () => {
+        console.log("socket disconnect");
+      });
+    }
+  }, [socket]);
+
+  const [liveSwitch, setLiveSwitch] = useState(false);
+
+  const handleClickLive = () => {
+    setLiveSwitch(true);
+  };
+
   return (
     <div className="myChartWrapper">
       <div className="chartContent">
         <div className="dropDownSpace">
+          <Button onClick={handleClickLive}>Trực tiếp</Button>
           <Dropdown overlay={TimeMenu} placement="bottomCenter" arrow>
             <Button style={{ marginRight: "10px" }}>
               {timeType + " "} <DownOutlined />
@@ -204,6 +239,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
+            live={liveSwitch}
           />
         )}
         {selectedType === arrType[1].key && (
@@ -215,6 +251,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
+            live={liveSwitch}
           />
         )}
         {selectedType === arrType[2].key && (
@@ -226,6 +263,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
+            live={liveSwitch}
           />
         )}
         {selectedType === arrType[3].key && (
@@ -239,275 +277,10 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type={timeType === "Giờ" ? "line" : "bar"}
             average={timeType !== "Giờ"}
+            live={liveSwitch}
           />
         )}
       </div>
-    </div>
-  );
-}
-
-function SingleLineChart(props: { data: any; title: string; color: string | [string, string]; timeType: string; dateStart: Date; type: string; average?: boolean }) {
-  const { data, title, color, timeType, dateStart, type, average = false } = props;
-  let delayed: any;
-
-  const options = {
-    spanGaps: true,
-    responsive: true,
-    scales: {
-      y: {
-        ...(getThresholdChart(title) !== "auto" && { suggestedMin: (getThresholdChart(title) as any).min, suggestedMax: (getThresholdChart(title) as any).max }),
-      },
-      x: {
-        adapters: {
-          date: {
-            locale: enGB,
-          },
-        },
-        ...(!average && {
-          type: "time",
-          min: dateStart,
-          max: dayjs(dateStart).add(15, "minute").toDate(),
-          time: {
-            parser: "yyyy/MM/dd HH:mm:ss",
-            unit: getChartType(timeType),
-          },
-        }),
-        distribution: "linear",
-      },
-    },
-    plugins: {
-      legend: {
-        position: "top",
-        labels: {
-          font: {
-            size: 30,
-          },
-          boxWidth: 70,
-        },
-      },
-      zoom: {
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-            mode: "x",
-          },
-          mode: "x",
-        },
-        pan: {
-          enabled: true,
-          mode: "x",
-        },
-      },
-    },
-    hover: {
-      mode: "nearest",
-      intersect: true,
-    },
-    transitions: {
-      zoom: {
-        animation: {
-          duration: 1000,
-          easing: "easeOutCubic",
-        },
-      },
-    },
-    interaction: {
-      intersect: false,
-      mode: "x",
-    },
-    tooltip: {
-      position: "nearest",
-    },
-    animation: {
-      onComplete: () => {
-        delayed = true;
-      },
-      delay: (context: any) => {
-        let delay = 0;
-        if (context.type === "data" && context.mode === "default" && !delayed) {
-          delay = context.dataIndex * 300 + context.datasetIndex * 100;
-        }
-        return delay;
-      },
-    },
-  };
-  if (average) {
-    const dataSet = {
-      labels: data?.label,
-      datasets: [
-        {
-          label: title,
-          data: data?.data,
-          backgroundColor: color as string,
-          borderColor: color as string,
-          pointRadius: 0,
-        },
-      ],
-    };
-    return (
-      <div>
-        <Bar options={options as any} data={dataSet} height="100vh" />
-      </div>
-    );
-  }
-  const dataSet = {
-    labels: data?.map(() => ""),
-    datasets: [
-      {
-        label: title,
-        data: data,
-        backgroundColor: color as string,
-        borderColor: color as string,
-        pointRadius: 0,
-      },
-    ],
-  };
-  return (
-    <div>
-      {type === "bar" && <Bar options={options as any} data={dataSet} height="100vh" />}
-      {type === "line" && <Line options={options as any} data={dataSet} height="100vh" />}
-    </div>
-  );
-}
-
-function DoubleLineChart(props: {
-  data: any;
-  secondData: any;
-  title: string;
-  color: string;
-  secondColor: string;
-  timeType: string;
-  dateStart: Date;
-  type: string;
-  average?: boolean;
-}) {
-  const { data, secondData, title, color, secondColor, timeType, dateStart, type, average = false } = props;
-  const options = {
-    animation: false,
-    spanGaps: true,
-    responsive: true,
-    scales: {
-      y: {
-        ...(getThresholdChart(title) !== "auto" && { min: (getThresholdChart(title) as any).min, max: (getThresholdChart(title) as any).max }),
-      },
-      x: {
-        adapters: {
-          date: {
-            locale: enGB,
-          },
-        },
-        ...(!average && {
-          type: "time",
-          min: dateStart,
-          max: dayjs(dateStart).add(15, "minute").toDate(),
-          time: {
-            parser: "yyyy/MM/dd HH:mm:ss",
-            unit: getChartType(timeType),
-          },
-        }),
-        distribution: "linear",
-      },
-    },
-    plugins: {
-      legend: {
-        position: "top",
-        labels: {
-          font: {
-            size: 30,
-          },
-          boxWidth: 70,
-        },
-      },
-      zoom: {
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-            mode: "x",
-          },
-          mode: "x",
-        },
-        pan: {
-          enabled: true,
-          mode: "x",
-        },
-      },
-    },
-    hover: {
-      mode: "nearest",
-      intersect: true,
-    },
-    transitions: {
-      zoom: {
-        animation: {
-          duration: 1000,
-          easing: "easeOutCubic",
-        },
-      },
-    },
-    interaction: {
-      intersect: false,
-      mode: "nearest",
-      axis: "x",
-    },
-    tooltip: {
-      position: "nearest",
-    },
-  };
-  if (average) {
-    const multisetData = {
-      labels: data?.label,
-      datasets: [
-        {
-          label: "Tâm thu",
-          data: data?.data?.[0],
-          backgroundColor: color,
-          borderColor: color,
-          pointRadius: 0,
-        },
-        {
-          label: "Tâm trương",
-          data: secondData?.data?.[1],
-          backgroundColor: secondColor,
-          borderColor: secondColor,
-          pointRadius: 0,
-        },
-      ],
-    };
-    return (
-      <div>
-        <Bar options={options as any} data={multisetData} height="100vh" />
-      </div>
-    );
-  }
-  const multisetData = {
-    labels: data?.map(() => ""),
-    datasets: [
-      {
-        label: "Tâm thu",
-        data: data,
-        backgroundColor: color,
-        borderColor: color,
-        pointRadius: 0,
-      },
-      {
-        label: "Tâm trương",
-        data: secondData,
-        backgroundColor: secondColor,
-        borderColor: secondColor,
-        pointRadius: 0,
-      },
-    ],
-  };
-  return (
-    <div>
-      {type === "line" && <Line options={options as any} data={multisetData} height="100vh" />}
-      {type === "bar" && <Bar options={options as any} data={multisetData} height="100vh" />}
     </div>
   );
 }

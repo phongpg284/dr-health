@@ -80,6 +80,13 @@ export class UserService {
 
   async findOne(params: FilterQuery<User>) {
     const user = await this.userRepository.findOneOrFail(params, { populate: ['address'] });
+    if (user.role === 'patient') {
+      const patient = await this.patientRepository.findOneOrFail({ account: user.id });
+      return {
+        ...user,
+        code: patient?.code,
+      };
+    }
     return user;
   }
 
