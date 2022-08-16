@@ -26,11 +26,13 @@ export const columns = [
     key: 'dob',
     render: (_, { dob }) => (
       <div key={dob}>
-        {new Date(dob).toLocaleDateString('vi-VI', {
-          year: 'numeric',
-          month: 'numeric',
-          day: 'numeric',
-        })}
+        {dob
+          ? new Date(dob).toLocaleDateString('vi-VI', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            })
+          : ''}
       </div>
     ),
     sorter: {
@@ -45,23 +47,42 @@ export const columns = [
       compare: Sorter.DEFAULT,
     },
   },
+  // {
+  //   title: 'Vai trò',
+  //   dataIndex: 'role',
+  //   key: 'role',
+  //   render: (_, { role }) => (
+  //     <div>
+  //       {role === 'doctor' ? 'Bác sĩ' : role === 'patient' ? 'Bệnh nhân' : 'Nhân viên y tế'}
+  //     </div>
+  //   ),
+  //   sorter: {
+  //     compare: Sorter.DEFAULT,
+  //   },
+  // },
   {
-    title: 'Vai trò',
-    dataIndex: 'role',
-    key: 'role',
-    render: (_, { role }) => (
-      <div>
-        {role === 'doctor' ? 'Bác sĩ' : role === 'patient' ? 'Bệnh nhân' : 'Nhân viên y tế'}
-      </div>
+    title: 'Số điện thoại',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'Giới tính',
+    dataIndex: 'gender',
+    key: 'gender',
+    render: (_, { gender }) => (
+      <div>{gender === 'male' ? 'Nam' : gender === 'female' ? 'Nữ' : ''}</div>
     ),
     sorter: {
       compare: Sorter.DEFAULT,
     },
   },
   {
-    title: 'Số điện thoại',
-    dataIndex: 'phone',
-    key: 'phone',
+    title: 'Dân tộc',
+    dataIndex: 'ethnic',
+    key: 'ethnic',
+    sorter: {
+      compare: Sorter.DEFAULT,
+    },
   },
   {
     title: 'Ngày khởi tạo',

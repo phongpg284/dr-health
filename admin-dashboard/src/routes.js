@@ -54,13 +54,13 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/', exact: true, name: 'Trang chủ' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/list', name: 'Theme', element: Colors, exact: true },
-  { path: '/list/user', name: 'Users', element: Colors },
-  { path: '/list/patient', name: 'Patients', element: Patient },
-  { path: '/list/doctor', name: 'Doctors', element: Doctor },
-  { path: '/list/device', name: 'Devices', element: Device },
+  { path: '/list', name: 'Danh sách', element: Colors, exact: true },
+  { path: '/list/user', name: 'Người dùng', element: Colors },
+  { path: '/list/patient', name: 'Bệnh nhân', element: Patient },
+  { path: '/list/doctor', name: 'Bác sĩ', element: Doctor },
+  { path: '/list/device', name: 'Thiết bị', element: Device },
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },
   { path: '/base/breadcrumbs', name: 'Breadcrumbs', element: Breadcrumbs },
