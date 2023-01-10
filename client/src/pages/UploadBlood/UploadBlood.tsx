@@ -245,11 +245,6 @@ function BloodCriteria({ onChangePoints }: StrokeTable) {
     onChangePoints(resultPoint);
   }, [resultPoint]);
 
-  const sum = React.useMemo(() => {
-    if (!resultPoint || !resultPoint.length) return 0;
-    return resultPoint.reduce((acc, item) => acc + item.point, 0);
-  }, [resultPoint]);
-
   return (
     <form onSubmit={onSubmit} className="stroke_table_container">
       <table className="stroke_table table table-bordered">

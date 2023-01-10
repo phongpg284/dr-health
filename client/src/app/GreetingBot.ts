@@ -85,7 +85,7 @@ export const greetingBotSlice = createSlice({
     name: "greetingBot",
     initialState,
     reducers: {
-        reset: (state, action: PayloadAction) => {
+        reset: (state) => {
             state.data = initialState.data;
             state.greetingName = initialState.greetingName;
             state.setting.enableSound = false;
@@ -123,5 +123,5 @@ export const greetingBotSlice = createSlice({
     },
 });
 
-export const { setGreetingName, reset, toggleBot, toggleChat, toggleSound,toggleLoop } = greetingBotSlice.actions
+export const { setGreetingName, reset, toggleBot, toggleChat, toggleSound, toggleLoop } = greetingBotSlice.actions
 export default greetingBotSlice.reducer

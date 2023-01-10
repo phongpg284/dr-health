@@ -6,7 +6,6 @@ import { Chart as ChartJS, registerables } from "chart.js";
 import "chartjs-adapter-date-fns";
 import "./Chart.scss";
 import zoomPlugin from "chartjs-plugin-zoom";
-import { useEffect } from "react";
 ChartJS.register(...registerables, zoomPlugin);
 
 function SingleLineChart(props: { data: any; title: string; color: string | [string, string]; timeType: string; dateStart: Date; type: string; average?: boolean; live: boolean }) {

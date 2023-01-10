@@ -1,16 +1,14 @@
 import "./index.scss";
 import dayjs from "dayjs";
 import { useAppSelector } from "app/store";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Tooltip, Modal, message, Input } from "antd";
 import usePromise from "utils/usePromise";
-import { get } from "lodash";
 
 import { BiLinkExternal } from "react-icons/bi";
 import Avatar from "../../../assets/default-avatar-patient.png";
 import BG from "assets/abstract12.svg";
-import Experiment from "./Experiment";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { useApi } from "utils/api";
 import { differenceInYears } from "utils/date";

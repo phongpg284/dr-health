@@ -1,26 +1,19 @@
 import "../PatientRecord/index.scss";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "app/store";
 import { Tabs } from "antd";
-
 import Chart from "./Chart/Chart";
-
 import { InfoTable } from "./TableInfo/Table";
 
-import Pathological from "./Pathological";
-
-import useInputDevice from "./useInputDevice";
 import ThresholdStats from "./ThresholdStats";
 import thermo from "../../../assets/themo.png";
 import heart from "../../../assets/heart.png";
 import spo2 from "../../../assets/spo2.jpg";
 import blood from "../../../assets/blood.png";
 
-import PatientTestHistory from "./PatientTestHistory";
 import Exercises from "./Exercises";
 import usePromise from "utils/usePromise";
-import { GetMedicalStatsResponse } from "common/types";
 import MedicineSchedule from "components/Profile/MedicineSchedule";
 import AppointmentSchedule from "./AppointmentSchedule";
 const { TabPane } = Tabs;
@@ -49,16 +42,12 @@ const PatientList = ({ match }: any) => {
     });
   };
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
   return (
     <div className="patient-wrapper">
       <div className="patient-choose"></div>
       {patientList && (
         <div className="patient-info-container">
-          <Tabs onChange={onChange} type="card">
+          <Tabs type="card">
             <TabPane tab="Thông tin" key="profile">
               <div className="patient-info-title">Hồ sơ bệnh nhân</div>
               <div className="patient-info-detail">

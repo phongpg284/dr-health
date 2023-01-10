@@ -1,23 +1,21 @@
 import "./index.css";
 import Notifications from "components/Notifications";
 import { useAppSelector } from "app/store";
-import Header from "components/Header";
 import { Empty } from "antd";
-import { useEffect, useState } from "react";
 import usePromise from "utils/usePromise";
 
-interface INotification {
-  id: string;
-  title: string;
-  content: string;
-  accountId: string;
-  role: string;
-  seen: boolean;
-  createdAt: string;
-}
+// interface INotification {
+//   id: string;
+//   title: string;
+//   content: string;
+//   accountId: string;
+//   role: string;
+//   seen: boolean;
+//   createdAt: string;
+// }
 
 const NotificationsPage = () => {
-  const { id, role } = useAppSelector((state) => state.account);
+  const { id } = useAppSelector((state) => state.account);
 
   const [notificationsList] = usePromise(`/user/notifications/${id}`);
 

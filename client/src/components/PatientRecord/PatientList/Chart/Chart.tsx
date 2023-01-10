@@ -64,9 +64,9 @@ export const getChartType = (type: string) => {
   if (type === "Tháng") return "day";
 };
 
-const Chart = ({ id, thresholdStatus }: any) => {
+const Chart = ({ id }: any) => {
   const [refetch, setRefetch] = useState(false);
-  const [medicalStats, loaded] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`, [refetch] as any);
+  const [medicalStats] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`, [refetch] as any);
   const [type, setType] = useState<typeof arrType[number]>(arrType[2]);
 
   const handleClickStatTracking = (key: typeof arrType[number]) => {
@@ -188,7 +188,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
     </Menu>
   );
 
-  const onChangeDatePick = (date: any, dateString: string) => {
+  const onChangeDatePick = (date: any) => {
     setDateStart(dayjs(date, "DD/MM/YYYY").startOf("day").toDate());
   };
 

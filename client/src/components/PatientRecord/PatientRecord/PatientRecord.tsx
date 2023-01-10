@@ -13,7 +13,6 @@ import spo2 from "../../../assets/spo2.jpg";
 import Chart from "../PatientList/Chart/Chart";
 import blood from "../../../assets/blood.png";
 
-import PatientTestHistory from "../PatientList/PatientTestHistory";
 import Exercises from "../PatientList/Exercises";
 import usePromise from "utils/usePromise";
 import { Tabs } from "antd";
@@ -42,15 +41,12 @@ const PatientRecord = () => {
       };
     });
   };
-  const onChange = (key: string) => {
-    console.log(key);
-  };
   return (
     <div className="patient-wrapper">
       <div className="patient-choose"></div>
       {patientData && (
         <div className="patient-info-container">
-          <Tabs onChange={onChange} type="card">
+          <Tabs type="card">
             <TabPane tab="Thông tin" key="profile">
               <div className="patient-info-title">Hồ sơ bệnh nhân</div>
               <div className="patient-info-detail">

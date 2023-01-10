@@ -4,12 +4,10 @@ import { message } from "antd";
 import Select from "react-select";
 import { ReactElement, useEffect, useState } from "react";
 import { useAppSelector } from "app/store";
-import * as Yup from "yup";
 import { useFormik } from "formik";
 import InputDate from "components/InputDate";
 import SubmitButton from "components/SubmitButton";
 import { useApi } from "utils/api";
-import { validationDefault } from "./validate";
 
 export const InfoTable = ({ data, editable = true }: any) => {
   return <PatientInfoTable data={data} editable={editable} />;

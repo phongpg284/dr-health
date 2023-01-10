@@ -24,7 +24,7 @@ interface INotification {
 
 const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
   const api = useApi();
-  const handleClickNotification = (id: string, url: string | undefined) => (e: any) => {
+  const handleClickNotification = (id: string, url: string | undefined) => () => {
     api.patch(`/notification/${id}`, {
       status: "seen",
     });

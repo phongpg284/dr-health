@@ -19,7 +19,6 @@ export interface InputDefaultProps {
   inputMode: "none" | "text" | "search" | "tel" | "url" | "email" | "numeric" | "decimal" | undefined;
   showLabel?: boolean;
   placeholder?: string;
-  warning?: boolean;
 }
 
 const InputDefault: React.FC<InputDefaultProps> = ({
@@ -33,14 +32,11 @@ const InputDefault: React.FC<InputDefaultProps> = ({
   mask,
   maskPlaceholder = "",
   showLabel = true,
-  warning = false,
   ...inputAttrs
 }) => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const fieldId = `input-${inputAttrs.name.toLowerCase().split(" ").join("-")}`;
   const inputType = inputAttrs.type === "password" && visiblePassword ? "text" : inputAttrs.type;
-
-  // const inputClasses = `input-type1 ${error ? 'error_border' : ''} ${warning ? 'warning' : ''}`;
 
   const Input = useCallback(
     ({ defaultValue }) => {

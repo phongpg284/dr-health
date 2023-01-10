@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 const Error: React.FC<{ className?: string; error: string; style?: any }> = ({ className = "red left pad-0 marg-0 weight_normal", error = "", style = {} }) => (
   <p className={className} style={style}>

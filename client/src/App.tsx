@@ -1,7 +1,7 @@
 import "./App.css";
 import { Spin } from "antd";
 import { createContext, useEffect, useRef, useState, Suspense, lazy } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "./app/store";
 import PrivateRoute from "pages/PrivateRoute";
 import Main from "pages/Main";
@@ -33,9 +33,6 @@ export const SocketContext = createContext<any>(null);
 
 function App() {
   const dispatch = useAppDispatch();
-  const { accessToken } = useAppSelector((state) => state.account);
-  const [isAuth, setIsAuth] = useState(true);
-  const [route, setRoute] = useState("/");
   const footerRef = useRef<any>();
 
   const [hasRunEffect, setRunEffect] = useState(false);
@@ -43,14 +40,6 @@ function App() {
     setRunEffect(true);
     dispatch(GreetingBotStore.reset());
   }, []);
-  useEffect(() => {
-    setRoute(window.location.pathname);
-  }, [window.location.pathname]);
-
-  useEffect(() => {
-    if (accessToken) setIsAuth(true);
-    else setIsAuth(false);
-  }, [accessToken]);
 
   return (
     <div className="App">
@@ -64,8 +53,6 @@ function App() {
 const socket = io("localhost:5000");
 function MyRouter() {
   const { role } = useAppSelector((state) => state.account);
-  const [isAuth, setIsAuth] = useState(true);
-  const [route, setRoute] = useState("/");
   const [isConnected, setIsConnected] = useState(socket.connected);
   useEffect(() => {
     socket.on("connect", () => {
@@ -87,8 +74,6 @@ function MyRouter() {
   return (
     <SocketContext.Provider value={socket}>
       <BrowserRouter>
-        {!isAuth && route !== "/" && <Redirect to="/login" />}
-
         <Switch>
           <Route path="/news" component={News} />
           <Route path="/ho-tro" component={Addition} />

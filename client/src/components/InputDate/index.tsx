@@ -9,7 +9,7 @@ interface InputProps {
   disabled?: boolean;
 }
 
-const InputDate: React.FC<InputProps> = ({ default_value, type, ...props }) => {
+const InputDate: React.FC<InputProps> = ({ default_value, ...props }) => {
   return (
     <InputDefault
       default_value={default_value}

@@ -2,7 +2,7 @@ import "./index.scss";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Badge, Empty } from "antd";
 import { useAppSelector } from "app/store";
@@ -13,7 +13,6 @@ import { HiOutlineClipboardCheck, HiOutlineClipboardCopy } from "react-icons/hi"
 import { IoMdClose } from "react-icons/io";
 import { useApi } from "utils/api";
 import usePromise from "utils/usePromise";
-import { get } from "lodash";
 
 dayjs.extend(relativeTime);
 
@@ -45,12 +44,11 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
   const account = useAppSelector((state) => state.account);
   const api = useApi();
 
-  const handleClickNotification = (id: string, url: string) => (e: any) => {
+  const handleClickNotification = (id: string, url: string) => () => {
     api.patch(`/notification/${id}`, {
       status: "seen",
     });
     if (url) window.open(url);
-    // history.push(`/notifications/${params}`);
   };
 
   const ShowNotification: React.FC<INotificationDropdownProps> = ({ data }) => (
@@ -154,8 +152,7 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
 };
 
 function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
-  const { id, role } = useAppSelector((state) => state.account);
-  const history = useHistory();
+  const { id } = useAppSelector((state) => state.account);
   const [unseen, setUnseen] = useState<number>(0);
   const [notificationsList, setNotificationsList] = useState<any>([]);
 

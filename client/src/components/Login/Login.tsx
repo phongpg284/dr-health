@@ -46,7 +46,7 @@ const Login = () => {
             })
           );
           history.push("/");
-        } 
+        }
       })
       .catch((error: AxiosError) => {
         setShowError((error.response?.data as any)?.message);
@@ -78,7 +78,7 @@ const Login = () => {
           validationSchema={LoginSchema}
           onSubmit={handleSubmit}
         >
-          {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
+          {({ handleSubmit, handleChange, errors }) => (
             <Form onSubmit={handleSubmit}>
               <Form.Group className="login-form-input" controlId="formBasicEmail">
                 <Form.Label className="login-form-label">Email</Form.Label>

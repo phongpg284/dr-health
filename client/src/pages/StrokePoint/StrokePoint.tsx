@@ -35,7 +35,7 @@ function StrokePoint() {
         newPoints.splice(index, 1);
       }
     }
-    const inputs = { patientId: patient, questions: newPoints };
+    // const inputs = { patientId: patient, questions: newPoints };
 
     // await uploadTest({
     //     variables: {
@@ -109,128 +109,128 @@ function PatientInformation({ onChange }: PatientInformation) {
 
 export default StrokePoint;
 
-type StrokeTableItem = {
-  question: string;
-  answers: string[];
-  points: number[];
-};
+// type StrokeTableItem = {
+//   question: string;
+//   answers: string[];
+//   points: number[];
+// };
 
-const strokeTable: StrokeTableItem[] = [
-  {
-    question: "ý thức",
-    answers: [
-      "Tỉnh táo (hoàn toàn tỉnh táo, đáp ứng ngay khi gọi, hợp tác tốt)",
-      "Lơ mơ (ngủ gà, tỉnh khi gọi hoặc lay, đáp ứng chính xác)",
-      "Sững sờ (chỉ thức tỉnh khi kích thích mạnh, đáp ứng kém chính xác)",
-      "Hôn mê (không đáp ứng với kích thích)",
-    ],
-    points: [0, 1, 2, 3],
-  },
-  {
-    question: "Hỏi tháng và tuổi bệnh nhân (2 câu hỏi)",
-    answers: ["Trả lời chính xác cả 2 câu", "Trả lời chính xác 1 câu", "Trả lời sai cả 2 câu"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Yêu cầu  mở/nhắm mắt + nắm chặt tay (2 yêu cầu)",
-    answers: ["Làm theo đúng cả 2 yêu cầu", "Làm theo đúng 1 yêu cầu", "Làm sai cả 2 yêu cầu"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Nhìn phối hợp",
-    answers: ["Nhìn phối hợp", "Liệt vận nhãn một phần của 1 hay 2 mắt", "Xoay mắt đầu sang một bên hoặc liệt đờ vận nhãn (nghiệm pháp mắt - đầu)"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Thị trường",
-    answers: ["Bình thường", "Bán manh một phần", "Bán manh hoàn toàn", "Bán manh 2 bên"],
-    points: [0, 1, 2, 3],
-  },
-  {
-    question: "Liệt mặt",
-    answers: [
-      "Không liệt",
-      "Liệt nhẹ (chỉ mất cân đối khi cười và nói, vận động chủ động vẫn bình thường)",
-      "Liệt một phần (liệt rõ rệt, nhưng vẫn còn cử động phần nào)",
-      "Liệt hoàn toàn (hoàn toàn không có chút cử động nào của nửa mặt)",
-    ],
-    points: [0, 1, 2, 3],
-  },
-  {
-    question: "Vận động tay trái: (duỗi thẳng tay 90 độ nếu ngồi, hoặc 45 độ nếu nằm, trong 10 giây)",
-    answers: [
-      "Không lệch (giữ được hơn 10 giây)",
-      "Lệch (giữ được, nhưng lệch thấp xuống trước 10 giây)",
-      "Không chống được trọng lực (lệch nhanh, nhưng có cố giữ lại)",
-      "Rơi tự do (tay rơi hoàn toàn, cố nhưng không cưỡng lại được)",
-      "Không cử động",
-    ],
-    points: [0, 1, 2, 3, 4],
-  },
-  {
-    question: "Vận động tay phải: (duỗi thẳng tay 90 độ nếu ngồi, hoặc 45 độ nếu nằm, trong 10 giây)",
-    answers: [
-      "Không lệch (giữ được hơn 10 giây)",
-      "Lệch (giữ được, nhưng lệch thấp xuống trước 10 giây)",
-      "Không chống được trọng lực (lệch nhanh, nhưng có cố giữ lại)",
-      "Rơi tự do (tay rơi hoàn toàn, cố nhưng không cưỡng lại được)",
-      "Không cử động",
-    ],
-    points: [0, 1, 2, 3, 4],
-  },
+// const strokeTable: StrokeTableItem[] = [
+//   {
+//     question: "ý thức",
+//     answers: [
+//       "Tỉnh táo (hoàn toàn tỉnh táo, đáp ứng ngay khi gọi, hợp tác tốt)",
+//       "Lơ mơ (ngủ gà, tỉnh khi gọi hoặc lay, đáp ứng chính xác)",
+//       "Sững sờ (chỉ thức tỉnh khi kích thích mạnh, đáp ứng kém chính xác)",
+//       "Hôn mê (không đáp ứng với kích thích)",
+//     ],
+//     points: [0, 1, 2, 3],
+//   },
+//   {
+//     question: "Hỏi tháng và tuổi bệnh nhân (2 câu hỏi)",
+//     answers: ["Trả lời chính xác cả 2 câu", "Trả lời chính xác 1 câu", "Trả lời sai cả 2 câu"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Yêu cầu  mở/nhắm mắt + nắm chặt tay (2 yêu cầu)",
+//     answers: ["Làm theo đúng cả 2 yêu cầu", "Làm theo đúng 1 yêu cầu", "Làm sai cả 2 yêu cầu"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Nhìn phối hợp",
+//     answers: ["Nhìn phối hợp", "Liệt vận nhãn một phần của 1 hay 2 mắt", "Xoay mắt đầu sang một bên hoặc liệt đờ vận nhãn (nghiệm pháp mắt - đầu)"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Thị trường",
+//     answers: ["Bình thường", "Bán manh một phần", "Bán manh hoàn toàn", "Bán manh 2 bên"],
+//     points: [0, 1, 2, 3],
+//   },
+//   {
+//     question: "Liệt mặt",
+//     answers: [
+//       "Không liệt",
+//       "Liệt nhẹ (chỉ mất cân đối khi cười và nói, vận động chủ động vẫn bình thường)",
+//       "Liệt một phần (liệt rõ rệt, nhưng vẫn còn cử động phần nào)",
+//       "Liệt hoàn toàn (hoàn toàn không có chút cử động nào của nửa mặt)",
+//     ],
+//     points: [0, 1, 2, 3],
+//   },
+//   {
+//     question: "Vận động tay trái: (duỗi thẳng tay 90 độ nếu ngồi, hoặc 45 độ nếu nằm, trong 10 giây)",
+//     answers: [
+//       "Không lệch (giữ được hơn 10 giây)",
+//       "Lệch (giữ được, nhưng lệch thấp xuống trước 10 giây)",
+//       "Không chống được trọng lực (lệch nhanh, nhưng có cố giữ lại)",
+//       "Rơi tự do (tay rơi hoàn toàn, cố nhưng không cưỡng lại được)",
+//       "Không cử động",
+//     ],
+//     points: [0, 1, 2, 3, 4],
+//   },
+//   {
+//     question: "Vận động tay phải: (duỗi thẳng tay 90 độ nếu ngồi, hoặc 45 độ nếu nằm, trong 10 giây)",
+//     answers: [
+//       "Không lệch (giữ được hơn 10 giây)",
+//       "Lệch (giữ được, nhưng lệch thấp xuống trước 10 giây)",
+//       "Không chống được trọng lực (lệch nhanh, nhưng có cố giữ lại)",
+//       "Rơi tự do (tay rơi hoàn toàn, cố nhưng không cưỡng lại được)",
+//       "Không cử động",
+//     ],
+//     points: [0, 1, 2, 3, 4],
+//   },
 
-  {
-    question: "Vận động chân trái (nằm ngửa, giơ chân tạo góc 30 độ trong 5 giây)",
-    answers: [
-      "Không lệch (giữ được 30 độ hơn 5 giây)",
-      "Lệch (lệch xuống ở tư thế trung gian khi gần hết 5 giây)",
-      "Không chống được trọng lực (rơi xuống giường trước 5 giây)",
-      "Rơi tự do",
-      "Không cử động",
-    ],
-    points: [0, 1, 2, 3, 4],
-  },
-  {
-    question: "Vận động chân phải (nằm ngửa, giơ chân tạo góc 30 độ trong 5 giây)",
-    answers: [
-      "Không lệch (giữ được 30 độ hơn 5 giây)",
-      "Lệch (lệch xuống ở tư thế trung gian khi gần hết 5 giây)",
-      "Không chống được trọng lực (rơi xuống giường trước 5 giây)",
-      "Rơi tự do",
-      "Không cử động",
-    ],
-    points: [0, 1, 2, 3, 4],
-  },
-  {
-    question: "Mất điều hòa vận động (nghiệm pháp ngón trỏ mũi và gót gối)",
-    answers: ["Không có mất điều hòa", "Có nhưng chỉ ở tay hoặc chỉ ở chân", "Có ở cả tay lẫn chân"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Cảm giác",
-    answers: ["Bình thường (không mất cảm giác)", "Giảm một phần", "Giảm nặng"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Chứng lãng quên nửa người (neglect/agnosia)",
-    answers: ["Không quên nửa người", "Quên thị giác hoặc xúc giác hoặc thính giác", "Quên ít nhất là 2 giác quan nói trên"],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Loạn vận ngôn",
-    answers: [
-      "Nói bình thường",
-      "Nhẹ /Trung bình (nói nhịu nói lắp vài từ, hiểu được nhưng có khó khăn)",
-      "Nói lắp/nhịu không thể hiểu được (nhưng không loạn ngôn ngữ - dysphasia)",
-    ],
-    points: [0, 1, 2],
-  },
-  {
-    question: "Ngôn ngữ",
-    answers: ["Bình thường", "Mất ngôn ngữ nhẹ /trung bình", "Mất ngôn ngữ nặng (đầy đủ biểu hiện thể Broca hay Wernicke, hay biến thể)", "Câm lặng hoặc mất ngôn ngữ toàn bộ"],
-    points: [0, 1, 2, 3],
-  },
-];
+//   {
+//     question: "Vận động chân trái (nằm ngửa, giơ chân tạo góc 30 độ trong 5 giây)",
+//     answers: [
+//       "Không lệch (giữ được 30 độ hơn 5 giây)",
+//       "Lệch (lệch xuống ở tư thế trung gian khi gần hết 5 giây)",
+//       "Không chống được trọng lực (rơi xuống giường trước 5 giây)",
+//       "Rơi tự do",
+//       "Không cử động",
+//     ],
+//     points: [0, 1, 2, 3, 4],
+//   },
+//   {
+//     question: "Vận động chân phải (nằm ngửa, giơ chân tạo góc 30 độ trong 5 giây)",
+//     answers: [
+//       "Không lệch (giữ được 30 độ hơn 5 giây)",
+//       "Lệch (lệch xuống ở tư thế trung gian khi gần hết 5 giây)",
+//       "Không chống được trọng lực (rơi xuống giường trước 5 giây)",
+//       "Rơi tự do",
+//       "Không cử động",
+//     ],
+//     points: [0, 1, 2, 3, 4],
+//   },
+//   {
+//     question: "Mất điều hòa vận động (nghiệm pháp ngón trỏ mũi và gót gối)",
+//     answers: ["Không có mất điều hòa", "Có nhưng chỉ ở tay hoặc chỉ ở chân", "Có ở cả tay lẫn chân"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Cảm giác",
+//     answers: ["Bình thường (không mất cảm giác)", "Giảm một phần", "Giảm nặng"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Chứng lãng quên nửa người (neglect/agnosia)",
+//     answers: ["Không quên nửa người", "Quên thị giác hoặc xúc giác hoặc thính giác", "Quên ít nhất là 2 giác quan nói trên"],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Loạn vận ngôn",
+//     answers: [
+//       "Nói bình thường",
+//       "Nhẹ /Trung bình (nói nhịu nói lắp vài từ, hiểu được nhưng có khó khăn)",
+//       "Nói lắp/nhịu không thể hiểu được (nhưng không loạn ngôn ngữ - dysphasia)",
+//     ],
+//     points: [0, 1, 2],
+//   },
+//   {
+//     question: "Ngôn ngữ",
+//     answers: ["Bình thường", "Mất ngôn ngữ nhẹ /trung bình", "Mất ngôn ngữ nặng (đầy đủ biểu hiện thể Broca hay Wernicke, hay biến thể)", "Câm lặng hoặc mất ngôn ngữ toàn bộ"],
+//     points: [0, 1, 2, 3],
+//   },
+// ];
 
 const defaultQuestions = [
   {

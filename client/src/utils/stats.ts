@@ -34,7 +34,7 @@ export const calculateStat = (type: "Ngày" | "Tháng" | "Tuần", data: Medical
     });
 
     if (isMultipleValue) {
-      Object.entries(secondArr).forEach(([key, value]) => {
+      Object.values(secondArr).forEach((value) => {
         const average = Math.floor((value.reduce((prev, curr) => prev + parseFloat(curr), 0) / value.length) * 10) / 10;
         secondAvg.push(average);
       });
@@ -74,7 +74,7 @@ export const calculateStat = (type: "Ngày" | "Tháng" | "Tuần", data: Medical
       );
     });
     if (isMultipleValue) {
-      Object.entries(secondArr).forEach(([key, value]) => {
+      Object.values(secondArr).forEach((value) => {
         const average = Math.floor((value.reduce((prev, curr) => prev + parseFloat(curr), 0) / value.length) * 10) / 10;
         secondAvg.push(average);
       });
@@ -111,12 +111,12 @@ export const calculateStat = (type: "Ngày" | "Tháng" | "Tuần", data: Medical
         dayjs(startDate)
           .add(+key, "day")
           .format("DD/MM") +
-          ", " +
-          getDateOfWeek(dayjs(startDate).add(+key, "day"))
+        ", " +
+        getDateOfWeek(dayjs(startDate).add(+key, "day"))
       );
     });
     if (isMultipleValue) {
-      Object.entries(secondArr).forEach(([key, value]) => {
+      Object.values(secondArr).forEach((value) => {
         const average = Math.floor((value.reduce((prev, curr) => prev + parseFloat(curr), 0) / value.length) * 10) / 10;
         secondAvg.push(average);
       });

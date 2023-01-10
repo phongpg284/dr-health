@@ -1,15 +1,14 @@
-import "./index.scss"
+import "./index.scss";
 import dayjs from "dayjs";
 import { useAppSelector } from "app/store";
 import { useEffect, useState } from "react";
 import { DatePicker, Input, Table } from "antd";
 import useInputDoctor from "./useInputDoctor";
-import BG from '../../assets/abstract12.svg'
+import BG from "../../assets/abstract12.svg";
 import usePromise from "utils/usePromise";
-import { get } from "lodash";
 
 export const DoctorRecord = () => {
-  const account = useAppSelector(state => state.account);
+  const account = useAppSelector((state) => state.account);
   const [dataSource, setDataSource] = useState<any>();
 
   const [data] = usePromise<any>(`/doctor/${account.id}`);
@@ -31,9 +30,7 @@ export const DoctorRecord = () => {
       key: "name",
       width: "30%",
       // eslint-disable-next-line react/display-name
-      render: (text: string) => (
-        <div style={{ fontWeight: "bold" }}>{text}</div>
-      ),
+      render: (text: string) => <div style={{ fontWeight: "bold" }}>{text}</div>,
     },
     {
       title: "value",
@@ -46,108 +43,63 @@ export const DoctorRecord = () => {
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editFullName && <span>{text}</span>}
-              {editFullName && (
-                <Input
-                  onChange={onChangeFullName}
-                  style={{ width: "100px" }}
-                  value={fullName}
-                />
-              )}
+              {editFullName && <Input onChange={onChangeFullName} style={{ width: "100px" }} value={fullName} />}
             </div>
           );
         if (record.name === "Số điện thoại")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editPhone && <span>{text}</span>}
-              {editPhone && (
-                <Input
-                  onChange={onChangePhone}
-                  style={{ width: "100px" }}
-                  value={phone}
-                />
-              )}
+              {editPhone && <Input onChange={onChangePhone} style={{ width: "100px" }} value={phone} />}
             </div>
           );
         if (record.name === "Chức vụ")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editJobPosition && <span>{text}</span>}
-              {editJobPosition && (
-                <Input
-                  onChange={onChangeJobPosition}
-                  style={{ width: "100px" }}
-                  value={jobPosition}
-                />
-              )}
+              {editJobPosition && <Input onChange={onChangeJobPosition} style={{ width: "100px" }} value={jobPosition} />}
             </div>
           );
         if (record.name === "Phòng-khoa")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editDepartment && <span>{text}</span>}
-              {editDepartment && (
-                <Input
-                  onChange={onChangeDepartment}
-                  value={department}
-                />
-              )}
+              {editDepartment && <Input onChange={onChangeDepartment} value={department} />}
             </div>
           );
         if (record.name === "Email")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editEmail && <span>{text}</span>}
-              {editEmail && (
-                <Input
-                  onChange={onChangeEmail}
-                  value={email}
-                />
-              )}
+              {editEmail && <Input onChange={onChangeEmail} value={email} />}
             </div>
           );
         if (record.name === "Giới tính")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editGender && <span>{text}</span>}
-              {editGender && (
-                <Input
-                  onChange={onChangeGender}
-                  value={gender}
-                />
-              )}
+              {editGender && <Input onChange={onChangeGender} value={gender} />}
             </div>
           );
         if (record.name === "Tuổi")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editAge && <span>{text}</span>}
-              {editAge && (
-                <Input
-                  onChange={onChangeAge}
-                  value={age}
-                />
-              )}
+              {editAge && <Input onChange={onChangeAge} value={age} />}
             </div>
           );
         if (record.name === "Ngày sinh")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editBirth && <span>{dayjs(text).format("DD/MM/YYYY")}</span>}
-              {editBirth && (
-                <DatePicker onChange={onChangeBirth} format={"DD/MM/YYYY"} />
-              )}
+              {editBirth && <DatePicker onChange={onChangeBirth} format={"DD/MM/YYYY"} />}
             </div>
           );
         if (record.name === "Học vấn")
           return (
             <div className="d-flex justify-content-between align-items-center">
               {!editEducation && <span>{text}</span>}
-              {editEducation && (
-                <Input
-                  onChange={onChangeEducation}
-                  value={education}
-                />
-              )}
+              {editEducation && <Input onChange={onChangeEducation} value={education} />}
             </div>
           );
         return <span>{text}</span>;
@@ -292,7 +244,7 @@ export const DoctorRecord = () => {
             </div>
           );
       },
-    }
+    },
   ];
 
   useEffect(() => {
@@ -351,13 +303,11 @@ export const DoctorRecord = () => {
     <div className="doctor-record-wrapper">
       <img src={BG} className="doctorRecordBg" alt="" />
       <div className="doctorContainer">
-
         <div className="doctor-record-header-title">Thay đổi thông tin</div>
         <Table dataSource={dataSource} columns={columns} pagination={false} />
       </div>
-
     </div>
-  )
+  );
 };
 
-export default DoctorRecord
+export default DoctorRecord;

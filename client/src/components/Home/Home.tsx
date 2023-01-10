@@ -43,15 +43,15 @@ export const Home = () => {
   const contactRef = useRef(null);
   const slideRef = useRef(null);
 
-  const handleClickVideo = () => {
-    (videoRef?.current as any).scrollIntoView({ behavior: "smooth" });
-  };
-  const handleClickContact = () => {
-    (contactRef?.current as any).scrollIntoView({ behavior: "smooth" });
-  };
-  const handleClickSlide = () => {
-    (slideRef?.current as any).scrollIntoView({ behavior: "smooth" });
-  };
+  // const handleClickVideo = () => {
+  //   (videoRef?.current as any).scrollIntoView({ behavior: "smooth" });
+  // };
+  // const handleClickContact = () => {
+  //   (contactRef?.current as any).scrollIntoView({ behavior: "smooth" });
+  // };
+  // const handleClickSlide = () => {
+  //   (slideRef?.current as any).scrollIntoView({ behavior: "smooth" });
+  // };
   return (
     <div className="home_wrapper">
       <Header />
@@ -201,33 +201,11 @@ function HomeVideo() {
       />
     );
   }
-  const ArrayDiv = React.useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < 10; i++) {
-      arr.push(AnimateDiv(i * 0.5));
-    }
-    return arr;
-  }, []);
 
   const [show, setShow] = React.useState(false);
   function toggle() {
     setShow(!show);
   }
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
 
   const ref = React.useRef<CarouselRef>(null);
 

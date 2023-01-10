@@ -9,8 +9,8 @@ import { isMobile } from "react-device-detect";
 
 //icon
 import { BiCalendarPlus } from "react-icons/bi";
-import { FaPhoneAlt, FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical } from "react-icons/fa";
-import { IoGameControllerOutline, IoWatch } from "react-icons/io5";
+import { FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical } from "react-icons/fa";
+import { IoWatch } from "react-icons/io5";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
@@ -262,22 +262,6 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
       api.get(`/doctor/${user.id}`).then((res) => setData(setIsDeviceConnect(res?.data?.isConnect)));
     }
   }, [data]);
-
-  const ContactUs = () => {
-    if (isPatient)
-      return (
-        <div
-          className="header_contact"
-          onClick={function () {
-            window.scrollTo(0, document.body.clientHeight);
-          }}
-        >
-          <FaPhoneAlt className="header_contact_icon" />
-          Contact us
-        </div>
-      );
-    return <></>;
-  };
 
   const dispatch = useAppDispatch();
 

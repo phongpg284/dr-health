@@ -1,13 +1,10 @@
 import "./style.scss";
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
 import { REACT_APP_HOMEPAGE_URL } from "config/config";
 
 const ErrorPage = () => {
   const app = useRef(null);
-  const history = useHistory();
-  console.log(history);
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set("svg", { visibility: "visible" });

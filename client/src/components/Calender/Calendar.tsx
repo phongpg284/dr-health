@@ -13,7 +13,6 @@ import CheckBox from "./Items/Checkbox";
 import { MedicineCard } from "./Items/MedicineCard";
 import ScheduleCalendar from "../Profile/MedicineSchedule";
 import { handleBackStep_0, handleBackStep_1, handleBackStep_2 } from "./handleEvent";
-import { get } from "lodash";
 
 import PatientAvatar from "assets/default-avatar-patient.png";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";

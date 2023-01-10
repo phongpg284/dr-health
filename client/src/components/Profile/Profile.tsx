@@ -5,17 +5,13 @@ import { useAppSelector } from "../../app/store";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
-import { getBMI, getDiagnostic } from "helpers/diagnostic";
-
 //icon
 
 import { FaBriefcaseMedical, FaUserNurse } from "react-icons/fa";
-import { MdOutlineCalculate, MdOutlineHealthAndSafety, MdOutlineLastPage, MdOutlineMonitorWeight, MdOutlinePersonalInjury } from "react-icons/md";
+import { MdOutlinePersonalInjury } from "react-icons/md";
 import { BsCalendarCheck, BsClipboardData, BsStar, BsTelephone } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import { VscSymbolNamespace } from "react-icons/vsc";
 import { IoMailOutline } from "react-icons/io5";
-import { AiOutlineColumnHeight } from "react-icons/ai";
 
 //image
 
@@ -31,20 +27,16 @@ export default function Profile() {
   const user = useAppSelector((state) => state.account);
   const [patientData] = usePromise(`/user/role/${user.id}`);
 
-  const medicineSchedule = React.useMemo(() => {
-    if (user.role === "patient") {
-      return patientData?.medicineSchedule;
-    }
-  }, [user]);
-
   return (
     <div className="profile_all">
       <div className="profile_carry">
         <UserCard roleData={patientData} />
 
-        <div id="medicineCalendar" className="calendarContainer">
-          <MedicineSchedule patientAccountId={+user.id!} />
-        </div>
+        {user.id && (
+          <div id="medicineCalendar" className="calendarContainer">
+            <MedicineSchedule patientAccountId={+user.id} />
+          </div>
+        )}
       </div>
     </div>
   );

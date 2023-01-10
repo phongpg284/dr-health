@@ -75,7 +75,7 @@ const Signup = () => {
           validationSchema={SignupSchema}
           onSubmit={handleSubmit}
         >
-          {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors }) => (
+          {({ handleSubmit, handleChange, values, errors }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group className="signup-form-input" controlId="fullName">
                 <Form.Label className="signup-form-label">Họ tên</Form.Label>
