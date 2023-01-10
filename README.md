@@ -1,6 +1,6 @@
 # Dr.Health  
-Web application connect patients and doctors
-Created with [Apollo](https://www.apollographql.com/) and [Create-React-App](https://create-react-app.dev/)
+Healthcare web application 
+Created with [NestJS](https://nestjs.com/) and [Create-React-App](https://create-react-app.dev/)
 
 Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquitto.org/)
 ## Table of contents
@@ -13,7 +13,7 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
 - [NodeJS](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/)
 - [MQTT broker (Mosquitto)](https://mosquitto.org/)
-- [Yarn](https://yarnpkg.com/getting-started/install)
+- [Yarn](https://yarnpkg.com/getting-started/install) (optional)
 
 ## Project structures
 **VS Code workspace**
@@ -26,12 +26,12 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
 - Run `SERVER`: 
   ```
   cd server
-  yarn dev
+  yarn start
   ```
 - Run `CLIENT`: 
   ```
   cd client
-  yarn dev
+  yarn start
   ```
 - Run `WEB` 
   ```
