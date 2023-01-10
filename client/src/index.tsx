@@ -10,17 +10,21 @@ import App from "./App";
 import store from "./app/store";
 import GreetingBot from "./components/GreetingBot";
 import { ApiProvider } from "utils/api";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage404 from "pages/ErrorPage/ErrorPage404";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ToastContainer />
-    <GreetingBot />
-    <React.StrictMode>
-      <ApiProvider>
-        <App />
-      </ApiProvider>
-    </React.StrictMode>
-  </Provider>,
+  <ErrorBoundary FallbackComponent={ErrorPage404}>
+    <Provider store={store}>
+      <ToastContainer />
+      <GreetingBot />
+      <React.StrictMode>
+        <ApiProvider>
+          <App />
+        </ApiProvider>
+      </React.StrictMode>
+    </Provider>
+  </ErrorBoundary>,
   document.getElementById("root")
 );
 
