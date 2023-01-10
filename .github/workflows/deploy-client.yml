@@ -30,6 +30,7 @@ jobs:
         with:
           generate_sourcemap: false
           repository: client
+          homepage_url: "https://dr-health.com.vn"
           websocket_server_hostname: "https://dr-health.com.vn"
           api_server_hostname: "https://dr-health.com.vn/api"
 

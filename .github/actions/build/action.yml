@@ -9,12 +9,15 @@ inputs:
   generate_sourcemap:
     description: "Generate sourcemap or not"
     required: true
+  homepage_url:
+    description: "Homepage URL"
+    required: true
   api_server_hostname:
     description: "Hostname of API server"
-    required: false
+    required: true
   websocket_server_hostname:
     description: "Hostname of Websocket server"
-    required: false
+    required: true
   repository:
     description: "Build repository"
     required: true
@@ -30,6 +33,7 @@ runs:
       env:
         GENERATE_SOURCEMAP: ${{ inputs.generate_sourcemap }}
         DISABLE_ESLINT_PLUGIN: true
+        REACT_APP_HOMEPAGE_URL: ${{ inputs.homepage_url }}
         REACT_APP_SERVER_URL: ${{ inputs.api_server_hostname }}
         REACT_APP_WEBSOCKET_URL: ${{ inputs.websocket_server_hostname }}
         REACT_APP_VIDEOSDK_API_KEY: ${{ inputs.sdk_api_key }}
