@@ -9,7 +9,6 @@ import { IoMdPin } from "react-icons/io";
 import { MdLocalHospital, MdOutlineLocalPhone } from "react-icons/md";
 import { isMobile } from "react-device-detect";
 
-import Header from "../../components/Header";
 import hospitalList, { HospitalProps } from "./hospitalList";
 import AbstractOneLine from "../../assets/abstract-one-line.svg";
 
@@ -73,7 +72,6 @@ function HospitalMap(): ReactElement {
 
   return (
     <div>
-      <Header />
       <div className="hospitalMapContent">
         <h1>Cơ sở điều trị</h1>
         <div className="outsideContainer">

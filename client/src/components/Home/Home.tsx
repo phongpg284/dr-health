@@ -54,7 +54,6 @@ export const Home = () => {
   // };
   return (
     <div className="home_wrapper">
-      <Header />
       <div className="home-content">
         <div style={{ backgroundImage: `url(${AbstractBackground})` }} className="home_main">
           {/* <img src={AbstractBackground} className="bg" alt="" /> */}

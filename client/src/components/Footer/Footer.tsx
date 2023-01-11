@@ -7,7 +7,7 @@ import { FooterContext } from "App";
 import logo from "../../assets/logo1.png";
 import { AiFillFacebook } from "react-icons/ai";
 
-export const Footer = () => {
+const Footer = () => {
   const footerRef = useContext(FooterContext);
   return (
     <div id="web_footer" className="footer" ref={footerRef}>

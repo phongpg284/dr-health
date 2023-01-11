@@ -4,12 +4,12 @@ import { createContext, useEffect, useRef, useState, Suspense, lazy } from "reac
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "./app/store";
 import PrivateRoute from "pages/PrivateRoute";
-import Main from "pages/Main";
 import LoginPage from "./pages/Login/LoginPage";
 import SignupPage from "./pages/Signup/SignupPage";
 import { Home } from "components/Home";
 import * as GreetingBotStore from "./app/GreetingBot";
 import io from "socket.io-client";
+import PublicRoute from "pages/PublicRoute";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
@@ -53,15 +53,12 @@ function App() {
 const socket = io("localhost:5000");
 function MyRouter() {
   const { role } = useAppSelector((state) => state.account);
-  const [isConnected, setIsConnected] = useState(socket.connected);
   useEffect(() => {
     socket.on("connect", () => {
-      setIsConnected(true);
       console.log("socket connect");
     });
 
     socket.on("disconnect", () => {
-      setIsConnected(false);
       console.log("socket disconnect");
     });
 
@@ -75,16 +72,15 @@ function MyRouter() {
     <SocketContext.Provider value={socket}>
       <BrowserRouter>
         <Switch>
-          <Route path="/news" component={News} />
-          <Route path="/ho-tro" component={Addition} />
-
-          <Main path="/co-so-dieu-tri" component={HospitalMap} />
+          <PublicRoute path="/news" component={News} />
+          <PublicRoute path="/ho-tro" component={Addition} />
+          <PublicRoute path="/co-so-dieu-tri" component={HospitalMap} />
 
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
-          <Main exact path="/" component={Home} />
+          <PublicRoute exact path="/" component={Home} />
 
-          <Main exact path="/phuc-hoi" component={FirstAid} />
+          <PublicRoute exact path="/phuc-hoi" component={FirstAid} />
           {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
           <PrivateRoute exact path="/profile" component={ProfilePage} />
