@@ -70,17 +70,6 @@ const ApiProvider: React.FC = ({ children }) => {
   return <ApiContext.Provider value={axiosInstance}>{children}</ApiContext.Provider>;
 };
 
-// const withApi = (Component: React.ComponentType<{ api: AxiosInstance }>): React.FC => {
-//   return (props) => {
-//     const api = useContext(ApiContext);
-//     return (
-//       <Component {...props} api={api}>
-//         {props.children}
-//       </Component>
-//     );
-//   };
-// };
-
 const useApi = (): AxiosInstance => useContext(ApiContext);
 
 export { ApiProvider, ApiContext, useApi };

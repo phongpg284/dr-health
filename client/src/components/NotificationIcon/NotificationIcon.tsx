@@ -16,16 +16,12 @@ import usePromise from "utils/usePromise";
 
 dayjs.extend(relativeTime);
 
-interface INotificationIconProps {
-  count?: number;
+interface NotificationDropdownProps {
+  data: Notification[];
+  onHide: () => void;
 }
 
-interface INotificationDropdownProps {
-  data: INotification[];
-  onHide: any;
-}
-
-interface INotification {
+interface Notification {
   id: string;
   title: string;
   content: string;
@@ -40,7 +36,7 @@ interface INotification {
   };
 }
 
-const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHide }) => {
+const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ data, onHide }) => {
   const account = useAppSelector((state) => state.account);
   const api = useApi();
 
@@ -51,7 +47,7 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
     if (url) window.open(url);
   };
 
-  const ShowNotification: React.FC<INotificationDropdownProps> = ({ data }) => (
+  const ShowNotification: React.FC<NotificationDropdownProps> = ({ data }) => (
     <>
       {data &&
         data.map((notification: any) => (
@@ -151,73 +147,36 @@ const NotificationDropdown: React.FC<INotificationDropdownProps> = ({ data, onHi
   );
 };
 
-function NotificationList({ show, setShow }: { show: boolean; setShow: any }) {
-  const { id } = useAppSelector((state) => state.account);
-  const [unseen, setUnseen] = useState<number>(0);
-  const [notificationsList, setNotificationsList] = useState<any>([]);
+interface NotificationListProps {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  data: Notification[];
+}
 
-  const [notifications] = usePromise(`/user/notifications/${id}`);
-
-  //   const { data: newNotification } = useSubscription(NOTIFICATIONS_SUBSCRIPTION, {
-  //     variables: { id },
-  //   });
-
-  useEffect(() => {
-    console.log(notifications);
-
-    if (notifications) {
-      setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
-      setNotificationsList(notifications);
-    }
-  }, [notifications]);
-
-  //   useEffect(() => {
-  //     if (newNotification?.newNotification) {
-  //       setUnseen((x) => (x || 0) + 1);
-  //       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
-  //       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
-  //         history.push("/so-cuu");
-  //       }
-  //     }
-  //   }, [newNotification]);
-
-  function onHide() {
+const NotificationList = ({ show, setShow, data }: NotificationListProps) => {
+  const onHide = () => {
     setShow(false);
-  }
+  };
   return (
     <Modal show={show} onHide={onHide} dialogClassName="modal_noti">
       <div className="notifications_dropdown">
-        <NotificationDropdown onHide={onHide} data={notificationsList} />
+        <NotificationDropdown onHide={onHide} data={data} />
       </div>
     </Modal>
   );
-}
+};
 
-const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
+const NotificationIcon = ({ children }: any) => {
   const { id } = useAppSelector((state) => state.account);
   const [show, setShow] = useState(false);
-  function toggle() {
-    setShow(!show);
-  }
-
   const [unseen, setUnseen] = useState<number>(0);
-  const [notificationsList, setNotificationsList] = useState<any>([]);
-
   const [notifications] = usePromise(`/user/notifications/${id}`);
+
   useEffect(() => {
     setUnseen(notifications?.filter((notification: any) => notification.status !== "seen").length);
-    setNotificationsList(notifications);
   }, [notifications]);
 
-  //   useEffect(() => {
-  //     if (newNotification?.newNotification) {
-  //       setUnseen((x) => (x || 0) + 1);
-  //       setNotificationsList((data: INotification[]) => [...(data || []), newNotification.newNotification]);
-  //       if (newNotification.newNotification.title === "CẢNH BÁO ĐỘT QUỴ!") {
-  //         history.push("/so-cuu");
-  //       }
-  //     }
-  //   }, [newNotification]);
+  const toggle = () => setShow(!show);
 
   return (
     <>
@@ -226,7 +185,7 @@ const NotificationIcon: React.FC<INotificationIconProps> = ({ children }) => {
           {children}
         </Badge>
       </div>
-      <NotificationList show={show} setShow={setShow} />
+      <NotificationList show={show} setShow={setShow} data={notifications} />
     </>
   );
 };

@@ -180,10 +180,6 @@ export const MedicineCard: React.FC<Card> = ({ name, index, medicine }) => {
             <InputNumber min={1} value={quantity} onChange={onQuantityChange} className="calendar_number_picker_item calendar_rounded" />
           </div>
           <MyTimesPicker onChange={onHoursChange} times={times} />
-
-          {/* <div className="calendar_card_add calendar_set_date_item calendar_rounded" onClick={onTest}>
-                    <span>Test</span>
-                </div> */}
         </div>
         <div className="calendarRow">
           <TextArea rows={2} placeholder="Cách dùng thuốc" className="note" onBlur={onInputAreaChange} ref={commentRef} />

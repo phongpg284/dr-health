@@ -24,15 +24,8 @@ const { TextArea } = Input;
 export default function Calendar() {
   const account = useAppSelector((state) => state.account);
   const api = useApi();
-  const [patientData] = usePromise<unknown[]>(`/doctor/patients/${account.id}`);
-  const [patientList, setPatientList] = useState<unknown[]>([]);
-  const [patientChoose, setPatientChoose] = useState<any>();
-  useEffect(() => {
-    if (patientData) {
-      setPatientList(patientData);
-      setPatientChoose(patientData?.[0]);
-    }
-  }, [patientData]);
+  const [patientList] = usePromise<unknown[]>(`/doctor/patients/${account.id}`);
+  const [patientChoose, setPatientChoose] = useState<any>(patientList?.[0]);
 
   //Phase 1
 
@@ -138,12 +131,7 @@ export default function Calendar() {
             <DropdownButton id="dropdown-basic-button" title={patientChoose?.fullName} className="calendar_dropdown" variant="secondary">
               {patientList &&
                 patientList.map((patient: any) => (
-                  <Dropdown.Item
-                    key={patient.id}
-                    onClick={function () {
-                      setPatientChoose(patient);
-                    }}
-                  >
+                  <Dropdown.Item key={patient.id} onClick={() => setPatientChoose(patient)}>
                     {patient.fullName}
                   </Dropdown.Item>
                 ))}

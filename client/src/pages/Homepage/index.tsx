@@ -1,11 +1,12 @@
-import { Home } from "components/Home";
 import "./index.scss";
+import { Home } from "components/Home";
+
 const HomePage = () => {
-    return (
-        <div className="home-page">
-            <Home />
-        </div>
-    )
-}
+  return (
+    <div className="home-page">
+      <Home />
+    </div>
+  );
+};
 
 export default HomePage;

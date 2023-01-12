@@ -3,11 +3,11 @@ import dayjs from "dayjs";
 import { Empty } from "antd";
 import { HiOutlineClipboardCheck, HiOutlineClipboardCopy } from "react-icons/hi";
 import { useApi } from "utils/api";
-interface INotificationDropdownProps {
-  data: INotification[];
+interface NotificationDropdownProps {
+  data: Notification[];
 }
 
-interface INotification {
+interface Notification {
   id: string;
   title: string;
   content: string;
@@ -22,7 +22,7 @@ interface INotification {
   };
 }
 
-const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
+const Notifications: React.FC<NotificationDropdownProps> = ({ data }) => {
   const api = useApi();
   const handleClickNotification = (id: string, url: string | undefined) => () => {
     api.patch(`/notification/${id}`, {
@@ -31,7 +31,7 @@ const Notifications: React.FC<INotificationDropdownProps> = ({ data }) => {
     if (url) window.open(url);
     // history.push(`/notifications/${params}`);
   };
-  const ShowNotification: React.FC<INotificationDropdownProps> = ({ data }) => (
+  const ShowNotification: React.FC<NotificationDropdownProps> = ({ data }) => (
     <>
       {data &&
         data.map((notification) => (

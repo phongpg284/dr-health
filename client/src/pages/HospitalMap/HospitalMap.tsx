@@ -1,5 +1,5 @@
 import "./HospitalMap.scss";
-import React, { ReactElement } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import ReactMapGL, { Marker } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
@@ -20,7 +20,7 @@ mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 //@ts-ignore
 ReactMapGL.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
-function HospitalMap(): ReactElement {
+function HospitalMap(): JSX.Element {
   const defaultSide = React.useMemo(() => {
     if (!isMobile) {
       return {
@@ -97,16 +97,18 @@ interface HospitalListItem {
   hospital: HospitalProps;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
-function HospitalListItem(props: HospitalListItem) {
+
+const HospitalListItem = ({ hospital, onClick }: HospitalListItem) => {
   const [modal, setModal] = React.useState(false);
-  function toggleModal() {
+  const toggleModal = () => {
     setModal(!modal);
-  }
-  const { hospital, onClick } = props;
-  function onItemClick(e: React.MouseEvent<HTMLDivElement>) {
+  };
+
+  const onItemClick = (e: React.MouseEvent<HTMLDivElement>) => {
     toggleModal();
     onClick(e);
-  }
+  };
+
   return (
     <div onClick={onItemClick} className="hospitalListItem">
       <div className="name rowItem">
@@ -117,7 +119,7 @@ function HospitalListItem(props: HospitalListItem) {
       </div>
     </div>
   );
-}
+};
 
 interface HospitalModalProps {
   hospital: HospitalProps;
@@ -125,11 +127,11 @@ interface HospitalModalProps {
   modal: boolean;
 }
 
-function ModalItem(props: HospitalModalProps) {
-  const { hospital, setModal, modal } = props;
-  function onHide() {
+const ModalItem = ({ hospital, setModal, modal }: HospitalModalProps) => {
+  const onHide = () => {
     setModal(false);
-  }
+  };
+
   return (
     <Modal centered show={modal} onHide={onHide}>
       <Modal.Header closeButton>
@@ -162,17 +164,17 @@ function ModalItem(props: HospitalModalProps) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 interface MyMap {
   setViewport: any;
   viewport: any;
-  onChose: any;
+  onChose: (item: number) => void;
 }
 
 const token = process.env.REACT_APP_MAPBOX_TOKEN || "pk.eyJ1Ijoia2hvaW5ndXllbjEyMjAiLCJhIjoiY2t5MmxyY21xMG0zMDJvczI5NWg1bXE0MCJ9.0bnXpWtdPXeUNVBYHg-dBA";
 
-function MyMap({ viewport, setViewport, onChose }: MyMap): ReactElement {
+function MyMap({ viewport, setViewport, onChose }: MyMap): JSX.Element {
   const { zoom } = viewport;
 
   const sizeIcon = React.useMemo(() => {
