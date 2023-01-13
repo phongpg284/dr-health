@@ -25,20 +25,22 @@ import { updateToken } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { useApi } from "utils/api";
 
-export default function Header() {
+const Header = () => {
   const MenuRef = React.useRef<HTMLDivElement>(null);
-
   const [closeMenu, setCloseMenu] = useState(true);
-  function toggle() {
+  const { role, accessToken, id } = useAppSelector((state) => state.account);
+  const [isShowingUserDropDown, setIsShowingUserDropDown] = useState(false);
+  const isAuthenticated = accessToken && id;
+  const toggle = () => {
     setCloseMenu(!closeMenu);
-  }
+  };
   function handleClickOutDropDown(event: any) {
     if (MenuRef.current && !MenuRef.current.contains(event.target)) {
       setCloseMenu(true);
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!closeMenu) {
       document.addEventListener("click", handleClickOutDropDown);
       return () => {
@@ -47,14 +49,9 @@ export default function Header() {
     }
   }, [closeMenu]);
 
-  const { role } = useAppSelector((state) => state.account);
-
-  const userAccountInfo = useAppSelector((state) => state.account);
-
-  const [showUserDropDown, setShowUserDropDown] = useState(false);
-  const toggleUserDropDown = () => setShowUserDropDown(!showUserDropDown);
+  const toggleUserDropDown = () => setIsShowingUserDropDown(!isShowingUserDropDown);
   const openDropDown = () => {
-    if (!showUserDropDown) setShowUserDropDown(true);
+    if (!isShowingUserDropDown) setIsShowingUserDropDown(true);
   };
 
   return (
@@ -82,7 +79,7 @@ export default function Header() {
           )}
           <motion.div
             initial={{ x: isMobile ? "-100%" : "0" }}
-            animate={{ x: isMobile && closeMenu ? "-100%" : "0" }}
+            animate={{ x: isMobile && closeMenu ? "-150%" : "0" }}
             transition={{ type: "tween", duration: 0.5 }}
             className="header_topbar"
           >
@@ -146,7 +143,7 @@ export default function Header() {
               )}
             </div>
             <div className="account_space">
-              {!userAccountInfo.accessToken && !userAccountInfo.id && (
+              {!isAuthenticated && (
                 <Link to="/login" className="login_btn last">
                   <span>Đăng nhập</span>
                   <span className="icon">
@@ -155,14 +152,14 @@ export default function Header() {
                 </Link>
               )}
 
-              {userAccountInfo.accessToken && userAccountInfo.id && (
+              {isAuthenticated && (
                 <div className="user_space">
                   <NotificationIcon>
                     <FaBell className="header_notifications_icon" />
                   </NotificationIcon>
                   <div className="avatar_container">
-                    {userAccountInfo.role === "doctor" && <Image className="header_avatar header_imageremoveselect" src={defaultAvatar} onClick={openDropDown} />}
-                    {userAccountInfo.role === "patient" && (
+                    {role === "doctor" && <Image className="header_avatar header_imageremoveselect" src={defaultAvatar} onClick={openDropDown} />}
+                    {role === "patient" && (
                       <Image
                         className="header_avatar header_imageremoveselect"
                         src={defaultAvatarPatient}
@@ -170,7 +167,7 @@ export default function Header() {
                         onClick={openDropDown}
                       />
                     )}
-                    <UserDropDown show={showUserDropDown} toggle={toggleUserDropDown} />
+                    <UserDropDown show={isShowingUserDropDown} toggle={toggleUserDropDown} />
                   </div>
                 </div>
               )}
@@ -187,7 +184,7 @@ export default function Header() {
       </div>
     </div>
   );
-}
+};
 
 function LinkDropDown({ title, to, children }: { title: string; to?: string; children: any }) {
   const [open, setOpen] = useState(false);
@@ -496,3 +493,5 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
     </div>
   );
 }
+
+export default Header;

@@ -3,9 +3,9 @@ import React from "react";
 import { toast } from "react-toastify";
 import BG from "../../assets/abstract12.svg";
 
-import { useAppDispatch, useAppSelector } from "app/store";
+import { useAppDispatch } from "app/store";
 import * as GreetingBot from "app/GreetingBot";
-import usePromise from "utils/usePromise";
+import PatientSelect from "components/PatientSelect";
 
 function StrokePoint() {
   const dispatch = useAppDispatch();
@@ -55,54 +55,11 @@ function StrokePoint() {
         <h1 className="title">Thang điểm đột quỵ của viện sức khỏe Quốc gia Hoa Kỳ</h1>
         <h2 className="des">National Institutes of Health (NIH) Stroke Scale - (NIHSS)</h2>
       </div>
-      <PatientInformation onChange={onPatientInformationChange} />
+      <PatientSelect onChange={onPatientInformationChange} />
       <StrokeTable onChangePoints={onChangePoints} />
       <button onClick={handleSubmit} className="submitButton">
         Gửi thông tin
       </button>
-    </div>
-  );
-}
-
-interface PatientInformation {
-  onChange: (value: string | null) => void;
-}
-function PatientInformation({ onChange }: PatientInformation) {
-  const account = useAppSelector((state) => state.account);
-  const [patientData] = usePromise(`/doctor/patients/${account.id}`);
-
-  const listPatient = React.useMemo(() => {
-    if (patientData) {
-      return patientData.getPatientsOfDoctor;
-    } else {
-      return [];
-    }
-  }, [patientData]);
-
-  const [patient, setPatient] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    onChange(patient);
-  }, [patient, listPatient]);
-
-  return (
-    <div className="patientInformation">
-      <div className="patientGroup">
-        <span className="patientLabel">Bệnh nhân</span>
-        <select
-          onChange={(e) => {
-            setPatient(e.target.value);
-          }}
-          className="patientInput"
-        >
-          <option value="">Chọn bệnh nhân</option>
-          {listPatient?.map((patient: any) => (
-            <option key={patient.id} value={patient._id}>
-              {patient.fullName}
-            </option>
-          ))}
-        </select>
-      </div>
     </div>
   );
 }

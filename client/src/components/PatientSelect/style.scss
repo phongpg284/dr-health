@@ -1,0 +1,28 @@
+.patientSelect {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    width: 95%;
+    margin: auto;
+
+    .patientGroup {
+        margin: 1rem;
+        display: flex;
+        background: rgb(230, 0, 141);
+        background: linear-gradient(45deg, rgb(187, 0, 115) 0%, rgb(142, 1, 189) 100%);
+        border-radius: 7px;
+        overflow: hidden;
+
+        .patientLabel {
+            padding: 0.7rem;
+            color: white;
+        }
+
+        .patientInput {
+            padding: 0.7rem;
+            border: none;
+            outline: none;
+        }
+    }
+}
