@@ -1,12 +1,14 @@
-import "./News.scss";
 import React, { ReactElement } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useAppDispatch } from "app/store";
-import * as GreetingBot from "app/GreetingBot";
-import Abstract14 from "assets/abstract14.png";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer/Footer";
 import News1 from "./News1";
 import News2 from "./News2";
 import News3 from "./News3";
+import "./News.scss";
+import { useAppDispatch } from "app/store";
+import * as GreetingBot from "app/GreetingBot";
+import Abstract14 from "assets/abstract14.png";
 import News4 from "./News4";
 import News5 from "./News5";
 import News6 from "./News6";

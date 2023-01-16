@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Calendar } from "antd";
 import { Modal } from "react-bootstrap";
 import "./medicineSchedule.scss";
-import dayjs from "dayjs";
+import moment from "moment";
 import usePromise from "utils/usePromise";
 import { getScheduleOfDate } from "utils/schedule";
 
@@ -20,7 +20,7 @@ function MedicineSchedule(props: Props): ReactElement {
     return clearDate;
   }
 
-  function dateCellRender(value: dayjs.Dayjs) {
+  function dateCellRender(value: moment.Moment) {
     if (!medicineSchedule) return;
     const date = new Date(value.toISOString());
     const schedules = getScheduleOfDate(date, medicineSchedule ?? []);
@@ -30,8 +30,8 @@ function MedicineSchedule(props: Props): ReactElement {
     return <MedicineScheduleItem unselect={unselect} selected={selected} schedule={schedules} value={value} />;
   }
 
-  const [selectDate, setSelectDate] = React.useState<dayjs.Dayjs | null>(null);
-  function onSelect(value: dayjs.Dayjs) {
+  const [selectDate, setSelectDate] = React.useState<moment.Moment | null>(null);
+  function onSelect(value: moment.Moment) {
     setSelectDate(value);
   }
   function unselect() {
@@ -72,7 +72,7 @@ function MedicineScheduleItem({ schedule, selected, unselect, value }: { value: 
                       </div>
                       <div>
                         Giờ uống thuốc: &nbsp;
-                        <span>{dayjs(new Date(sche?.time)).format("HH:mm")}</span>
+                        <span>{moment(new Date(sche?.time)).format("HH:mm")}</span>
                       </div>
                       {sche?.medicinePrescription?.note != "" && sche?.medicinePrescription?.note != null && (
                         <div>
@@ -88,7 +88,7 @@ function MedicineScheduleItem({ schedule, selected, unselect, value }: { value: 
                       </div>
                       <div>
                         Thời gian: &nbsp;
-                        <span>{dayjs(new Date(sche?.time)).format("HH:mm")}</span>
+                        <span>{moment(new Date(sche?.time)).format("HH:mm")}</span>
                       </div>
                       <div>
                         Thời lượng: <span> {sche?.appointment?.duration} phút</span>
