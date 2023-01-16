@@ -72,7 +72,7 @@ const PatientCardsList = () => {
       <button className="button-62" onClick={handleClickAddPatient}>
         Thêm bệnh nhân
       </button>
-      <Modal title="Thêm bệnh nhân" visible={showAddPatient} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
+      <Modal title="Thêm bệnh nhân" open={showAddPatient} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
         <Input placeholder="Nhập mã bệnh nhân" onChange={handleChangePatientCode} />
       </Modal>
       <div className="patientList">

@@ -25,7 +25,6 @@ import "chartjs-adapter-date-fns";
 import zoomPlugin from "chartjs-plugin-zoom";
 
 import dayjs from "dayjs";
-import moment from "moment";
 
 import { calculateStat } from "utils/stats";
 import SingleLineChart from "./SingleLineChart";
@@ -228,7 +227,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
               {timeType + " "} <DownOutlined />
             </Button>
           </Dropdown>
-          <DatePicker onChange={onChangeDatePick} format={"DD/MM/YYYY"} defaultValue={moment(dateStart)} />
+          <DatePicker onChange={onChangeDatePick} format={"DD/MM/YYYY"} defaultValue={dayjs(dateStart)} />
         </div>
         {selectedType === arrType[0].key && (
           <SingleLineChart

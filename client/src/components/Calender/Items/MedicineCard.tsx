@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "app/store";
 import { updateMedicineSet } from "app/medicineSlice";
 import { DatePicker, Input, InputNumber, TimePicker } from "antd";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -207,7 +207,7 @@ function MyTimesPicker(props: MyTimesPickerProps) {
     }
   }, [times, arrHours]);
 
-  function onHoursChange(value: moment.Moment | null, index: number) {
+  function onHoursChange(value: dayjs.Dayjs | null, index: number) {
     const newTime = value ? value.toString() : "";
     const newArr = [...arrHours];
     newArr[index] = newTime;
@@ -224,7 +224,7 @@ function MyTimesPicker(props: MyTimesPickerProps) {
       {arrHours.map((hour, index) => (
         <div className="pickerItem" key={index}>
           <label className="label">Lần {index + 1}</label>
-          <TimePicker defaultValue={moment(defaultDate.toISOString())} key={index} onChange={(value) => onHoursChange(value, index)} className="pickerInput" />
+          <TimePicker defaultValue={dayjs(defaultDate.toISOString())} key={index} onChange={(value) => onHoursChange(value, index)} className="pickerInput" />
         </div>
       ))}
     </>

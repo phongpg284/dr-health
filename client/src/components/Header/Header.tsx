@@ -484,7 +484,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
               <FaPowerOff className="header_pi_icon" />
               <span className="text">Đăng xuất</span>
             </div>
-            <Modal title="Xác nhận gỡ thiết bị" visible={isDeviceStatusModalOpen} onCancel={handleCancel}>
+            <Modal title="Xác nhận gỡ thiết bị" open={isDeviceStatusModalOpen} onCancel={handleCancel}>
               <p>Some contents...</p>
             </Modal>
           </div>

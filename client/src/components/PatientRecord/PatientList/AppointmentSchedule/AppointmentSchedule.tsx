@@ -52,7 +52,7 @@ const AppointmentSchedule = ({ id }: any) => {
             Đặt lịch hẹn
           </button>
         )}
-        <Modal title="Đặt lịch hẹn" visible={showAddMeeting} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
+        <Modal title="Đặt lịch hẹn" open={showAddMeeting} onOk={confirmAddMeeting} onCancel={handleClickCancelAddMeeting}>
           <Form form={form} name="basic" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} initialValues={{ remember: true }} autoComplete="off">
             <Form.Item label="Tiêu đề" name="name" rules={[{ required: true, message: "Hãy chọn tiêu đề!" }]}>
               <Input />

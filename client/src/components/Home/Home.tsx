@@ -293,7 +293,6 @@ function Achievements() {
   }, []);
 
   const [visible, setVisible] = React.useState(false);
-  const [pos, setPos] = React.useState(0);
 
   function checkVisible() {
     if (!ref || !ref.current) return;
