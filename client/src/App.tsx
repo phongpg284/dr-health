@@ -94,9 +94,9 @@ function MyRouter() {
               <PrivateRoute exact path="/patients" component={PatientCardsList} />
               <PrivateRoute exact path="/patients/:id" component={PatientList} />
               <PrivateRoute exact path="/record" component={DoctorRecord} />
-              <PrivateRoute exact path="/stroke_point" component={StrokePoint} />
+              <PrivateRoute exact path="/upload/stroke-point" component={StrokePoint} />
               <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
-              <PrivateRoute exact path="/projection_photo" component={ProjectionPhoto} />
+              <PrivateRoute exact path="/upload/projection-photo" component={ProjectionPhoto} />
             </>
           )}
           {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}

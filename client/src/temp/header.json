@@ -1,0 +1,99 @@
+[
+  {
+    "id": 0,
+    "title": "Bản tin",
+    "href": "/news",
+    "items": [
+      {
+        "id": 0,
+        "title": "Nhận biết các bệnh",
+        "href": "/nhan-biet-dot-quy"
+      },
+      {
+        "id": 1,
+        "title": "Điều trị các bệnh",
+        "href": "/dieu-tri-dot-quy"
+      },
+      {
+        "id": 2,
+        "title": "Phòng ngừa các bệnh",
+        "href": "/phong-ngua-dot-quy"
+      },
+      {
+        "id": 3,
+        "title": "Cấp cứu",
+        "href": "/cap-cuu"
+      },
+      {
+        "id": 4,
+        "title": "Bệnh ở người trẻ tuổi",
+        "href": "/tu-vong-do-dot-quy-o-nguoi-tre-tuoi-ngay-cang-gia-tang"
+      },
+      {
+        "id": 5,
+        "title": "Quy tắc BEFAST",
+        "href": "/quy-tac-befast"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Hỗ trợ bệnh nhân",
+    "href": "/ho-tro",
+    "items": [
+      {
+        "id": 0,
+        "title": "Chế độ dinh dưỡng",
+        "href": "/che-do-dinh-duong"
+      },
+      {
+        "id": 1,
+        "title": "Giải pháp phòng ngừa các bệnh hiệu quả",
+        "href": "/giai-phap-phong-ngua"
+      },
+      {
+        "id": 2,
+        "title": "Sơ cứu bệnh nhân",
+        "href": "/so-cuu"
+      },
+      {
+        "id": 3,
+        "title": "Bài tập vật lý trị liệu",
+        "href": "/vat-ly-tri-lieu"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Cơ sở điều trị",
+    "href": "/co-so-dieu-tri"
+  },
+  {
+    "id": 3,
+    "title": "Dữ liệu bệnh nhân",
+    "condition": "doctor_only",
+    "href": "/upload",
+    "items": [
+      {
+        "id": 0,
+        "title": "Thang điểm đột quỵ",
+        "href": "/stroke-point"
+      },
+      {
+        "id": 1,
+        "title": "Thông số máu",
+        "href": "/blood"
+      },
+      {
+        "id": 2,
+        "title": "Ảnh chụp chiếu",
+        "href": "/projection-photo"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Sản phẩm",
+    "href": "/product"
+  }
+]

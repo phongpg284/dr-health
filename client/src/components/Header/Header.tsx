@@ -24,6 +24,7 @@ import NotificationIcon from "components/NotificationIcon";
 import { updateToken } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { useApi } from "utils/api";
+import headers from "../../temp/header.json";
 
 const Header = () => {
   const MenuRef = React.useRef<HTMLDivElement>(null);
@@ -89,58 +90,28 @@ const Header = () => {
                   <span> Trang chủ</span>
                 </Link>
               )}
-              <LinkDropDown title="Bản tin">
-                <Link className="drop_down_link" to="/news/nhan-biet-dot-quy">
-                  Nhận biết các bệnh
-                </Link>
-                <Link className="drop_down_link" to="/news/dieu-tri-dot-quy">
-                  Điều trị các bệnh
-                </Link>
-                <Link className="drop_down_link" to="/news/phong-ngua-dot-quy">
-                  Phòng ngừa các bệnh
-                </Link>
-                <Link className="drop_down_link" to="/news/cap-cuu">
-                  Cấp cứu
-                </Link>
-                <Link className="drop_down_link" to="/news/tu-vong-do-dot-quy-o-nguoi-tre-tuoi-ngay-cang-gia-tang">
-                  Bệnh ở người trẻ tuổi
-                </Link>
-                <Link className="drop_down_link" to="/news/quy-tac-befast">
-                  Quy tắc BEFAST
-                </Link>
-              </LinkDropDown>
-
-              <LinkDropDown title="Hỗ trợ bệnh nhân">
-                <Link className="drop_down_link" to="/ho-tro/che-do-dinh-duong">
-                  Chế độ dinh dưỡng
-                </Link>
-                <Link className="drop_down_link" to="/ho-tro/giai-phap-phong-ngua">
-                  Giải pháp phòng ngừa các bệnh hiệu quả
-                </Link>
-                <Link className="drop_down_link" to="/ho-tro/so-cuu">
-                  Sơ cứu bệnh nhân
-                </Link>
-                <Link className="drop_down_link" to="/ho-tro/vat-ly-tri-lieu">
-                  Bài tập vật lý trị liệu
-                </Link>
-              </LinkDropDown>
-              <Link className="header_navigate_bar_item" to="/co-so-dieu-tri">
-                <span>Cơ sở điều trị</span>
-              </Link>
-
-              {role == "doctor" && (
-                <LinkDropDown title="Dữ liệu bệnh nhân">
-                  <Link className="drop_down_link" to="/stroke_point">
-                    Thang điểm đột quỵ
-                  </Link>
-                  <Link className="drop_down_link" to="/upload/blood">
-                    Thông số máu
-                  </Link>
-                  <Link className="drop_down_link" to="/projection_photo">
-                    Ảnh chụp chiếu
-                  </Link>
-                </LinkDropDown>
-              )}
+              {headers &&
+                headers?.map((category) => (
+                  <>
+                    {(!category?.condition || (category.condition === "doctor_only" && role === "doctor")) && (
+                      <>
+                        {category?.items ? (
+                          <LinkDropDown key={category.id} title={category.title}>
+                            {category.items?.map((item) => (
+                              <Link key={item.id} className="drop_down_link" to={category.href + item.href}>
+                                {item.title}
+                              </Link>
+                            ))}
+                          </LinkDropDown>
+                        ) : (
+                          <Link className="header_navigate_bar_item" to={category.href}>
+                            <span>{category.title}</span>
+                          </Link>
+                        )}
+                      </>
+                    )}
+                  </>
+                ))}
             </div>
             <div className="account_space">
               {!isAuthenticated && (
