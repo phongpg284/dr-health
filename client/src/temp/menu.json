@@ -1,0 +1,68 @@
+[
+  {
+    "id": 0,
+    "title": "Chăm sóc sắc đẹp",
+    "items": [
+      {
+        "title": "Chăm sóc tóc",
+        "id": 0
+      },
+      {
+        "title": "Chăm sóc da",
+        "id": 1
+      },
+      {
+        "title": "Điều trị da mặt",
+        "id": 2
+      },
+      {
+        "title": "Chăm sóc cơ thể",
+        "id": 3
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Chăm sóc cá nhân",
+    "items": [
+      {
+        "title": "Chăm sóc phụ nữ",
+        "id": 0
+      },
+      {
+        "title": "Chăm sóc trẻ em",
+        "id": 1
+      },
+      {
+        "title": "Điều trị da mặt",
+        "id": 2
+      },
+      {
+        "title": "Chăm sóc cơ thể",
+        "id": 3
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Thiết bị y tế",
+    "items": [
+      {
+        "title": "Gel bôi các loại",
+        "id": 0
+      },
+      {
+        "title": "Dụng cụ sơ cứu",
+        "id": 1
+      },
+      {
+        "title": "Dụng cụ vệ sinh",
+        "id": 2
+      },
+      {
+        "title": "Dịch vụ y tế",
+        "id": 3
+      }
+    ]
+  }
+]

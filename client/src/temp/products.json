@@ -1,0 +1,335 @@
+[
+  {
+    "category_id": "0-0",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "180.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-1",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "10.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/gel_tri_mun_derma_forte_c844b327cf.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "179.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-2",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-3",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "1-0",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "1-1",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "1-2",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "1-3",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000 đ",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  },
+  {
+    "category_id": "2-0",
+    "products": [
+      {
+        "title": "Kem trị rôm sảy và ngăn ngừa mụn Yoosun Rau Má tuýp 25g",
+        "price": "20.000",
+        "currency": "đ",
+        "unit": "tuýp",
+        "sold": "42",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị mụn, mờ sẹo thâm Derma Forte tuýp 15g",
+        "price": "85.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "36",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      },
+      {
+        "title": "Kem trị sẹo Dermatix Ultra tuýp 7g",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "hộp",
+        "sold": "16",
+        "image": "https://cdn.medigoapp.com/product/2eec9e9746874297acead6d53ba9e4bb.jpg"
+      }
+    ]
+  }
+]
