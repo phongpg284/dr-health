@@ -70,6 +70,16 @@
   },
   {
     "id": 3,
+    "title": "Sản phẩm",
+    "href": "/product"
+  },
+  {
+    "id": 4,
+    "title": "Đặt lịch",
+    "href": "/booking"
+  },
+  {
+    "id": 5,
     "title": "Dữ liệu bệnh nhân",
     "condition": "doctor_only",
     "href": "/upload",
@@ -90,10 +100,5 @@
         "href": "/projection-photo"
       }
     ]
-  },
-  {
-    "id": 4,
-    "title": "Sản phẩm",
-    "href": "/product"
   }
 ]

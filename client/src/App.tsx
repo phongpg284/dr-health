@@ -11,6 +11,7 @@ import * as GreetingBotStore from "./app/GreetingBot";
 import io from "socket.io-client";
 import PublicRoute from "pages/PublicRoute";
 import Product from "pages/Product";
+import Booking from "pages/Booking";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
@@ -83,6 +84,7 @@ function MyRouter() {
 
           <PublicRoute exact path="/phuc-hoi" component={FirstAid} />
           <PublicRoute exact path="/product" component={Product} />
+          <PublicRoute exact path="/booking" component={Booking} />
           {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
           <PrivateRoute exact path="/profile" component={ProfilePage} />

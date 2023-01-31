@@ -1,5 +1,6 @@
 @import "~antd/dist/antd.css";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+
 .App {
     text-align: center;
     /* background: #ebfbff; */
@@ -45,9 +46,9 @@ body{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(102, 0, 102);
-} */
+}
 
-.App-header {
+*/ .App-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -66,6 +67,7 @@ body{
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -73,26 +75,26 @@ body{
 
 #root {
     font-family: Arial, Helvetica, sans-serif;
-    margin:0 !important;
-    padding:0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 @media screen and (max-width: 400px) {
     #features {
-      padding: 20px;
-      width: 111%;
+        padding: 20px;
+        width: 111%;
     }
+
     #about,
     #services,
     #testimonials,
     #team,
     #contact,
     #footer {
-      width: 111%;
+        width: 111%;
     }
-  
+
     #portfolio {
-      width: 110%;
+        width: 110%;
     }
-  }
-  
+}
