@@ -28,11 +28,13 @@ $extrafast: 0.1s;
   justify-content: center;
   align-items: center;
 }
+
 @mixin flexcenterrow {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .calendarcolumn {
   display: flex;
   flex-direction: column;
@@ -40,60 +42,74 @@ $extrafast: 0.1s;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .calendarrow {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .calendar_text {
   color: $black;
   font-size: 15px;
 }
+
 .calendar_box_shadow {
   box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.25);
 }
+
 .calendar_shadow_rounded {
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
+
 .calendar_rounded {
   border-radius: 6px;
 }
+
 .calendar_hidden {
   display: none;
 }
+
 .calendarrow {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .calendar_box_shadow {
   box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.25);
 }
-.calendar_all {
-}
+
+.calendar_all {}
+
 .calendar_spacer {
   height: 30px;
 }
+
 .calendar_z {
   z-index: 1;
 }
+
 //sidebar
 * {
   .calendar_logo {
     left: 100px;
   }
+
   .calendar_body {
     @include flexcenterrow;
     width: 100%;
     height: 100vh;
     overflow-y: auto;
   }
+
   .calendar_sidebar {
     width: 25%;
     height: 100%;
+
     @media (max-width: 875px) {
       display: none;
     }
@@ -106,18 +122,20 @@ $extrafast: 0.1s;
     height: 100%;
     background-color: #dcdcdc;
   }
+
   .calendar_sidebar_itemcarry {
     @include flexcentercolumn;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
     border: 1px solid #b3d6ee;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
     min-height: 100%;
     background-color: #8fd2ff;
   }
+
   .calendar_sidebar_item {
     @include flexcenterrow;
-    justify-content: start;
+    justify-content: flex-start;
     position: relative;
     width: 100%;
     height: 65px;
@@ -126,9 +144,11 @@ $extrafast: 0.1s;
     cursor: pointer;
     transition: all $superfast ease-out;
   }
+
   .calendar_first_margin {
     margin-top: 120px;
   }
+
   .calendar_sidebar_item:hover {
     background-color: $whitebluehover;
     opacity: 0.8;
@@ -138,34 +158,37 @@ $extrafast: 0.1s;
     position: absolute;
     width: 200%;
     height: 100%;
-    background: linear-gradient(
-      89.84deg,
-      #4224ec 0.08%,
-      rgba(196, 196, 196, 0) 49%
-    );
+    background: linear-gradient(89.84deg,
+        #4224ec 0.08%,
+        rgba(196, 196, 196, 0) 49%);
     opacity: 0.9;
     transition: all $superfast ease-out;
     transform: translateX(-100%);
   }
+
   .calendar_sidebar_item_back_choose {
     transform: unset;
   }
+
   .calendar_sidebar_icon {
     height: 20px;
     margin-left: calc(14.3% - 10px);
     transition: all $fast ease-out;
     z-index: 5;
   }
+
   .calendar_sidebar_icon_choose {
     height: 50px;
     margin-left: calc(14.3% - 25px);
   }
+
   .calendar_sidebar_item_content {
     position: absolute;
     left: calc(14.3% + 40px);
     font-size: 18px;
     transition: all $fast ease-out;
   }
+
   .calendar_sidebar_item_content_choose {
     color: $white;
   }
@@ -184,6 +207,7 @@ $extrafast: 0.1s;
       width: 100%;
     }
   }
+
   .calendar_patient_logo {
     position: absolute;
     @include flexcenterrow;
@@ -205,14 +229,17 @@ $extrafast: 0.1s;
       left: calc(2.5% - 18px);
     }
   }
+
   .calendar_patient_logo:hover {
     box-shadow: 0px 0px 12px rgba(231, 122, 235, 0.658);
   }
+
   .calendar_patient_logo:active {
     transition: all 0.05s ease-in;
     box-shadow: 0px 0px 15px rgba(231, 122, 235, 0.658);
     opacity: 1;
   }
+
   .calendar_patient_carry {
     @include flexcenterrow;
     position: absolute;
@@ -229,19 +256,23 @@ $extrafast: 0.1s;
     z-index: 4;
     transform-origin: top left;
     transition: all 0.3s ease-in;
+
     @media (max-width: 875px) {
       left: 60px;
     }
   }
+
   .calendar_patient_carry_toggle {
     max-width: 400px;
     max-height: 120px;
     opacity: 1;
   }
+
   .calendar_dropdown {
     margin-bottom: 10px;
     margin-top: 20px;
   }
+
   .calendar_patient_name {
     @include flexcentercolumn;
     margin-top: 10px;
@@ -253,6 +284,7 @@ $extrafast: 0.1s;
     background-color: #fcf96d;
     box-shadow: -1px 1px 3px rgba(104, 104, 104, 0.5);
   }
+
   .calendar_patient_name_outside {
     position: absolute;
     font-size: 20px;
@@ -260,14 +292,17 @@ $extrafast: 0.1s;
     z-index: 5;
     top: 6px;
     left: 120px;
+
     @media (max-width: 875px) {
       left: 80px;
     }
+
     color: white;
   }
+
   .calendar_content_carry {
     @include flexcentercolumn;
-    justify-content: start;
+    justify-content: flex-start;
     @extend .calendar_shadow_rounded;
     border-radius: 10px;
     width: 90%;
@@ -275,14 +310,17 @@ $extrafast: 0.1s;
     // background-image: linear-gradient(45deg, #fbda61 0%, #ff5acd 100%);
     background: linear-gradient(45deg, #2bc0e4 0%, #eaecc6 150%);
     border: 1px #e9f2ff solid;
+
     @media (max-width: 875px) {
       width: 95%;
     }
   }
+
   .calendar_icon {
     font-size: 34px;
     margin-right: 15px;
   }
+
   .calendar_content_button {
     @include flexcenterrow;
     font-size: 20px;
@@ -291,10 +329,12 @@ $extrafast: 0.1s;
     width: 70%;
     margin-bottom: 20px;
     margin-left: -20px;
+
     @media (max-width: 575px) {
       font-size: 16px;
     }
   }
+
   .calendar_patients_info {
     @include flexcenterrow;
     height: 56px;
@@ -306,15 +346,18 @@ $extrafast: 0.1s;
     pointer-events: none;
     transition: all $normal ease-in-out;
   }
+
   .calendar_patients_info_toggle {
     cursor: pointer;
     pointer-events: all;
     background-color: #e7d031;
   }
+
   .calendar_patients_info_toggle:hover {
     transition: all $superfast ease-in-out;
     background-color: #c9b63f;
   }
+
   .calendar_setcalendar {
     position: relative;
     height: 56px;
@@ -324,9 +367,11 @@ $extrafast: 0.1s;
     cursor: pointer;
     transition: all $normal ease-in-out;
   }
+
   .calendar_setcalendar_toggle {
     min-width: 70%;
   }
+
   .calendar_setcalendar_item {
     position: absolute;
     height: 56px;
@@ -336,13 +381,16 @@ $extrafast: 0.1s;
     user-select: none;
     cursor: pointer;
     transition: all $normal ease-in-out;
+
     @media (max-width: 575px) {
       margin-left: -30px;
     }
   }
+
   .calendar_setcalendar_item:hover {
     background-color: #96c931;
   }
+
   .calendar_thecalendar {
     border: 1px solid #efebeb;
     padding: 0 20px;
@@ -352,10 +400,12 @@ $extrafast: 0.1s;
     width: 70%;
     height: 70%;
     transition: all $normal ease-in-out;
+
     @media (max-width: 875px) {
       width: 90%;
     }
   }
+
   .calendar_thecalendar_toggle {
     margin-bottom: 0;
     height: 0;
@@ -365,26 +415,29 @@ $extrafast: 0.1s;
 
   .calendar_set_detail {
     @include flexcentercolumn;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 0;
     height: 0;
     opacity: 0;
     transition: all $superfast ease-in-out;
   }
+
   .calendar_set_detail_toggle {
     margin-top: 10px;
     height: 70%;
     width: 100%;
     opacity: 1;
   }
+
   .calendar_set_content {
     @include flexcenterrow;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 80%;
     height: 95%;
     overflow: hidden;
   }
+
   .calendar_set_item {
     transform-origin: top;
     transform: translateY(-10px) scaleY(0);
@@ -392,6 +445,7 @@ $extrafast: 0.1s;
     overflow: hidden;
     transition: all $superfast ease-in-out;
   }
+
   .calendar_set_item_toggle {
     transform: none;
     overflow: unset;
@@ -402,22 +456,25 @@ $extrafast: 0.1s;
 
   .calendar_set_content_phase_1 {
     @include flexcenterrow;
-    justify-content: start;
+    justify-content: flex-start;
     flex: 0 0 100%;
     flex-wrap: wrap;
     overflow: hidden;
     transition: all $normal ease-in-out;
+
     @media (max-width: 875px) {
       flex-direction: column;
       overflow-y: auto;
     }
   }
+
   .calendar_set_medicine {
     @include flexcentercolumn;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-bottom: 20px;
   }
+
   .calendar_set_medicine_item {
     transform-origin: top;
     transform: translateY(-10px) scaleY(0);
@@ -425,36 +482,44 @@ $extrafast: 0.1s;
     overflow: hidden;
     transition: all $superfast ease-in-out;
   }
+
   .calendar_set_medicine_item_toggle {
     transform: none;
     overflow: unset;
     opacity: 1;
   }
+
   .calendar_set_medicine_input {
     width: 24vw;
     height: 40px;
     margin-bottom: 20px;
     margin-left: 5px;
+
     @media (max-width: 875px) {
       width: 67vw;
     }
   }
+
   .calendar_set_medicine_note_input {
     width: 25vw;
     border-radius: 5px;
+
     @media (max-width: 875px) {
       display: none;
     }
   }
+
   .calendar_medicine_type_checkbox {
     @include flexcentercolumn;
     margin-left: 40px;
     width: 23vw;
     height: 100%;
+
     @media (max-width: 875px) {
       width: 74vw;
     }
   }
+
   .calendar_medicine_type_group {
     width: 100%;
     height: 200px;
@@ -467,12 +532,13 @@ $extrafast: 0.1s;
 
   .calendar_set_content_phase_2 {
     @include flexcentercolumn;
-    justify-content: start;
+    justify-content: flex-start;
     flex: 0 0 100%;
     height: 95%;
     overflow-y: auto;
     transition: all $normal ease-in-out;
   }
+
   .calendar_set_date_item {
     transform-origin: top;
     transform: translateY(-10px) scaleY(0);
@@ -480,16 +546,18 @@ $extrafast: 0.1s;
     overflow: hidden;
     transition: all $superfast ease-in-out;
   }
+
   .calendar_set_date_item_toggle {
     transform: none;
     overflow: unset;
     opacity: 1;
   }
+
   .calender_set_date_card {
     @include flexcenterrow;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
     width: 95%;
     padding: 15px 20px;
     box-sizing: border-box;
@@ -497,23 +565,29 @@ $extrafast: 0.1s;
     font-size: 20px;
     font-weight: 600;
   }
-  .calender_set_date_card + .calender_set_date_card {
+
+  .calender_set_date_card+.calender_set_date_card {
     margin-top: 20px;
   }
+
   .calendar_date_card_name {
     text-align: start;
     margin-left: 10px;
   }
+
   .calendar_date_card_content {
     @include flexcenterrow;
     margin-right: 5px;
   }
+
   .calendar_number_picker {
     margin-left: 10px;
   }
+
   .calendar_date_picker {
     margin-left: 10px;
   }
+
   .calendar_card_add {
     height: 100%;
     font-size: 15px;
@@ -524,20 +598,24 @@ $extrafast: 0.1s;
     background-color: rgb(243, 243, 243);
     transition: all $extrafast;
   }
+
   .calendar_card_add:hover {
     background-color: rgb(236, 236, 236);
   }
+
   .calendar_card_comment {
     width: 40%;
     margin-top: 5px;
     margin-right: 10px;
     padding: 10px 0;
   }
+
   .calendar_date_allpicked {
     display: flex;
     margin-top: 5px;
     width: 58%;
   }
+
   .calendar_card_allpicked_undo {
     font-size: 15px;
     font-weight: 700;
@@ -547,12 +625,15 @@ $extrafast: 0.1s;
     background-color: rgb(243, 243, 243);
     transition: all $extrafast;
   }
+
   .calendar_card_allpicked_undo:hover {
     background-color: rgb(236, 236, 236);
   }
+
   .calendar_card_allpicked_undo:active {
     background-color: rgb(221, 219, 219);
   }
+
   //Phase 3
 
   .calendar_set_content_phase_3 {
@@ -565,12 +646,14 @@ $extrafast: 0.1s;
     margin-left: 2%;
     overflow: hidden;
   }
+
   .calendar_set_done {
     height: 100%;
     width: 100%;
     font-size: 16px;
     text-align: start;
   }
+
   .calendar_set_done_item {
     transform-origin: top;
     transform: translateY(-10px) scaleY(0);
@@ -578,6 +661,7 @@ $extrafast: 0.1s;
     overflow: hidden;
     transition: all $superfast ease-in-out;
   }
+
   .calendar_set_done_item_toggle {
     transform: none;
     overflow: auto;

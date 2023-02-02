@@ -1,13 +1,13 @@
 import "./addition.scss";
 import React, { ReactElement } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useAppDispatch } from "app/store";
+import * as GreetingBot from "app/GreetingBot";
+import Abstract14 from "assets/abstract14.png";
 import PhysicalTherapy from "./PhysicalTherapy";
 import FirstAid from "./FristAid";
 import StrokePrevention from "./StrokePrevention";
 import Nutrition from "./Nutrition";
-import { useAppDispatch } from "app/store";
-import * as GreetingBot from "app/GreetingBot";
-import Abstract14 from "assets/abstract14.png";
 
 function Addition(): ReactElement {
   const dispatch = useAppDispatch();

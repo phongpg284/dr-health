@@ -116,7 +116,7 @@
     margin-left: 20px;
     height: 100%;
     @include flexcentercolumn;
-    align-items: start;
+    align-items: flex-start;
     padding: 1rem;
 }
 

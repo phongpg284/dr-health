@@ -80,7 +80,7 @@
 // * {
 //   .profile_body {
 //     @include flexcentercolumn;
-//     justify-content: start;
+//     justify-content: flex-start;
 //     height: 130vh;
 //     position: relative;
 //     z-index: 1;
@@ -149,7 +149,7 @@
 //     margin-top: 310px;
 //     display: flex;
 //     flex-wrap: wrap;
-//     align-items: start;
+//     align-items: flex-start;
 //     justify-content: space-between;
 //     @media (max-width: 1115px) {
 //       width: 90vw;
@@ -237,8 +237,8 @@
 //   }
 //   .profile_contentinfo_carry {
 //     @include flexcenterrow;
-//     justify-content: start;
-//     align-items: start;
+//     justify-content: flex-start;
+//     align-items: flex-start;
 //     flex-wrap: nowrap;
 //     overflow: hidden;
 //     width: 200%;
@@ -260,7 +260,7 @@
 //   }
 //   .profile_contentinfo_item_owninfophase {
 //     @include flexcentercolumn;
-//     align-items: start;
+//     align-items: flex-start;
 //     padding: 10px;
 //     width: calc(100% - 36px);
 //     background: rgb(243, 247, 255);
@@ -273,7 +273,7 @@
 //   }
 //   .profile_cb_contenttext {
 //     @include flexcentercolumn;
-//     align-items: start;
+//     align-items: flex-start;
 //     margin-top: 5px;
 //   }
 //   .profile_dot_style {
@@ -360,7 +360,7 @@
 //     margin-left: 20px;
 //     height: 100%;
 //     @include flexcentercolumn;
-//     align-items: start;
+//     align-items: flex-start;
 //   }
 //   .profile_patient_text {
 //     color: #534f4f;
@@ -420,11 +420,11 @@
 //   }
 //   .profile_content_extension_carry_content {
 //     @extend .profile_contentinfo_carry_phase_1;
-//     justify-content: start;
+//     justify-content: flex-start;
 //   }
 //   .profile_contentextension_item_phase {
 //     @extend .profile_contentinfo_item_owninfophase;
-//     justify-content: start;
+//     justify-content: flex-start;
 //     transition: all $fast ease-in-out;
 //     z-index: 5;
 //     opacity: 1;

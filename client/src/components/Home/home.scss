@@ -22,10 +22,10 @@
 //   @include flexcenterrow;
 // }
 // .h_justart {
-//   justify-content: start !important;
+//   justify-content: flex-start !important;
 // }
 // .h_alstart {
-//   align-items: start !important;
+//   align-items: flex-start !important;
 // }
 // .h_juround {
 //   justify-content: space-around !important;
@@ -55,7 +55,7 @@
 // }
 // .home_carry {
 //   @include flexcentercolumn;
-//   justify-content: start;
+//   justify-content: flex-start;
 //   width: 80%;
 //   height: 1100px;
 //   max-width: 1000px;

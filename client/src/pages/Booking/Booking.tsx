@@ -1,4 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { Select } from "antd";
+import dayjs from "dayjs";
 import {
   Content,
   ContentWrapper,
@@ -18,11 +20,11 @@ import {
   TimeSlot,
   SelectCityWrapper,
 } from "./styled";
-import dayjs from "dayjs";
 import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import doctors from "../../temp/doctors.json";
-import { Select } from "antd";
+
 const { Option } = Select;
+
 const MAX_AVAILABLE_BOOKING_DAY = 5;
 
 const cityDropdown = [
@@ -35,7 +37,7 @@ const cityDropdown = [
     value: "Hà Nội",
   },
   {
-    title: "Hồ Chí Mình",
+    title: "Hồ Chí Minh",
     value: "Thành phố Hồ Chí Minh",
   },
 ];
@@ -53,7 +55,7 @@ interface Doctor extends DefaultDoctor {
 
 const BookingPage = () => {
   const [citySelect, setCitySelect] = useState(cityDropdown[1].value);
-  const [doctorList, setDoctorList] = useState<Doctor[]>([...doctors] as Doctor[]);
+  const [doctorList, setDoctorList] = useState<Doctor[]>(doctors as Doctor[]);
   const [currentDoctorList, setCurrentDoctorList] = useState<Doctor[]>([]);
 
   function cityFilter(doctor: any) {
@@ -61,19 +63,20 @@ const BookingPage = () => {
     else return doctor?.city === citySelect;
   }
 
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     setCitySelect(value);
   };
 
+  //Generate random time slots for each available days for doctor
   const getTimeSlots = () => {
-    function randomIntFromInterval(min, max) {
+    function randomIntFromInterval(min: number, max: number) {
       // min and max included
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     const maxSlots = randomIntFromInterval(5, 15);
-    console.log(randomIntFromInterval(5, 15), maxSlots);
     const slots: dayjs.Dayjs[] = [];
+
     let currTime = dayjs().set("hour", randomIntFromInterval(8, 10)).set("minute", 0).set("second", 0);
     const morningWorkingTime = {
       start: dayjs().set("hour", 8).set("minute", 0).set("second", 0),
@@ -86,6 +89,7 @@ const BookingPage = () => {
 
     const isValidTimeSlot = (time: dayjs.Dayjs) =>
       (time >= morningWorkingTime.start && time < morningWorkingTime.end) || (time >= afternoonWorkingTime.start && time < afternoonWorkingTime.end);
+
     for (let i = 0; i < maxSlots; i++) {
       if (isValidTimeSlot(currTime)) slots.push(currTime);
       currTime = currTime.add(30, "minute");
@@ -109,11 +113,9 @@ const BookingPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("ehe");
     setCurrentDoctorList([...doctorList?.filter(cityFilter)]);
   }, [citySelect]);
 
-  console.log(currentDoctorList);
   return (
     <Wrapper>
       <ContentWrapper>
@@ -127,7 +129,7 @@ const BookingPage = () => {
           </Select>
         </SelectCityWrapper>
         <Content>
-          {currentDoctorList?.map((doctor, index) => (
+          {currentDoctorList?.map((doctor) => (
             <DoctorBooking data={{ ...doctor }} key={doctor as unknown as string} />
           ))}
         </Content>
@@ -139,7 +141,9 @@ const BookingPage = () => {
 const DoctorBooking = ({ data }: { data: Doctor }) => {
   const [dateSelectAvailable, setDateSelectAvailable] = useState<DateSlot[]>([]);
   const [dateSelect, setDateSelect] = useState<DateSlot>(dateSelectAvailable?.[0]);
+
   useEffect(() => {
+    //Generate available days
     const arr = [];
     for (let i = 1; i <= MAX_AVAILABLE_BOOKING_DAY; i++) {
       const d = dayjs().add(i, "day");
@@ -171,9 +175,9 @@ const DoctorBooking = ({ data }: { data: Doctor }) => {
         <BookingWrapper>
           <SelectDate>
             <select onChange={(e) => setDateSelect(JSON.parse(e.target.value))}>
-              {dateSelectAvailable?.map((t, index) => (
-                <option key={t?.title} value={JSON.stringify(t)}>
-                  {t?.title}
+              {dateSelectAvailable?.map((date) => (
+                <option key={date?.title} value={JSON.stringify(date)}>
+                  {date?.title}
                 </option>
               ))}
             </select>

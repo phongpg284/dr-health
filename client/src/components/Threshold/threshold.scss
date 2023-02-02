@@ -6,12 +6,14 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 @mixin flexcenterrow {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .thresholdcolumn {
   display: flex;
   flex-direction: column;
@@ -19,19 +21,23 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .thresholdrow {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
+
 .threshold_space {
   width: 100%;
   justify-content: space-between;
 }
+
 .threshold_title {
   font-size: 16px !important;
 }
+
 .threshold_hidden {
   opacity: 0;
   display: none;
@@ -52,15 +58,16 @@
   font-size: 2rem;
   font-weight: bold;
   font-family: BeVietNam;
-  text-align: center;  
-  width:100%;
-  padding:1rem;
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
   margin-bottom: 2rem;
-  @media  (max-width:600px){
+
+  @media (max-width:600px) {
     font-size: 1.5rem !important;
-    margin:0;
+    margin: 0;
   }
-  
+
 }
 
 .threshold_all {
@@ -70,19 +77,22 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding-bottom: 5rem;
-  @media (max-width: 600px){
+
+  @media (max-width: 600px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform:translateY(-2rem);
+    transform: translateY(-2rem);
   }
 }
+
 .threshold_card {
   width: 280px;
-  height: 430px;  
+  height: 430px;
   position: relative;
   margin: 1rem;
 }
+
 .threshold_card_back {
   position: absolute;
   width: 100%;
@@ -93,17 +103,19 @@
   backdrop-filter: blur(50%);
   box-shadow: -15px 15px 25px 10px rgba(34, 34, 34, 0.15);
 }
+
 .threshold_card_items {
   position: absolute;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding: 20px 20px;
 }
+
 .threshold_card_item {
   font-size: 24px;
   font-weight: bold;
@@ -111,6 +123,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .threshold_card_item_row {
   width: 95%;
   margin: auto;
@@ -118,6 +131,7 @@
   margin-top: 5px;
   justify-content: space-between;
 }
+
 .threshold_card_item_box {
   font-size: 16px;
   font-weight: bold;
@@ -130,14 +144,17 @@
   transition: all 0.2s ease-in;
   box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.15);
 }
+
 .threshold_card_item_box:hover {
   box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.15);
 }
+
 .threshold_card_change_button {
   font-size: 15px;
   user-select: none;
   transition: all 0.1s ease-in;
 }
+
 .threshold_card_action_button {
   font-size: 25px;
   user-select: none;
@@ -145,33 +162,40 @@
   width: 65px;
   justify-content: space-between;
 }
+
 .threshold_card_change_button:hover,
 .threshold_card_action_button:hover {
   opacity: 0.8;
   cursor: pointer;
 }
+
 .threshold_card_change_button:active,
 .threshold_card_action_button:active {
   opacity: 0.6;
 }
+
 .threshold_card_item_box_title {
   position: absolute;
   margin-bottom: 65px;
   margin-right: 10px;
   font-size: 13px;
 }
+
 .threshold_card_item_box_content {
   font-size: 28px;
 }
+
 .threshold_card_item_box_unit {
   position: absolute;
   margin-top: 60px;
 }
+
 .threshold_card_item_input {
   border-radius: 10px;
   width: 155px;
   box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.15);
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -181,6 +205,7 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 .threshold_card_input_threshold {
   border: 2px rgb(184, 184, 184) solid;
   width: 40px;
@@ -189,6 +214,7 @@ input[type="number"] {
   border-radius: 10px;
   font-size: 20px;
 }
+
 .threshold_card_item_input_enter {
   width: 60px;
   height: 54px;
@@ -201,17 +227,21 @@ input[type="number"] {
   font-weight: bold;
   transition: all 0.2s ease-in;
 }
+
 .threshold_card_item_input_enter:hover {
   background-color: rgb(241, 241, 241);
   cursor: pointer;
 }
+
 .threshold_card_item_input_enter:active {
   background-color: rgb(219, 219, 219);
 }
+
 .threshold_card_item_box_notblood {
   border-radius: 60px;
   border: 2px rgb(241, 241, 241) solid;
 }
+
 .threshold_card_item_box_isblood {
   flex-direction: row;
   justify-content: space-between;
@@ -220,35 +250,45 @@ input[type="number"] {
 //type
 
 .threshold_card_spo2 {
+
   // top: 150px;
   @media (max-width: 959px) {
     top: 100px
   }
 }
+
 .threshold_card_blood {
+
   // top: 210px;
   @media (max-width: 959px) {
     top: 100px
   }
 
 }
+
 .threshold_card_heart {
+
   // top: 150px;
   @media (max-width: 959px) {
     top: 50px
   }
+
   @media (max-width: 639px) {
     top: 100px
   }
 }
+
 .threshold_card_temp {
+
   // top: 150px;
   @media (max-width: 1279px) {
     top: 90px
   }
+
   @media (max-width: 959px) {
     top: 50px
   }
+
   @media (max-width: 639px) {
     top: 100px
   }
@@ -256,9 +296,11 @@ input[type="number"] {
 
 .threshold_card_breath {
   top: 150px;
+
   @media (max-width: 959px) {
     top: 0
   }
+
   @media (max-width: 639px) {
     top: 100px
   }
@@ -266,12 +308,15 @@ input[type="number"] {
 
 .threshold_card_pulse {
   top: 150px;
+
   @media (max-width: 1279px) {
     top: 90px
   }
+
   @media (max-width: 959px) {
     top: 0
   }
+
   @media (max-width: 639px) {
     top: 100px
   }

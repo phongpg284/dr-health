@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Breadcrumb, Menu } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 import {
   CartIcon,
   Content,
@@ -15,11 +17,9 @@ import {
   Title,
   Wrapper,
 } from "./styled";
-import { Breadcrumb, Menu } from "antd";
 import cartIcon from "./cart.svg";
 import menu from "../../temp/menu.json";
 import products from "../../temp/products.json";
-import { HomeOutlined } from "@ant-design/icons";
 
 enum SortingType {
   ASC = "asc",
@@ -44,7 +44,6 @@ const Products = () => {
   };
 
   const onClickSorting = (e: any) => {
-    console.log(e.target);
     setSortSelecting(e?.target?.name);
   };
 

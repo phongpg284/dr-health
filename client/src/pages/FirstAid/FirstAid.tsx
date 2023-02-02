@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import "./firstaid.scss";
+import React, { useState } from "react";
 import { Image } from "react-bootstrap";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/lib/carousel";
