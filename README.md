@@ -1,8 +1,10 @@
 # Dr.Health  
 Healthcare web application 
+
 Created with [NestJS](https://nestjs.com/) and [Create-React-App](https://create-react-app.dev/)
 
-Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquitto.org/)
+Server using [Mosquitto](https://mosquitto.org/) for connect devices
+
 ## Table of contents
 - [Requirements](#requirements)
 - [Project structures](#project-structures)
@@ -11,9 +13,8 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
-- [MongoDB](https://www.mongodb.com/)
+- [PostgresQL](https://www.postgresql.org/)
 - [MQTT broker (Mosquitto)](https://mosquitto.org/)
-- [Yarn](https://yarnpkg.com/getting-started/install) (optional)
 
 ## Project structures
 **VS Code workspace**
@@ -21,6 +22,8 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
 - `SERVER`: server using Apollo Graphql
 - `CLIENT`: client using Create-react-app
 - `WEB`: web using ReactJS
+- `ADMIN`: admin page using ReactJS
+- `VIDEOSDK`: video call sdk using ReactJS
 
 ## Run development
 - Run `SERVER`: 
@@ -38,7 +41,16 @@ Server using [MongoDB](https://www.mongodb.com/) and [Mosquitto](https://mosquit
   cd web
   yarn start
   ```
-
+- Run `ADMIN` 
+  ```
+  cd admin-dashboard
+  yarn start
+  ```
+- Run `VIDEOSDK` 
+  ```
+  cd videosdk
+  yarn start
+  ```
 ## MQTT API
 ### MQTT Topic List for Device
 
