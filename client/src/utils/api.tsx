@@ -1,29 +1,29 @@
 import React, { createContext, useContext, useEffect } from "react";
-import { AxiosInstance } from "axios";
+import { AxiosError, AxiosInstance } from "axios";
 import { useStore } from "react-redux";
 import axiosInstance from "config/axios-config";
 import { useAppDispatch } from "app/store";
-import { updateToken } from "app/authSlice";
+import { logOut, updateToken } from "app/authSlice";
+import { useHistory } from "react-router-dom";
+import { message } from "antd";
 
 const ApiContext = createContext(axiosInstance);
 
 const ApiProvider: React.FC = ({ children }) => {
   const store = useStore();
   const dispatch = useAppDispatch();
-  const state = store.getState();
-  const { account } = state;
+  let refreshTokenRequest = null;
+  const history = useHistory();
 
-  const getnewAccessToken = (instance: AxiosInstance, refreshToken: string) => {
+  const getnewAccessToken = async (instance: AxiosInstance, refreshToken: string): Promise<string> => {
+    const state = store.getState();
+    const { account } = state;
     return instance
-      .post(
-        "/auth/refresh",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + refreshToken,
-          },
-        }
-      )
+      .get("/auth/refresh", {
+        headers: {
+          Authorization: "Bearer " + refreshToken,
+        },
+      })
       .then((res) => {
         dispatch(
           updateToken({
@@ -35,34 +35,59 @@ const ApiProvider: React.FC = ({ children }) => {
             roleId: account.roleId,
           })
         );
+        return res.data.refreshToken;
+      })
+      .catch(() => {
+        dispatch(logOut());
+        message.error("Token expired! Please login again!", 4);
+        history.replace("/");
       });
   };
 
   useEffect(() => {
     axiosInstance.interceptors.request.use(
       (config) => {
+        const state = store.getState();
+        const { account } = state;
+        const getAuthorizationHeader = () => `Bearer ${config.url === "/auth/refresh" ? account?.refreshToken : account?.accessToken}`;
+
         config.headers = {
           "Content-Type": "application/json",
           ...config.headers,
-          Authorization: "Bearer " + account.accessToken,
+          Authorization: getAuthorizationHeader(),
         };
+
         return config;
       },
       (error) => {
-        throw error;
+        return Promise.reject(error);
       }
     );
 
     axiosInstance.interceptors.response.use(
       (response) => {
-        const { status, data } = response;
-        if (status === 401 && data?.message === "Unauthorized") {
-          getnewAccessToken(axiosInstance, account.refreshToken);
-        }
         return response;
       },
-      (error) => {
-        throw error;
+      (error: AxiosError<{ message?: string }>) => {
+        const originalConfig = error.config;
+        const state = store.getState();
+        const { account } = state;
+
+        const { status, data } = error.response;
+        if (status === 401 && data?.message === "Unauthorized" && originalConfig.url !== "/auth/refresh") {
+          if (!refreshTokenRequest) {
+            refreshTokenRequest = getnewAccessToken(axiosInstance, account.refreshToken).then((token) => {
+              refreshTokenRequest = null;
+              return token;
+            });
+          }
+          return refreshTokenRequest
+            .then(() => {
+              return axiosInstance(originalConfig);
+            })
+            .catch((err: AxiosError) => Promise.reject(err));
+        }
+        return Promise.reject(error);
       }
     );
   }, []);

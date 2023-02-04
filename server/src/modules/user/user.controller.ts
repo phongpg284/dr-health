@@ -1,19 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { NotificationService } from 'src/modules/notification/notification.service';
-import { PatientService } from 'src/modules/patient/patient.service';
 import { ScheduleService } from 'src/modules/schedule/schedule.service';
 
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly notificationService: NotificationService,
-    private readonly patientService: PatientService,
     private readonly scheduleService: ScheduleService,
   ) {}
 

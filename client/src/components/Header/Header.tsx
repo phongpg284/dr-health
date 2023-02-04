@@ -21,7 +21,7 @@ import defaultAvatar from "../../assets/default-avatar.png";
 import defaultAvatarPatient from "../../assets/default-avatar-patient.png";
 
 import NotificationIcon from "components/NotificationIcon";
-import { updateToken } from "../../app/authSlice";
+import { logOut } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { useApi } from "utils/api";
 import headers from "../../temp/header.json";
@@ -221,7 +221,13 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
 
   useEffect(() => {
     if (user.role && user.id) {
-      api.get(`/user/${user.id}`).then((res) => setData(res.data));
+      api
+        .get(`/user/${user.id}`)
+        .then((res) => {
+          setData(res?.data);
+          console.log(res?.data);
+        })
+        .catch((err) => console.log("err", err));
     }
   }, [user.role]);
 
@@ -234,7 +240,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   const dispatch = useAppDispatch();
 
   const SigninTextName = () => {
-    const nameSigninText = data.fullName;
+    const nameSigninText = data?.fullName;
     return <>{` ${nameSigninText}`}</>;
   };
 
@@ -250,16 +256,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   };
   const handleLogout = () => {
     localStorage.removeItem("state");
-    dispatch(
-      updateToken({
-        accessToken: "",
-        refreshToken: "",
-        email: "",
-        role: "",
-        id: "",
-        roleId: "",
-      })
-    );
+    dispatch(logOut());
     history.push("/");
     window.location.reload();
   };
