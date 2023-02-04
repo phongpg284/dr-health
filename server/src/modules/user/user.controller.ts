@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { NotificationService } from 'src/modules/notification/notification.service';
 import { ScheduleService } from 'src/modules/schedule/schedule.service';
+import { Public } from 'src/utils/public.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -20,6 +21,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.userService.findAll();
