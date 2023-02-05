@@ -17,4 +17,7 @@ export const REFRESH_JWT_SECRET_KEY = process.env.REFRESH_JWT_SECRET_KEY || 'ref
 export const EXPIRE_JWT_SECRET_KEY = '300';
 export const EXPIRE_REFRESH_JWT_SECRET_KEY = '100000';
 
-export const { MQTT_BROKER = 'mqtt://localhost:1883', MQTT_BRAND = 'mandevices' } = process.env;
+export const MQTT_PORT = parseInt(process.env.MQTT_PORT) || 1883;
+export const MQTT_HOST = process.env.MQTT_BROKER || 'localhost';
+export const MQTT_BRAND = process.env.MQTT_BRAND || 'dr_health';
+export const MQTT_BROKER = `mqtt://${MQTT_HOST}:${MQTT_PORT}`;

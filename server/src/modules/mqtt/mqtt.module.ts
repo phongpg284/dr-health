@@ -8,6 +8,7 @@ import { NotificationModule } from 'src/modules/notification/notification.module
 import { OrmModule } from 'src/orm/orm.module';
 import { MedicalStatModule } from 'src/modules/medical-stat/medical-stat.module';
 import { EventsModule } from 'src/events/events.module';
+import { MQTT_BROKER } from 'src/config';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { EventsModule } from 'src/events/events.module';
         name: 'MQTT_SERVICE',
         transport: Transport.MQTT,
         options: {
-          url: 'mqtt://localhost:1883',
+          url: MQTT_BROKER,
         },
       },
     ]),
