@@ -13,6 +13,9 @@ inputs:
   db_port:
     description: "Database port"
     required: true
+  db_host:
+    description: "Database host"
+    required: true
   db_name:
     description: "Database name"
     required: true
@@ -30,6 +33,12 @@ inputs:
     required: true
   redis_password:
     description: "Redis server authentication password"
+    required: true
+  mqtt_host:
+    description: "MQTT server host"
+    required: true
+  mqtt_port:
+    description: "MQTT server port"
     required: true
   jwt_secret_key:
     description: "JWT secret key"
@@ -62,6 +71,8 @@ runs:
         REDIS_HOST: ${{ inputs.redis_host }}
         REDIS_PORT: ${{ inputs.redis_port }}
         REDIS_PASSWORD: ${{ inputs.redis_password }}
+        MQTT_HOST: ${{ inputs.mqtt_host }}
+        MQTT_PORT: ${{ inputs.mqtt_port }}
         JWT_SECRET_KEY: ${{ inputs.jwt_secret_key }}
         REFRESH_JWT_SECRET_KEY: ${{ inputs.refresh_jwt_secret_key }}
         EXPIRE_JWT_SECRET_KEY: ${{ inputs.expire_jwt_secret_key }}

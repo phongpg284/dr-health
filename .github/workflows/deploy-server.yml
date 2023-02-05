@@ -30,6 +30,8 @@ jobs:
           redis_host: ${{ secrets.REDIS_HOST }}
           redis_port: ${{ secrets.REDIS_PORT }}
           redis_password: ${{ secrets.REDIS_PASSWORD }}
+          mqtt_host: ${{ secrets.MQTT_HOST }}
+          mqtt_port: ${{ secrets.MQTT_PORT }}
           jwt_secret_key: ${{ secrets.JWT_SECRET_KEY }}
           refresh_jwt_secret_key: ${{ secrets.REFRESH_JWT_SECRET_KEY }}
           expire_jwt_secret_key: ${{ secrets.EXPIRE_JWT_SECRET_KEY }}
