@@ -20,6 +20,7 @@ import {
 import cartIcon from "./cart.svg";
 import menu from "../../temp/menu.json";
 import products from "../../temp/products.json";
+import { useAppSelector } from "app/store";
 
 enum SortingType {
   ASC = "asc",
@@ -30,9 +31,11 @@ enum SortingType {
 type Product = typeof products[number]["products"][number];
 
 const Products = () => {
+  const product = useAppSelector((state) => state.product);
+
   const defaultSorting = SortingType.POPULAR;
-  const defaultCategoryKeySelecting = "0-0";
-  const defaultCategoryItemKeySelecting = "0";
+  const defaultCategoryKeySelecting = product.idSelected;
+  const defaultCategoryItemKeySelecting = product.idSelected.split("-")[0];
 
   const [productKeySelecting, setProductKeySelecting] = useState(defaultCategoryKeySelecting);
   const [sortSelecting, setSortSelecting] = useState(defaultSorting);

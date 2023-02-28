@@ -30,6 +30,7 @@ import QuestionAndAnswer from "./QuestionAndAnswer";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import * as GreetingBot from "../../app/GreetingBot";
 import FocusInformation from "./FocusInformation";
+import { ProductPicker } from "./ProductPicker";
 
 export const Home = () => {
   const data = useAppSelector((state) => state.greetingBot.data);
@@ -94,6 +95,8 @@ export const Home = () => {
             )}
           </div>
         </div>
+
+        <ProductPicker />
 
         <FocusInformation />
 
