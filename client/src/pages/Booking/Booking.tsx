@@ -74,10 +74,10 @@ const BookingPage = () => {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    const maxSlots = 2;
+    const maxSlots = randomIntFromInterval(5, 15);
     const slots: dayjs.Dayjs[] = [];
 
-    let currTime = dayjs().set("hour", 9).set("minute", 0).set("second", 0);
+    let currTime = dayjs().set("hour", randomIntFromInterval(8, 10)).set("minute", 0).set("second", 0);
     const morningWorkingTime = {
       start: dayjs().set("hour", 8).set("minute", 0).set("second", 0),
       end: dayjs().set("hour", 12).set("minute", 0).set("second", 0),

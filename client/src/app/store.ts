@@ -5,7 +5,8 @@ import medicineReducer from "./medicineSlice";
 import game from "./game";
 import relativeRoleReducer from "./RelativeRoleSlice";
 import greetingBot from './GreetingBot'
-import productSlice from "./product";
+import productSlice from "./productSlice";
+import cartSlice from "./cartSlice";
 
 const loadState = () => {
   try {
@@ -36,6 +37,7 @@ export const store = configureStore({
     relativeRole: relativeRoleReducer,
     greetingBot: greetingBot,
     product: productSlice,
+    cart: cartSlice,
   },
   preloadedState: loadState(),
   devTools: true,

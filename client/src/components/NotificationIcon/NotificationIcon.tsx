@@ -181,7 +181,7 @@ const NotificationIcon = ({ children }: any) => {
   return (
     <>
       <div onClick={toggle} className="notifications_icon_bagde">
-        <Badge count={unseen} size="small" offset={[10, 0]} className="header_notifications">
+        <Badge count={unseen} size="small" offset={[4, 0]} className="header_notifications">
           {children}
         </Badge>
       </div>

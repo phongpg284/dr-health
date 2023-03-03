@@ -3,18 +3,21 @@ import "./product.scss";
 import React, { useRef, useState, useEffect } from "react";
 import menus from "../../temp/menu.json";
 import products from "../../temp/products.json";
-import { updateProductSet } from "app/product";
+import { updateProductSet } from "app/productSlice";
 import { useAppDispatch } from "app/store";
+import { useHistory } from "react-router-dom";
 
 type Menu = typeof menus[number];
 
 export const ProductPicker = (props) => {
 
     const dispatch = useAppDispatch();
+    const history = useHistory();
 
     function itemClick(item: Menu) {
         dispatch(updateProductSet({idSelected: `${item.id}-0`}))
-        window.location.href = "/product"
+        scrollTo(0, 0);
+        history.push("/product");
     }
 
     const hexArray = ['#d8ebf3','#f0fcd2','#fef3d1', '#d5f2d5', '#ffe4ee', '#fee9db']

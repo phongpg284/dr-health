@@ -120,13 +120,28 @@ export const CartIcon = styled.button`
   padding-right: 1rem;
   height: 37px;
   background-color: #fff;
-  color: #1e1e1e;
+  .icon {
+    color: #1e1e1e;
+  }
   border: #c9c9c9 solid 1px;
   border-radius: 4px !important;
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
   transition: 0.2s;
+  
+  :hover {
+    background-color: #ea0054;
+    .icon {
+      color: #ffffff;
+    }
+  }
+  :active { 
+    background-color: #1e1e1e;
+    .icon {
+      color: #ffffff;
+    }
+  }
 `;
 export const ProductBuyButton = styled.button`
   padding-left: 0.7rem;
@@ -139,4 +154,15 @@ export const ProductBuyButton = styled.button`
   text-transform: uppercase;
   font-weight: 550;
   margin-left: 15px;
+  transition: 0.2s;
+
+  :hover {
+    background-color: #ea0054;
+    color: #ffffff;
+  }
+  :active { 
+    background-color: #007bff;
+    border: #007bff solid 1px;
+    color: #ffffff;
+  }
 `;

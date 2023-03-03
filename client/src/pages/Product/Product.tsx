@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Breadcrumb, Menu } from "antd";
+import { Breadcrumb, Menu, message } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import {
   CartIcon,
@@ -21,6 +21,11 @@ import cartIcon from "./cart.svg";
 import menu from "../../temp/menu.json";
 import products from "../../temp/products.json";
 import { useAppSelector } from "app/store";
+import { BsFillCartFill } from "react-icons/bs";
+import { FaShoppingCart } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Cart, ItemCart, updateItemCartSet } from "app/cartSlice";
+import { useHistory } from "react-router-dom";
 
 enum SortingType {
   ASC = "asc",
@@ -32,6 +37,10 @@ type Product = typeof products[number]["products"][number];
 
 const Products = () => {
   const product = useAppSelector((state) => state.product);
+  const cart = useAppSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const defaultSorting = SortingType.POPULAR;
   const defaultCategoryKeySelecting = product.idSelected;
@@ -48,6 +57,16 @@ const Products = () => {
 
   const onClickSorting = (e: any) => {
     setSortSelecting(e?.target?.name);
+  };
+
+  const addToCart = (e: ItemCart) => {
+    dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
+    message.success("Item added to cart!");
+  };
+
+  const directBuy = (e: ItemCart) => {
+    dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
+    history.replace("/cart");
   };
 
   function sortByType(type) {
@@ -124,10 +143,10 @@ const Products = () => {
                 </ProductPrice>
                 <ProductSoldQuantity>Đã bán {p.sold}</ProductSoldQuantity>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <CartIcon>
-                    <img src={cartIcon} />
+                  <CartIcon onClick={()=>{addToCart(currentProducts[index])}}>
+                    <FaShoppingCart className="icon"/>
                   </CartIcon>
-                  <ProductBuyButton>Mua ngay</ProductBuyButton>
+                  <ProductBuyButton onClick={()=>{directBuy(currentProducts[index])}}>Mua ngay</ProductBuyButton>
                 </div>
               </Product>
             ))}

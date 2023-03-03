@@ -29,6 +29,7 @@ const FirstAid = lazy(() => import("pages/FirstAid"));
 const StrokePoint = lazy(() => import("pages/StrokePoint"));
 const UploadBlood = lazy(() => import("pages/UploadBlood"));
 const ProjectionPhoto = lazy(() => import("pages/ProjectionPhoto"));
+const CartPage = lazy(() => import("pages/Cart/CartPage"));
 
 export const FooterContext = createContext<any>(null);
 export const SocketContext = createContext<any>(null);
@@ -87,6 +88,7 @@ function MyRouter() {
           <PublicRoute exact path="/booking" component={Booking} />
           {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
+          <PrivateRoute exact path="/cart" component={CartPage} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
           <PrivateRoute exact path="/calendar" component={CalendarPage} />
           <PrivateRoute exact path="/notifications" component={NotificationsPage} />

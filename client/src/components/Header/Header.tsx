@@ -3,13 +3,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { Image } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { Input, message, Modal, Tooltip } from "antd";
+import { Badge, Input, message, Modal, Tooltip } from "antd";
 import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
 
 //icon
 import { BiCalendarPlus } from "react-icons/bi";
-import { FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical } from "react-icons/fa";
+import { FaUserAlt, FaUserInjured, FaPowerOff, FaBell, FaLaptopMedical, FaShoppingCart } from "react-icons/fa";
 import { IoWatch } from "react-icons/io5";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import { AiFillCaretDown, AiOutlineLogin, AiOutlineMenu, AiOutlineHome } from "react-icons/ai";
@@ -21,10 +21,12 @@ import defaultAvatar from "../../assets/default-avatar.png";
 import defaultAvatarPatient from "../../assets/default-avatar-patient.png";
 
 import NotificationIcon from "components/NotificationIcon";
+import CartIcon from "components/CartIcon";
 import { logOut } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { useApi } from "utils/api";
 import headers from "../../temp/header.json";
+import { BsFillCartFill } from "react-icons/bs";
 
 const Header = () => {
   const MenuRef = React.useRef<HTMLDivElement>(null);
@@ -125,6 +127,9 @@ const Header = () => {
 
               {isAuthenticated && (
                 <div className="user_space">
+                  <CartIcon>
+                    <FaShoppingCart className="header_notifications_icon" />
+                  </CartIcon>
                   <NotificationIcon>
                     <FaBell className="header_notifications_icon" />
                   </NotificationIcon>
