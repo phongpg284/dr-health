@@ -36,6 +36,7 @@ enum SortingType {
 type Product = typeof products[number]["products"][number];
 
 const Products = () => {
+  const account = useAppSelector((state) => state.account);
   const product = useAppSelector((state) => state.product);
   const cart = useAppSelector((state) => state.cart);
 
@@ -60,11 +61,21 @@ const Products = () => {
   };
 
   const addToCart = (e: ItemCart) => {
+    if (account.accessToken == null) {
+      history.push("/login");
+      return
+    }
+
     dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
     message.success("Item added to cart!");
   };
 
   const directBuy = (e: ItemCart) => {
+    if (account.accessToken == null) {
+      history.push("/login");
+      return
+    }
+
     dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
     history.replace("/cart");
   };
