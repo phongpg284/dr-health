@@ -21,7 +21,7 @@ export default function Cart() {
   const history = useHistory()
   const dispatch = useAppDispatch();
 
-  if (cart.itemSelected.length < 1) {
+  if (cart.itemSelected.length < 1 || account.accessToken == null) {
     history.replace("/")
   }
 

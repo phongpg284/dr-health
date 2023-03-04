@@ -62,7 +62,7 @@ const Products = () => {
 
   const addToCart = (e: ItemCart) => {
     if (account.accessToken == null) {
-      history.push("/login");
+      history.replace("/login");
       return
     }
 
@@ -72,7 +72,7 @@ const Products = () => {
 
   const directBuy = (e: ItemCart) => {
     if (account.accessToken == null) {
-      history.push("/login");
+      history.replace("/login");
       return
     }
 
