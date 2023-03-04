@@ -65,7 +65,7 @@ const Products = () => {
       history.replace("/login");
       return
     }
-
+    
     dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
     message.success("Item added to cart!");
   };

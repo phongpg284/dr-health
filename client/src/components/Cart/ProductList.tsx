@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useAppSelector } from "app/store";
 import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function CartProductItem(props: {itemSelect: ItemCartSelected, key: number, line: boolean}) {
     const { itemSelect, key, line } = props;
@@ -89,7 +90,10 @@ export const CartProductList = (props: {cart: Cart}) => {
 
     return(
         <div className="cart_product_list">
-            <h5 className="title">Danh sách sản phẩm</h5>
+            <span className="title_flex">
+                <h5 className="title">Danh sách sản phẩm</h5>
+                <Link to="/product" className="cart_button">Thêm sản phẩm</Link>
+            </span>
             {items.map((item, index) => (
                 <CartProductItem key={index} itemSelect={item} line={index == (items.length - 1)}/>
             ))}

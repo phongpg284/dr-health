@@ -40,6 +40,11 @@
 }
 
 .cart_address {
+    .title_flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
     strong + p {
         margin-top: 5px;
     }
@@ -114,6 +119,12 @@
 }
 
 .cart_product_list {
+    .title_flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
     .title {
         font-weight: bold;
         font-size: 14px;
@@ -261,6 +272,15 @@
         align-items: center;
         justify-content: center;
     }
+}
+
+.cart_button {
+    padding: 3px 7px 3px 7px;
+    border: 1px solid #ea0054;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ea0054;
 }
 
 .cart_all {
