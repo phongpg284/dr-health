@@ -1,0 +1,71 @@
+.didbook_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(34, 34, 34);
+}
+
+.didbook_list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 30px;
+
+    > .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1 1 40%;
+        margin: 14px;
+        padding: 20px 14px;
+        border-radius: 15px;
+        border: #ebebeb solid 1px;
+
+        > .avatar {
+            width: 100px;
+            height: 100px;
+        }
+
+        > .content {
+            margin-left: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+
+            > div + div {
+                margin-top: 10px;
+            }
+            .name {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .address {
+                font-size: 14px;
+                font-weight: bold;
+            }
+            .time {
+                font-size: 14px;
+                font-weight: bold;
+            }
+            .detail {
+                width: 100%;
+                padding: 3px 7px 3px 7px;
+                border: 1px solid #ea0054;
+                border-radius: 10px;
+                font-size: 12px;
+                font-weight: bold;
+                color: #ea0054;
+                cursor: pointer;
+            }
+            .message {
+                margin-top: 12px;
+                padding: 3px 7px 3px 7px;
+                border: 1px solid #ea0054;
+                border-radius: 10px;
+                font-size: 12px;
+                font-weight: bold;
+                color: #ea0054;
+                cursor: pointer;
+            }
+        }
+    }
+}

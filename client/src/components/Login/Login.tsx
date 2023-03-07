@@ -29,6 +29,14 @@ const Login = () => {
   const [showError, setShowError] = useState<string>("");
   const api = useApi();
 
+  api
+  .post("api/user")
+  .then((response) => {
+    const data = response.data;
+    console.log(data);
+    
+  })
+
   const handleLogin = (params: any) => {
     api
       .post("/auth/login", params)

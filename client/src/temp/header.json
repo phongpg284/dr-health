@@ -75,11 +75,18 @@
   },
   {
     "id": 4,
-    "title": "Đặt lịch",
-    "href": "/booking"
+    "title": "Xem lịch",
+    "condition": "doctor_only",
+    "href": "/didbook"
   },
   {
     "id": 5,
+    "title": "Đặt lịch",
+    "condition": "patient_only",
+    "href": "/booking"
+  },
+  {
+    "id": 6,
     "title": "Dữ liệu bệnh nhân",
     "condition": "doctor_only",
     "href": "/upload",

@@ -95,7 +95,7 @@ const Header = () => {
               {headers &&
                 headers?.map((category) => (
                   <>
-                    {(!category?.condition || (category.condition === "doctor_only" && role === "doctor")) && (
+                    {(!category?.condition || (category.condition === "doctor_only" && role === "doctor") || (category.condition === "patient_only" && role === "patient")) && (
                       <>
                         {category?.items ? (
                           <LinkDropDown key={category.id} title={category.title}>

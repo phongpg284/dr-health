@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select } from "antd";
+import { Modal, Select, message } from "antd";
 import dayjs from "dayjs";
 import {
   Content,
@@ -74,10 +74,10 @@ const BookingPage = () => {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    const maxSlots = randomIntFromInterval(5, 15);
+    const maxSlots = 5;
     const slots: dayjs.Dayjs[] = [];
 
-    let currTime = dayjs().set("hour", randomIntFromInterval(8, 10)).set("minute", 0).set("second", 0);
+    let currTime = dayjs().set("hour", 9).set("minute", 0).set("second", 0);
     const morningWorkingTime = {
       start: dayjs().set("hour", 8).set("minute", 0).set("second", 0),
       end: dayjs().set("hour", 12).set("minute", 0).set("second", 0),
@@ -141,6 +141,9 @@ const BookingPage = () => {
 const DoctorBooking = ({ data }: { data: Doctor }) => {
   const [dateSelectAvailable, setDateSelectAvailable] = useState<DateSlot[]>([]);
   const [dateSelect, setDateSelect] = useState<DateSlot>(dateSelectAvailable?.[0]);
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     //Generate available days
@@ -158,6 +161,18 @@ const DoctorBooking = ({ data }: { data: Doctor }) => {
     setDateSelectAvailable(arr);
     setDateSelect(arr?.[0]);
   }, []);
+
+  function bookAlert(timeString) {
+    setOpen(true)
+    setTitle(`Xác nhận`)
+    setContent(`Bạn muốn đặt lịch với bác sĩ ${data.name} vào lúc ${timeString}?`)
+  }
+
+  function bookAccept() {
+    message.success("Đặt lịch thành công!")
+    setOpen(false)
+  }
+
   return (
     <div>
       <ItemWrapper>
@@ -191,7 +206,7 @@ const DoctorBooking = ({ data }: { data: Doctor }) => {
               <br />
               <TimeSlots>
                 {data?.timeSlots?.[dateSelectAvailable?.findIndex((d) => d?.title === dateSelect?.title)]?.map((t, index) => (
-                  <TimeSlot key={index}>
+                  <TimeSlot key={index} onClick={()=>{bookAlert(`${t.format("HH:mm")} - ${t.add(30, "minute").format("HH:mm")}`)}}>
                     {t.format("HH:mm")} - {t.add(30, "minute").format("HH:mm")}
                   </TimeSlot>
                 ))}
@@ -211,6 +226,14 @@ const DoctorBooking = ({ data }: { data: Doctor }) => {
           </Booking>
         </BookingWrapper>
       </ItemWrapper>
+      <Modal
+        title={title}
+        open={open}
+        onOk={bookAccept}
+        onCancel={()=>{setOpen(false)}}
+      >
+        <p>{content}</p>
+      </Modal>
     </div>
   );
 };

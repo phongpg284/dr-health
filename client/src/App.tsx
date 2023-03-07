@@ -12,6 +12,7 @@ import io from "socket.io-client";
 import PublicRoute from "pages/PublicRoute";
 import Product from "pages/Product";
 import Booking from "pages/Booking";
+import DidBook from "pages/DidBook/DidBook";
 
 const News = lazy(() => import("pages/News"));
 const Addition = lazy(() => import("pages/Addition"));
@@ -85,9 +86,14 @@ function MyRouter() {
 
           <PublicRoute exact path="/phuc-hoi" component={FirstAid} />
           <PublicRoute exact path="/product" component={Product} />
-          <PublicRoute exact path="/booking" component={Booking} />
           {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
+          {role === "doctor" && 
+            (<PrivateRoute exact path="/didbook" component={DidBook} />)
+          }
+          {role === "patient" && 
+            (<PrivateRoute exact path="/booking" component={Booking} />)
+          }
           <PrivateRoute exact path="/cart" component={CartPage} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
           <PrivateRoute exact path="/calendar" component={CalendarPage} />
