@@ -228,7 +228,7 @@ const DoctorBooking = ({ data }: { data: Doctor }) => {
       </ItemWrapper>
       <Modal
         title={title}
-        open={open}
+        visible={open}
         onOk={bookAccept}
         onCancel={()=>{setOpen(false)}}
       >
