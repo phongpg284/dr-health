@@ -12,7 +12,7 @@ import usePromise from "utils/usePromise";
 import { CartAddress } from "./Address";
 import { CartPayment } from "./Payment";
 import { CartProductList, ItemCartSelected } from "./ProductList";
-import { updateItemCartSet } from "app/cartSlice";
+import { PayMethod, updateItemCartSet } from "app/cartSlice";
 
 export default function Cart() {
   const account = useAppSelector((state) => state.account);
@@ -58,7 +58,7 @@ export default function Cart() {
               <strong style={{color: "black"}}>{cost}.000 {items[0]?.item.currency}</strong>
             </span>
         </div>
-        <div className="cart_ship">
+        <div className="cart_ship" hidden={cart.payMethod == PayMethod.pickup}>
             <span>
               <p style={{color: "black"}}>Phí giao hàng</p>
               <strong style={{color: "black"}}>{35}.000 {items[0]?.item.currency}</strong>
@@ -67,7 +67,7 @@ export default function Cart() {
         <div className="cart_total_cost">
             <span>
               <p style={{color: "black"}}>Tổng tiền</p>
-              <strong style={{color: "black", fontSize: "22px"}}>{cost + 35}.000 {items[0]?.item.currency}</strong>
+              <strong style={{color: "black", fontSize: "22px"}}>{cost + (cart.payMethod == PayMethod.pickup ? 0 : 35)}.000 {items[0]?.item.currency}</strong>
             </span>
             <div onClick={()=>{
               message.success("Đặt hàng thành công!")
