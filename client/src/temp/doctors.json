@@ -1,20 +1,20 @@
 [
   {
-    "name": "PGS, TS, Giảng viên cao cấp Trần Hữu Bình (Bác sĩ từ xa)",
+    "name": "PGS, TS, Giảng viên cao cấp Trần Văn A (Bác sĩ từ xa)",
     "description": [
       "Bác sĩ đầu ngành chuyên khoa Tâm thần, tâm bệnh",
       "Nguyên Viện trưởng Viện Sức khỏe Tâm thần quốc gia, Bệnh viện Bạch Mai",
       "Nguyên Phó Chủ nhiệm Bộ môn Tâm thần trường Đại học Y Hà Nội"
     ],
     "hospital": "Phòng khám Chuyên khoa Yên Hòa",
-    "address": "số 11 i4, ngõ 37 Trần Kim Xuyến, khu Đô Thị Mới Yên Hoà, Yên Hoà, Cầu Giấy, Hà Nội",
+    "address": "Cầu Giấy, Hà Nội",
     "city": "Hà Nội",
-    "avatar": "https://cdn.bookingcare.vn/fr/w200/2021/01/21/142313-bs-tran-huu-binh.jpg",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmlCUxg-k_Z1P5gDeRLmval0-lNw0eiHwcXkkR-9KVU2G4Y7rQqxbhH6efBPld3FQNayw&usqp=CAU",
     "fee": "300.000",
     "currency": "đ"
   },
   {
-    "name": "PGS, TS, Giảng viên cao cấp Trần Hữu Bình (Bác sĩ từ xa)",
+    "name": "PGS, TS, Giảng viên cao cấp Trần Văn B(Bác sĩ từ xa)",
     "description": [
       "Bác sĩ khám và điều trị tại Khoa Sức khoẻ Tâm thần, Bệnh viện E",
       "Giảng viên Bộ môn Tâm thần và Tâm lý lâm sàng, Trường Đại học Y Dược - Đại học Quốc Gia Hà Nội",
@@ -23,12 +23,12 @@
     "hospital": "Phòng khám Hello Doctor cơ sở Hoàng Cầu - Hà Nội",
     "address": "Số 5, Ngách 4, Ngõ 95, Hoàng Cầu, Đống Đa, Hà Nội",
     "city": "Hà Nội",
-    "avatar": "https://cdn.bookingcare.vn/fr/w200/2021/01/21/142313-bs-tran-huu-binh.jpg",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmlCUxg-k_Z1P5gDeRLmval0-lNw0eiHwcXkkR-9KVU2G4Y7rQqxbhH6efBPld3FQNayw&usqp=CAU",
     "fee": "300.000",
     "currency": "đ"
   },
   {
-    "name": "Bác sĩ Chuyên khoa I Nguyễn Trọng Tuân",
+    "name": "Bác sĩ Chuyên khoa I Trần Văn C",
     "description": [
       "Gần 20 năm kinh nghiệm khám, chẩn đoán và chữa trị các bệnh lý về Tâm thần",
       "Hiện đang công tác tại Bệnh viện Tâm thần TP. HCM",
@@ -37,7 +37,7 @@
     "hospital": "Phòng khám Hello Doctor cơ sở TP.HCM",
     "address": "152/6 Thành Thái, phường 12, quận 10, TP.HCM",
     "city": "Thành phố Hồ Chí Minh",
-    "avatar": "https://cdn.bookingcare.vn/fr/w200/2021/01/21/142313-bs-tran-huu-binh.jpg",
+    "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmlCUxg-k_Z1P5gDeRLmval0-lNw0eiHwcXkkR-9KVU2G4Y7rQqxbhH6efBPld3FQNayw&usqp=CAU",
     "fee": "300.000",
     "currency": "đ"
   }

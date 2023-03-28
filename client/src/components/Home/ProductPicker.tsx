@@ -24,7 +24,7 @@ export const ProductPicker = (props) => {
 
     return (
         <div className="home_product_picker">
-            <div className="home_product_title">Danh mục sản phẩm</div>
+            <div className="home_product_title">Trung tâm xét nghiệm</div>
             <div className="home_product_items">
                 {menus.map((menu, index) => (
                     <div className="home_product_item" key={index} onClick={()=>{itemClick(menu)}}>

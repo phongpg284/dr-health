@@ -110,7 +110,7 @@ const Products = () => {
     <Wrapper>
       <ContentWrapper>
         <MenuWrapper>
-          <h5 className="title">Danh mục sản phẩm</h5>
+          <h5 className="title">Trung tâm xét nghiệm</h5>
           <Menu style={{ width: 240 }} defaultSelectedKeys={[defaultCategoryKeySelecting]} defaultOpenKeys={[defaultCategoryItemKeySelecting]} mode="inline" onClick={onClick}>
             {menu &&
               menu?.map((sub) => (
