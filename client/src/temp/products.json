@@ -164,6 +164,211 @@
     ]
   },
   {
+    "category_id": "0-4",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-5",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-6",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-7",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "0-8",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
     "category_id": "1-0",
     "products": [
       {
@@ -204,6 +409,7 @@
       }
     ]
   },
+  
   {
     "category_id": "1-1",
     "products": [
@@ -328,12 +534,340 @@
     ]
   },
   {
+    "category_id": "1-4",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
     "category_id": "2-0",
     "products": [
       {
         "title": "Trung tâm xét nghiệm B",
         "pharmacies": "Bệnh viện Bạch Mai",
         "price": "200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "2-1",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "2-2",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "2-3",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "2-4",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "3-0",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "4-0",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "42",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm D",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "185.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "36",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      },
+      {
+        "title": "Trung tâm xét nghiệm A",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "177.000",
+        "currency": "đ",
+        "unit": "1 lần",
+        "sold": "16",
+        "image": "https://genplus.vn/wp-content/uploads/2022/08/about-1.jpeg"
+      }
+    ]
+  },
+  {
+    "category_id": "5-0",
+    "products": [
+      {
+        "title": "Trung tâm xét nghiệm B",
+        "pharmacies": "Bệnh viện Bạch Mai",
+        "price": "1200.000",
         "currency": "đ",
         "unit": "1 lần",
         "sold": "42",
