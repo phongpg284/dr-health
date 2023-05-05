@@ -31,16 +31,16 @@ const Footer = () => {
               </div>
               <div className="footer_content_item_row">
                 <FaUserTie className="footer_icon" />
-                Trần Quang Minh
+                Ngô Thị Thu Hà
               </div>
 
               <div className="footer_content_item_row">
                 <FaUserTie className="footer_icon" />
-                Phan Đào Khánh Tùng
+                Lê Vũ Quỳnh Trang
               </div>
               <div className="footer_content_item_row">
                 <FaUserTie className="footer_icon" />
-                Phạm Thị Hoàng Anh
+                Ngô Bá Hoàng Quân
               </div>
             </div>
             <div className="footer_content_item">

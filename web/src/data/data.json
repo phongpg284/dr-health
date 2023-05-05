@@ -83,59 +83,59 @@
   "Testimonials": [
     {
       "img": "img/testimonials/01.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     },
     {
       "img": "img/testimonials/02.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     },
     {
       "img": "img/testimonials/03.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     },
     {
       "img": "img/testimonials/04.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     },
     {
       "img": "img/testimonials/05.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     },
     {
       "img": "img/testimonials/06.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
+      "text": "\"Mọi thứ đều tốt.\"",
+      "name": "Bác sĩ 1"
     }
   ],
   "Team": [
     {
       "img": "img/team/Tai.jpg",
       "name": "Hoàng Tuấn Tài",
-      "job": "Team leader"
+      "job": "Founder"
     },
     {
-      "img": "img/team/Minh.jpg",
-      "name": "Trần Quang Minh",
-      "job": "Thiết kế nhúng"
+      "img": "img/team/Ha.jpg",
+      "name": "Ngô Thị Thu Hà",
+      "job": "Nhân viên vận hành"
     },
     {
-      "img": "img/team/HA.jpg",
-      "name": "Phạm Thị Hoài Anh",
+      "img": "img/team/Quan.jpg",
+      "name": "Ngô Bá Hoàng Quân",
       "job": "Luật"
     },
     {
-      "img": "img/team/Tung.jpg",
-      "name": "Phan Đào Khánh Tùng",
-      "job": "Marketing"
+      "img": "img/team/Trang.jpg",
+      "name": "Lê Vũ Quỳnh Trang",
+      "job": "Hỗ trợ khách hàng"
     }
   ],
   "Contact": {
-    "address": "4321 California St, San Francisco, CA 12345 ",
+    "address": "Cầu Giây,  Hà Nội ",
     "phone": "+84 816056426",
     "email": "tuantaibk1999@gmail.com",
     "facebook": "fb.com",
