@@ -16,13 +16,13 @@ export const CartPayment = (props) => {
 
     return(
         <div className="cart_payment">
-            <h5 className="title">Hình thức thanh toán</h5>
+            <h5 className="title">Hình thức di chuyển</h5>
             <Radio.Group name="radiogroup" defaultValue={1} className="cart_group" onChange={handleChange}>
                 <Radio value={1} className="cart_ratio">
                     <span className="input">
                         <RiExchangeDollarFill className="icon"/>
                         <span>
-                            <p>Thanh toán khi nhận hàng (COD)</p>
+                            <p>Hỗ trợ di chuyển</p>
                         </span>
                     </span>
                 </Radio>
@@ -30,7 +30,7 @@ export const CartPayment = (props) => {
                     <span className="input">
                         <BsFillInboxesFill className="icon"/>
                         <span>
-                            <p>Tự đến lấy hàng (Pick up)</p>
+                            <p>Phương thức cá nhân</p>
                         </span>
                     </span>
                 </Radio>

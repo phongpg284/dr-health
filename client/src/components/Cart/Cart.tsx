@@ -60,7 +60,7 @@ export default function Cart() {
         </div>
         <div className="cart_ship" hidden={cart.payMethod == PayMethod.pickup}>
             <span>
-              <p style={{color: "black"}}>Phí giao hàng</p>
+              <p style={{color: "black"}}>Phí di chuyển</p>
               <strong style={{color: "black"}}>{35}.000 {items[0]?.item.currency}</strong>
             </span>
         </div>
