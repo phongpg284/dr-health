@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import News1 from "./News1";
 import News2 from "./News2";
 import News3 from "./News3";
@@ -22,14 +22,14 @@ function News(): ReactElement {
     <div>
       <div className="news_content">
         <img src={Abstract14} alt="" className="newsBackground" />
-        <Switch>
-          <Route path="/news/nhan-biet-dot-quy" component={News1} />
-          <Route path="/news/dieu-tri-dot-quy" component={News2} />
-          <Route path="/news/phong-ngua-dot-quy" component={News3} />
-          <Route path="/news/cap-cuu" component={News4} />
-          <Route path="/news/tu-vong-do-dot-quy-o-nguoi-tre-tuoi-ngay-cang-gia-tang" component={News5} />
-          <Route path="/news/quy-tac-befast" component={News6} />
-        </Switch>
+        <Routes>
+          <Route path="/nhan-biet-dot-quy" element={News1} />
+          <Route path="/dieu-tri-dot-quy" element={News2} />
+          <Route path="/phong-ngua-dot-quy" element={News3} />
+          <Route path="/cap-cuu" element={News4} />
+          <Route path="/tu-vong-do-dot-quy-o-nguoi-tre-tuoi-ngay-cang-gia-tang" element={News5} />
+          <Route path="/quy-tac-befast" element={News6} />
+        </Routes>
       </div>
     </div>
   );

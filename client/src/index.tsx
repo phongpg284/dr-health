@@ -2,7 +2,6 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { ToastContainer } from "react-toastify";
@@ -12,8 +11,11 @@ import GreetingBot from "./components/GreetingBot";
 import { ApiProvider } from "utils/api";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage404 from "pages/ErrorPage/ErrorPage404";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
   <ErrorBoundary FallbackComponent={ErrorPage404}>
     <Provider store={store}>
       <ToastContainer />
@@ -24,8 +26,7 @@ ReactDOM.render(
         </ApiProvider>
       </React.StrictMode>
     </Provider>
-  </ErrorBoundary>,
-  document.getElementById("root")
+  </ErrorBoundary>
 );
 
 // If you want to start measuring performance in your app, pass a function

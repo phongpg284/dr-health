@@ -172,7 +172,7 @@ interface MyMap {
   onChose: (item: number) => void;
 }
 
-const token = process.env.REACT_APP_MAPBOX_TOKEN || "pk.eyJ1Ijoia2hvaW5ndXllbjEyMjAiLCJhIjoiY2t5MmxyY21xMG0zMDJvczI5NWg1bXE0MCJ9.0bnXpWtdPXeUNVBYHg-dBA";
+const token = "pk.eyJ1IjoidHB3Mjg0IiwiYSI6ImNscGg0c2s4dTAzY3cya21oaWlrbWpzaHoifQ.X3rNC3O3DyzyWDpJ5ch6Jg";
 
 function MyMap({ viewport, setViewport, onChose }: MyMap): JSX.Element {
   const { zoom } = viewport;

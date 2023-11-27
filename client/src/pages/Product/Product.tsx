@@ -25,7 +25,7 @@ import { BsFillCartFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Cart, ItemCart, updateItemCartSet } from "app/cartSlice";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 enum SortingType {
   ASC = "asc",
@@ -41,7 +41,7 @@ const Products = () => {
   const cart = useAppSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const defaultSorting = SortingType.POPULAR;
   const defaultCategoryKeySelecting = product.idSelected;
@@ -62,22 +62,23 @@ const Products = () => {
 
   const addToCart = (e: ItemCart) => {
     if (account.accessToken == null) {
-      history.replace("/login");
-      return
+      navigate("/login", { replace: true });
+
+      return;
     }
-    
-    dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
+
+    dispatch(updateItemCartSet({ itemSelected: [...cart.itemSelected, e] }));
     message.success("Item added to cart!");
   };
 
   const directBuy = (e: ItemCart) => {
     if (account.accessToken == null) {
-      history.replace("/login");
-      return
+      navigate("/login", { replace: true });
+      return;
     }
 
-    dispatch(updateItemCartSet({itemSelected: [...cart.itemSelected, e]}))
-    history.replace("/cart");
+    dispatch(updateItemCartSet({ itemSelected: [...cart.itemSelected, e] }));
+    navigate("/cart", { replace: true });
   };
 
   function sortByType(type) {
@@ -154,10 +155,20 @@ const Products = () => {
                 </ProductPrice>
                 <ProductSoldQuantity>Đã bán {p.sold}</ProductSoldQuantity>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <CartIcon onClick={()=>{addToCart(currentProducts[index])}}>
-                    <FaShoppingCart className="icon"/>
+                  <CartIcon
+                    onClick={() => {
+                      addToCart(currentProducts[index]);
+                    }}
+                  >
+                    <FaShoppingCart className="icon" />
                   </CartIcon>
-                  <ProductBuyButton onClick={()=>{directBuy(currentProducts[index])}}>Mua ngay</ProductBuyButton>
+                  <ProductBuyButton
+                    onClick={() => {
+                      directBuy(currentProducts[index]);
+                    }}
+                  >
+                    Mua ngay
+                  </ProductBuyButton>
                 </div>
               </Product>
             ))}

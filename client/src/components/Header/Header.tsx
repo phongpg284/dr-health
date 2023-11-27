@@ -2,7 +2,7 @@ import "./header.scss";
 import React, { useEffect, useState, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { Image } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge, Input, message, Modal, Tooltip } from "antd";
 import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
@@ -26,7 +26,6 @@ import { logOut } from "../../app/authSlice";
 import { updateRelativeRole } from "app/RelativeRoleSlice";
 import { useApi } from "utils/api";
 import headers from "../../temp/header.json";
-import { BsFillCartFill } from "react-icons/bs";
 
 const Header = () => {
   const MenuRef = React.useRef<HTMLDivElement>(null);
@@ -204,7 +203,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   const user = useAppSelector((state) => state.account);
   const isPatient = user?.role === "patient";
   const isDoctor = user?.role === "doctor";
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -262,7 +261,7 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
   const handleLogout = () => {
     localStorage.removeItem("state");
     dispatch(logOut());
-    history.push("/");
+    navigate("/");
     window.location.reload();
   };
   const Reflecter = () => {

@@ -1,7 +1,7 @@
 import "./signup.scss";
 
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -32,7 +32,7 @@ const SignupSchema = yup.object().shape({
 });
 
 const Signup = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [errorSignup, setErrorSignup] = useState<string>();
 
@@ -46,7 +46,7 @@ const Signup = () => {
           ...accountInfo,
           role: "doctor",
         })
-        .then(() => history.push("/login"))
+        .then(() => navigate("/login"))
         .catch((e) => setErrorSignup(e.message));
     if (!role)
       api
@@ -54,7 +54,7 @@ const Signup = () => {
           ...accountInfo,
           role: "patient",
         })
-        .then(() => history.push("/login"))
+        .then(() => navigate("/login"))
         .catch((e) => setErrorSignup(e.message));
   };
 

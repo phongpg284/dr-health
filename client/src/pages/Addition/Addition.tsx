@@ -1,6 +1,6 @@
 import "./addition.scss";
 import React, { ReactElement } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "app/store";
 import * as GreetingBot from "app/GreetingBot";
 import Abstract14 from "assets/abstract14.png";
@@ -20,12 +20,12 @@ function Addition(): ReactElement {
     <div className="Addition">
       <div className="AdditionContent">
         <img src={Abstract14} alt="" className="newsBackground" />
-        <Switch>
-          <Route path="/ho-tro/che-do-dinh-duong" component={Nutrition} />
-          <Route path="/ho-tro/giai-phap-phong-ngua" component={StrokePrevention} />
-          <Route path="/ho-tro/vat-ly-tri-lieu" component={PhysicalTherapy} />
-          <Route path="/ho-tro/so-cuu" component={FirstAid} />
-        </Switch>
+        <Routes>
+          <Route path="/ho-tro/che-do-dinh-duong" element={Nutrition} />
+          <Route path="/ho-tro/giai-phap-phong-ngua" element={StrokePrevention} />
+          <Route path="/ho-tro/vat-ly-tri-lieu" element={PhysicalTherapy} />
+          <Route path="/ho-tro/so-cuu" element={FirstAid} />
+        </Routes>
       </div>
     </div>
   );

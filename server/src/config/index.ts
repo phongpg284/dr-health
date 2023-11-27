@@ -3,10 +3,11 @@ require('dotenv').config();
 
 export const PORT = parseInt(process.env.PORT) || 4000;
 export const DB_PORT = parseInt(process.env.DB_PORT) || 5432;
-export const DB_NAME = process.env.DB_NAME || 'db_name';
+export const DB_NAME = process.env.DB_NAME || 'postgres';
 export const DB_HOST = process.env.DB_HOST || 'localhost';
 export const DB_USERNAME = process.env.DB_USERNAME || 'postgres';
-export const DB_PASSWORD = process.env.DB_PASSWORD || 'root';
+export const DB_PASSWORD = process.env.DB_PASSWORD || 'postgres';
+console.log(DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 export const REDIS_PORT = parseInt(process.env.REDIS_PORT) || 6379;
 export const REDIS_HOST = process.env.REDIS_HOST || 'localhost';

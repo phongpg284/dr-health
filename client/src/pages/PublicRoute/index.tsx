@@ -3,17 +3,13 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 
 const PublicRoute = ({ component: Component, exclude, ...rest }: any) => {
+  console.log(Component);
   return (
-    <Route
-      {...rest}
-      render={(props) => (
-        <>
-          {!exclude?.includes("header") && <Header />}
-          <Component {...props} />
-          {!exclude?.includes("footer") && <Footer />}
-        </>
-      )}
-    />
+    <>
+      {!exclude?.includes("header") && <Header />}
+      <Component {...rest} />
+      {!exclude?.includes("footer") && <Footer />}
+    </>
   );
 };
 

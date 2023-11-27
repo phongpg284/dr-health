@@ -1,6 +1,6 @@
 import "./login.scss";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -25,17 +25,14 @@ const LoginSchema = yup.object().shape({
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showError, setShowError] = useState<string>("");
   const api = useApi();
 
-  api
-  .post("api/user")
-  .then((response) => {
+  api.post("api/user").then((response) => {
     const data = response.data;
     console.log(data);
-    
-  })
+  });
 
   const handleLogin = (params: any) => {
     api
@@ -53,7 +50,7 @@ const Login = () => {
               roleId: data?.roleId,
             })
           );
-          history.push("/");
+          navigate("/");
         }
       })
       .catch((error: AxiosError) => {
@@ -127,7 +124,7 @@ const Login = () => {
               <Button className="submitBtn" type="submit">
                 Đăng nhập
               </Button>
-              <Link className="create-account-link" to="./signup">
+              <Link className="create-account-link" to="/signup">
                 Tạo tài khoản
               </Link>
 

@@ -29,7 +29,7 @@ const Notifications: React.FC<NotificationDropdownProps> = ({ data }) => {
       status: "seen",
     });
     if (url) window.open(url);
-    // history.push(`/notifications/${params}`);
+    // navigate(`/notifications/${params}`);
   };
   const ShowNotification: React.FC<NotificationDropdownProps> = ({ data }) => (
     <>

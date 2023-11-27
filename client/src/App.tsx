@@ -1,7 +1,7 @@
 import "./App.css";
 import { Spin } from "antd";
 import { createContext, useEffect, useRef, useState, Suspense, lazy } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "./app/store";
 import PrivateRoute from "pages/PrivateRoute";
 import LoginPage from "./pages/Login/LoginPage";
@@ -54,8 +54,8 @@ function App() {
   );
 }
 
-const socket = io("localhost:5000");
-function MyRouter() {
+const socket = io("localhost:4000");
+function MyRouter(): JSX.Element {
   const { role } = useAppSelector((state) => state.account);
   useEffect(() => {
     socket.on("connect", () => {
@@ -75,43 +75,39 @@ function MyRouter() {
   return (
     <SocketContext.Provider value={socket}>
       <BrowserRouter>
-        <Switch>
-          <PublicRoute path="/news" component={News} />
-          <PublicRoute path="/ho-tro" component={Addition} />
-          <PublicRoute path="/co-so-dieu-tri" component={HospitalMap} />
+        <Routes>
+          <Route path="/news" element={<PublicRoute component={News} />} />
+          <Route path="/ho-tro" element={<PublicRoute component={Addition} />} />
+          <Route path="/co-so-dieu-tri" element={<PublicRoute component={HospitalMap} />} />
 
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={SignupPage} />
-          <PublicRoute exact path="/" component={Home} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/" element={<PublicRoute component={Home} />} />
 
-          <PublicRoute exact path="/phuc-hoi" component={FirstAid} />
-          <PublicRoute exact path="/product" component={Product} />
+          <Route path="/phuc-hoi" element={<PublicRoute component={FirstAid} />} />
+          <Route path="/product" element={<PublicRoute component={Product} />} />
           {/* <Main exact path="/so-cuu" component={FirstAid2} /> */}
 
-          {role === "doctor" && 
-            (<PrivateRoute exact path="/didbook" component={DidBook} />)
-          }
-          {role === "patient" && 
-            (<PrivateRoute exact path="/booking" component={Booking} />)
-          }
-          <PrivateRoute exact path="/cart" component={CartPage} />
-          <PrivateRoute exact path="/profile" component={ProfilePage} />
-          <PrivateRoute exact path="/calendar" component={CalendarPage} />
-          <PrivateRoute exact path="/notifications" component={NotificationsPage} />
-          <PrivateRoute exact path="/threshold/:id" component={ThresholdPage} />
+          {role === "doctor" && <Route path="/didbook" element={<PrivateRoute component={DidBook} />} />}
+          {role === "patient" && <Route path="/booking" element={<PrivateRoute component={Booking} />} />}
+          <Route path="/cart" element={<PrivateRoute component={CartPage} />} />
+          <Route path="/profile" element={<PrivateRoute component={ProfilePage} />} />
+          <Route path="/calendar" element={<PrivateRoute component={CalendarPage} />} />
+          <Route path="/notifications" element={<PrivateRoute component={NotificationsPage} />} />
+          <Route path="/threshold/:id" element={<PrivateRoute component={ThresholdPage} />} />
           {role === "doctor" && (
             <>
-              <PrivateRoute exact path="/patients" component={PatientCardsList} />
-              <PrivateRoute exact path="/patients/:id" component={PatientList} />
-              <PrivateRoute exact path="/record" component={DoctorRecord} />
-              <PrivateRoute exact path="/upload/stroke-point" component={StrokePoint} />
-              <PrivateRoute exact path="/upload/blood" component={UploadBlood} />
-              <PrivateRoute exact path="/upload/projection-photo" component={ProjectionPhoto} />
+              <Route path="/patients" element={<PrivateRoute component={PatientCardsList} />} />
+              <Route path="/patients/:id" element={<PrivateRoute component={PatientList} />} />
+              <Route path="/record" element={<PrivateRoute component={DoctorRecord} />} />
+              <Route path="/upload/stroke-point" element={<PrivateRoute component={StrokePoint} />} />
+              <Route path="/upload/blood" element={<PrivateRoute component={UploadBlood} />} />
+              <Route path="/upload/projection-photo" element={<PrivateRoute component={ProjectionPhoto} />} />
             </>
           )}
-          {role === "patient" && <PrivateRoute exact path="/record" component={PatientRecord} />}
-          {!role && <PrivateRoute exact path="/record" component={PatientRecord} />}
-        </Switch>
+          {role === "patient" && <Route path="/record" element={<PrivateRoute component={PatientRecord} />} />}
+          {!role && <Route path="/record" element={<PrivateRoute component={PatientRecord} />} />}
+        </Routes>
       </BrowserRouter>
     </SocketContext.Provider>
   );

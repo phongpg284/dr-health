@@ -4,16 +4,14 @@ import { useStore } from "react-redux";
 import axiosInstance from "config/axios-config";
 import { useAppDispatch } from "app/store";
 import { logOut, updateToken } from "app/authSlice";
-import { useHistory } from "react-router-dom";
 import { message } from "antd";
 
 const ApiContext = createContext(axiosInstance);
 
-const ApiProvider: React.FC = ({ children }) => {
+const ApiProvider: React.FC<any> = ({ children }: any) => {
   const store = useStore();
   const dispatch = useAppDispatch();
   let refreshTokenRequest = null;
-  const history = useHistory();
 
   const getnewAccessToken = async (instance: AxiosInstance, refreshToken: string): Promise<string> => {
     const state = store.getState();
@@ -40,7 +38,7 @@ const ApiProvider: React.FC = ({ children }) => {
       .catch(() => {
         dispatch(logOut());
         message.error("Token expired! Please login again!", 4);
-        history.replace("/");
+        window.location.replace("/");
       });
   };
 
@@ -72,7 +70,7 @@ const ApiProvider: React.FC = ({ children }) => {
         const originalConfig = error.config;
         const state = store.getState();
         const { account } = state;
-
+        console.log(error.response);
         const { status, data } = error.response;
         if (status === 401 && data?.message === "Unauthorized" && originalConfig.url !== "/auth/refresh") {
           if (!refreshTokenRequest) {

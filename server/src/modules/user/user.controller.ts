@@ -7,7 +7,7 @@ import { NotificationService } from 'src/modules/notification/notification.servi
 import { ScheduleService } from 'src/modules/schedule/schedule.service';
 import { Public } from 'src/utils/public.decorator';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(
