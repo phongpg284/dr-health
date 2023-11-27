@@ -46,7 +46,9 @@ export class PrescriptionService {
   }
 
   async findOne(id: number) {
-    const prescription = await this.prescriptionRepository.findOne(id, { populate: ['medicinePrescriptions'] });
+    const prescription = await this.prescriptionRepository.findOne(id, {
+      populate: ['medicinePrescriptions'],
+    });
     if (!prescription) throw new HttpException('Prescription not found', HttpStatus.BAD_REQUEST);
     return prescription;
   }

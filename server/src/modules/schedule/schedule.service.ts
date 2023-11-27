@@ -43,7 +43,12 @@ export class ScheduleService {
       const schedules = [];
       dateRangeArr.forEach((date) => {
         const finalDate = combineDateAndTime(date, time);
-        const newSchedule = new Schedule(user, 'medicine_prescription', finalDate, medicinePrescription);
+        const newSchedule = new Schedule(
+          user,
+          'medicine_prescription',
+          finalDate,
+          medicinePrescription,
+        );
         schedules.push(newSchedule);
       });
       await this.scheduleRepository.flush();

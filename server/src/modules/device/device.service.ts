@@ -15,7 +15,7 @@ export class DeviceService {
   ) {}
 
   async create(createDeviceDto: CreateDeviceDto) {
-    const { name, type, code, isConnect, patientId } = createDeviceDto;
+    const { name, code, isConnect, patientId } = createDeviceDto;
     try {
       const newDevice = new Device();
       newDevice.name = name;

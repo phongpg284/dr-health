@@ -4,7 +4,6 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prescription } from 'src/modules/prescription/entities/prescription.entity';
 import { ScheduleService } from 'src/modules/schedule/schedule.service';
-import { combineDateAndTime } from 'src/utils/date';
 import { CreateMedicinePrescriptionDto } from './dto/create-medicine-prescription.dto';
 import { UpdateMedicinePrescriptionDto } from './dto/update-medicine-prescription.dto';
 import { MedicinePrescription } from './entities/medicine-prescription.entity';
@@ -92,7 +91,8 @@ export class MedicinePrescriptionService {
 
   async findOne(params: FilterQuery<MedicinePrescription>) {
     const medicinePrescription = await this.medicinePrescriptionRepository.findOne(params);
-    if (!medicinePrescription) throw new HttpException('Medicine Prescription not found', HttpStatus.BAD_REQUEST);
+    if (!medicinePrescription)
+      throw new HttpException('Medicine Prescription not found', HttpStatus.BAD_REQUEST);
     return medicinePrescription;
   }
 

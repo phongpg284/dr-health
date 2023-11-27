@@ -154,7 +154,9 @@ export class PatientService {
 
   async getPrescriptions(id: number) {
     try {
-      const patient = await this.patientRepository.findOneOrFail(id, { populate: ['prescriptions'] });
+      const patient = await this.patientRepository.findOneOrFail(id, {
+        populate: ['prescriptions'],
+      });
       return patient.prescriptions;
     } catch (error) {
       throw new HttpException(

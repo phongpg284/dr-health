@@ -19,7 +19,8 @@ export class MedicalStatService {
   ) {}
 
   async create(createMedicalStatDto: CreateMedicalStatDto) {
-    const { patientId, type, unit, value, secondValue, createdAt, updatedAt } = createMedicalStatDto;
+    const { patientId, type, unit, value, secondValue, createdAt, updatedAt } =
+      createMedicalStatDto;
     try {
       const newMedicalStat = new MedicalStat();
       newMedicalStat.type = type;

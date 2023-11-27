@@ -4,6 +4,6 @@ import { SupersonicTestController } from './supersonic-test.controller';
 
 @Module({
   controllers: [SupersonicTestController],
-  providers: [SupersonicTestService]
+  providers: [SupersonicTestService],
 })
 export class SupersonicTestModule {}

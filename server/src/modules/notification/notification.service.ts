@@ -35,8 +35,10 @@ export class NotificationService {
 
       let user;
       if (userId) user = await this.userRepository.findOne(userId);
-      if (patientId) user = (await this.patientRepository.findOne(patientId, { populate: ['account'] })).account;
-      if (doctorId) user = (await this.doctorRepository.findOne(doctorId, { populate: ['account'] })).account;
+      if (patientId)
+        user = (await this.patientRepository.findOne(patientId, { populate: ['account'] })).account;
+      if (doctorId)
+        user = (await this.doctorRepository.findOne(doctorId, { populate: ['account'] })).account;
       user.notifications.add(newNotification);
       await this.userRepository.persistAndFlush(user);
 

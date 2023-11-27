@@ -23,7 +23,10 @@ export class MedicinePrescriptionController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMedicinePrescriptionDto: UpdateMedicinePrescriptionDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateMedicinePrescriptionDto: UpdateMedicinePrescriptionDto,
+  ) {
     return this.medicinePrescriptionService.update(+id, updateMedicinePrescriptionDto);
   }
 

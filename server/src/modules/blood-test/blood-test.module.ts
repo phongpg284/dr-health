@@ -4,6 +4,6 @@ import { BloodTestController } from './blood-test.controller';
 
 @Module({
   controllers: [BloodTestController],
-  providers: [BloodTestService]
+  providers: [BloodTestService],
 })
 export class BloodTestModule {}

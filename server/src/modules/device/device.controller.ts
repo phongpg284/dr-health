@@ -6,7 +6,10 @@ import { UpdateDeviceDto } from './dto/update-device.dto';
 
 @Controller('device')
 export class DeviceController {
-  constructor(private readonly deviceService: DeviceService, private readonly patientService: PatientService) {}
+  constructor(
+    private readonly deviceService: DeviceService,
+    private readonly patientService: PatientService,
+  ) {}
 
   @Post()
   create(@Body() createDeviceDto: CreateDeviceDto) {

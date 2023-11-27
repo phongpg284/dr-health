@@ -9,7 +9,10 @@ export class Prescription extends BaseEntity {
     super();
     this.patient = patient;
   }
-  @OneToMany(() => MedicinePrescription, (medicinePrescription) => medicinePrescription.prescription)
+  @OneToMany(
+    () => MedicinePrescription,
+    (medicinePrescription) => medicinePrescription.prescription,
+  )
   medicinePrescriptions = new Collection<MedicinePrescription>(this);
 
   @ManyToOne(() => Patient)

@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToOne, OneToMany, OneToOne, Property } from '@mikro-orm/core';
+import { Collection, Entity, ManyToOne, OneToMany, Property } from '@mikro-orm/core';
 import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
 import { Patient } from 'src/modules/patient/entities/patient.entity';
 import { Schedule } from 'src/modules/schedule/entities/schedule.entity';
@@ -6,7 +6,14 @@ import { BaseEntity } from 'src/utils/BaseEntity';
 
 @Entity()
 export class Appointment extends BaseEntity {
-  constructor(patient: Patient, doctor: Doctor, name: string, time: Date, link: string, duration: number) {
+  constructor(
+    patient: Patient,
+    doctor: Doctor,
+    name: string,
+    time: Date,
+    link: string,
+    duration: number,
+  ) {
     super();
     this.patient = patient;
     this.doctor = doctor;

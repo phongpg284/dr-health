@@ -26,8 +26,20 @@ export class AppointmentService {
       const doctor = await this.doctorService.findOne({ id: +doctorId });
       if (patient && doctor) {
         const newAppointment = new Appointment(patient, doctor, name, time, link, duration);
-        const newScheduleForPatient = new Schedule(patient.account, 'appointment', time, null, newAppointment);
-        const newScheduleForDoctor = new Schedule(doctor.account, 'appointment', time, null, newAppointment);
+        const newScheduleForPatient = new Schedule(
+          patient.account,
+          'appointment',
+          time,
+          null,
+          newAppointment,
+        );
+        const newScheduleForDoctor = new Schedule(
+          doctor.account,
+          'appointment',
+          time,
+          null,
+          newAppointment,
+        );
         newAppointment.schedules.add(newScheduleForPatient);
         newAppointment.schedules.add(newScheduleForDoctor);
         await this.appointmentRepository.persistAndFlush(newAppointment);
@@ -41,7 +53,9 @@ export class AppointmentService {
         await this.notificationService.create({
           doctorId: +doctorId,
           title: 'Cuộc hẹn với bệnh nhân tạo thành công',
-          content: `Bạn có cuộc hẹn với bệnh nhân vào lúc ${dayjs(time).format('DD/MM/YYYY HH:mm')}`,
+          content: `Bạn có cuộc hẹn với bệnh nhân vào lúc ${dayjs(time).format(
+            'DD/MM/YYYY HH:mm',
+          )}`,
           type: 'appointment',
           appoinment: newAppointment,
         });
