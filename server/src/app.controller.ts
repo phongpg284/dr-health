@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/guard/local-auth.guard';
 import JwtRefreshGuard from './auth/guard/jwtRefresh-auth.guard';
+import { CreateUserDto } from './modules/user/dto/create-user.dto';
 
 @Controller()
 export class AppController {
@@ -37,6 +38,11 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @Post('auth/signup')
+  async signup(@Body() user: CreateUserDto) {
+    return this.authService.signup(user);
   }
 
   @UseGuards(JwtAuthGuard)
