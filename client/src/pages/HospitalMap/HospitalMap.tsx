@@ -1,8 +1,8 @@
 import "./HospitalMap.scss";
 import React from "react";
 import { Modal } from "react-bootstrap";
-import ReactMapGL, { Marker } from "react-map-gl";
-import mapboxgl from "mapbox-gl";
+// import ReactMapGL, { Marker } from "react-map-gl";
+// import * as mapboxgl from 'mapbox-gl';
 import { VscSymbolNamespace } from "react-icons/vsc";
 import { FaRegAddressCard } from "react-icons/fa";
 import { IoMdPin } from "react-icons/io";
@@ -14,11 +14,11 @@ import AbstractOneLine from "../../assets/abstract-one-line.svg";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+// mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-ReactMapGL.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+// ReactMapGL.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 function HospitalMap(): JSX.Element {
   const defaultSide = React.useMemo(() => {
@@ -196,7 +196,7 @@ function MyMap({ viewport, setViewport, onChose }: MyMap): JSX.Element {
         </linearGradient>
       </svg>
 
-      <ReactMapGL className="myMap" {...viewport} mapboxApiAccessToken={token} onViewportChange={setViewport} mapStyle="mapbox://styles/mapbox/streets-v11">
+      {/* <ReactMapGL className="myMap" {...viewport} mapboxApiAccessToken={token} onViewportChange={setViewport} mapStyle="mapbox://styles/mapbox/streets-v11">
         {hospitalList.map((hospital, index) => (
           <Marker latitude={hospital.latitude} longitude={hospital.longitude} key={index}>
             <div className="myMarker">
@@ -214,7 +214,7 @@ function MyMap({ viewport, setViewport, onChose }: MyMap): JSX.Element {
             </div>
           </Marker>
         ))}
-      </ReactMapGL>
+      </ReactMapGL> */}
     </>
   );
 }

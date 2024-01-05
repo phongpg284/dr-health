@@ -1008,7 +1008,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "default": "'iieqzs2e'",
+          "default": "'djfn9gbk'",
           "mappedType": "string"
         },
         "account_id": {
@@ -1457,6 +1457,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
+        },
+        "urine_test_id": {
+          "name": "urine_test_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         }
       },
       "name": "medical_record",
@@ -1477,6 +1486,15 @@
           ],
           "composite": false,
           "keyName": "medical_record_supersonic_test_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "urine_test_id"
+          ],
+          "composite": false,
+          "keyName": "medical_record_urine_test_id_unique",
           "primary": false,
           "unique": true
         },
@@ -1526,6 +1544,18 @@
             "id"
           ],
           "referencedTableName": "public.supersonic_test",
+          "updateRule": "cascade"
+        },
+        "medical_record_urine_test_id_foreign": {
+          "constraintName": "medical_record_urine_test_id_foreign",
+          "columnNames": [
+            "urine_test_id"
+          ],
+          "localTableName": "public.medical_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.urine_test",
           "updateRule": "cascade"
         }
       }
@@ -1701,6 +1731,184 @@
             "medical_record_id"
           ],
           "localTableName": "public.supersonic_test",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medical_record",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "medical_record_id": {
+          "name": "medical_record_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "patient_id_on_urine_device": {
+          "name": "patient_id_on_urine_device",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "glu_value": {
+          "name": "glu_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "leu_value": {
+          "name": "leu_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "nit_value": {
+          "name": "nit_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "uro_value": {
+          "name": "uro_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "pro_value": {
+          "name": "pro_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "ph_value": {
+          "name": "ph_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "bd_value": {
+          "name": "bd_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "sg_value": {
+          "name": "sg_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "ket_value": {
+          "name": "ket_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "bill_value": {
+          "name": "bill_value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "urine_test",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "composite": false,
+          "keyName": "urine_test_medical_record_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "urine_test_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "urine_test_medical_record_id_foreign": {
+          "constraintName": "urine_test_medical_record_id_foreign",
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "localTableName": "public.urine_test",
           "referencedColumnNames": [
             "id"
           ],

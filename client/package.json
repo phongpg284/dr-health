@@ -48,7 +48,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build-opt": "react-scripts --max-old-space-size=8192 build",
     "build": "react-scripts build",
     "test": "react-scripts test",
