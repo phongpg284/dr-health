@@ -20,7 +20,7 @@ export class EventsGateway {
   server: Server;
 
   @SubscribeMessage('notification')
-  findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
+  findAll(@MessageBody() data: { patientId: number }): Observable<WsResponse<number>> {
     return from([1, 2, 3]).pipe(map((item) => ({ event: 'events', data: item })));
   }
 

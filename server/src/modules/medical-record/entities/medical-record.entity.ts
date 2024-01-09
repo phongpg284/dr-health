@@ -1,5 +1,6 @@
 import { Entity, ManyToOne, OneToOne } from '@mikro-orm/core';
 import { BloodTest } from 'src/modules/blood-test/entities/blood-test.entity';
+import { DeviceRecord } from 'src/modules/device-record/device-record.entity';
 import { Patient } from 'src/modules/patient/entities/patient.entity';
 import { SupersonicTest } from 'src/modules/supersonic-test/entities/supersonic-test.entity';
 import { UrineTest } from 'src/modules/urine-test/entities/urine-test.entity';
@@ -18,4 +19,7 @@ export class MedicalRecord extends BaseEntity {
 
   @OneToOne()
   urineTest: UrineTest;
+
+  @OneToOne()
+  deviceRecord: DeviceRecord;
 }
