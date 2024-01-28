@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import {
   BLOOD_PRESS,
   BODY_TEMP,
+  DEVICE_STATS,
   DIASTOLE,
   HEART_RATE,
   HUMIDITY,
@@ -119,12 +120,14 @@ export class MqttService {
           value: filterErrorValue(nodeStat, payload),
         });
         break;
-      case DIASTOLE:
-        await this.medicalStatService.create({
+      case DEVICE_STATS:
+        const notification = await this.notificationService.create({
           patientId: patient.id,
-          type: MEDICAL_STATS[DIASTOLE].type,
-          value: filterErrorValue(nodeStat, payload),
+          userId: patient.account.id,
+          title: 'Threshold exceeded',
+          content: 'Threshold exceeded',
         });
+        this.eventGateway.sendNotification(notification);
         break;
       // case FACE:
       //   await deviceObject.updateDevice({

@@ -15,6 +15,8 @@ import { Address } from 'src/modules/address/entities/address.entity';
 import { Appointment } from 'src/modules/appointment/entities/appointment.entity';
 import { Medicine } from 'src/modules/medicine/entities/medicine.entity';
 import { Schedule } from 'src/modules/schedule/entities/schedule.entity';
+import { DeviceRecord } from 'src/modules/device-record/device-record.entity';
+import { UrineTest } from 'src/modules/urine-test/entities/urine-test.entity';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { Schedule } from 'src/modules/schedule/entities/schedule.entity';
         Appointment,
         Medicine,
         Schedule,
+        DeviceRecord,
+        UrineTest,
       ],
     }),
   ],
