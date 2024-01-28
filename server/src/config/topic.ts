@@ -23,3 +23,4 @@ export const CALCULATE_STATS = 'calculateStats';
 export const PHYSICAL_THERAPY = 'physicalTherapy';
 export const FALL = 'fall';
 export const LOC = 'loc';
+export const DEVICE_STATS = 'device_stats';

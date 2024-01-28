@@ -24,6 +24,7 @@ import { AppointmentModule } from './modules/appointment/appointment.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { MedicineModule } from './modules/medicine/medicine.module';
 import { BloodStatModule } from './modules/blood-stat/blood-stat.module';
+import { DeviceRecordModule } from './modules/device-record/device-record.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { BloodStatModule } from './modules/blood-stat/blood-stat.module';
     ScheduleModule,
     MedicineModule,
     BloodStatModule,
+    DeviceRecordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
