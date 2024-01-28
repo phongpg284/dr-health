@@ -63,7 +63,7 @@ const Header = () => {
           <div className="banner_content">
             <img className="banner_img" alt="logo" src={logo} />
             <div className="banner_text">
-              <b className="web_name">Dr. Health</b>
+              <b className="web_name">HUST Telehealth</b>
               <p className="web_des">Trang thông tin và theo dõi tình trạng bệnh nhân</p>
             </div>
           </div>

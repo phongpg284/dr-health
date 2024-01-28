@@ -26,7 +26,7 @@ const CartIcon = ({ children }: any) => {
   }
 
   function onClick() {
-    navigate.push("/cart");
+    navigate("/cart");
   }
 
   return (

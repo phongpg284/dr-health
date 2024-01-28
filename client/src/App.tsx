@@ -54,7 +54,7 @@ function App() {
   );
 }
 
-const socket = io("localhost:4000");
+const socket = io(process.env.REACT_APP_WEBSOCKET_URL);
 function MyRouter(): JSX.Element {
   const { role } = useAppSelector((state) => state.account);
   useEffect(() => {

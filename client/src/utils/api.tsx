@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { createContext, useContext, useEffect } from "react";
 import { AxiosError, AxiosInstance } from "axios";
 import { useStore } from "react-redux";
@@ -15,6 +16,9 @@ const ApiProvider: React.FC<any> = ({ children }: any) => {
 
   const getnewAccessToken = async (instance: AxiosInstance, refreshToken: string): Promise<string> => {
     const state = store.getState();
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     const { account } = state;
     return instance
       .get("/auth/refresh", {
@@ -46,9 +50,13 @@ const ApiProvider: React.FC<any> = ({ children }: any) => {
     axiosInstance.interceptors.request.use(
       (config) => {
         const state = store.getState();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         const { account } = state;
         const getAuthorizationHeader = () => `Bearer ${config.url === "/auth/refresh" ? account?.refreshToken : account?.accessToken}`;
-
+        
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         config.headers = {
           "Content-Type": "application/json",
           ...config.headers,
@@ -69,6 +77,7 @@ const ApiProvider: React.FC<any> = ({ children }: any) => {
       (error: AxiosError<{ message?: string }>) => {
         const originalConfig = error.config;
         const state = store.getState();
+        //@ts-ignore
         const { account } = state;
         console.log(error.response);
         const { status, data } = error.response;

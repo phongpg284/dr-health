@@ -21,10 +21,10 @@ function Addition(): ReactElement {
       <div className="AdditionContent">
         <img src={Abstract14} alt="" className="newsBackground" />
         <Routes>
-          <Route path="/ho-tro/che-do-dinh-duong" element={Nutrition} />
-          <Route path="/ho-tro/giai-phap-phong-ngua" element={StrokePrevention} />
-          <Route path="/ho-tro/vat-ly-tri-lieu" element={PhysicalTherapy} />
-          <Route path="/ho-tro/so-cuu" element={FirstAid} />
+          <Route path="/ho-tro/che-do-dinh-duong" element={<Nutrition />} />
+          <Route path="/ho-tro/giai-phap-phong-ngua" element={<StrokePrevention />} />
+          <Route path="/ho-tro/vat-ly-tri-lieu" element={<PhysicalTherapy />} />
+          <Route path="/ho-tro/so-cuu" element={<FirstAid />} />
         </Routes>
       </div>
     </div>
