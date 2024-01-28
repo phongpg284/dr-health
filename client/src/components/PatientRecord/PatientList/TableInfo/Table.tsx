@@ -96,7 +96,7 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
       <div className="columns">
         <div className="column">
           <div className="label">Giới tính</div>
-          <select className="input-text" name="gender" value={formik.values.gender} onChange={formik.handleChange} placeholder="Gender" disabled={!editable}>
+          <select className="input-text" name="gender" value={formik.values.gender} onChange={formik.handleChange} disabled={!editable}>
             <option value=""></option>
             <option value="male">Nam</option>
             <option value="female">Nữ</option>
