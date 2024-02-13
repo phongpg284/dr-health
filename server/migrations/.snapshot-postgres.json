@@ -1008,7 +1008,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "default": "'djfn9gbk'",
+          "default": "'jje3h32e'",
           "mappedType": "string"
         },
         "account_id": {
@@ -1867,112 +1867,6 @@
           "length": 6,
           "mappedType": "datetime"
         },
-        "medical_record_id": {
-          "name": "medical_record_id",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "heart_rate_bpm": {
-          "name": "heart_rate_bpm",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "spo2_percentage": {
-          "name": "spo2_percentage",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "temperature": {
-          "name": "temperature",
-          "type": "int",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "integer"
-        }
-      },
-      "name": "device_record",
-      "schema": "public",
-      "indexes": [
-        {
-          "columnNames": [
-            "medical_record_id"
-          ],
-          "composite": false,
-          "keyName": "device_record_medical_record_id_unique",
-          "primary": false,
-          "unique": true
-        },
-        {
-          "keyName": "device_record_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "device_record_medical_record_id_foreign": {
-          "constraintName": "device_record_medical_record_id_foreign",
-          "columnNames": [
-            "medical_record_id"
-          ],
-          "localTableName": "public.device_record",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.medical_record",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
         "patient_id": {
           "name": "patient_id",
           "type": "int",
@@ -1988,7 +1882,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "supersonic_test_id": {
@@ -1997,7 +1891,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "urine_test_id": {
@@ -2006,7 +1900,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         },
         "device_record_id": {
@@ -2015,7 +1909,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
         }
       },
@@ -2092,6 +1986,7 @@
             "id"
           ],
           "referencedTableName": "public.blood_test",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         },
         "medical_record_supersonic_test_id_foreign": {
@@ -2104,6 +1999,7 @@
             "id"
           ],
           "referencedTableName": "public.supersonic_test",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         },
         "medical_record_urine_test_id_foreign": {
@@ -2116,6 +2012,7 @@
             "id"
           ],
           "referencedTableName": "public.urine_test",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         },
         "medical_record_device_record_id_foreign": {
@@ -2128,6 +2025,113 @@
             "id"
           ],
           "referencedTableName": "public.device_record",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "medical_record_id": {
+          "name": "medical_record_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "heart_rate_bpm": {
+          "name": "heart_rate_bpm",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "spo2_percentage": {
+          "name": "spo2_percentage",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "temperature": {
+          "name": "temperature",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "device_record",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "composite": false,
+          "keyName": "device_record_medical_record_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "device_record_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "device_record_medical_record_id_foreign": {
+          "constraintName": "device_record_medical_record_id_foreign",
+          "columnNames": [
+            "medical_record_id"
+          ],
+          "localTableName": "public.device_record",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.medical_record",
           "updateRule": "cascade"
         }
       }

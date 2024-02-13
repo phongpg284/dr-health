@@ -162,6 +162,7 @@ export class MqttService {
               });
             }),
           );
+          console.log('notifcations', notifcations);
           notifcations.forEach((notification) => {
             this.eventGateway.sendNotification(notification);
           });
