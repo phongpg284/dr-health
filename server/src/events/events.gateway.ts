@@ -8,6 +8,7 @@ import {
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Server } from 'socket.io';
+import { PatientStats } from 'src/modules/mqtt/transformers.ts/transformToDeviceStats';
 import { Notification } from 'src/modules/notification/entities/notification.entity';
 
 @WebSocketGateway({
@@ -26,6 +27,10 @@ export class EventsGateway {
 
   async sendNotification(notification: Notification): Promise<boolean> {
     return this.server.emit('notification', notification);
+  }
+
+  async sendDeviceStats(deviceStats: PatientStats) {
+    return this.server.emit('device-stats', deviceStats);
   }
 
   async sendTest(message: string): Promise<boolean> {
