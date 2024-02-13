@@ -81,6 +81,12 @@ export class MqttService {
       return Math.round(parseFloat(value));
     };
 
+    payload = {
+      heart_rate_bpm: payload.heart_beat_bpm,
+      spo2_percentage: payload.oxygen_percent,
+      temperature: payload.temperature,
+    };
+
     switch (nodeStat) {
       case TEMPERATURE:
         await this.medicalStatService.create({
@@ -136,6 +142,7 @@ export class MqttService {
       case DEVICE_STATS:
         const deviceStats = transformToPatientStats(payload);
         const patientObj = await this.patientService.findOne({ id: patient.id });
+        console.log('device stats', deviceStats)
         const medicalRecord = await this.medicalRecordService.create({
           patient: patientObj,
         });
@@ -148,7 +155,7 @@ export class MqttService {
         const spo2PercentageThreshold = 12;
         const temperatureThreshold = 13;
 
-        await this.eventGateway.sendDeviceStats('payload');
+        await this.eventGateway.sendDeviceStats(payload);
         let content = [];
         if (deviceStats.heart_rate_bpm > heartRateThreshold) {
           content.push('Heart rate bpm exceeded');
