@@ -137,17 +137,17 @@ export class MqttService {
         const spo2PercentageThreshold = 12;
         const temperatureThreshold = 13;
 
-        let notiMessage = '';
+        let content = '';
         let isExceeded = false;
         if (deviceStats.heart_rate_bpm > heartRateThreshold) {
           isExceeded = true;
-          notiMessage = 'Heart rate bpm exceeded';
+          content = 'Heart rate bpm exceeded';
         } else if (deviceStats.spo2_percentage > spo2PercentageThreshold) {
           isExceeded = true;
-          notiMessage = 'SPO2 percentage exceeded';
+          content = 'SPO2 percentage exceeded';
         } else if (deviceStats.temperature > temperatureThreshold) {
           isExceeded = true;
-          notiMessage = 'Temperature exceeded';
+          content = 'Temperature exceeded';
         }
 
         if (isExceeded) {
@@ -155,7 +155,7 @@ export class MqttService {
             patientId: patient.id,
             userId: patient.account.id,
             title: 'Threshold exceeded',
-            content: 'Threshold exceeded',
+            content,
           });
           this.eventGateway.sendNotification(notification);
         }
