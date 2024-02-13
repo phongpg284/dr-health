@@ -8,5 +8,6 @@ import { DeviceRecordService } from './device-record.service';
   imports: [OrmModule, MedicalRecordModule],
   controllers: [DeviceRecordController],
   providers: [DeviceRecordService],
+  exports: [DeviceRecordService],
 })
 export class DeviceRecordModule {}
