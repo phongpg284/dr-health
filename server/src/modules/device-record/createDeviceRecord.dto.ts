@@ -1,8 +1,8 @@
-import { MedicalRecord } from '../medical-record/entities/medical-record.entity';
 import { PatientStats } from '../mqtt/transformers.ts/transformToDeviceStats';
+import { Patient } from '../patient/entities/patient.entity';
 
 export class CreateDeviceRecordDto extends PatientStats {
-  medicalRecord: MedicalRecord;
+  patient: Patient;
 }
 
 export class UpdateDeviceRecordDto extends CreateDeviceRecordDto {}

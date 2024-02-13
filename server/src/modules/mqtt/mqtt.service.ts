@@ -127,14 +127,10 @@ export class MqttService {
       case DEVICE_STATS:
         const deviceStats = transformToPatientStats(payload);
         const patientObj = await this.patientService.findOne({ id: patient.id });
-        const medicalRecord = await this.medicalRecordService.create({
+        await this.deviceRecordService.create({
           patient: patientObj,
-        });
-        const deviceRecord = await this.deviceRecordService.create({
-          medicalRecord,
           ...deviceStats,
         });
-        await this.medicalRecordService.update(medicalRecord.id, { deviceRecord });
         const heartRateThreshold = 12;
         const spo2PercentageThreshold = 12;
         const temperatureThreshold = 13;
