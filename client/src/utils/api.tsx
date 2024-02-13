@@ -54,7 +54,7 @@ const ApiProvider: React.FC<any> = ({ children }: any) => {
         //@ts-ignore
         const { account } = state;
         const getAuthorizationHeader = () => `Bearer ${config.url === "/auth/refresh" ? account?.refreshToken : account?.accessToken}`;
-        
+
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         config.headers = {
@@ -80,8 +80,7 @@ const ApiProvider: React.FC<any> = ({ children }: any) => {
         //@ts-ignore
         const { account } = state;
         console.log(error.response);
-        const { status, data } = error.response;
-        if (status === 401 && data?.message === "Unauthorized" && originalConfig.url !== "/auth/refresh") {
+        if (error.response.status === 401 && error.response?.data?.message === "Unauthorized" && originalConfig.url !== "/auth/refresh") {
           if (!refreshTokenRequest) {
             refreshTokenRequest = getnewAccessToken(axiosInstance, account.refreshToken).then((token) => {
               refreshTokenRequest = null;

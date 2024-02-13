@@ -1,6 +1,6 @@
 import "./index.scss";
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAppSelector } from "app/store";
 
 import { InfoTable } from "../PatientList/TableInfo/Table";
@@ -18,11 +18,17 @@ import usePromise from "utils/usePromise";
 import { Tabs } from "antd";
 import MedicineSchedule from "components/Profile/MedicineSchedule";
 import AppointmentSchedule from "../PatientList/AppointmentSchedule";
+import { useApi } from 'utils/api';
+import { SocketContext } from "App";
 const { TabPane } = Tabs;
 
 const PatientRecord = () => {
   const account = useAppSelector((state) => state.account);
+  // const socket = useContext(SocketContext)
+  // console.log('socket', socket)
+  const api = useApi()
   const [patientData] = usePromise(`/user/${account.id}`);
+  console.log('patientData', patientData)
 
   const deviceData: any = {};
 
@@ -32,6 +38,10 @@ const PatientRecord = () => {
     bodyTemp: false,
     bloodPress: false,
   });
+
+  useEffect(() => {
+    api.get('')
+  })
 
   const handleChangeThresholdStatus = (key: string, status: boolean) => {
     setThresholdStatus((prev) => {

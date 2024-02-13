@@ -49,11 +49,11 @@ function PatientInfoTable({ data, editable }: any): ReactElement {
   const [districts, setDistricts] = useState([]);
   const [provinces, setProvinces] = useState([]);
 
-  useEffect(() => {
-    fetch("https://provinces.open-api.vn/api/p/")
-      .then((res) => res.json())
-      .then((data) => setProvinces(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://provinces.open-api.vn/api/p/")
+  //     .then((res) => res.json())
+  //     .then((data) => setProvinces(data));
+  // }, []);
 
   useEffect(() => {
     if (formik.values.address.provinceCode)
