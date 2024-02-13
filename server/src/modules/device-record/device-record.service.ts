@@ -14,7 +14,8 @@ export class DeviceRecordService {
   async create(data: CreateDeviceRecordDto) {
     try {
       const newDeviceRecord = new DeviceRecord();
-      return this.deviceRecordRepository.persistAndFlush(Object.assign(newDeviceRecord, data));
+      await this.deviceRecordRepository.persistAndFlush(Object.assign(newDeviceRecord, data));
+      return newDeviceRecord;
     } catch (error) {
       console.log('Error create device record: ', error);
     }
