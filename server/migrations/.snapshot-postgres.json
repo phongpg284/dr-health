@@ -198,6 +198,63 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "medicine",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "medicine_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "sp_o2threshold": {
           "name": "sp_o2threshold",
           "type": "int",
@@ -274,63 +331,6 @@
       "indexes": [
         {
           "keyName": "medical_threshold_pkey",
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {}
-    },
-    {
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz(0)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        }
-      },
-      "name": "medicine",
-      "schema": "public",
-      "indexes": [
-        {
-          "keyName": "medicine_pkey",
           "columnNames": [
             "id"
           ],
@@ -2396,8 +2396,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "heart_rate_bpm": {
-          "name": "heart_rate_bpm",
+        "heart_beat_bpm": {
+          "name": "heart_beat_bpm",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
@@ -2405,8 +2405,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "spo2_percentage": {
-          "name": "spo2_percentage",
+        "oxygen_percent": {
+          "name": "oxygen_percent",
           "type": "int",
           "unsigned": false,
           "autoincrement": false,
