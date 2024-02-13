@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { MQTT_BROKER, PORT } from './config';
+import { MQTT_BROKER, MQTT_PASSWORD, MQTT_USERNAME, PORT } from './config';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 const logger = new Logger('Server');
@@ -13,6 +13,8 @@ async function bootstrap() {
     transport: Transport.MQTT,
     options: {
       url: MQTT_BROKER,
+      username: MQTT_USERNAME,
+      password: MQTT_PASSWORD,
     },
   });
   app.setGlobalPrefix('/api');

@@ -28,18 +28,30 @@ export class MqttService {
     private readonly eventGateway: EventsGateway,
   ) {}
   handleMQTTNodeTopic = async (topic: string, payload: string) => {
+    console.log('topic0', { topic, payload });
+
     const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);
+    console.log('isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat', {
+      isValidTopic,
+      nodeBrand,
+      deviceCode,
+      nodeType,
+      nodeStat,
+    });
     if (!isValidTopic) {
       Logger.error('Failed topic parse!');
       return;
     }
 
     const device = await this.deviceService.findOne({ code: deviceCode });
+    console.log('nodeStat', nodeStat);
+    console.log('tes', device);
     if (!device) {
       Logger.error('No device found with this code!');
       return;
     }
     const patient = device.patient;
+    console.log('test', patient);
     if (!patient) {
       Logger.error('No patient connect with this device!');
       return;
@@ -123,7 +135,7 @@ export class MqttService {
       case DEVICE_STATS:
         const notification = await this.notificationService.create({
           patientId: patient.id,
-          userId: patient.account.id,
+          userId: patient?.account?.id || patient.id,
           title: 'Threshold exceeded',
           content: 'Threshold exceeded',
         });
