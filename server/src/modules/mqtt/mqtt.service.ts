@@ -139,19 +139,15 @@ export class MqttService {
 
         this.eventGateway.sendDeviceStats(payload);
         let content = [];
-        let isExceeded = false;
         if (deviceStats.heart_rate_bpm > heartRateThreshold) {
-          isExceeded = true;
           content.push('Heart rate bpm exceeded');
         } else if (deviceStats.spo2_percentage > spo2PercentageThreshold) {
-          isExceeded = true;
           content.push('SPO2 percentage exceeded');
         } else if (deviceStats.temperature > temperatureThreshold) {
-          isExceeded = true;
           content.push('Temperature exceeded');
         }
 
-        if (isExceeded && content.length) {
+        if (content.length) {
           const notifcations = await Promise.all(
             content.map((message) => {
               return this.notificationService.create({
