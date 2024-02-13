@@ -60,6 +60,7 @@ function MyRouter(): JSX.Element {
   useEffect(() => {
     socket.on("connect", () => {
       console.log("socket connect");
+      // sk.join('devices_stats')
     });
 
     socket.on("disconnect", () => {

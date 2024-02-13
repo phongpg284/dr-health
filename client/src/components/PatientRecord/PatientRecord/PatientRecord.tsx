@@ -20,17 +20,29 @@ import MedicineSchedule from "components/Profile/MedicineSchedule";
 import AppointmentSchedule from "../PatientList/AppointmentSchedule";
 import { useApi } from 'utils/api';
 import { SocketContext } from "App";
+import { Socket } from "socket.io-client";
 const { TabPane } = Tabs;
 
 const PatientRecord = () => {
+  const [patientStats, setPatientStats] = useState<any>()
   const account = useAppSelector((state) => state.account);
-  // const socket = useContext(SocketContext)
-  // console.log('socket', socket)
+  const socket = useContext(SocketContext)
+  console.log('socket', socket)
   const api = useApi()
   const [patientData] = usePromise(`/user/${account.id}`);
   console.log('patientData', patientData)
 
   const deviceData: any = {};
+
+  useEffect(() => {
+    (socket as Socket).on('device_stats', (data) => {
+      console.log('data', data)
+    })
+
+    return () => {
+      (socket as Socket).off('device_stats')
+    }
+  }, [])
 
   const [thresholdStatus, setThresholdStatus] = useState({
     spO2: false,
