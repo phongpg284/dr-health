@@ -131,15 +131,15 @@ export class MqttService {
           patient: patientObj,
           ...deviceStats,
         });
-        const heartBeatThreshold = 12;
-        const oxygenPercentageThreshold = 12;
+        const heartRateThreshold = 12;
+        const spo2PercentageThreshold = 12;
         const temperatureThreshold = 13;
 
         await this.eventGateway.sendDeviceStats('payload');
         let content = [];
-        if (deviceStats.heart_beat_bpm > heartBeatThreshold) {
+        if (deviceStats.heart_rate_bpm > heartRateThreshold) {
           content.push('Heart rate bpm exceeded');
-        } else if (deviceStats.oxygen_percent > oxygenPercentageThreshold) {
+        } else if (deviceStats.spo2_percentage > spo2PercentageThreshold) {
           content.push('SPO2 percentage exceeded');
         } else if (deviceStats.temperature > temperatureThreshold) {
           content.push('Temperature exceeded');

@@ -8,10 +8,10 @@ export class DeviceRecord extends BaseEntity {
   patient: Patient;
 
   @Property()
-  heart_beat_bpm: number;
+  heart_rate_bpm: number;
 
   @Property()
-  oxygen_percent: number;
+  spo2_percentage: number;
 
   @Property()
   temperature: number;
