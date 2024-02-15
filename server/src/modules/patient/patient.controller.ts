@@ -32,6 +32,11 @@ export class PatientController {
     return this.medicalThresholdService.getThresholdForPatient(+id);
   }
 
+  @Get('device_records/:id')
+  getDeviceRecords(@Param('id') id: string) {
+    return this.patientService.getDeviceRecords(+id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.patientService.findOne(+id);
