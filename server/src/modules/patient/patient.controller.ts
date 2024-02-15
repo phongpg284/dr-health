@@ -33,8 +33,15 @@ export class PatientController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.patientService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const result = await this.patientService.findOne(+id);
+    const populatedDeviceRecords = (await result.deviceRecords.loadItems()).map(
+      (record) => record.id,
+    );
+    return {
+      ...result,
+      deviceRecords: populatedDeviceRecords,
+    };
   }
 
   @Patch(':id')
