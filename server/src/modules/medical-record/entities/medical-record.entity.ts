@@ -19,7 +19,4 @@ export class MedicalRecord extends BaseEntity {
 
   @OneToOne({ nullable: true })
   urineTest: UrineTest;
-
-  @OneToOne({ nullable: true })
-  deviceRecord: DeviceRecord;
 }

@@ -39,7 +39,7 @@ export class DoctorService {
 
   async findAll() {
     try {
-      const doctors = await this.doctorRepository.findAll();
+      const doctors = await this.doctorRepository.findAll({ populate: ['account'] });
       return doctors;
     } catch (error) {
       logger.error(error);
@@ -48,7 +48,7 @@ export class DoctorService {
   }
 
   async findOne(params: FilterQuery<Doctor>) {
-    const doctor = await this.doctorRepository.findOneOrFail(params);
+    const doctor = await this.doctorRepository.findOneOrFail(params, { populate: ['account'] });
     return doctor;
   }
 

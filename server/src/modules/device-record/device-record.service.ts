@@ -27,8 +27,8 @@ export class DeviceRecordService {
 
   async findOne(patientId) {
     return this.deviceRecordRepository.findOne({
-      medicalRecord: {
-        patient: patientId,
+      patient: {
+        id: patientId,
       },
     });
   }

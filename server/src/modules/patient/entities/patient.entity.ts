@@ -1,5 +1,6 @@
 import { Collection, Entity, ManyToOne, OneToMany, OneToOne, Property } from '@mikro-orm/core';
 import { Appointment } from 'src/modules/appointment/entities/appointment.entity';
+import { DeviceRecord } from 'src/modules/device-record/device-record.entity';
 import { Device } from 'src/modules/device/entities/device.entity';
 import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
 import { MedicalRecord } from 'src/modules/medical-record/entities/medical-record.entity';
@@ -45,4 +46,7 @@ export class Patient extends BaseEntity {
 
   @OneToMany(() => Appointment, (appointment) => appointment.patient, { hidden: true })
   appointments = new Collection<Appointment>(this);
+
+  @OneToMany(() => DeviceRecord, (deviceRecord) => deviceRecord.patient, { hidden: false })
+  deviceRecords = new Collection<DeviceRecord>(this);
 }

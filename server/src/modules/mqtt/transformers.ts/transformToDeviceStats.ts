@@ -1,8 +1,8 @@
 import { plainToClass } from 'class-transformer';
 
 export class PatientStats {
-  heart_rate_bpm: number;
-  spo2_percentage: number;
+  heart_beat_bpm: number;
+  oxygen_percent: number;
   temperature: number;
 }
 

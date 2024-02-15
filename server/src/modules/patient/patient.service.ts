@@ -50,7 +50,9 @@ export class PatientService {
 
   async findAll() {
     try {
-      const patients = await this.patientRepository.findAll();
+      const patients = await this.patientRepository.findAll({
+        populate: ['account', 'doctor'],
+      });
       return patients;
     } catch (error) {
       Logger.error(error);
@@ -59,7 +61,9 @@ export class PatientService {
   }
 
   async findOne(params: FilterQuery<Patient>) {
-    const patient = await this.patientRepository.findOne(params);
+    const patient = await this.patientRepository.findOne(params, {
+      populate: ['deviceRecords', 'account', 'doctor'],
+    });
     if (!patient) throw new HttpException('Patient not found', HttpStatus.BAD_REQUEST);
     return patient;
   }
