@@ -23,7 +23,7 @@ export class PatientService {
     private readonly doctorRepository: EntityRepository<Doctor>,
     @InjectRepository(Device)
     private readonly deviceRepository: EntityRepository<Device>,
-    @InjectRepository(MedicalStat)
+    @InjectRepository(DeviceRecord)
     private readonly deviceRecordRepository: EntityRepository<DeviceRecord>,
     private readonly em: EntityManager,
   ) {}
@@ -176,6 +176,7 @@ export class PatientService {
 
   async getDeviceRecords(id: number) {
     try {
+      console.log('iddddd', id);
       return this.deviceRecordRepository.find({
         patient: {
           id,

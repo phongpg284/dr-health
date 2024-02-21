@@ -1,6 +1,6 @@
 import "./index.scss";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useAppSelector } from "app/store";
 
 import { InfoTable } from "../PatientList/TableInfo/Table";
@@ -18,42 +18,70 @@ import usePromise from "utils/usePromise";
 import { Tabs } from "antd";
 import MedicineSchedule from "components/Profile/MedicineSchedule";
 import AppointmentSchedule from "../PatientList/AppointmentSchedule";
-import { useApi } from 'utils/api';
+import { useApi } from "utils/api";
 import { SocketContext } from "App";
 import { Socket } from "socket.io-client";
+import { Loading3QuartersOutlined } from "@ant-design/icons";
 const { TabPane } = Tabs;
 
 const PatientRecord = () => {
-  const [patientStats, setPatientStats] = useState<any>()
+  const [patientStats, setPatientStats] = useState<any>();
+  const [loading, setLoading] = useState(false);
+  const [patientDetail, setPatientDetail] = useState<any>();
   const account = useAppSelector((state) => state.account);
-  const socket = useContext(SocketContext)
-  console.log('socket', socket)
-  const api = useApi()
+  const socket = useContext(SocketContext);
+  console.log("socket", socket);
+  const api = useApi();
   const [patientData] = usePromise(`/user/${account.id}`);
-  console.log('patientData', patientData)
+  console.log("patientData", patientData);
 
   const deviceData: any = {};
 
   useEffect(() => {
-    (socket as Socket).on('device_stats', (data) => {
-      console.log('data', data)
-    })
+    (socket as Socket).on("device_stats", (data) => {
+      console.log("data", data);
+    });
 
     return () => {
-      (socket as Socket).off('device_stats')
-    }
-  }, [])
+      (socket as Socket).off("device_stats");
+    };
+  }, []);
 
   const [thresholdStatus, setThresholdStatus] = useState({
-    spO2: false,
-    heartRate: false,
-    bodyTemp: false,
+    spO2: true,
+    heartRate: true,
+    bodyTemp: true,
     bloodPress: false,
   });
 
+  console.log("patientStats", patientStats);
+  console.log("patientDetails", patientDetail);
+
   useEffect(() => {
-    api.get('')
-  })
+    const interval = setInterval(() => {
+      if (!loading && patientData) {
+        api
+          .get(`patient/device_records/${patientData?.patientId}`)
+          .then(({ data }) =>
+            setPatientStats(
+              [...data].sort((a, b) => {
+                const aDate = new Date(a.createdAt).valueOf();
+                const bDate = new Date(b.createdAt).valueOf();
+
+                if (aDate > bDate) return -1;
+                else if (aDate < bDate) return 1;
+                else return 0;
+              })[0]
+            )
+          )
+          .finally(() => setLoading(false));
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [loading, patientData]);
 
   const handleChangeThresholdStatus = (key: string, status: boolean) => {
     setThresholdStatus((prev) => {
@@ -63,10 +91,10 @@ const PatientRecord = () => {
       };
     });
   };
-  return (
-    <div className="patient-wrapper">
-      <div className="patient-choose"></div>
-      {patientData && (
+
+  const renderContent = useMemo(
+    () =>
+      patientData && patientStats ? (
         <div className="patient-info-container">
           <Tabs type="card">
             <TabPane tab="Thông tin" key="profile">
@@ -87,46 +115,47 @@ const PatientRecord = () => {
             </TabPane>
             <TabPane tab="Stats1" key="stat_1">
               <div className="patient-info-stats">
-                <ThresholdStats id={patientData._id} data={deviceData?.getDevice?.SpO2Threshold} status={thresholdStatus.spO2} unit="%" icon={spo2} name="SpO2" color="royalblue" />
+                <ThresholdStats id={patientData._id} data={patientStats?.oxygen_percent} status={thresholdStatus.spO2} unit="%" icon={spo2} name="SpO2" color="royalblue" />
                 <ThresholdStats
                   id={patientData._id}
-                  data={deviceData?.getDevice?.heartRateThreshold}
+                  data={patientStats?.heart_beat_bpm}
                   status={thresholdStatus.heartRate}
                   unit="bpm"
                   icon={heart}
                   name="Nhịp tim"
                   color="mediumseagreen"
                 />
-                <ThresholdStats
-                  id={patientData._id}
-                  data={deviceData?.getDevice?.bodyTempThreshold}
-                  status={thresholdStatus.bodyTemp}
-                  unit="°C"
-                  icon={thermo}
-                  name="Nhiệt độ"
-                  color="brown"
-                />
-                <ThresholdStats id={patientData._id} data={deviceData?.getDevice} status={thresholdStatus.bloodPress} unit="bpm" icon={blood} name="Huyết áp cao" color="#ff668f" />
-                <ThresholdStats
-                  id={patientData._id}
-                  data={deviceData?.getDevice}
-                  status={thresholdStatus.bloodPress}
-                  unit="bpm"
-                  icon={blood}
-                  name="Huyết áp thấp"
-                  color="#ff668f"
-                />
+                <ThresholdStats id={patientData._id} data={patientStats?.temperature} status={thresholdStatus.bodyTemp} unit="°C" icon={thermo} name="Nhiệt độ" color="brown" />
+                {/* <ThresholdStats id={patientData._id} data={deviceData?.getDevice} status={thresholdStatus.bloodPress} unit="bpm" icon={blood} name="Huyết áp cao" color="#ff668f" /> */}
+                {/* <ThresholdStats
+                id={patientData._id}
+                data={deviceData?.getDevice}
+                status={thresholdStatus.bloodPress}
+                unit="bpm"
+                icon={blood}
+                name="Huyết áp thấp"
+                color="#ff668f"
+              /> */}
               </div>
             </TabPane>
-            <TabPane tab="Chỉ số" key="chart">
+            {/* <TabPane tab="Chỉ số" key="chart">
               <Chart id={account.roleId} thresholdStatus={handleChangeThresholdStatus} />
-            </TabPane>
+            </TabPane> */}
             <TabPane tab="Lịch hẹn" key="apppointment">
               <AppointmentSchedule id={patientData.id} />
             </TabPane>
           </Tabs>
         </div>
-      )}
+      ) : (
+        <Loading3QuartersOutlined />
+      ),
+    [account, patientData, patientDetail, patientStats, thresholdStatus]
+  );
+
+  return (
+    <div className="patient-wrapper">
+      <div className="patient-choose"></div>
+      {renderContent}
     </div>
   );
 };
