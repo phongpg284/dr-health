@@ -9,6 +9,8 @@ import { OrmModule } from 'src/orm/orm.module';
 import { MedicalStatModule } from 'src/modules/medical-stat/medical-stat.module';
 import { EventsModule } from 'src/events/events.module';
 import { MQTT_BROKER } from 'src/config';
+import { DeviceRecordModule } from '../device-record/device-record.module';
+import { MedicalRecordModule } from '../medical-record/medical-record.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { MQTT_BROKER } from 'src/config';
     NotificationModule,
     MedicalStatModule,
     EventsModule,
+    DeviceRecordModule,
+    MedicalRecordModule,
   ],
   controllers: [MqttController],
   providers: [MqttService],

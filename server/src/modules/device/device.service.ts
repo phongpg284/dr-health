@@ -49,7 +49,9 @@ export class DeviceService {
   }
 
   async findOne(params: FilterQuery<Device>) {
-    const device = await this.deviceRepository.findOneOrFail(params);
+    const device = await this.deviceRepository.findOne(params, {
+      populate: true,
+    });
     return device;
   }
 

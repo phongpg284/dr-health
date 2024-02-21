@@ -10,6 +10,7 @@ import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
 import { GetMedicalStatQuery } from 'src/modules/medical-stat/dto/get-medical-stat.dto';
 import { MedicalStat } from 'src/modules/medical-stat/entities/medical-stat.entity';
 import { EntityManager } from '@mikro-orm/postgresql';
+import { DeviceRecord } from '../device-record/device-record.entity';
 
 @Injectable()
 export class PatientService {
@@ -22,8 +23,8 @@ export class PatientService {
     private readonly doctorRepository: EntityRepository<Doctor>,
     @InjectRepository(Device)
     private readonly deviceRepository: EntityRepository<Device>,
-    @InjectRepository(MedicalStat)
-    private readonly medicalStatRepository: EntityRepository<MedicalStat>,
+    @InjectRepository(DeviceRecord)
+    private readonly deviceRecordRepository: EntityRepository<DeviceRecord>,
     private readonly em: EntityManager,
   ) {}
 
@@ -162,6 +163,24 @@ export class PatientService {
       throw new HttpException(
         {
           message: 'Error get prescriptions',
+          errors: error,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async getDeviceRecords(id: number) {
+    try {
+      return this.deviceRecordRepository.find({
+        patient: {
+          id,
+        },
+      });
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: 'Error get device records',
           errors: error,
         },
         HttpStatus.BAD_REQUEST,

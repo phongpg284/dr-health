@@ -1,17 +1,17 @@
-import { Entity, OneToOne, Property } from '@mikro-orm/core';
-import { MedicalRecord } from 'src/modules/medical-record/entities/medical-record.entity';
+import { Entity, ManyToOne, OneToOne, Property } from '@mikro-orm/core';
 import { BaseEntity } from 'src/utils/BaseEntity';
+import { Patient } from '../patient/entities/patient.entity';
 
 @Entity()
 export class DeviceRecord extends BaseEntity {
-  @OneToOne()
-  medicalRecord: MedicalRecord;
+  @ManyToOne()
+  patient: Patient;
 
   @Property()
-  heart_rate_bpm: number;
+  heart_beat_bpm: number;
 
   @Property()
-  spo2_percentage: number;
+  oxygen_percent: number;
 
   @Property()
   temperature: number;

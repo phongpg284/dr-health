@@ -7,5 +7,6 @@ import { OrmModule } from 'src/orm/orm.module';
   imports: [OrmModule],
   controllers: [MedicalRecordController],
   providers: [MedicalRecordService],
+  exports: [MedicalRecordService],
 })
 export class MedicalRecordModule {}

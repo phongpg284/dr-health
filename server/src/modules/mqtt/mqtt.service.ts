@@ -17,6 +17,9 @@ import { MedicalStatService } from 'src/modules/medical-stat/medical-stat.servic
 import { NotificationService } from 'src/modules/notification/notification.service';
 import { PatientService } from 'src/modules/patient/patient.service';
 import { topicParse, topicValueParse } from 'src/utils/topicParse';
+import { DeviceRecordService } from '../device-record/device-record.service';
+import { MedicalRecordService } from '../medical-record/medical-record.service';
+import { transformToPatientStats } from './transformers.ts/transformToDeviceStats';
 
 @Injectable()
 export class MqttService {
@@ -26,25 +29,26 @@ export class MqttService {
     private readonly notificationService: NotificationService,
     private readonly medicalStatService: MedicalStatService,
     private readonly eventGateway: EventsGateway,
+    private readonly deviceRecordService: DeviceRecordService,
+    private readonly medicalRecordService: MedicalRecordService,
   ) {}
-  handleMQTTNodeTopic = async (topic: string, payload: string) => {
+  handleMQTTNodeTopic = async (topic: string, payload: any) => {
     const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);
     if (!isValidTopic) {
       Logger.error('Failed topic parse!');
       return;
     }
-
     const device = await this.deviceService.findOne({ code: deviceCode });
+
     if (!device) {
       Logger.error('No device found with this code!');
       return;
     }
-    const patient = device.patient;
+    const patient = device?.patient;
     if (!patient) {
       Logger.error('No patient connect with this device!');
       return;
     }
-
     const filterErrorValue = (key: string, value: string) => {
       if (parseFloat(value) === 0) {
         const randomStats = {
@@ -121,157 +125,43 @@ export class MqttService {
         });
         break;
       case DEVICE_STATS:
-        const notification = await this.notificationService.create({
-          patientId: patient.id,
-          userId: patient.account.id,
-          title: 'Threshold exceeded',
-          content: 'Threshold exceeded',
+        const deviceStats = transformToPatientStats(payload);
+        const patientObj = await this.patientService.findOne({ id: patient.id });
+        await this.deviceRecordService.create({
+          patient: patientObj,
+          ...deviceStats,
         });
-        this.eventGateway.sendNotification(notification);
+        const heartBeatThreshold = 12;
+        const oxygenPercentageThreshold = 12;
+        const temperatureThreshold = 13;
+
+        await this.eventGateway.sendDeviceStats(payload);
+        let content = [];
+        if (deviceStats.heart_beat_bpm > heartBeatThreshold) {
+          content.push('Heart rate bpm exceeded');
+        } else if (deviceStats.oxygen_percent > oxygenPercentageThreshold) {
+          content.push('SPO2 percentage exceeded');
+        } else if (deviceStats.temperature > temperatureThreshold) {
+          content.push('Temperature exceeded');
+        }
+
+        if (content.length) {
+          const notifcations = await Promise.all(
+            content.map((message) => {
+              return this.notificationService.create({
+                patientId: patient.id,
+                userId: patient.account.id,
+                title: 'Threshold exceeded',
+                content: message,
+              });
+            }),
+          );
+          console.log('notifcations', notifcations);
+          notifcations.forEach((notification) => {
+            this.eventGateway.sendNotification(notification);
+          });
+        }
         break;
-      // case FACE:
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     face: {
-      //       createdAt: new ObjectId().getTimestamp(),
-      //       data: parseFloat(payload),
-      //     },
-      //   });
-      //   break;
-      // case VOICE:
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     voice: {
-      //       createdAt: new ObjectId().getTimestamp(),
-      //       data: parseFloat(payload),
-      //     },
-      //   });
-      //   break;
-      // case ARM_MOVEMENT:
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     armMovement: {
-      //       createdAt: new ObjectId().getTimestamp(),
-      //       data: parseFloat(payload),
-      //     },
-      //   });
-      //   break;
-      // case HEART_THRESHOLD:
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     heartRateThreshold: parseFloat(payload),
-      //   });
-      //   break;
-      // case TEMP_THRESHOLD:
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     bodyTempThreshold: parseFloat(payload),
-      //   });
-      //   break;
-      // case POSITION:
-      //   // eslint-disable-next-line no-case-declarations
-      //   const positionData = JSON.parse(payload);
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     position: {
-      //       ...positionData,
-      //       createdAt: new ObjectId().getTimestamp(),
-      //     },
-      //   });
-      //   break;
-      // case MEDICINE:
-      //   // eslint-disable-next-line no-case-declarations
-      //   const medicineData = JSON.parse(payload);
-      //   await deviceObject.updateDevice({
-      //     _id: deviceId.toString(),
-      //     updatedAt: new ObjectId().getTimestamp(),
-      //     medicine: {
-      //       ...medicineData,
-      //       createdAt: new ObjectId().getTimestamp(),
-      //     },
-      //   });
-      //   break;
-      // case SCORE:
-      //   const point = parseFloat(payload);
-      //   const testData = [
-      //     {
-      //       id: '5',
-      //       point: point,
-      //     },
-      //   ];
-      //   await deviceObject.addNewTest(deviceId.toString(), 'device', testData, TestSumbitTeam.Embedded);
-
-      //   break;
-      // case STROKE:
-      //   const newTestData = JSON.parse(payload);
-      //   const insertTestData = Object.entries(newTestData).map(([key, value]: [string, number]) => {
-      //     return {
-      //       id: key,
-      //       point: value,
-      //     };
-      //   });
-      //   await deviceObject.addNewTest(deviceId.toString(), 'device', insertTestData, TestSumbitTeam.AI);
-
-      //   break;
-      // case CALCULATE_STATS:
-      //   const newCalculateStats = payload;
-      //   const [shoulderToElbow, elbowToWrist] = newCalculateStats.split(',').map((d: string) => parseFloat(d));
-      //   const updateCalculateStats = {
-      //     shoulderToElbow,
-      //     elbowToWrist,
-      //     updatedAt: new Date(),
-      //   };
-      //   await patientObject.updatePatient({
-      //     _id: patientId.toString(),
-      //     calculateStats: updateCalculateStats,
-      //     updatedAt: new Date(),
-      //   });
-      //   break;
-
-      // case PHYSICAL_THERAPY:
-      //   const exerciseData = JSON.parse(payload);
-      //   const exerciseSesionObject = new ExerciseSessions();
-      //   await exerciseSesionObject.calculateExerciseData(patientId, exerciseData);
-
-      //   break;
-
-      // case FALL:
-      //   if (parseFloat(payload) === 1)
-      //     await notificationObject.createNotification(
-      //       {
-      //         title: `Phát hiện bệnh nhân ngã`,
-      //         content: `Phát hiện bệnh nhân bị ngã tại tọa độ 10.035911,105.783660`,
-      //         accountId: patientId,
-      //         role: 'patient',
-      //         mapUrl: `https://www.google.com/maps/search/?api=1&query=10.035911,105.783660`,
-      //         createdAt: new Date(),
-      //         updatedAt: new Date(),
-      //       },
-      //       pubSub,
-      //     );
-      //   break;
-
-      // case LOC:
-      //   await notificationObject.createNotification(
-      //     {
-      //       title: `Phát hiện bệnh nhân ngã`,
-      //       content: `Phát hiện bệnh nhân bị ngã tại tọa độ 10.035911,105.783660`,
-      //       accountId: patientId,
-      //       role: 'patient',
-      //       mapUrl: `https://www.google.com/maps/search/?api=1&query=10.035911,105.783660`,
-      //       createdAt: new Date(),
-      //       updatedAt: new Date(),
-      //     },
-      //     pubSub,
-      //   );
-
-      //   break;
     }
   };
 }

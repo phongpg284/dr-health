@@ -70,7 +70,7 @@ export class AppointmentService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} appointment`;
+    return this.appointmentRepository.findOne({ id });
   }
 
   update(id: number, updateAppointmentDto: UpdateAppointmentDto) {

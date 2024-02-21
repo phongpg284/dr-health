@@ -11,15 +11,12 @@ export class MedicalRecord extends BaseEntity {
   @ManyToOne(() => Patient)
   patient: Patient;
 
-  @OneToOne()
+  @OneToOne({ nullable: true })
   bloodTest: BloodTest;
 
-  @OneToOne()
+  @OneToOne({ nullable: true })
   supersonicTest: SupersonicTest;
 
-  @OneToOne()
+  @OneToOne({ nullable: true })
   urineTest: UrineTest;
-
-  @OneToOne()
-  deviceRecord: DeviceRecord;
 }
