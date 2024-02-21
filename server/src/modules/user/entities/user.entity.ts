@@ -2,7 +2,9 @@ import { Collection, Entity, OneToMany, OneToOne, Property, Unique } from '@mikr
 import { Transform } from 'class-transformer';
 import * as dayjs from 'dayjs';
 import { Address } from 'src/modules/address/entities/address.entity';
+import { Doctor } from 'src/modules/doctor/entities/doctor.entity';
 import { Notification } from 'src/modules/notification/entities/notification.entity';
+import { Patient } from 'src/modules/patient/entities/patient.entity';
 import { Schedule } from 'src/modules/schedule/entities/schedule.entity';
 import { BaseEntity } from 'src/utils/BaseEntity';
 
@@ -56,4 +58,10 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Schedule, (schedule) => schedule.user, { hidden: true })
   schedules = new Collection<Schedule>(this);
+
+  @OneToOne({ nullable: true })
+  patient: Patient;
+
+  @OneToOne({ nullable: true })
+  doctor: Doctor;
 }

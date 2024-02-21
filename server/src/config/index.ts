@@ -19,7 +19,7 @@ export const EXPIRE_JWT_SECRET_KEY = '300';
 export const EXPIRE_REFRESH_JWT_SECRET_KEY = '100000';
 
 export const MQTT_PORT = parseInt(process.env.MQTT_PORT) || 1883;
-export const MQTT_HOST = process.env.MQTT_BROKER || 'localhost';
+export const MQTT_HOST = process.env.MQTT_HOST || 'localhost';
 export const MQTT_BRAND = process.env.MQTT_BRAND || 'dr_health';
 export const MQTT_BROKER = `mqtt://${MQTT_HOST}:${MQTT_PORT}`;
 export const MQTT_USERNAME = process.env.MQTT_USERNAME || 'project_hust';

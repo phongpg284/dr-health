@@ -9,14 +9,16 @@ const logger = new Logger('Server');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+  console.log('broker', MQTT_BROKER);
   const mqttApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.MQTT,
     options: {
       url: MQTT_BROKER,
-      username: MQTT_USERNAME,
-      password: MQTT_PASSWORD,
+      // username: MQTT_USERNAME,
+      // password: MQTT_PASSWORD,
     },
   });
+  console.log('mqttApp', mqttApp);
   app.setGlobalPrefix('/api');
   app.enableCors();
 

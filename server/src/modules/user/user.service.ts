@@ -72,7 +72,7 @@ export class UserService {
 
   async findAll() {
     try {
-      return await this.userRepository.findAll();
+      return await this.userRepository.findAll({ populate: ['doctor', 'patient'] });
     } catch (error) {
       logger.error(error);
       throw new Error(error);
@@ -80,12 +80,16 @@ export class UserService {
   }
 
   async findOne(params: FilterQuery<User>) {
-    const user = await this.userRepository.findOneOrFail(params, { populate: ['address'] });
+    const user = await this.userRepository.findOneOrFail(params, {
+      populate: ['address', 'doctor', 'patient'],
+    });
     if (user.role === 'patient') {
       const patient = await this.patientRepository.findOneOrFail({ account: user.id });
+      console.log('patientId', patient.id);
       return {
         ...user,
         code: patient?.code,
+        patientId: patient?.id,
       };
     }
     return user;
