@@ -18,7 +18,7 @@ async function bootstrap() {
       // password: MQTT_PASSWORD,
     },
   });
-  console.log('mqttApp', mqttApp);
+  // console.log('mqttApp', mqttApp);
   app.setGlobalPrefix('/api');
   app.enableCors();
 

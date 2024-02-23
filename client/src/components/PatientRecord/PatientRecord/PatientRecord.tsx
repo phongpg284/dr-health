@@ -30,16 +30,16 @@ const PatientRecord = () => {
   const [patientDetail, setPatientDetail] = useState<any>();
   const account = useAppSelector((state) => state.account);
   const socket = useContext(SocketContext);
-  console.log("socket", socket);
+  // console.log("socket", socket);
   const api = useApi();
   const [patientData] = usePromise(`/user/${account.id}`);
-  console.log("patientData", patientData);
+  // console.log("patientData", patientData);
 
   const deviceData: any = {};
 
   useEffect(() => {
     (socket as Socket).on("device_stats", (data) => {
-      console.log("data", data);
+      // console.log("data", data);
     });
 
     return () => {
@@ -48,14 +48,14 @@ const PatientRecord = () => {
   }, []);
 
   const [thresholdStatus, setThresholdStatus] = useState({
-    spO2: true,
-    heartRate: true,
-    bodyTemp: true,
+    spO2: false,
+    heartRate: false,
+    bodyTemp: false,
     bloodPress: false,
   });
 
   console.log("patientStats", patientStats);
-  console.log("patientDetails", patientDetail);
+  // console.log("patientDetails", patientDetail);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -65,6 +65,7 @@ const PatientRecord = () => {
           .then(({ data }) =>
             setPatientStats(
               [...data].sort((a, b) => {
+                console.log("datadatata", data);
                 const aDate = new Date(a.createdAt).valueOf();
                 const bDate = new Date(b.createdAt).valueOf();
 
@@ -83,6 +84,17 @@ const PatientRecord = () => {
     };
   }, [loading, patientData]);
 
+  useEffect(() => {
+    if (patientStats) {
+      setThresholdStatus({
+        spO2: patientStats.oxygen_percent < 94,
+        heartRate: patientStats.heart_beat_bpm > 120,
+        bodyTemp: patientStats.temperature > 37 || patientStats.temperature < 36,
+        bloodPress: false,
+      });
+    }
+  }, [patientStats]);
+
   const handleChangeThresholdStatus = (key: string, status: boolean) => {
     setThresholdStatus((prev) => {
       return {
@@ -94,7 +106,7 @@ const PatientRecord = () => {
 
   const renderContent = useMemo(
     () =>
-      patientData && patientStats ? (
+      patientData ? (
         <div className="patient-info-container">
           <Tabs type="card">
             <TabPane tab="Thông tin" key="profile">
@@ -113,21 +125,23 @@ const PatientRecord = () => {
                 <MedicineSchedule patientAccountId={patientData.id} />
               </div>
             </TabPane>
-            <TabPane tab="Stats1" key="stat_1">
-              <div className="patient-info-stats">
-                <ThresholdStats id={patientData._id} data={patientStats?.oxygen_percent} status={thresholdStatus.spO2} unit="%" icon={spo2} name="SpO2" color="royalblue" />
-                <ThresholdStats
-                  id={patientData._id}
-                  data={patientStats?.heart_beat_bpm}
-                  status={thresholdStatus.heartRate}
-                  unit="bpm"
-                  icon={heart}
-                  name="Nhịp tim"
-                  color="mediumseagreen"
-                />
-                <ThresholdStats id={patientData._id} data={patientStats?.temperature} status={thresholdStatus.bodyTemp} unit="°C" icon={thermo} name="Nhiệt độ" color="brown" />
-                {/* <ThresholdStats id={patientData._id} data={deviceData?.getDevice} status={thresholdStatus.bloodPress} unit="bpm" icon={blood} name="Huyết áp cao" color="#ff668f" /> */}
-                {/* <ThresholdStats
+            {patientStats && (
+              <TabPane tab="Stats1" key="stat_1">
+                <div className="patient-info-stats">
+                  <p>{new Date(patientStats.createdAt).toLocaleString("vn")}</p>
+                  <ThresholdStats id={patientData._id} data={patientStats?.oxygen_percent} status={thresholdStatus.spO2} unit="%" icon={spo2} name="SpO2" color="royalblue" />
+                  <ThresholdStats
+                    id={patientData._id}
+                    data={patientStats?.heart_beat_bpm}
+                    status={thresholdStatus.heartRate}
+                    unit="bpm"
+                    icon={heart}
+                    name="Nhịp tim"
+                    color="mediumseagreen"
+                  />
+                  <ThresholdStats id={patientData._id} data={patientStats?.temperature} status={thresholdStatus.bodyTemp} unit="°C" icon={thermo} name="Nhiệt độ" color="brown" />
+                  {/* <ThresholdStats id={patientData._id} data={deviceData?.getDevice} status={thresholdStatus.bloodPress} unit="bpm" icon={blood} name="Huyết áp cao" color="#ff668f" /> */}
+                  {/* <ThresholdStats
                 id={patientData._id}
                 data={deviceData?.getDevice}
                 status={thresholdStatus.bloodPress}
@@ -136,8 +150,9 @@ const PatientRecord = () => {
                 name="Huyết áp thấp"
                 color="#ff668f"
               /> */}
-              </div>
-            </TabPane>
+                </div>
+              </TabPane>
+            )}
             {/* <TabPane tab="Chỉ số" key="chart">
               <Chart id={account.roleId} thresholdStatus={handleChangeThresholdStatus} />
             </TabPane> */}

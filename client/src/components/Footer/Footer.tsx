@@ -19,12 +19,12 @@ const Footer = () => {
           <div className="banner_content">
             <img className="banner_img" alt="logo" src={logo} />
             <div className="banner_text">
-              <b className="web_name">Dr. Health</b>
-              <p className="web_des">Trang thông tin và theo dõi tình trạng bệnh nhân</p>
+              <b className="web_name">Hust TeleHealth</b>
+              <p className="web_des">Phần mềm giám sát sức khoẻ từ xa</p>
             </div>
           </div>
           <div className="footer_content">
-            <div className="footer_content_item">
+            {/* <div className="footer_content_item">
               <div className="footer_content_item_row">
                 <FaUserTie className="footer_icon" />
                 Hoàng Tuấn Tài
@@ -62,7 +62,7 @@ const Footer = () => {
                   Facebook
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

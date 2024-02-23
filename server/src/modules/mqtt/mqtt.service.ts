@@ -33,6 +33,8 @@ export class MqttService {
     private readonly medicalRecordService: MedicalRecordService,
   ) {}
   handleMQTTNodeTopic = async (topic: string, payload: any) => {
+    console.log('payloadddd', payload);
+    console.log('topic', topic);
     const [isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat] = topicParse(topic);
     console.log('isValidTopic, nodeBrand, deviceCode, nodeType, nodeStat', {
       isValidTopic,
@@ -47,13 +49,13 @@ export class MqttService {
     }
     const device = await this.deviceService.findOne({ code: deviceCode });
     console.log('nodeStat', nodeStat);
-    console.log('tes', device);
+    // console.log('tes', device);
     if (!device) {
       Logger.error('No device found with this code!');
       return;
     }
     const patient = device.patient;
-    console.log('test', patient);
+    // console.log('test', patient);
     if (!patient) {
       Logger.error('No patient connect with this device!');
       return;
@@ -134,42 +136,51 @@ export class MqttService {
         });
         break;
       case DEVICE_STATS:
-        const deviceStats = transformToPatientStats(payload);
-        const patientObj = await this.patientService.findOne({ id: patient.id });
-        await this.deviceRecordService.create({
-          patient: patientObj,
-          ...deviceStats,
-        });
-        const heartBeatThreshold = 12;
-        const oxygenPercentageThreshold = 12;
-        const temperatureThreshold = 13;
+        const isValidData =
+          payload?.heart_beat_bpm && payload?.oxygen_percent && payload?.temperature;
 
-        await this.eventGateway.sendDeviceStats(payload);
-        let content = [];
-        if (deviceStats.heart_beat_bpm > heartBeatThreshold) {
-          content.push('Heart rate bpm exceeded');
-        } else if (deviceStats.oxygen_percent > oxygenPercentageThreshold) {
-          content.push('SPO2 percentage exceeded');
-        } else if (deviceStats.temperature > temperatureThreshold) {
-          content.push('Temperature exceeded');
-        }
-
-        if (content.length) {
-          const notifcations = await Promise.all(
-            content.map((message) => {
-              return this.notificationService.create({
-                patientId: patient.id,
-                userId: patient.account.id,
-                title: 'Threshold exceeded',
-                content: message,
-              });
-            }),
-          );
-          console.log('notifcations', notifcations);
-          notifcations.forEach((notification) => {
-            this.eventGateway.sendNotification(notification);
+        if (isValidData) {
+          const deviceStats = transformToPatientStats(payload);
+          const patientObj = await this.patientService.findOne({ id: patient.id });
+          await this.deviceRecordService.create({
+            patient: patientObj,
+            ...deviceStats,
           });
+          const heartBeatThreshold = 150;
+          const oxygenPercentageThreshold = 94;
+          const temperatureMaxThreshold = 37.5;
+          const temperatureMinThreshold = 36.5;
+
+          const content = [];
+          if (deviceStats.heart_beat_bpm > heartBeatThreshold) {
+            content.push('Nhịp tim cao');
+          } else if (deviceStats.oxygen_percent < oxygenPercentageThreshold) {
+            content.push('Nồng độ oxy máu thấp');
+          } else if (deviceStats.temperature > temperatureMaxThreshold) {
+            content.push('Nhiệt độ cơ thể cao, bạn có nguy cơ bị sốt');
+          } else if (deviceStats.temperature < temperatureMinThreshold) {
+            content.push('Nhiệt độ cơ thể thấp, bạn có thể đang cảm lạnh');
+          }
+
+          if (content.length) {
+            const notifcations = await Promise.all(
+              content.map((message) => {
+                return this.notificationService.create({
+                  patientId: patient.id,
+                  userId: patient.account.id,
+                  title: 'Threshold exceeded',
+                  content: message,
+                });
+              }),
+            );
+            console.log('notifcations', notifcations);
+            notifcations.forEach((notification) => {
+              this.eventGateway.sendNotification(notification);
+            });
+          }
+          await this.eventGateway.sendDeviceStats(payload);
         }
+        // console.log('payload', payload);
         break;
     }
   };

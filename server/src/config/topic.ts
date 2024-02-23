@@ -1,7 +1,7 @@
 import { MQTT_BRAND } from '.';
 
 export const NODE_TOPIC = `${MQTT_BRAND}/+/+/+`;
-console.log('NODE_TOPIC', NODE_TOPIC);
+// console.log('NODE_TOPIC', NODE_TOPIC);
 
 export const TEMPERATURE = 'temperature';
 export const HUMIDITY = 'humidity';
