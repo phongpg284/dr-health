@@ -1,5 +1,6 @@
 import "../../PatientRecord/index.scss";
 import React, { useContext, useEffect, useState } from "react";
+import { Spin } from "antd";
 // import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement, registerables } from "chart.js";
@@ -31,7 +32,11 @@ import { calculateStat } from "utils/stats";
 import SingleLineChart from "./SingleLineChart";
 import DoubleLineChart from "./DoubleLineChart";
 import { SocketContext } from "App";
+import { usePatientStats } from "helpers/use-patient";
+import { PatientStatEnum } from "helpers/types";
 ChartJS.register(...registerables, zoomPlugin);
+
+const valueFormatter = (value: number, unit: string) => `${value}${unit}`;
 
 const arrType = [
   {
@@ -45,10 +50,6 @@ const arrType = [
   {
     label: "Nhịp tim",
     key: "heart_rate",
-  },
-  {
-    label: "Huyết áp",
-    key: "blood_press",
   },
 ] as const;
 
@@ -65,20 +66,63 @@ export const getChartType = (type: string) => {
 };
 
 const Chart = ({ id }: any) => {
-  const [refetch, setRefetch] = useState(false);
-  const [medicalStats] = usePromise<GetMedicalStatsResponse>(`/patient/medical_stats/${id}`, [refetch] as any);
-  const [type, setType] = useState<typeof arrType[number]>(arrType[2]);
+  // const [refetch, setRefetch] = useState(false);
+  const [medicalStats, setMedicalStats] = useState<GetMedicalStatsResponse>();
+  const { stats, isLoading } = usePatientStats(id);
+  const [type, setType] = useState<(typeof arrType)[number]>(arrType[2]);
+  console.log("medicalStats", medicalStats);
 
-  const handleClickStatTracking = (key: typeof arrType[number]) => {
+  const handleClickStatTracking = (key: (typeof arrType)[number]) => {
     setType(key);
   };
 
+  // useEffect(() => {
+  //   const id = setInterval(() => {
+  //     setRefetch((prev) => !prev);
+  //   }, 5000);
+  //   return () => clearInterval(id);
+  // }, []);
+
   useEffect(() => {
-    const id = setInterval(() => {
-      setRefetch((prev) => !prev);
-    }, 5000);
-    return () => clearInterval(id);
-  }, []);
+    if (stats && stats?.data) {
+      const medicalStatsFromAPI: GetMedicalStatsResponse = {
+        spO2: [],
+        heart_rate: [],
+        body_temp: [],
+      };
+
+      stats.data.forEach((record) => {
+        medicalStatsFromAPI.spO2.push({
+          createdAt: new Date(record.createdAt),
+          updatedAt: new Date(record.updatedAt),
+          value: record[PatientStatEnum.OXYGEN_PERCENT].toString(),
+          unit: "%",
+        });
+        medicalStatsFromAPI.heart_rate.push({
+          createdAt: new Date(record.createdAt),
+          updatedAt: new Date(record.updatedAt),
+          value: record[PatientStatEnum.HEART_BPM].toString(),
+          unit: "bpm",
+        });
+        medicalStatsFromAPI.body_temp.push({
+          createdAt: new Date(record.createdAt),
+          updatedAt: new Date(record.updatedAt),
+          value: record[PatientStatEnum.TEMPERATURE].toString(),
+          unit: "C",
+        });
+      });
+
+      setMedicalStats(medicalStatsFromAPI);
+    }
+  }, [stats]);
+
+  if (isLoading || !stats?.data) {
+    return (
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="patient-info-graph-wrapper">
@@ -90,8 +134,8 @@ const Chart = ({ id }: any) => {
           edge={BloodEdgeIcon}
           color="#fff5f6"
           selectedType={type}
-          value={medicalStats?.heart_rate?.[medicalStats?.heart_rate?.length - 1]?.value}
-          date={dayjs(medicalStats?.heart_rate?.[medicalStats?.heart_rate?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
+          value={medicalStats?.heart_rate?.[0]?.value}
+          date={dayjs(medicalStats?.heart_rate?.[0]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
           unit="bpm"
           textColor="#fc6371"
         />
@@ -102,7 +146,7 @@ const Chart = ({ id }: any) => {
           edge={ThermalEdgeIcon}
           color="#f4f3fa"
           selectedType={type}
-          value={medicalStats?.body_temp?.[medicalStats?.body_temp?.length - 1]?.value}
+          value={medicalStats?.body_temp?.[0]?.value}
           date={dayjs(medicalStats?.body_temp?.[medicalStats?.body_temp?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
           unit="C"
           textColor="#7c72c8"
@@ -114,22 +158,10 @@ const Chart = ({ id }: any) => {
           edge={SpO2EdgeIcon}
           color="#eaf3ee"
           selectedType={type}
-          value={medicalStats?.spO2?.[medicalStats?.spO2?.length - 1]?.value}
+          value={medicalStats?.spO2?.[0]?.value}
           unit="%"
-          date={dayjs(medicalStats?.spO2?.[medicalStats?.spO2?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
+          date={dayjs(medicalStats?.spO2?.[0]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
           textColor="#338d5a"
-        />
-        <StatTracking
-          onClick={handleClickStatTracking}
-          type={arrType[3]}
-          icon={PressIcon}
-          edge={PressEdgeIcon}
-          color="#fbf4e8"
-          selectedType={type}
-          value={[medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.value, medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.secondValue]}
-          unit="mmHg"
-          date={dayjs(medicalStats?.blood_press?.[medicalStats?.blood_press?.length - 1]?.createdAt).format("HH:mm:ss DD/MM/YYYY")}
-          textColor="#da8e16"
         />
       </StatsWrapper>
       {medicalStats && (
@@ -141,7 +173,6 @@ const Chart = ({ id }: any) => {
   );
 };
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
-
 function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalStatsResponse; selectedType: any }) {
   const [timeType, setTimeType] = useState("Giờ");
   const [dateStart, setDateStart] = useState(dayjs(new Date()).startOf("day").toDate());
@@ -166,15 +197,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
     return deviceData?.heart_rate?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
   }, [deviceData, timeType, dateStart]);
 
-  const diastole = React.useMemo(() => {
-    return (
-      deviceData?.blood_press?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.secondValue, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? []
-    );
-  }, [deviceData, timeType, dateStart]);
-
-  const systolic = React.useMemo(() => {
-    return deviceData?.blood_press?.filter((filterArr as any)?.[timeType])?.map((item: any) => ({ y: item.value, x: dayjs(item.createdAt).format("YYYY/MM/DD HH:mm:ss") })) ?? [];
-  }, [deviceData, timeType, dateStart]);
+  console.log('heartrate', heartRate)
 
   const TimeMenu = (
     <Menu>
@@ -218,6 +241,8 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
     setLiveSwitch(true);
   };
 
+  console.log('timeType === "Giờ" ? SpO2 : calculateStat(timeType as any, deviceData.spO2, dateStart', timeType === "Giờ" ? SpO2 : calculateStat(timeType as any, deviceData.spO2, dateStart))
+
   return (
     <div className="myChartWrapper">
       <div className="chartContent">
@@ -239,7 +264,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
-            live={liveSwitch}
+            // live={liveSwitch}
           />
         )}
         {selectedType === arrType[1].key && (
@@ -251,7 +276,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
-            live={liveSwitch}
+            // live={liveSwitch}
           />
         )}
         {selectedType === arrType[2].key && (
@@ -263,21 +288,7 @@ function MultipleChart({ deviceData, selectedType }: { deviceData: GetMedicalSta
             dateStart={dateStart}
             type="bar"
             average={timeType !== "Giờ"}
-            live={liveSwitch}
-          />
-        )}
-        {selectedType === arrType[3].key && (
-          <DoubleLineChart
-            data={timeType === "Giờ" ? systolic : calculateStat(timeType as any, deviceData.blood_press, dateStart, true)}
-            secondData={timeType === "Giờ" ? diastole : calculateStat(timeType as any, deviceData.blood_press, dateStart, true)}
-            title={arrType[3].label}
-            color="#2a68c5"
-            secondColor="#dd3e3e"
-            timeType={timeType}
-            dateStart={dateStart}
-            type={timeType === "Giờ" ? "line" : "bar"}
-            average={timeType !== "Giờ"}
-            live={liveSwitch}
+            // live={liveSwitch}
           />
         )}
       </div>

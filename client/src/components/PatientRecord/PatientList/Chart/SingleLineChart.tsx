@@ -8,8 +8,17 @@ import "./Chart.scss";
 import zoomPlugin from "chartjs-plugin-zoom";
 ChartJS.register(...registerables, zoomPlugin);
 
-function SingleLineChart(props: { data: any; title: string; color: string | [string, string]; timeType: string; dateStart: Date; type: string; average?: boolean; live: boolean }) {
-  const { data, title, color, timeType, dateStart, type, average = false, live } = props;
+function SingleLineChart(props: {
+  data: any;
+  title: string;
+  color: string | [string, string];
+  timeType: string;
+  dateStart: Date;
+  type: string;
+  average?: boolean;
+  live?: boolean;
+}) {
+  const { data, title, color, timeType, dateStart, type, average = false, live = false } = props;
   let delayed: any;
 
   const options = {
@@ -115,6 +124,9 @@ function SingleLineChart(props: { data: any; title: string; color: string | [str
       </div>
     );
   }
+
+  console.log("dataaa", data);
+
   const dataSet = {
     labels: data?.map(() => ""),
     datasets: [
@@ -127,6 +139,9 @@ function SingleLineChart(props: { data: any; title: string; color: string | [str
       },
     ],
   };
+
+  console.log("dataset", dataSet, type);
+
   return (
     <div>
       {type === "bar" && <Bar options={options as any} data={dataSet} height="100vh" />}

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
@@ -33,8 +33,17 @@ export class PatientController {
   }
 
   @Get('device_records/:id')
-  getDeviceRecords(@Param('id') id: string) {
-    return this.patientService.getDeviceRecords(+id);
+  getDeviceRecords(
+    @Param('id') id: string,
+    @Query('pageSize') pageSize: number,
+    @Query('pageNum') pageNum: number,
+  ) {
+    return this.patientService.getDeviceRecords(+id, +pageSize, +pageNum);
+  }
+
+  @Get('device_records_latest/:id')
+  getLatestDeviceRecords(@Param('id') id: string) {
+    return this.patientService.getLatestDeviceRecord(+id);
   }
 
   @Get(':id')

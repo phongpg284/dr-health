@@ -22,7 +22,9 @@ export class DeviceService {
       newDevice.type = 'medical';
       newDevice.code = code;
       newDevice.isConnect = isConnect ?? false;
-      newDevice.patient = await this.patientService.findOne(+patientId);
+      if (patientId) {
+        newDevice.patient = await this.patientService.findOne(+patientId);
+      }
       await this.deviceRepository.persistAndFlush(newDevice);
       this.patientService.addDevice(newDevice.id.toString(), +patientId);
       return newDevice;

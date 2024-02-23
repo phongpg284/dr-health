@@ -229,7 +229,6 @@ function UserDropDown({ show, toggle }: { show: boolean; toggle: any }) {
         .get(`/user/${user.id}`)
         .then((res) => {
           setData(res?.data);
-          console.log(res?.data);
         })
         .catch((err) => console.log("err", err));
     }

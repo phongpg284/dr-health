@@ -174,18 +174,54 @@ export class PatientService {
     }
   }
 
-  async getDeviceRecords(id: number) {
+  async getDeviceRecords(id: number, pageNum?: number, pageSize?: number) {
     try {
-      console.log('iddddd', id);
-      return this.deviceRecordRepository.find({
-        patient: {
-          id,
+      const [records, count] = await this.deviceRecordRepository.findAndCount(
+        {
+          patient: {
+            id,
+          },
         },
-      });
+        {
+          limit: pageSize || 10,
+          orderBy: { updatedAt: 'DESC' },
+          offset: pageSize * pageNum,
+        },
+      );
+
+      return {
+        data: records,
+        totalDocuments: count,
+        totalPages: Math.ceil(count / pageSize) || 0,
+        pageNum,
+        pageSize,
+      };
     } catch (error) {
       throw new HttpException(
         {
           message: 'Error get device records',
+          errors: error,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async getLatestDeviceRecord(id: number) {
+    try {
+      const record = await this.deviceRecordRepository.findOne(
+        {
+          patient: {
+            id,
+          },
+        },
+        { orderBy: { updatedAt: 'DESC' } },
+      );
+      return record?.id ? record : null;
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: 'Error get prescriptions',
           errors: error,
         },
         HttpStatus.BAD_REQUEST,
